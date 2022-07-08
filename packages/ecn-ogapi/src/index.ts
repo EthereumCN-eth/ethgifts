@@ -15,7 +15,16 @@ fastify.get<{
     // og(request.query.url, (err, meta) => {
     //   reply.send({ meta })
     // })
-    const options = { url: request.query.url };
+    const options = {
+      url: request.query.url,
+      retry: 2,
+      timeout: 5000,
+      downloadLimit: 10000000,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)",
+      },
+    };
     ogs(options, (error, results, response) => {
       console.log("results", results);
       if (!error) {

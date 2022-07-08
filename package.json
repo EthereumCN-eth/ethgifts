@@ -6,7 +6,9 @@
   ],
   "scripts": {
     "clean": "lerna clean",
-    "boot": "lerna bootstrap"
+    "boot": "lerna bootstrap",
+    "ogapi": "lerna run --scope=ecn-ogapi start --stream",
+    "discord-bot": "lerna run --scope=ecn-discord-bot start --stream"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

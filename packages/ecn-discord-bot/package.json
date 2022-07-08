@@ -24,7 +24,8 @@
     "build": "tsc -p tsconfig.json",
     "esbuild-node": "esbuild src/main.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/main.js",
     "esbuild-node:dev": "esbuild src/main.ts --bundle --platform=node --sourcemap=external --outfile=dist/esbuild/main.js",
-    "esbuild-node:watch": "esbuild src/main.ts --bundle --platform=node --watch --sourcemap=external --outfile=dist/esbuild/main.js"
+    "esbuild-node:watch": "esbuild src/main.ts --bundle --platform=node --watch --sourcemap=external --outfile=dist/esbuild/main.js",
+    "start": "yarn esbuild-node && pm2 start dist/esbuild/main.js"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
@@ -45,9 +46,11 @@
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
+    "axios": "^0.27.2",
     "discord-api-types": "^0.36.0",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
-    "open-graph-scraper": "^4.11.1"
+    "open-graph-scraper": "^4.11.1",
+    "pm2": "^5.2.0"
   }
 }

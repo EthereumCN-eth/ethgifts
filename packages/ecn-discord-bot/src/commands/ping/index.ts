@@ -67,11 +67,14 @@ export const execute = async (
     }
     return;
   }
+  await submitModal.deferReply();
 
   const { image, ogTitle, ogDescription } = await parseOg(urlvalue);
+
+  // interaction.editReply({ content: "replied" });
   // await client.user?.setUsername("ecn-botty");
   // await client.user?.setAvatar("");
-  await submitModal.reply({
+  await submitModal.editReply({
     embeds: [
       {
         color: 0x0099ff,
@@ -81,16 +84,18 @@ export const execute = async (
           icon_url: submitModal.user.avatarURL() || "",
           //   url: "https://discord.js.org",
         },
-        description: `[source link](${urlvalue})`,
-        fields:
-          ogTitle && ogDescription
-            ? [
-                {
-                  name: ogTitle,
-                  value: ogDescription,
-                },
-              ]
-            : undefined,
+        // description: `[source link](${urlvalue})`,
+        fields: [
+          ogTitle &&
+            ogDescription && {
+              name: ogTitle,
+              value: ogDescription,
+            },
+          {
+            name: "src:",
+            value: `${urlvalue}`,
+          },
+        ],
         image,
         timestamp: new Date(),
       },
