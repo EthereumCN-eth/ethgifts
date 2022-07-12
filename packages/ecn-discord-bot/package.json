@@ -25,7 +25,7 @@
     "esbuild-node": "esbuild src/main.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/main.js",
     "esbuild-node:dev": "esbuild src/main.ts --bundle --platform=node --sourcemap=external --outfile=dist/esbuild/main.js",
     "esbuild-node:watch": "esbuild src/main.ts --bundle --platform=node --watch --sourcemap=external --outfile=dist/esbuild/main.js",
-    "start": "yarn esbuild-node && pm2 start dist/esbuild/main.js"
+    "start": "yarn build && pm2 start dist/tsc/main.js"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",

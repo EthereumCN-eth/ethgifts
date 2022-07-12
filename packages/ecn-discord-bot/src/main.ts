@@ -52,7 +52,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
     if (IfSpecificChan(reaction)) {
       console.log("gota");
       (client.channels.cache.get("995978559556427857") as TextChannel).send(
-        `gota: ${reaction.message.content} from ${user.username}`
+        `gota: ${reaction.message.content} from ${reaction.message.author}`
       );
     }
   }
