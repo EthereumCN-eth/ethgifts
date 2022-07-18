@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model RawExpressMessage {
+  id             Int             @id @default(autoincrement())
+  rawMessage     String
+  createdAt      DateTime        @default(now()) @db.Timestamptz(3)
+  expressMessage ExpressMessage?
+
+  user   User @relation(fields: [userId], references: [discordId])
+  userId Int
+
+
+}
+
+model ExpressMessage {
+  id           Int               @id @default(autoincrement())
+  rawMessage   RawExpressMessage @relation(fields: [rawMessageId], references: [id])
+  rawMessageId Int               @unique
+
+  expressUrl         String
+  verifiedAt         DateTime            @default(now()) @db.Timestamptz(3)
+  user               User                @relation(fields: [userId], references: [discordId])
+  userId             Int
+  contentType        ContentCategory     @relation(fields: [contentId], references: [id])
+  contentId          Int
+  sbtSignatureRecord SBTSignatureRecord?
+}
+
+model User {
+  discordId    Int     @id
+  name         String
+  ethAddress   String?
+  ExpressCount Int
+
+  expressMessages     ExpressMessage[]
+  sbtSignatureRecords SBTSignatureRecord[]
+  RawExpressMessage   RawExpressMessage[]
+}
+
+model ContentCategory {
+  id              Int              @id @default(autoincrement())
+  contentType     String
+  ExpressMessages ExpressMessage[]
+}
+
+model SBTSignatureRecord {
+  user             User           @relation(fields: [userId], references: [discordId])
+  userId           Int
+  expressMessage   ExpressMessage @relation(fields: [expressMessageId], references: [id])
+  expressMessageId Int            @unique
+
+  signData String
+
+  sbtContractType   SBTContractType @relation(fields: [sbtContractTypeId], references: [id])
+  sbtContractTypeId Int
+
+  signaturePayload   SignaturePayload @relation(fields: [signaturePayloadId], references: [id])
+  signaturePayloadId Int              @unique
+
+  SignatureData String
+
+
+  @@id([userId, expressMessageId])
+}
+
+model SBTContractType {
+  id              Int    @id @default(autoincrement())
+  contractAddress String
+  name            String
+  countLevel      Int[]
+  chainId         Int
+
+  sbtSignatureRecords SBTSignatureRecord[]
+
+}
+
+model SignaturePayload {
+  id                 Int    @id @default(autoincrement())
+  // approverETHAddress String
+  metaDataIpfsUrl    String
+  receiverETHAddress String
+  ExpressCount       Int
+
+
+
+
+
+  SBTSignatureRecord SBTSignatureRecord?
+}
