@@ -13,5 +13,7 @@
   "devDependencies": {
     "lerna": "^4.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "yup": "^0.32.11"
+  }
 }

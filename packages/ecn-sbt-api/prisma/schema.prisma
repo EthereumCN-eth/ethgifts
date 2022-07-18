@@ -16,8 +16,8 @@ model RawExpressMessage {
   createdAt      DateTime        @default(now()) @db.Timestamptz(3)
   expressMessage ExpressMessage?
 
-  user   User @relation(fields: [userId], references: [discordId])
-  userId Int
+  user   User   @relation(fields: [userId], references: [discordId])
+  userId String
 
 
 }
@@ -30,14 +30,14 @@ model ExpressMessage {
   expressUrl         String
   verifiedAt         DateTime            @default(now()) @db.Timestamptz(3)
   user               User                @relation(fields: [userId], references: [discordId])
-  userId             Int
+  userId             String
   contentType        ContentCategory     @relation(fields: [contentId], references: [id])
   contentId          Int
   sbtSignatureRecord SBTSignatureRecord?
 }
 
 model User {
-  discordId    Int     @id
+  discordId    String  @id
   name         String
   ethAddress   String?
   ExpressCount Int
@@ -55,7 +55,7 @@ model ContentCategory {
 
 model SBTSignatureRecord {
   user             User           @relation(fields: [userId], references: [discordId])
-  userId           Int
+  userId           String
   expressMessage   ExpressMessage @relation(fields: [expressMessageId], references: [id])
   expressMessageId Int            @unique
 

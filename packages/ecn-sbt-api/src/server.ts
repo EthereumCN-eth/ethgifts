@@ -1,33 +1,16 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import express from "express";
 
+import morgan from "morgan";
+import { setupAddMessageRoute } from "./addMessage";
+
 export const prisma = new PrismaClient();
+
 const app = express();
+app.use(morgan("tiny"));
 
 app.use(express.json());
 
-// app.post("/user", async (req, res) => {
-//   const { name, location } = req.body;
-//   try {
-//     const response: any = (await prisma.$queryRaw`
-//     insert into "User" ("name", "location") values
-//     (${name}, "public"."st_point"(${location.lng}, ${location.lat}))
-//     returning id`) as any;
-
-//     res.json({
-//       success: true,
-//       id: response[0].id,
-//     });
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500).json({
-//       error: "Server error!",
-//     });
-//   }
-// });
-
-// app.post("addRawMessage", async (req, res) => {
-//   const { rawMessage, discordId } = req.body;
-// });
+setupAddMessageRoute(app, prisma);
 
 export { app };
