@@ -15,6 +15,9 @@ model RawExpressMessage {
   rawMessage     String
   createdAt      DateTime        @default(now()) @db.Timestamptz(3)
   expressMessage ExpressMessage?
+  parsedUrl      String
+  parsedMessage  String
+
 
   user   User   @relation(fields: [userId], references: [discordId])
   userId String
@@ -28,6 +31,7 @@ model ExpressMessage {
   rawMessageId Int               @unique
 
   expressUrl         String
+  expressMessage     String
   verifiedAt         DateTime            @default(now()) @db.Timestamptz(3)
   user               User                @relation(fields: [userId], references: [discordId])
   userId             String

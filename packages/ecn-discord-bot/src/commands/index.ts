@@ -29,15 +29,4 @@ export const executeAll = async (interaction: Interaction<CacheType>) => {
       await executeFn(interaction);
     }
   }
-  if (interaction.isButton()) {
-    if (interaction.customId) {
-      const commandName = interaction.customId.split("-").pop();
-      if (commandName) {
-        const executeFn = commandToExcute[commandName];
-        if (executeFn && commandName) {
-          await executeFn(interaction);
-        }
-      }
-    }
-  }
 };

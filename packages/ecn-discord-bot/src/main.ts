@@ -1,3 +1,4 @@
+import { createModal } from "./commands/comp/createModal";
 import { executeAll } from "./commands/index";
 import "dotenv/config";
 import axios from "axios";
@@ -5,15 +6,58 @@ import axios from "axios";
 
 import { DISCORD_TOKEN, CHANNEL_ID } from "./constants";
 import { client } from "./client";
-import { MessageReaction, TextChannel } from "discord.js";
+import {
+  ButtonInteraction,
+  CacheType,
+  CommandInteraction,
+  MessageReaction,
+  TextChannel,
+} from "discord.js";
+import { createBtnComp } from "./commands/comp/btn";
 
+const ethModalPrompt = createModal({
+  id: "modal-eth-address",
+  inputs: [
+    {
+      id: "ethAddress",
+      label: "eth-address",
+      style: "SHORT",
+    },
+  ],
+  time: 300000,
+  title: "Get Eth Address",
+});
+
+const btnToModal = async (
+  interaction: CommandInteraction<CacheType> | ButtonInteraction<CacheType>
+) => {
+  await ethModalPrompt(interaction);
+};
+
+const [btnComp, cb] = createBtnComp({
+  btnId: "updateEth",
+  label: "ETH Address",
+  style: "PRIMARY",
+  callbackTop: async (interaction) => {
+    btnToModal(interaction);
+  },
+});
 // When the client is ready, run this code (only once)
 client.once("ready", () => {
   console.log("Ready!");
+  const dayMillseconds = 1000 * 30;
+  setInterval(function () {
+    // repeat this every 24 hours
+    (client.channels.cache.get(CHANNEL_ID) as TextChannel).send({
+      content: "Hello here!",
+      components: [btnComp],
+    });
+  }, dayMillseconds);
 });
 
 client.on("interactionCreate", async (interaction) => {
-  await executeAll(interaction);
+  console.log("interactionCreate: ");
+  cb(interaction);
   return;
 });
 
@@ -26,11 +70,29 @@ client.on("messageCreate", async (msg) => {
       discordName: msg.author.username,
     };
     const results = await axios.post<{
-      discordName: string | null;
-      discordId: string;
-      rawMessage: string;
+      success: boolean;
+      data?: {
+        discordName: string | null;
+        userId: string;
+        rawMessage: string;
+        parsedUrl: string;
+        parsedMessage: string;
+        user: {
+          ethAddress: string | null;
+        };
+      };
     }>("http://localhost:3010/addRawMessage", msgPayload);
     console.log("res:", results.data);
+    if (results.data.success) {
+      // await msg.reply("gota u");
+      if (results.data.data?.user.ethAddress) {
+        msg.reply({
+          content: "we would like to know your eth address",
+          components: [],
+          // ephemeral: true,
+        });
+      }
+    }
   }
 });
 
