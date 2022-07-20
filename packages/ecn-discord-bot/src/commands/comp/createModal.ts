@@ -3,6 +3,7 @@ import {
   CacheType,
   CommandInteraction,
   Interaction,
+  InteractionReplyOptions,
   MessageActionRow,
   MessagePayload,
   Modal,
@@ -25,11 +26,16 @@ type TModalParams = {
   time: number;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  callbackModal?: (a0: any) => void;
-  replyoptions?: string | MessagePayload | WebhookEditMessageOptions;
+  callbackModal?: (
+    interaction: ModalSubmitInteraction<CacheType>,
+    fields: string[]
+  ) => void;
+  followUpOptions?: string | MessagePayload | InteractionReplyOptions;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  callbackTopToRun?: (a0: any) => void;
+  callbackTopToRun?: (
+    interaction: CommandInteraction<CacheType> | ButtonInteraction<CacheType>
+  ) => void;
 };
 
 export const createModal =
@@ -39,7 +45,7 @@ export const createModal =
     inputs,
     time,
     callbackModal,
-    replyoptions,
+    followUpOptions,
     callbackTopToRun,
   }: TModalParams) =>
   async (
@@ -58,20 +64,26 @@ export const createModal =
     });
     modal.addComponents(...ActionRows);
     await interaction.showModal(modal);
-    const submitModal: ModalSubmitInteraction =
-      await interaction.awaitModalSubmit({
-        time,
-        filter: (modalInteraction: ModalSubmitInteraction) =>
-          modalInteraction.user.id === interaction.user.id &&
-          modalInteraction.customId === modal.customId,
-      });
-    const submitOps = inputs.map(({ label }) =>
-      submitModal.fields.getTextInputValue(label)
-    );
-    if (callbackModal && replyoptions) {
-      await submitModal.deferReply();
-      await callbackModal(submitOps);
-      await submitModal.editReply(replyoptions);
+    try {
+      const submitModal: ModalSubmitInteraction =
+        await interaction.awaitModalSubmit({
+          time,
+          filter: (modalInteraction: ModalSubmitInteraction) =>
+            modalInteraction.user.id === interaction.user.id &&
+            modalInteraction.customId === modal.customId,
+        });
+      const submitOps = inputs.map(({ label }) =>
+        submitModal.fields.getTextInputValue(label)
+      );
+      if (callbackModal) {
+        await callbackModal(submitModal, submitOps);
+        if (followUpOptions) {
+          await submitModal.followUp(followUpOptions);
+        }
+      }
+    } catch (err) {
+      console.log(`No interactions were collected.`);
     }
+
     return;
   };

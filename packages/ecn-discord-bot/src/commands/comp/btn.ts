@@ -10,6 +10,7 @@ import {
   MessageButtonStyleResolvable,
   Interaction,
   CacheType,
+  ButtonInteraction,
 } from "discord.js";
 
 export const resubmitButton = new MessageButton()
@@ -28,7 +29,7 @@ type TBtnParams = {
   label: string;
   style: MessageButtonStyleResolvable;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  callbackTop?: (a0: any) => void;
+  callbackTop?: (a0: ButtonInteraction<CacheType>) => void;
 };
 
 export const createBtnComp = ({
@@ -42,12 +43,13 @@ export const createBtnComp = ({
     MessageActionRowComponentResolvable,
     APIActionRowComponent<APIMessageActionRowComponent>
   >,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (a0: any) => void
 ] => {
-  const cb = (interaction: Interaction<CacheType>) => {
+  const cb = async (interaction: Interaction<CacheType>) => {
     if (interaction.isButton() && interaction.customId) {
-      if (interaction.customId === btnId) {
-        callbackTop && callbackTop(interaction);
+      if (interaction.customId === btnId && callbackTop) {
+        await callbackTop(interaction);
       }
     }
   };

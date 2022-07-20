@@ -2,6 +2,7 @@ import { createModal } from "./commands/comp/createModal";
 import { executeAll } from "./commands/index";
 import "dotenv/config";
 import axios from "axios";
+import { isAddress } from "@ethersproject/address";
 // Require the necessary discord.js classes
 
 import { DISCORD_TOKEN, CHANNEL_ID } from "./constants";
@@ -15,83 +16,112 @@ import {
 } from "discord.js";
 import { createBtnComp } from "./commands/comp/btn";
 
+const [WrongEthAddrbtn, repromptCb] = createBtnComp({
+  btnId: "repromptEth",
+  label: "Wrong ETH Address. Please resubmit.",
+  style: "PRIMARY",
+  callbackTop: async (interaction) => {
+    await ethModalPrompt(interaction);
+  },
+});
+
 const ethModalPrompt = createModal({
   id: "modal-eth-address",
   inputs: [
     {
-      id: "ethAddress",
-      label: "eth-address",
+      id: "input-eth-address",
+      label: "input-eth-address",
       style: "SHORT",
     },
   ],
   time: 300000,
   title: "Get Eth Address",
+  callbackModal: async (interaction, [userAddress]: string[]) => {
+    // invalid eth address
+    if (isAddress(userAddress)) {
+      await interaction.deferReply({
+        ephemeral: true,
+      });
+      // # TODO make sure eth address not existed
+
+      // # TODO send api to collect
+
+      await interaction.editReply({
+        content: " eth address right. got u.",
+      });
+    } else {
+      await interaction.reply({
+        content: "please get the eth address right",
+        components: [WrongEthAddrbtn],
+        ephemeral: true,
+      });
+    }
+  },
+  // callbackTopToRun: async (interaction) => {
+  //   await repromptCb(interaction);
+  // },
 });
 
-const btnToModal = async (
-  interaction: CommandInteraction<CacheType> | ButtonInteraction<CacheType>
-) => {
-  await ethModalPrompt(interaction);
-};
-
-const [btnComp, cb] = createBtnComp({
+const [getEthAddressbtnComp, cb] = createBtnComp({
   btnId: "updateEth",
   label: "ETH Address",
   style: "PRIMARY",
   callbackTop: async (interaction) => {
-    btnToModal(interaction);
+    // # TODO check has eth address(discordId)
+    await ethModalPrompt(interaction);
   },
 });
 // When the client is ready, run this code (only once)
 client.once("ready", () => {
   console.log("Ready!");
-  const dayMillseconds = 1000 * 30;
-  setInterval(function () {
-    // repeat this every 24 hours
-    (client.channels.cache.get(CHANNEL_ID) as TextChannel).send({
-      content: "Hello here!",
-      components: [btnComp],
-    });
-  }, dayMillseconds);
 });
 
 client.on("interactionCreate", async (interaction) => {
   console.log("interactionCreate: ");
-  cb(interaction);
+  await cb(interaction);
+  await repromptCb(interaction);
   return;
 });
 
 client.on("messageCreate", async (msg) => {
   console.log("ct: ", msg);
-  if (msg.channelId === CHANNEL_ID) {
+  if (
+    msg.channelId === CHANNEL_ID &&
+    msg.content &&
+    msg.content.includes("https")
+  ) {
     const msgPayload = {
       rawMessage: msg.content,
       discordId: msg.author.id,
       discordName: msg.author.username,
     };
-    const results = await axios.post<{
-      success: boolean;
-      data?: {
-        discordName: string | null;
-        userId: string;
-        rawMessage: string;
-        parsedUrl: string;
-        parsedMessage: string;
-        user: {
-          ethAddress: string | null;
+    try {
+      const results = await axios.post<{
+        success: boolean;
+        data?: {
+          discordName: string | null;
+          userId: string;
+          rawMessage: string;
+          parsedUrl: string;
+          parsedMessage: string;
+          user: {
+            ethAddress: string | null;
+          };
         };
-      };
-    }>("http://localhost:3010/addRawMessage", msgPayload);
-    console.log("res:", results.data);
-    if (results.data.success) {
-      // await msg.reply("gota u");
-      if (results.data.data?.user.ethAddress) {
-        msg.reply({
-          content: "we would like to know your eth address",
-          components: [],
-          // ephemeral: true,
-        });
+      }>("http://localhost:3010/addRawMessage", msgPayload);
+      console.log("res:", results.data);
+      if (results.data.success) {
+        // await msg.reply("gota u");
+        if (!results.data.data?.user.ethAddress) {
+          await (client.channels.cache.get(CHANNEL_ID) as TextChannel).send({
+            content:
+              "Hello here! Let us know your eth address for the orange juice!",
+            components: [getEthAddressbtnComp],
+          });
+        }
       }
+    } catch (e) {
+      console.log("addRawMessage error:", e);
     }
   }
 });
