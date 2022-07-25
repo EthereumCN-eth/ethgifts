@@ -92,7 +92,7 @@ describe("test /user/updateEthAddress", () => {
       .post("/user/updateEthAddress")
       .send({
         ethAddress: "0xd7c09e006a2891880331b0f6224071c1e890a98a",
-        discordId: "848533604443095121",
+        discordId: "8485336044430951dsdsdsdweewf",
         discordName: "random",
       })
       .set("Accept", "application/json")
@@ -129,7 +129,7 @@ describe("test /user/updateEthAddress", () => {
     });
     expect(user).toBeFalsy();
   });
-  it(" update ethAddress for existing user with addr", async () => {
+  it("cant update ethAddress for existing user with addr", async () => {
     const res = await request(app)
       .post("/user/updateEthAddress")
       .send({
@@ -141,14 +141,7 @@ describe("test /user/updateEthAddress", () => {
       .expect("Content-Type", /json/)
       .expect(200);
 
-    expect(res.body.success).toBe(true);
-    const user = await prisma.user.findUnique({
-      where: {
-        discordId: "848533604443095121",
-      },
-    });
-    expect(user).toBeTruthy();
-    expect(user?.ethAddress).toBe("0x1cAc7a07e8cb87B73d94747028845638D55d3Fde");
+    expect(res.body.success).toBe(false);
   });
 
   it(" update ethAddress for existing user without addr", async () => {

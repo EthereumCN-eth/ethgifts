@@ -1,6 +1,6 @@
 import { Express } from "express";
 import * as yup from "yup";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, User } from "@prisma/client";
 
 export const setupUserRoute = (
   app: Express,
@@ -38,7 +38,7 @@ export const setupUserRoute = (
     // By unique identifier
     try {
       //@ts-ignore
-      const updatedUser: User | null = await prisma.$transaction(
+      const resp = await prisma.$transaction(
         //@ts-ignore
         async (
           prisma: PrismaClient<
@@ -52,10 +52,26 @@ export const setupUserRoute = (
               ethAddress,
             },
           });
+          // eth addr taken
           if (userWithAddr) {
-            return null;
+            return {
+              success: false,
+              error: "Eth address taken.",
+            };
           }
-          const user = await prisma.user.upsert({
+          const userWithId = await prisma.user.findUnique({
+            where: {
+              discordId,
+            },
+          });
+          if (userWithId && userWithId.ethAddress) {
+            return {
+              success: false,
+              error: "You had eth address registered.",
+            };
+          }
+          // #TODO check user has addr areadly
+          const updatedUser: User = await prisma.user.upsert({
             where: {
               discordId,
             },
@@ -69,17 +85,15 @@ export const setupUserRoute = (
               ethAddress,
             },
           });
-          return user;
+          return {
+            success: true,
+            error: null,
+            data: updatedUser,
+          };
         }
       );
 
-      if (updatedUser) {
-        return res.status(200).send({ success: true, data: updatedUser });
-      } else {
-        return res
-          .status(200)
-          .send({ success: false, error: "eth address taken" });
-      }
+      return res.status(200).send(resp);
     } catch (e) {
       return res.status(500).send({ success: false, error: "error" });
     }
