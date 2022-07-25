@@ -13,17 +13,6 @@ import {
   ButtonInteraction,
 } from "discord.js";
 
-export const resubmitButton = new MessageButton()
-  .setCustomId("express-resubmit-ping")
-  .setLabel("Resubmit")
-  .setStyle("PRIMARY");
-
-export const resubmitButtonRow: MessageActionRow<
-  MessageActionRowComponent,
-  MessageActionRowComponentResolvable,
-  APIActionRowComponent<APIMessageActionRowComponent>
-> = new MessageActionRow().addComponents(resubmitButton);
-
 type TBtnParams = {
   btnId: string;
   label: string;
@@ -32,7 +21,7 @@ type TBtnParams = {
   callbackTop?: (a0: ButtonInteraction<CacheType>) => void;
 };
 
-export const createBtnComp = ({
+export const createBtn = ({
   btnId,
   label,
   style = "PRIMARY",
@@ -46,6 +35,9 @@ export const createBtnComp = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (a0: any) => void
 ] => {
+  const btn = new MessageActionRow().addComponents(
+    new MessageButton().setCustomId(btnId).setLabel(label).setStyle(style)
+  );
   const cb = async (interaction: Interaction<CacheType>) => {
     if (interaction.isButton() && interaction.customId) {
       if (interaction.customId === btnId && callbackTop) {
@@ -53,12 +45,7 @@ export const createBtnComp = ({
       }
     }
   };
-  return [
-    new MessageActionRow().addComponents(
-      new MessageButton().setCustomId(btnId).setLabel(label).setStyle(style)
-    ),
-    cb,
-  ];
+  return [btn, cb];
 
   // return btnCache.get(key);
 };

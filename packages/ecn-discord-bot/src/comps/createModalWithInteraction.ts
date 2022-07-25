@@ -2,7 +2,6 @@ import {
   ButtonInteraction,
   CacheType,
   CommandInteraction,
-  Interaction,
   InteractionReplyOptions,
   MessageActionRow,
   MessagePayload,
@@ -11,7 +10,6 @@ import {
   ModalSubmitInteraction,
   TextInputComponent,
   TextInputStyleResolvable,
-  WebhookEditMessageOptions,
 } from "discord.js";
 
 type TInputParams = {
@@ -38,7 +36,7 @@ type TModalParams = {
   ) => void;
 };
 
-export const createModal =
+export const createModalWithInteraction =
   ({
     id,
     title,
