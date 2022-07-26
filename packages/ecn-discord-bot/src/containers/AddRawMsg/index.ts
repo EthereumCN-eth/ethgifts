@@ -31,6 +31,7 @@ export const AddRawMsg = async (
       rawMessage: msg.content,
       discordId: msg.author.id,
       discordName: msg.author.username,
+      msgId: msg.id,
     };
     try {
       const { success, data } = await addRawMsgApi(msgPayload);

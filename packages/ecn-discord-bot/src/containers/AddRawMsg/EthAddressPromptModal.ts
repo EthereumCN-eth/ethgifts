@@ -5,7 +5,7 @@ import { updateAddressApi, userHasAddressApi } from "../../api";
 import { lastest_no_address_discordId } from "../../constants";
 import { CacheType, Interaction } from "discord.js";
 
-const [repromptEthAddrbtn, repromptCb] = createBtn({
+const { btn: repromptEthAddrbtn, btnCb: repromptCb } = createBtn({
   btnId: "reprompt-EthAddress-btn",
   label: "Wrong ETH Address. Please resubmit.",
   style: "PRIMARY",
@@ -13,7 +13,7 @@ const [repromptEthAddrbtn, repromptCb] = createBtn({
     await ethPromptModal(interaction);
   },
 });
-const [submitEthAddrbtn, submitCb] = createBtn({
+const { btn: submitEthAddrbtn, btnCb: submitCb } = createBtn({
   btnId: "submit-EthAddress-btn",
   label: "click to input eth address",
   style: "PRIMARY",
@@ -70,7 +70,7 @@ const ethPromptModal = createModalWithInteraction({
   // },
 });
 
-const [getEthAddressbtnComp, promptCb] = createBtn({
+const { btn: getEthAddressbtnComp, btnCb: promptCb } = createBtn({
   btnId: "prompt-ethAddress-btn",
   label: "ETH Address",
   style: "PRIMARY",

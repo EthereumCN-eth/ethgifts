@@ -26,26 +26,26 @@ export const createBtn = ({
   label,
   style = "PRIMARY",
   callbackTop,
-}: TBtnParams): [
-  MessageActionRow<
+}: TBtnParams): {
+  btn: MessageActionRow<
     MessageActionRowComponent,
     MessageActionRowComponentResolvable,
     APIActionRowComponent<APIMessageActionRowComponent>
-  >,
+  >;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (a0: any) => void
-] => {
+  btnCb: (a0: any) => void;
+} => {
   const btn = new MessageActionRow().addComponents(
     new MessageButton().setCustomId(btnId).setLabel(label).setStyle(style)
   );
-  const cb = async (interaction: Interaction<CacheType>) => {
+  const btnCb = async (interaction: Interaction<CacheType>) => {
     if (interaction.isButton() && interaction.customId) {
       if (interaction.customId === btnId && callbackTop) {
         await callbackTop(interaction);
       }
     }
   };
-  return [btn, cb];
+  return { btn, btnCb };
 
   // return btnCache.get(key);
 };

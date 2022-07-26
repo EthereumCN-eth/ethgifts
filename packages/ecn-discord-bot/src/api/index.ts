@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User, RawExpressMessage } from "@prisma/client";
 import axios from "axios";
 // import { boolean } from "yup";
 
@@ -6,6 +6,7 @@ export const addRawMsgApi = async (msgPayload: {
   rawMessage: string;
   discordId: string;
   discordName: string;
+  msgId: string;
 }) => {
   try {
     const results = await axios.post<{
@@ -21,7 +22,7 @@ export const addRawMsgApi = async (msgPayload: {
           discordId: string;
         };
       };
-    }>("http://localhost:3010/addRawMessage", msgPayload);
+    }>("http://localhost:3010/rawMsg/addRawMessage", msgPayload);
     console.log("res:", results.data);
     return {
       success: results.data.success,
@@ -89,6 +90,30 @@ export const updateAddressApi = async ({
     return {
       success: results.data.success,
       error: results.data.error,
+      data: results.data,
+    };
+  } catch (e) {
+    console.log("addRawMessage error:", e);
+    return {
+      success: false,
+      error: "error",
+      data: null,
+    };
+  }
+};
+
+export const findRawMsg = async ({ msgId }: { msgId: string }) => {
+  try {
+    const results = await axios.post<{
+      success: boolean;
+      data?: RawExpressMessage;
+      error: string | null;
+    }>("http://localhost:3010/rawMsg/findRawMessage", {
+      msgId,
+    });
+    console.log("res:", results.data);
+    return {
+      success: results.data.success,
       data: results.data,
     };
   } catch (e) {
