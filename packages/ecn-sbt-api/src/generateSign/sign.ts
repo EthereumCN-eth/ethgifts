@@ -1,6 +1,6 @@
 import { getCurrentNonce } from "./utils";
 import * as config from "./config";
-import { storageMetaData } from "./generateMetaData";
+// import { storageMetaData } from "./generateMetaData";
 
 export const signExpressData = async (
   receiver: string,
@@ -13,7 +13,7 @@ export const signExpressData = async (
   ).chainId;
   config.typedData.domain.verifyingContract = config.ExpressSBT_ContractAddress;
   config.typedData.message.receiver = receiver;
-  config.typedData.message.metadataURI = await storageMetaData();
+  // config.typedData.message.metadataURI = await storageMetaData();
   config.typedData.message.expressCounters = expressCounters;
   config.typedData.message.nonces = await getCurrentNonce(receiver);
 

@@ -38,13 +38,15 @@ const generateMetaData = (
   return metaData;
 };
 
-export const storageMetaData = async (
+const storageMetaData = async (
   contributor: string,
   contributions: {
-    content: string;
-    contentURI: string;
-    publishedDate: number;
-  }[]
+    [expressId: number]: {
+      content: string;
+      contentURI: string;
+      publishedDate: number;
+    };
+  }
 ): Promise<string> => {
   // generate metadata
   const metadata = generateMetaData(contributor, contributions);
@@ -70,16 +72,16 @@ export const storageMetaData = async (
   );
 
   await arweave.transactions.sign(transaction, key);
-  await arweave.transactions.post(transaction);
+  // await arweave.transactions.post(transaction);
 
-  //   let uploader = await arweave.transactions.getUploader(transaction);
+  // let uploader = await arweave.transactions.getUploader(transaction);
 
-  //   while (!uploader.isComplete) {
-  //     await uploader.uploadChunk();
-  //     console.log(
-  //       `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-  //     );
-  //   }
+  // while (!uploader.isComplete) {
+  //   await uploader.uploadChunk();
+  //   console.log(
+  //     `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
+  //   );
+  // }
 
   console.log("transaction id", transaction.id);
   //   console.log("transaction data", Buffer.from(transaction.data).toString());
@@ -89,3 +91,11 @@ export const storageMetaData = async (
 
   return transaction.id;
 };
+
+storageMetaData("a", {
+  1: {
+    content: "df",
+    contentURI: "df",
+    publishedDate: 0,
+  },
+});
