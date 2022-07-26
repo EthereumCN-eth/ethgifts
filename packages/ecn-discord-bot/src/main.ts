@@ -6,7 +6,11 @@ import { client } from "./client";
 import { AddRawMsg } from "./containers/AddRawMsg";
 import { createEthAdressModalContainer } from "./containers/AddRawMsg/EthAddressPromptModal";
 
-import { verifyRawMsg, verifyBtnCb } from "./containers/verifyRawMsg";
+import {
+  verifyRawMsg,
+  verifyBtnCb,
+  verifyModalCb,
+} from "./containers/verifyRawMsg";
 
 import discordModals from "discord-modals"; // Define the discord-modals package!
 discordModals(client); // discord-modals needs your client in order to interact with modals
@@ -24,6 +28,11 @@ client.on("interactionCreate", async (interaction) => {
   await allEthAddressCbs(interaction);
   await verifyBtnCb(interaction);
   return;
+});
+
+client.on("modalSubmit", async (modal) => {
+  verifyModalCb(modal);
+  //
 });
 
 client.on("messageCreate", async (msg) => {

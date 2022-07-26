@@ -1,9 +1,12 @@
+import { addMsgApi } from "./../../api/index";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   APIActionRowComponent,
   APIMessageActionRowComponent,
 } from "discord-api-types/v9";
 import {
   Modal,
+  // ModalSubmitInteraction,
   SelectMenuComponent,
   showModal,
   TextInputComponent,
@@ -16,6 +19,7 @@ import {
   MessageActionRowComponent,
   MessageActionRowComponentResolvable,
   MessageButton,
+  ModalSubmitInteraction,
 } from "discord.js";
 import { findRawMsg } from "../../api";
 import { client } from "../../client";
@@ -25,16 +29,19 @@ import { createBtn } from "../../comps/createBtn";
 export const modifiedVerifyExpressModal = ({
   content,
   url,
+  msgId,
+  discordId,
 }: // discordId,
 // msgId,
 {
   content: string;
   url: string;
-  // contentType: string;
+  msgId: string;
+  discordId: string;
 }) => {
   const modal = new Modal() // We create a Modal
-    .setCustomId("verify-express-modal")
-    .setTitle("Modal")
+    .setCustomId(`verify-express-modal-${discordId}-${msgId}`)
+    .setTitle(`Verify Express Message`)
     .addComponents(
       new TextInputComponent() // We create a Text Input Component
         .setCustomId("verify-express-msg-input")
@@ -72,10 +79,16 @@ export const modifiedVerifyExpressModal = ({
 };
 
 export const modifiedVerifyBtn = () => {
-  const makeVerifyBtnFunc = ({ msgId }: { msgId: string }) =>
+  const makeVerifyBtnFunc = ({
+    msgId,
+    discordId,
+  }: {
+    msgId: string;
+    discordId: string;
+  }) =>
     new MessageActionRow().setComponents(
       new MessageButton()
-        .setCustomId(`verify-expresss-btn-${msgId}`)
+        .setCustomId(`verify-expresss-btn-${discordId}-${msgId}`)
         .setLabel(`Verify above Express`)
         .setStyle("PRIMARY")
     );
@@ -83,10 +96,15 @@ export const modifiedVerifyBtn = () => {
   const verifyBtnCb = async (interaction: Interaction<CacheType>) => {
     if (interaction.isButton() && interaction.customId) {
       if (interaction.customId.startsWith("verify-expresss-btn-")) {
-        const msgId = interaction.customId.split("-").pop() || null;
+        console.log("cid", interaction.customId);
+        const data = interaction.customId.split("-");
+        console.log("btn data", data);
+        const msgId = data.pop() || null;
+        const discordId = data.pop() || null;
         let content = "";
         let url = "";
-        if (msgId) {
+        if (msgId && discordId) {
+          // msgId = msgId
           const { success, data } = await findRawMsg({
             msgId,
           });
@@ -94,24 +112,62 @@ export const modifiedVerifyBtn = () => {
             content = data?.data?.parsedMessage || "";
             url = data?.data?.parsedUrl || "";
           }
+          await showModal(
+            modifiedVerifyExpressModal({
+              content,
+              url,
+              msgId,
+              discordId,
+            }),
+            {
+              client, // Client to show the Modal through the Discord API.
+              interaction, // Show the modal with interaction data.
+            }
+          );
         }
         // interaction.message.
-        await showModal(
-          modifiedVerifyExpressModal({
-            content,
-            url,
-          }),
-          {
-            client, // Client to show the Modal through the Discord API.
-            interaction, // Show the modal with interaction data.
-          }
-        );
       }
+    }
+  };
+
+  const verifyModalCb = async (modal: ModalSubmitInteraction<CacheType>) => {
+    if (modal.customId.startsWith("verify-express-modal")) {
+      const data = modal.customId.split("-");
+      console.log("data", data);
+
+      const msgId = data.pop() || null;
+      const discordId = data.pop() || null;
+      //@ts-ignore
+      const content = modal.getTextInputValue("verify-express-msg-input");
+      //@ts-ignore
+      const url = modal.getTextInputValue("verify-express-msg-url");
+      //@ts-ignore
+      const topics = modal.getSelectMenuValues("verify-express-select");
+      const [contentType] = topics;
+      if (msgId && discordId) {
+        await modal.deferReply();
+        const { success, data } = await addMsgApi({
+          content,
+          url,
+          contentType,
+          msgId,
+          discordId,
+        });
+        if (success) {
+          await modal.editReply(
+            `✅ Verified .\n msgId ${msgId} \n content: ${data?.expressMessage}`
+          );
+          return;
+        }
+      }
+      await modal.editReply(`❌ failed; try again later.\n msgId ${msgId} \n`);
+      return;
     }
   };
 
   return {
     makeVerifyBtnFunc,
     verifyBtnCb,
+    verifyModalCb,
   };
 };
