@@ -12,32 +12,29 @@ datasource db {
 }
 
 model RawExpressMessage {
-  id             Int             @id @default(autoincrement())
+  // msgId
+  id             String          @id
   rawMessage     String
   createdAt      DateTime        @default(now()) @db.Timestamptz(3)
   expressMessage ExpressMessage?
   parsedUrl      String
   parsedMessage  String
 
-
   user   User   @relation(fields: [userId], references: [discordId])
   userId String
-
-
 }
 
 model ExpressMessage {
-  id           Int               @id @default(autoincrement())
-  rawMessage   RawExpressMessage @relation(fields: [rawMessageId], references: [id])
-  rawMessageId Int               @unique
+  rawMessage RawExpressMessage @relation(fields: [id], references: [id])
+  id         String            @id
 
   expressUrl         String
   expressMessage     String
   verifiedAt         DateTime            @default(now()) @db.Timestamptz(3)
   user               User                @relation(fields: [userId], references: [discordId])
   userId             String
-  contentType        ContentCategory     @relation(fields: [contentId], references: [id])
-  contentId          Int
+  contentCategory    ContentCategory     @relation(fields: [contentType], references: [contentType])
+  contentType        String
   sbtSignatureRecord SBTSignatureRecord?
 }
 
@@ -53,8 +50,7 @@ model User {
 }
 
 model ContentCategory {
-  id              Int              @id @default(autoincrement())
-  contentType     String
+  contentType     String           @id
   ExpressMessages ExpressMessage[]
 }
 
@@ -62,7 +58,7 @@ model SBTSignatureRecord {
   user             User           @relation(fields: [userId], references: [discordId])
   userId           String
   expressMessage   ExpressMessage @relation(fields: [expressMessageId], references: [id])
-  expressMessageId Int            @unique
+  expressMessageId String         @unique
 
   signData String
 
@@ -73,7 +69,6 @@ model SBTSignatureRecord {
   signaturePayloadId Int              @unique
 
   SignatureData String
-
 
   @@id([userId, expressMessageId])
 }
@@ -86,7 +81,6 @@ model SBTContractType {
   chainId         Int
 
   sbtSignatureRecords SBTSignatureRecord[]
-
 }
 
 model SignaturePayload {
@@ -95,10 +89,6 @@ model SignaturePayload {
   metaDataIpfsUrl    String
   receiverETHAddress String
   ExpressCount       Int
-
-
-
-
 
   SBTSignatureRecord SBTSignatureRecord?
 }
