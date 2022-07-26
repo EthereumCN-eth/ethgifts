@@ -102,6 +102,44 @@ describe("test /msg/addMessage", () => {
     expect(res.body.data.expressUrl).toBe("url");
     expect(res.body.data.expressMessage).toBe("content");
   });
+  it("update expressCount in User after addMessage ", async () => {
+    // before
+    const user = await prisma.user.findUnique({
+      where: {
+        discordId: "848533604443095121",
+      },
+    });
+    const beforeExpressCount = user?.ExpressCount;
+    console.log("beforeExpressC", beforeExpressCount);
+    const res = await request(app)
+      .post("/msg/addMessage")
+      .send({
+        // rawMessage: rawMsg,
+        content: "hello world11111,",
+        url: "https://www.panewslab.com/",
+        discordId: "848533604443095121",
+        contentType: "typee",
+
+        msgId: "34342fdsfrgrg",
+      })
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200);
+
+    const afterUser = await prisma.user.findUnique({
+      where: {
+        discordId: "848533604443095121",
+      },
+    });
+
+    const afterExpressCount = afterUser!.ExpressCount;
+
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.expressUrl).toBe("https://www.panewslab.com/");
+    expect(res.body.data.expressMessage).toBe("hello world11111,");
+
+    expect(afterExpressCount).toBe(beforeExpressCount! + 1);
+  });
 });
 
 describe("test /rawMsg/findRawMessage", () => {

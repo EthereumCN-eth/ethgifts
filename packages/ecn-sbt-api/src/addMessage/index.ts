@@ -72,29 +72,54 @@ export const setupAddMessageRoute = (
     //     id: msgId,
     //   },
     // });
-
-    const createdExpress = await prisma.expressMessage.create({
-      data: {
-        expressMessage: content,
-        expressUrl: url,
-        // id: msgId,
-        contentCategory: {
-          connect: {
-            contentType,
+    //@ts-ignore
+    const createdExpress = await prisma.$transaction(
+      //@ts-ignore
+      async (
+        prisma: PrismaClient<
+          Prisma.PrismaClientOptions,
+          never,
+          Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
+        >
+      ) => {
+        const createdExpress = await prisma.expressMessage.create({
+          data: {
+            expressMessage: content,
+            expressUrl: url,
+            // id: msgId,
+            contentCategory: {
+              connect: {
+                contentType,
+              },
+            },
+            user: {
+              connect: {
+                discordId,
+              },
+            },
+            rawMessage: {
+              connect: {
+                id: msgId,
+              },
+            },
           },
-        },
-        user: {
-          connect: {
+        });
+
+        await prisma.user.update({
+          where: {
             discordId,
           },
-        },
-        rawMessage: {
-          connect: {
-            id: msgId,
+          data: {
+            ExpressCount: {
+              increment: 1,
+            },
           },
-        },
-      },
-    });
+        });
+
+        return createdExpress;
+      }
+    );
+
     //
     return res.status(200).send({ success: true, data: createdExpress });
   });
