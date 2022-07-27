@@ -1,18 +1,18 @@
 import Arweave from "arweave";
-import * as dotenv from "dotenv";
 import * as config from "./config";
-dotenv.config();
+import { ARWEAVE_KEY } from "./constants";
 
 interface METADATA {
   name: string;
   description: string;
   issuer: string;
-  contributor_address: string;
+  expressCounter: number;
+  subject: string;
   contributions: {
     [expressId: number]: {
       content: string;
       contentURI: string;
-      publishedDate: number;
+      verifiedDate: number;
     };
   };
 }
@@ -23,33 +23,36 @@ const generateMetaData = (
     [expressId: number]: {
       content: string;
       contentURI: string;
-      publishedDate: number;
+      verifiedDate: number;
     };
-  }
+  },
+  expressCounter: number
 ): METADATA => {
   const metaData: METADATA = {
     name: config.defaultSetting.SBTname,
     description: config.defaultSetting.SBTDescription,
     issuer: config.Approver().address,
-    contributor_address: contributor,
+    expressCounter: expressCounter,
+    subject: contributor,
     contributions: contributions,
   };
 
   return metaData;
 };
 
-const storageMetaData = async (
-  contributor: string,
+export const storageMetaData = async (
+  subject: string,
   contributions: {
     [expressId: number]: {
       content: string;
       contentURI: string;
-      publishedDate: number;
+      verifiedDate: number;
     };
-  }
+  },
+  expressCounter: number
 ): Promise<string> => {
   // generate metadata
-  const metadata = generateMetaData(contributor, contributions);
+  const metadata = generateMetaData(subject, contributions, expressCounter);
 
   const arweave = Arweave.init({
     host: "arweave.net",
@@ -59,9 +62,7 @@ const storageMetaData = async (
     logging: false, // Disable network request logging
   });
 
-  const key = JSON.parse(
-    process.env.ARWEAVE_KEY !== undefined ? process.env.ARWEAVE_KEY : ""
-  );
+  const key = JSON.parse(ARWEAVE_KEY);
 
   const dataforTX = JSON.stringify(metadata);
   const transaction = await arweave.createTransaction(
@@ -91,11 +92,3 @@ const storageMetaData = async (
 
   return transaction.id;
 };
-
-storageMetaData("a", {
-  1: {
-    content: "df",
-    contentURI: "df",
-    publishedDate: 0,
-  },
-});

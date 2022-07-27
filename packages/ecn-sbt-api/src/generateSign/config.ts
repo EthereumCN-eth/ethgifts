@@ -1,6 +1,5 @@
 import { ethers, providers } from "ethers";
-import * as dotenv from "dotenv";
-dotenv.config();
+import { ARWEAVE_KEY, APPROVER_PRIVATE_KEY } from "./constants";
 
 export const ExpressSBT_ABI = [
   {
@@ -27,15 +26,11 @@ export const ExpressSBT_ABI = [
 export const ExpressSBT_ContractAddress = "";
 
 export const alchemyProvider = () => {
-  return new providers.AlchemyProvider("homestead", process.env.ALCHEMY_KEY);
+  return new providers.AlchemyProvider("homestead", ARWEAVE_KEY);
 };
 
 export const Approver = (): ethers.Wallet => {
-  const private_key =
-    process.env.APPROVER_PRIVATE_KEY !== undefined
-      ? process.env.APPROVER_PRIVATE_KEY
-      : "";
-  const approver = new ethers.Wallet(private_key, alchemyProvider());
+  const approver = new ethers.Wallet(APPROVER_PRIVATE_KEY, alchemyProvider());
 
   return approver;
 };

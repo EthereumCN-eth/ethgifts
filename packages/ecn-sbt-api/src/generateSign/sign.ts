@@ -1,6 +1,5 @@
 import { getCurrentNonce } from "./utils";
 import * as config from "./config";
-// import { storageMetaData } from "./generateMetaData";
 
 export const signExpressData = async (
   receiver: string,
