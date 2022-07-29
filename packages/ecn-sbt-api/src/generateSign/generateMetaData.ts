@@ -9,7 +9,8 @@ interface METADATA {
   expressCounter: number;
   subject: string;
   contributions: {
-    [expressId: number]: {
+    [index: string]: {
+      expressId: string;
       content: string;
       contentURI: string;
       verifiedDate: number;
@@ -20,7 +21,8 @@ interface METADATA {
 const generateMetaData = (
   contributor: string,
   contributions: {
-    [expressId: number]: {
+    [index: string]: {
+      expressId: string;
       content: string;
       contentURI: string;
       verifiedDate: number;
@@ -43,13 +45,15 @@ const generateMetaData = (
 export const storageMetaData = async (
   subject: string,
   contributions: {
-    [expressId: number]: {
+    [index: string]: {
+      expressId: string;
       content: string;
       contentURI: string;
       verifiedDate: number;
     };
   },
   expressCounter: number
+  // job: Job
 ): Promise<string> => {
   // generate metadata
   const metadata = generateMetaData(subject, contributions, expressCounter);
@@ -62,7 +66,7 @@ export const storageMetaData = async (
     logging: false, // Disable network request logging
   });
 
-  const key = JSON.parse(ARWEAVE_KEY);
+  const key = JSON.parse(ARWEAVE_KEY!);
 
   const dataforTX = JSON.stringify(metadata);
   const transaction = await arweave.createTransaction(
@@ -75,14 +79,14 @@ export const storageMetaData = async (
   await arweave.transactions.sign(transaction, key);
   // await arweave.transactions.post(transaction);
 
-  // let uploader = await arweave.transactions.getUploader(transaction);
+  let uploader = await arweave.transactions.getUploader(transaction);
 
-  // while (!uploader.isComplete) {
-  //   await uploader.uploadChunk();
-  //   console.log(
-  //     `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-  //   );
-  // }
+  while (!uploader.isComplete) {
+    await uploader.uploadChunk();
+    console.log(
+      `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
+    );
+  }
 
   console.log("transaction id", transaction.id);
   //   console.log("transaction data", Buffer.from(transaction.data).toString());

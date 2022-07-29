@@ -39,6 +39,7 @@ export const defaultSetting = {
   SBTname: "SBT",
   SBTDescription: "666",
   SBTLevels: [20, 100, 300],
+  SBTContractType: 1,
 };
 
 export const typedData = {

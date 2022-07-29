@@ -1,22 +1,14 @@
-import { BytesLike } from "@ethersproject/bytes";
-import { PrismaClient, Prisma } from "@prisma/client";
-import { prisma } from "../server";
-import { storageMetaData } from "./generateMetaData";
+import { Job } from "bull";
+import { prisma } from "../../server";
+import { storageMetaData } from "../generateMetaData";
 
-export const storeSignaturePayload = async (
-  discordId: string,
-  prisma: PrismaClient<
-    Prisma.PrismaClientOptions,
-    never,
-    Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
-  >
-) => {
+export const generateSignaturePayload = async (job: Job) => {
   try {
     await prisma.$transaction(async (prisma) => {
       // get eth address
       const user = await prisma.user.findUnique({
         where: {
-          discordId: discordId,
+          discordId: job.data.discordId,
         },
       });
 
@@ -25,7 +17,8 @@ export const storeSignaturePayload = async (
       }
 
       let contributions: {
-        [expressId: number]: {
+        [index: string]: {
+          expressId: string;
           content: string;
           contentURI: string;
           verifiedDate: number;
@@ -35,9 +28,10 @@ export const storeSignaturePayload = async (
       // get metadata content
       const expresses = await prisma.expressMessage.findMany({
         where: {
-          userId: discordId,
+          userId: job.data.discordId,
         },
         select: {
+          id: true,
           expressMessage: true,
           expressUrl: true,
           verifiedAt: true,
@@ -46,6 +40,7 @@ export const storeSignaturePayload = async (
 
       for (let i = 0; i < expresses.length; i++) {
         contributions[i + 1] = {
+          expressId: expresses[i].id.toString(),
           content: expresses[i].expressMessage,
           contentURI: expresses[i].expressUrl,
           verifiedDate: expresses[i].verifiedAt.getDate(),
@@ -70,36 +65,18 @@ export const storeSignaturePayload = async (
       return {
         success: true,
         error: null,
-        data: newPayload.id,
+        data: {
+          discordId: job.data.discordId,
+          expressId: job.data.expressId,
+          payloadId: newPayload.id,
+        },
       };
     });
   } catch (error) {
     return {
       success: false,
       error: error,
-      data: null,
+      payloadId: null,
     };
   }
-};
-
-export const storeSignature = async (
-  discordId: string,
-  expressId: string,
-  expressSBTId: number,
-  signData: string,
-  signaturePayloadId: number,
-  signature: string
-) => {
-  try {
-    await prisma.sBTSignatureRecord.create({
-      data: {
-        userId: discordId,
-        expressMessageId: expressId,
-        signData: signData,
-        sbtContractTypeId: expressSBTId,
-        signaturePayloadId: signaturePayloadId,
-        SignatureData: signature,
-      },
-    });
-  } catch (error) {}
 };
