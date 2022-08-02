@@ -2,8 +2,6 @@ import Queue from "bull";
 import { REDIS } from "../constants";
 import { generateSignaturePayload } from "../processes/generateSignPayload.process";
 import { sign } from "../generateSignature";
-import { createBullBoard } from "@bull-board/api";
-import { BullAdapter } from "@bull-board/api/bullAdapter";
 
 export const generateSignatureQueue = async (
   discordId: string,
