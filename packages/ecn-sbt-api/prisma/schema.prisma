@@ -60,8 +60,6 @@ model SBTSignatureRecord {
   expressMessage   ExpressMessage @relation(fields: [expressMessageId], references: [id])
   expressMessageId String         @unique
 
-  signData String
-
   sbtContractType   SBTContractType @relation(fields: [sbtContractTypeId], references: [id])
   sbtContractTypeId Int
 
