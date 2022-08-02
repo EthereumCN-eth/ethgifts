@@ -1,4 +1,5 @@
 import "dotenv/config";
+const debounce = require("lodash.debounce");
 
 import { DISCORD_TOKEN } from "./constants";
 import { client } from "./client";
@@ -40,8 +41,9 @@ client.on("messageCreate", async (msg) => {
   await AddRawMsg(msg, getEthAddressbtnComp, client);
 });
 
+const debVerifyRawMsg = debounce(verifyRawMsg, 1000);
 client.on("messageReactionAdd", async (reaction, user) => {
-  await verifyRawMsg(reaction, user);
+  await debVerifyRawMsg(reaction, user);
 });
 
 // Login to Discord with your client's token

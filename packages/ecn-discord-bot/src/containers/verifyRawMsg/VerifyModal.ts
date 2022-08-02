@@ -46,14 +46,14 @@ export const modifiedVerifyExpressModal = ({
       new TextInputComponent() // We create a Text Input Component
         .setCustomId("verify-express-msg-input")
         .setLabel("content")
-        .setStyle("SHORT") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
+        .setStyle("LONG") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
         .setPlaceholder(content)
         .setDefaultValue(content)
         .setRequired(true), // If it's required or not
       new TextInputComponent() // We create a Text Input Component
         .setCustomId("verify-express-msg-url")
         .setLabel("url")
-        .setStyle("SHORT") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
+        .setStyle("LONG") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
         .setPlaceholder(url)
         .setDefaultValue(url)
         .setRequired(true) // If it's required or not
@@ -160,7 +160,9 @@ export const modifiedVerifyBtn = () => {
           return;
         }
       }
-      await modal.editReply(`❌ failed; try again later.\n msgId ${msgId} \n`);
+      await modal.editReply(
+        `❌ failed; try again later.\n msgId ${msgId} \n; or duplicate msgId(added previously)`
+      );
       return;
     }
   };
