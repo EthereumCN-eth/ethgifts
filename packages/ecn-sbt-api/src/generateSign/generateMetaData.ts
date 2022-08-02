@@ -1,6 +1,8 @@
 import Arweave from "arweave";
 import * as config from "./config";
 import { ARWEAVE_KEY } from "./constants";
+import { bundleAndSignData, createData } from "arbundles";
+import { ArweaveSigner } from "arbundles/src/signing";
 
 interface METADATA {
   name: string;
@@ -13,7 +15,7 @@ interface METADATA {
       expressId: string;
       content: string;
       contentURI: string;
-      verifiedDate: number;
+      verifiedDate: string;
     };
   };
 }
@@ -25,7 +27,7 @@ const generateMetaData = (
       expressId: string;
       content: string;
       contentURI: string;
-      verifiedDate: number;
+      verifiedDate: string;
     };
   },
   expressCounter: number
@@ -49,12 +51,11 @@ export const storageMetaData = async (
       expressId: string;
       content: string;
       contentURI: string;
-      verifiedDate: number;
+      verifiedDate: string;
     };
   },
   expressCounter: number
-  // job: Job
-): Promise<string> => {
+) => {
   // generate metadata
   const metadata = generateMetaData(subject, contributions, expressCounter);
 
@@ -66,33 +67,28 @@ export const storageMetaData = async (
     logging: false, // Disable network request logging
   });
 
-  const key = JSON.parse(ARWEAVE_KEY!);
+  const key = JSON.parse(ARWEAVE_KEY);
+  const signer = new ArweaveSigner(key);
+  const dataItems = [createData(JSON.stringify(metadata), signer)];
 
-  const dataforTX = JSON.stringify(metadata);
-  const transaction = await arweave.createTransaction(
-    {
-      data: dataforTX,
-    },
-    key
-  );
+  const bundle = await bundleAndSignData(dataItems, signer);
 
-  await arweave.transactions.sign(transaction, key);
-  // await arweave.transactions.post(transaction);
+  const tx = await bundle.toTransaction({}, arweave, key);
+  await arweave.transactions.sign(tx, key);
+  console.log(`posting...`);
+  console.log(await arweave.transactions.post(tx));
 
-  let uploader = await arweave.transactions.getUploader(transaction);
-
-  while (!uploader.isComplete) {
-    await uploader.uploadChunk();
-    console.log(
-      `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-    );
+  if (await bundle.verify()) {
+    return {
+      success: true,
+      data: bundle.getIds()[0],
+      error: "",
+    };
+  } else {
+    return {
+      success: false,
+      data: "",
+      error: "fail to upload to arweave",
+    };
   }
-
-  console.log("transaction id", transaction.id);
-  //   console.log("transaction data", Buffer.from(transaction.data).toString());
-  const status = await arweave.transactions.getStatus(transaction.id);
-
-  console.log(status);
-
-  return transaction.id;
 };

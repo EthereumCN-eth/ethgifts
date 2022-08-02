@@ -1,13 +1,11 @@
 import * as ethers from "ethers";
 import * as config from "./config";
-import * as dotenv from "dotenv";
-dotenv.config();
 
 export const getCurrentNonce = async (address: string) => {
   const express = new ethers.Contract(
     config.ExpressSBT_ContractAddress,
     config.ExpressSBT_ABI,
-    config.alchemyProvider()
+    config.provider()
   );
 
   const nonce = await express.callStatic.nonces(address);

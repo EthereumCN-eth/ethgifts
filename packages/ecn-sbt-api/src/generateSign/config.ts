@@ -1,5 +1,9 @@
-import { ethers, providers } from "ethers";
-import { ARWEAVE_KEY, APPROVER_PRIVATE_KEY } from "./constants";
+import * as ethers from "ethers";
+import {
+  APPROVER_PRIVATE_KEY,
+  ALKEMY_KEY_MAINNET,
+  INFURA_KEY_RINKEBY,
+} from "./constants";
 
 export const ExpressSBT_ABI = [
   {
@@ -25,14 +29,21 @@ export const ExpressSBT_ABI = [
 
 export const ExpressSBT_ContractAddress = "";
 
-export const alchemyProvider = () => {
-  return new providers.AlchemyProvider("homestead", ARWEAVE_KEY);
+const onTest = true;
+
+export const provider = () => {
+  if (onTest) {
+    return new ethers.providers.InfuraProvider("homestead", INFURA_KEY_RINKEBY);
+  } else {
+    return new ethers.providers.AlchemyProvider(
+      "homestead",
+      ALKEMY_KEY_MAINNET
+    );
+  }
 };
 
 export const Approver = (): ethers.Wallet => {
-  const approver = new ethers.Wallet(APPROVER_PRIVATE_KEY, alchemyProvider());
-
-  return approver;
+  return new ethers.Wallet(APPROVER_PRIVATE_KEY, provider());
 };
 
 export const defaultSetting = {

@@ -1,3 +1,4 @@
+import { SBTSignatureRecord } from ".prisma/client";
 import { prisma } from "../server";
 import * as config from "./config";
 import { getCurrentNonce } from "./utils";
@@ -7,39 +8,47 @@ export const sign = async (
   expressId: string,
   signaturePayloadId: number
 ) => {
-  try {
-    await prisma.$transaction(async (prisma) => {
-      // get eth address
-      const payload = await prisma.signaturePayload.findUnique({
-        where: {
-          id: signaturePayloadId,
-        },
-      });
+  const signatureStatus = await prisma.$transaction(async (prisma) => {
+    // get eth address
+    const payload = await prisma.signaturePayload.findUnique({
+      where: {
+        id: signaturePayloadId,
+      },
+    });
 
-      if (payload === null) {
-        throw `${signaturePayloadId} payload is not existent`;
-      }
+    if (payload === null) {
+      throw `${signaturePayloadId} payload is not existent`;
+    }
 
-      config.typedData.domain.chainId = (
-        await config.alchemyProvider().getNetwork()
-      ).chainId;
-      config.typedData.domain.verifyingContract =
-        config.ExpressSBT_ContractAddress;
-      config.typedData.message.receiver = payload?.receiverETHAddress;
-      config.typedData.message.metadataURI = payload.metaDataIpfsUrl;
-      config.typedData.message.expressCounters = payload.ExpressCount;
+    config.typedData.domain.chainId = (
+      await config.provider().getNetwork()
+    ).chainId;
+    config.typedData.domain.verifyingContract =
+      config.ExpressSBT_ContractAddress;
+    config.typedData.message.receiver = payload?.receiverETHAddress;
+    config.typedData.message.metadataURI = payload.metaDataIpfsUrl;
+    config.typedData.message.expressCounters = payload.ExpressCount;
+
+    try {
       config.typedData.message.nonces = await getCurrentNonce(
         payload?.receiverETHAddress
       );
+    } catch (error) {
+      return {
+        success: false,
+        error: "SBT contract has not been deployed",
+        signatureRecord: null,
+      };
+    }
 
-      const approver = config.Approver();
+    const approver = config.Approver();
 
-      const signature = await approver._signTypedData(
-        config.typedData.domain,
-        config.typedData.types,
-        config.typedData.message
-      );
-
+    const signature = await approver._signTypedData(
+      config.typedData.domain,
+      config.typedData.types,
+      config.typedData.message
+    );
+    try {
       const signatureRecord = await prisma.sBTSignatureRecord.create({
         data: {
           userId: discordId,
@@ -55,11 +64,25 @@ export const sign = async (
         error: null,
         signatureRecord: signatureRecord,
       };
-    });
-  } catch (error) {
+    } catch (error) {
+      return {
+        success: false,
+        error: error,
+        signatureRecord: null,
+      };
+    }
+  });
+
+  if (signatureStatus.success) {
+    return {
+      success: true,
+      error: null,
+      signatureRecord: signatureStatus.signatureRecord,
+    };
+  } else {
     return {
       success: false,
-      error: error,
+      error: signatureStatus.error,
       signatureRecord: null,
     };
   }
