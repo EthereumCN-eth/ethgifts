@@ -1,7 +1,7 @@
 import { parseMsg } from "./utils";
 import { Express } from "express";
 import * as yup from "yup";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, RawExpressMessage, User } from "@prisma/client";
 import { validateRawMsg } from "./DTORawMsg";
 
 export const setupAddMessageRoute = (
@@ -36,32 +36,39 @@ export const setupAddMessageRoute = (
       return res.status(200).send({ success: false, error: "no url" });
     }
 
-    const createRawMsg = await prisma.rawExpressMessage.create({
-      data: {
-        rawMessage,
-        id: msgId,
-        parsedUrl: url.trim(),
+    try {
+      const createRawMsg: RawExpressMessage & {
+        user: User;
+      } = await prisma.rawExpressMessage.create({
+        data: {
+          rawMessage,
+          id: msgId,
+          parsedUrl: url.trim(),
 
-        // parseMsg: msg.trim(),
-        parsedMessage: msg.trim(),
-        user: {
-          connectOrCreate: {
-            where: {
-              discordId,
-            },
-            create: {
-              name: discordName,
-              ExpressCount: 0,
-              discordId,
+          // parseMsg: msg.trim(),
+          parsedMessage: msg.trim(),
+          user: {
+            connectOrCreate: {
+              where: {
+                discordId,
+              },
+              create: {
+                name: discordName,
+                ExpressCount: 0,
+                discordId,
+              },
             },
           },
         },
-      },
-      include: {
-        user: true,
-      },
-    });
-    return res.status(200).send({ success: true, data: createRawMsg });
+        include: {
+          user: true,
+        },
+      });
+      return res.status(200).send({ success: true, data: createRawMsg });
+    } catch (e) {
+      console.log("/rawMsg/addRawMessage error: ", e);
+      return res.status(200).send({ success: false, data: null });
+    }
   });
 
   app.post("/msg/addMessage", async (req, res) => {
@@ -72,56 +79,61 @@ export const setupAddMessageRoute = (
     //     id: msgId,
     //   },
     // });
-    //@ts-ignore
-    const createdExpress = await prisma.$transaction(
+    try {
       //@ts-ignore
-      async (
-        prisma: PrismaClient<
-          Prisma.PrismaClientOptions,
-          never,
-          Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
-        >
-      ) => {
-        const createdExpress = await prisma.expressMessage.create({
-          data: {
-            expressMessage: content,
-            expressUrl: url,
-            // id: msgId,
-            contentCategory: {
-              connect: {
-                contentType,
+      const createdExpress = await prisma.$transaction(
+        //@ts-ignore
+        async (
+          prisma: PrismaClient<
+            Prisma.PrismaClientOptions,
+            never,
+            Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
+          >
+        ) => {
+          const createdExpress = await prisma.expressMessage.create({
+            data: {
+              expressMessage: content,
+              expressUrl: url,
+              // id: msgId,
+              contentCategory: {
+                connect: {
+                  contentType,
+                },
+              },
+              user: {
+                connect: {
+                  discordId,
+                },
+              },
+              rawMessage: {
+                connect: {
+                  id: msgId,
+                },
               },
             },
-            user: {
-              connect: {
-                discordId,
+          });
+
+          await prisma.user.update({
+            where: {
+              discordId,
+            },
+            data: {
+              ExpressCount: {
+                increment: 1,
               },
             },
-            rawMessage: {
-              connect: {
-                id: msgId,
-              },
-            },
-          },
-        });
+          });
 
-        await prisma.user.update({
-          where: {
-            discordId,
-          },
-          data: {
-            ExpressCount: {
-              increment: 1,
-            },
-          },
-        });
+          return createdExpress;
+        }
+      );
 
-        return createdExpress;
-      }
-    );
-
-    //
-    return res.status(200).send({ success: true, data: createdExpress });
+      //
+      return res.status(200).send({ success: true, data: createdExpress });
+    } catch (e) {
+      console.log("/msg/addMessage error: ", e);
+      return res.status(200).send({ success: false, data: null });
+    }
   });
 
   app.post("/rawMsg/findRawMessage", async (req, res) => {

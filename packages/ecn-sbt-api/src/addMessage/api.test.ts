@@ -73,6 +73,38 @@ describe("test /rawMsg/addRawMessage", () => {
     // expect(res.body.data).toHaveProperty("createdAt");
     // expect(res.body.data).toHaveProperty("id");
   });
+  it("add rawMsg twice to fail silently", async () => {
+    const res = await request(app)
+      .post("/rawMsg/addRawMessage")
+      .send({
+        rawMessage: "hello world11111 https://github.com/spruceid/",
+        discordId: "848533604443095121",
+        discordName: "kenth123",
+        msgId: "dfdfddfdf",
+      })
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200);
+
+    expect(res.body.success).toBe(true);
+    const res2 = await request(app)
+      .post("/rawMsg/addRawMessage")
+      .send({
+        rawMessage: "hello world11111 https://github.com/spruceid/",
+        discordId: "848533604443095121",
+        discordName: "kenth123",
+        msgId: "dfdfddfdf",
+      })
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200);
+    expect(res2.body.success).toBe(false);
+    // expect(res.body.data.userId).toBe("848533604443095121");
+    // expect(res.body.data.rawMessage).toBe("hello world11111");
+
+    // expect(res.body.data).toHaveProperty("createdAt");
+    // expect(res.body.data).toHaveProperty("id");
+  });
 });
 
 describe("test /msg/addMessage", () => {
@@ -139,6 +171,44 @@ describe("test /msg/addMessage", () => {
     expect(res.body.data.expressMessage).toBe("hello world11111,");
 
     expect(afterExpressCount).toBe(beforeExpressCount! + 1);
+  });
+  it("add Msg twice to fail silently", async () => {
+    const res = await request(app)
+      .post("/msg/addMessage")
+      .send({
+        // rawMessage: rawMsg,
+        content: "hello world11111,",
+        url: "https://www.panewslab.com/",
+        discordId: "848533604443095121",
+        contentType: "typee",
+
+        msgId: "dfdfddfdf",
+      })
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200);
+
+    expect(res.body.success).toBe(true);
+    const res2 = await request(app)
+      .post("/msg/addMessage")
+      .send({
+        // rawMessage: rawMsg,
+        content: "hello world11111,",
+        url: "https://www.panewslab.com/",
+        discordId: "848533604443095121",
+        contentType: "typee",
+
+        msgId: "dfdfddfdf",
+      })
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200);
+    expect(res2.body.success).toBe(false);
+    // expect(res.body.data.userId).toBe("848533604443095121");
+    // expect(res.body.data.rawMessage).toBe("hello world11111");
+
+    // expect(res.body.data).toHaveProperty("createdAt");
+    // expect(res.body.data).toHaveProperty("id");
   });
 });
 
