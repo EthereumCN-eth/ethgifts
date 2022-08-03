@@ -1,5 +1,4 @@
-import { sign } from "./generateSignature";
-import { generateSignPayload } from "./generatePayload";
+import { generateSignature } from "./generateSignature";
 import { app } from "../server";
 import dotenv from "dotenv";
 dotenv.config();
@@ -15,27 +14,14 @@ dotenv.config();
 //   res.send({ status: "post is ok" });
 // });
 
-export const generateSignature = async (
-  discordId: string,
-  expressId: string
-) => {
-  const payload = await generateSignPayload(discordId, expressId);
-
-  if (!payload.success) {
-    throw payload.error;
-  }
-
-  const signStatus = await sign(
-    payload.data.discordId,
-    payload.data.expressId,
-    payload.data.payloadId
-  );
+export const sign = async (discordId: string, expressId: string) => {
+  const signStatus = await generateSignature(discordId, expressId);
 
   if (signStatus.success) {
     return {
       success: true,
       error: null,
-      signatureRecord: signStatus.signatureRecord,
+      signatureRecord: signStatus.data,
     };
   } else {
     return {

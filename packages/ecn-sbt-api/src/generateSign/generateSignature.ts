@@ -1,46 +1,109 @@
 import { prisma } from "../server";
+import { storageMetaData } from "./generateMetaData";
 import * as config from "./config";
 
-export const sign = async (
+export const generateSignature = async (
   discordId: string,
-  expressId: string,
-  signaturePayloadId: number
+  expressId: string
 ) => {
-  const signatureStatus = await prisma.$transaction(async (prisma) => {
+  const signStatus = await prisma.$transaction(async (prisma) => {
     // get eth address
-    const payload = await prisma.signaturePayload.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
-        id: signaturePayloadId,
+        discordId: discordId,
+      },
+      include: {
+        expressMessages: {
+          select: {
+            id: true,
+            expressMessage: true,
+            expressUrl: true,
+            verifiedAt: true,
+          },
+        },
       },
     });
 
-    if (payload === null) {
-      throw `${signaturePayloadId} payload is not existent`;
+    if (typeof user?.ethAddress !== "string") {
+      return {
+        success: false,
+        error: "please register address at first",
+        data: null,
+      };
     }
 
-    config.typedData.domain.chainId = (
-      await config.provider().getNetwork()
-    ).chainId;
-    config.typedData.domain.verifyingContract =
-      config.ExpressSBT_ContractAddress;
-    config.typedData.message.receiver = payload?.receiverETHAddress;
-    config.typedData.message.metadataURI = payload.metaDataIpfsUrl;
-    config.typedData.message.expressCounters = payload.ExpressCount;
+    // generate metadata content
+    let contributions: {
+      [index: string]: {
+        expressId: string;
+        content: string;
+        contentURI: string;
+        verifiedDate: string;
+      };
+    } = {};
+    const expresses = user.expressMessages;
 
-    const approver = config.Approver();
+    for (let i = 0; i < expresses.length; i++) {
+      contributions[i + 1] = {
+        expressId: expresses[i].id.toString(),
+        content: expresses[i].expressMessage,
+        contentURI: expresses[i].expressUrl,
+        verifiedDate: expresses[i].verifiedAt.toString(),
+      };
+    }
 
-    const signature = await approver._signTypedData(
-      config.typedData.domain,
-      config.typedData.types,
-      config.typedData.message
-    );
     try {
+      // generate metadata URI
+      // const metaDataStatus = await storageMetaData(
+      //   user.ethAddress,
+      //   contributions,
+      //   expresses.length
+      // );
+
+      // if (metaDataStatus.success === false) {
+      //   console.log(metaDataStatus);
+      //   return {
+      //     success: false,
+      //     error: metaDataStatus.error,
+      //     data: {
+      //       discordId: "",
+      //       expressId: "",
+      //       payloadId: 0,
+      //     },
+      //   };
+      // }
+
+      const newPayload = await prisma.signaturePayload.create({
+        data: {
+          metaDataIpfsUrl: "https://exmaple.com", // testing. original code: metaDataStatus.data
+          receiverETHAddress: user.ethAddress,
+          ExpressCount: expresses.length,
+        },
+      });
+
+      config.typedData.domain.chainId = (
+        await config.provider().getNetwork()
+      ).chainId;
+      config.typedData.domain.verifyingContract =
+        config.ExpressSBT_ContractAddress;
+      config.typedData.message.receiver = user.ethAddress;
+      config.typedData.message.metadataURI = "https://exmaple.com"; // testing. original code: metaDataStatus.data
+      config.typedData.message.expressAmount = expresses.length;
+
+      const approver = config.Approver();
+
+      const signature = await approver._signTypedData(
+        config.typedData.domain,
+        config.typedData.types,
+        config.typedData.message
+      );
+
       const signatureRecord = await prisma.sBTSignatureRecord.create({
         data: {
           userId: discordId,
           expressMessageId: expressId,
           sbtContractTypeId: config.defaultSetting.SBTContractType,
-          signaturePayloadId: signaturePayloadId,
+          signaturePayloadId: newPayload.id,
           SignatureData: signature,
         },
       });
@@ -48,28 +111,16 @@ export const sign = async (
       return {
         success: true,
         error: null,
-        signatureRecord: signatureRecord,
+        data: signatureRecord,
       };
     } catch (error) {
       return {
         success: false,
-        error: error,
-        signatureRecord: null,
+        error: `signature generate error: ${error}`,
+        data: null,
       };
     }
   });
 
-  if (signatureStatus.success) {
-    return {
-      success: true,
-      error: null,
-      signatureRecord: signatureStatus.signatureRecord,
-    };
-  } else {
-    return {
-      success: false,
-      error: signatureStatus.error,
-      signatureRecord: null,
-    };
-  }
+  return signStatus;
 };

@@ -5,7 +5,8 @@ import {
   INFURA_KEY_RINKEBY,
 } from "./constants";
 
-export const ExpressSBT_ContractAddress = "";
+export const ExpressSBT_ContractAddress =
+  "0x6a453A70F6faC3abEF56E1Cb6741B06A25b9E9fB";
 
 const onTest = true;
 
@@ -36,8 +37,7 @@ export const typedData = {
     mintExpress: [
       { name: "receiver", type: "address" },
       { name: "metadataURI", type: "string" },
-      { name: "expressCounters", type: "uint256" },
-      { name: "nonces", type: "uint256" },
+      { name: "expressAmount", type: "uint256" },
     ],
   },
 
@@ -51,7 +51,6 @@ export const typedData = {
   message: {
     receiver: "",
     metadataURI: "",
-    expressCounters: 0,
-    nonces: 0,
+    expressAmount: 0,
   },
 };
