@@ -11,6 +11,16 @@ export const generateSignPayload = async (
       where: {
         discordId: discordId,
       },
+      include: {
+        expressMessages: {
+          select: {
+            id: true,
+            expressMessage: true,
+            expressUrl: true,
+            verifiedAt: true,
+          },
+        },
+      },
     });
 
     if (typeof user?.ethAddress !== "string") {
@@ -27,17 +37,7 @@ export const generateSignPayload = async (
     } = {};
 
     // get metadata content
-    const expresses = await prisma.expressMessage.findMany({
-      where: {
-        userId: discordId,
-      },
-      select: {
-        id: true,
-        expressMessage: true,
-        expressUrl: true,
-        verifiedAt: true,
-      },
-    });
+    const expresses = user.expressMessages;
 
     for (let i = 0; i < expresses.length; i++) {
       contributions[i + 1] = {
@@ -49,28 +49,28 @@ export const generateSignPayload = async (
     }
 
     // generate metadata URI
-    const metaDataStatus = await storageMetaData(
-      user.ethAddress,
-      contributions,
-      expresses.length
-    );
+    // const metaDataStatus = await storageMetaData(
+    //   user.ethAddress,
+    //   contributions,
+    //   expresses.length
+    // );
 
-    if (metaDataStatus.success === false) {
-      console.log(metaDataStatus);
-      return {
-        success: false,
-        error: metaDataStatus.error,
-        data: {
-          discordId: "",
-          expressId: "",
-          payloadId: 0,
-        },
-      };
-    }
+    // if (metaDataStatus.success === false) {
+    //   console.log(metaDataStatus);
+    //   return {
+    //     success: false,
+    //     error: metaDataStatus.error,
+    //     data: {
+    //       discordId: "",
+    //       expressId: "",
+    //       payloadId: 0,
+    //     },
+    //   };
+    // }
 
     const newPayload = await prisma.signaturePayload.create({
       data: {
-        metaDataIpfsUrl: metaDataStatus.data,
+        metaDataIpfsUrl: "https://exmaple.com", // testing. original code: metaDataStatus.data
         receiverETHAddress: user.ethAddress,
         ExpressCount: expresses.length,
       },
