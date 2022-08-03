@@ -1,17 +1,17 @@
 import * as ethers from "ethers";
 import * as config from "./config";
 
-export const getCurrentNonce = async (address: string) => {
-  const express = new ethers.Contract(
-    config.ExpressSBT_ContractAddress,
-    config.ExpressSBT_ABI,
-    config.provider()
-  );
+// export const getCurrentNonce = async (address: string) => {
+//   const express = new ethers.Contract(
+//     config.ExpressSBT_ContractAddress,
+//     config.ExpressSBT_ABI,
+//     config.provider()
+//   );
 
-  const nonce = await express.callStatic.nonces(address);
+//   const nonce = await express.callStatic.nonces(address);
 
-  return nonce;
-};
+//   return nonce;
+// };
 
 // export const calculateSBTLevel = (
 //   contribution_Amount: number

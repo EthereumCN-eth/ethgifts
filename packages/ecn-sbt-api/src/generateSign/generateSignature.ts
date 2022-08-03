@@ -1,7 +1,5 @@
-import { SBTSignatureRecord } from ".prisma/client";
 import { prisma } from "../server";
 import * as config from "./config";
-import { getCurrentNonce } from "./utils";
 
 export const sign = async (
   discordId: string,
@@ -28,18 +26,6 @@ export const sign = async (
     config.typedData.message.receiver = payload?.receiverETHAddress;
     config.typedData.message.metadataURI = payload.metaDataIpfsUrl;
     config.typedData.message.expressCounters = payload.ExpressCount;
-
-    try {
-      config.typedData.message.nonces = await getCurrentNonce(
-        payload?.receiverETHAddress
-      );
-    } catch (error) {
-      return {
-        success: false,
-        error: "SBT contract has not been deployed",
-        signatureRecord: null,
-      };
-    }
 
     const approver = config.Approver();
 

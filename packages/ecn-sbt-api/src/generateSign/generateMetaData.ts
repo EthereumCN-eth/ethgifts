@@ -70,25 +70,32 @@ export const storageMetaData = async (
   const key = JSON.parse(ARWEAVE_KEY);
   const signer = new ArweaveSigner(key);
   const dataItems = [createData(JSON.stringify(metadata), signer)];
+  try {
+    const bundle = await bundleAndSignData(dataItems, signer);
 
-  const bundle = await bundleAndSignData(dataItems, signer);
+    const tx = await bundle.toTransaction({}, arweave, key);
+    await arweave.transactions.sign(tx, key);
+    console.log(`posting...`);
+    console.log(await arweave.transactions.post(tx));
 
-  const tx = await bundle.toTransaction({}, arweave, key);
-  await arweave.transactions.sign(tx, key);
-  console.log(`posting...`);
-  console.log(await arweave.transactions.post(tx));
-
-  if (await bundle.verify()) {
-    return {
-      success: true,
-      data: bundle.getIds()[0],
-      error: "",
-    };
-  } else {
+    if (await bundle.verify()) {
+      return {
+        success: true,
+        data: bundle.getIds()[0],
+        error: "",
+      };
+    } else {
+      return {
+        success: false,
+        data: "",
+        error: "fail to upload to arweave",
+      };
+    }
+  } catch (error) {
     return {
       success: false,
-      data: "",
-      error: "fail to upload to arweave",
+      data: `${error}`,
+      error: "fail to connect to arweave",
     };
   }
 };
