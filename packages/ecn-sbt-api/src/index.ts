@@ -1,7 +1,7 @@
 import { app } from "./server";
 import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
-import { generateSignature } from "./generateSign/index";
+import { sign } from "./generateSign/index";
 
 dotenv.config(); // Load the environment variables
 const PORT = process.env.PORT || 3010;
@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.post("/sign", async (req, res) => {
   const { discordId, expressId } = req.body;
-  const status = await generateSignature(discordId, expressId);
+  const status = await sign(discordId, expressId);
   res.send({
     success: status.success,
     error: status.error,
