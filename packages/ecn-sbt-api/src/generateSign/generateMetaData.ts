@@ -8,7 +8,7 @@ interface METADATA {
   name: string;
   description: string;
   issuer: string;
-  expressCounter: number;
+  expressAmount: number;
   subject: string;
   contributions: {
     [index: string]: {
@@ -30,13 +30,13 @@ const generateMetaData = (
       verifiedDate: string;
     };
   },
-  expressCounter: number
+  expressAmount: number
 ): METADATA => {
   const metaData: METADATA = {
     name: config.defaultSetting.SBTname,
     description: config.defaultSetting.SBTDescription,
     issuer: config.Approver().address,
-    expressCounter: expressCounter,
+    expressAmount: expressAmount,
     subject: contributor,
     contributions: contributions,
   };
@@ -54,10 +54,10 @@ export const storageMetaData = async (
       verifiedDate: string;
     };
   },
-  expressCounter: number
+  expressAmount: number
 ) => {
   // generate metadata
-  const metadata = generateMetaData(subject, contributions, expressCounter);
+  const metadata = generateMetaData(subject, contributions, expressAmount);
 
   const arweave = Arweave.init({
     host: "arweave.net",
@@ -81,7 +81,7 @@ export const storageMetaData = async (
     if (await bundle.verify()) {
       return {
         success: true,
-        data: bundle.getIds()[0],
+        data: `https://arweave.net/${bundle.getIds()[0]}`,
         error: "",
       };
     } else {
@@ -94,7 +94,7 @@ export const storageMetaData = async (
   } catch (error) {
     return {
       success: false,
-      data: `${error}`,
+      data: "",
       error: "fail to connect to arweave",
     };
   }
