@@ -54,3 +54,5 @@ export const typedData = {
     expressAmount: 0,
   },
 };
+
+export const SBTLevels = [5, 10, 15];

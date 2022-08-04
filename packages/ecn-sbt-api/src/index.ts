@@ -2,6 +2,7 @@ import { app } from "./server";
 import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { sign } from "./generateSign/index";
+import { signAndSaveSignature } from "./generateSign/queue/sign.queue";
 
 dotenv.config(); // Load the environment variables
 const PORT = process.env.PORT || 3010;
@@ -14,7 +15,18 @@ app.post("/sign", async (req, res) => {
   res.send({
     success: status.success,
     error: status.error,
-    signatureRecord: status.signatureRecord,
+    signatureRecord: status.data,
+  });
+});
+
+app.post("/signWithQueue", async (req, res) => {
+  const { discordId, expressId } = req.body;
+  const status = await signAndSaveSignature({
+    discordId: discordId,
+    expressId: expressId,
+  });
+  res.send({
+    success: status,
   });
 });
 

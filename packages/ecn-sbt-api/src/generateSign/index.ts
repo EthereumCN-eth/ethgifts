@@ -8,17 +8,5 @@ import { generateSignature } from "./generateSignature";
 export const sign = async (discordId: string, expressId: string) => {
   const signStatus = await generateSignature(discordId, expressId);
 
-  if (signStatus.success) {
-    return {
-      success: true,
-      error: null,
-      signatureRecord: signStatus.data,
-    };
-  } else {
-    return {
-      success: false,
-      error: signStatus.error,
-      signatureRecord: null,
-    };
-  }
+  return signStatus;
 };

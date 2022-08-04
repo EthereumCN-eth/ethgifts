@@ -98,6 +98,10 @@ export const generateSignature = async (
         config.typedData.message
       );
 
+      if (!signature) {
+        throw new Error("invalid typeData");
+      }
+
       const signatureRecord = await prisma.sBTSignatureRecord.create({
         data: {
           userId: discordId,
