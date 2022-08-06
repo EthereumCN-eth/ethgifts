@@ -4,12 +4,15 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p tsconfig.json",
+    "start": "yarn build && pm2 start dist/index.js"
   },
   "dependencies": {
     "@prisma/client": "^4.1.0",
     "express": "4.18.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pm2": "^5.2.0"
   },
   "devDependencies": {
     "@types/body-parser": "1.19.2",
