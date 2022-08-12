@@ -3,6 +3,7 @@ import { Express } from "express";
 import * as yup from "yup";
 import { PrismaClient, Prisma, RawExpressMessage, User } from "@prisma/client";
 import { validateRawMsg } from "./DTORawMsg";
+import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -122,6 +123,11 @@ export const setupAddMessageRoute = (
                 increment: 1,
               },
             },
+          });
+
+          await signAndSaveSignature({
+            discordId: discordId,
+            expressId: msgId,
           });
 
           return createdExpress;
