@@ -49,7 +49,7 @@ export const signVC = async ({
     metadataURI: string;
     receiver: string;
   };
-}) => {
+}): Promise<string> => {
   const credential = generateDoc({
     issuer_ethAddr,
     recipient_ethAddr,
