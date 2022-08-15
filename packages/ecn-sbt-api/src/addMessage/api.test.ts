@@ -141,7 +141,7 @@ describe("test /msg/addMessage", () => {
         discordId: "848533604443095121",
       },
     });
-    const beforeExpressCount = user?.ExpressCount;
+    const beforeExpressCount = user?.expressCount;
     console.log("beforeExpressC", beforeExpressCount);
     const res = await request(app)
       .post("/msg/addMessage")
@@ -164,7 +164,7 @@ describe("test /msg/addMessage", () => {
       },
     });
 
-    const afterExpressCount = afterUser!.ExpressCount;
+    const afterExpressCount = afterUser!.expressCount;
 
     expect(res.body.success).toBe(true);
     expect(res.body.data.expressUrl).toBe("https://www.panewslab.com/");

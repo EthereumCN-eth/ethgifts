@@ -1,4 +1,4 @@
-import { sign } from "./../generateSign/index";
+// import { sign } from "./../generateSign/index";
 import { parseMsg } from "./utils";
 import { Express } from "express";
 import * as yup from "yup";
@@ -10,7 +10,8 @@ import {
   ExpressMessage,
 } from "@prisma/client";
 import { validateRawMsg } from "./DTORawMsg";
-import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
+import { addToSignatureGenerationQueue } from "../generateSign";
+// import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -134,17 +135,13 @@ export const setupAddMessageRoute = (
             },
           });
 
-          // await signAndSaveSignature({
-          //   discordId: discordId,
-          //   expressId: msgId,
-          // });
-
           return createdExpress;
         }
       );
 
-      const st = await sign(discordId, msgId);
+      // const st = await sign(discordId, msgId);
       // console.log("st:", st);
+      await addToSignatureGenerationQueue(discordId, msgId);
 
       //
       return res.status(200).send({ success: true, data: createdExpress });
