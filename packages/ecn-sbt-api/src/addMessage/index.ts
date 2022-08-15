@@ -1,7 +1,14 @@
+import { sign } from "./../generateSign/index";
 import { parseMsg } from "./utils";
 import { Express } from "express";
 import * as yup from "yup";
-import { PrismaClient, Prisma, RawExpressMessage, User } from "@prisma/client";
+import {
+  PrismaClient,
+  Prisma,
+  RawExpressMessage,
+  User,
+  ExpressMessage,
+} from "@prisma/client";
 import { validateRawMsg } from "./DTORawMsg";
 import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
 
@@ -55,7 +62,7 @@ export const setupAddMessageRoute = (
               },
               create: {
                 name: discordName,
-                ExpressCount: 0,
+                expressCount: 0,
                 discordId,
               },
             },
@@ -91,48 +98,53 @@ export const setupAddMessageRoute = (
             Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
           >
         ) => {
-          const createdExpress = await prisma.expressMessage.create({
-            data: {
-              expressMessage: content,
-              expressUrl: url,
-              // id: msgId,
-              contentCategory: {
-                connect: {
-                  contentType,
+          const createdExpress: ExpressMessage = await prisma.expressMessage.create(
+            {
+              data: {
+                expressMessage: content,
+                expressUrl: url,
+                // id: msgId,
+                contentCategory: {
+                  connect: {
+                    contentType,
+                  },
+                },
+                user: {
+                  connect: {
+                    discordId,
+                  },
+                },
+                rawMessage: {
+                  connect: {
+                    id: msgId,
+                  },
                 },
               },
-              user: {
-                connect: {
-                  discordId,
-                },
-              },
-              rawMessage: {
-                connect: {
-                  id: msgId,
-                },
-              },
-            },
-          });
+            }
+          );
 
           await prisma.user.update({
             where: {
               discordId,
             },
             data: {
-              ExpressCount: {
+              expressCount: {
                 increment: 1,
               },
             },
           });
 
-          await signAndSaveSignature({
-            discordId: discordId,
-            expressId: msgId,
-          });
+          // await signAndSaveSignature({
+          //   discordId: discordId,
+          //   expressId: msgId,
+          // });
 
           return createdExpress;
         }
       );
+
+      const st = await sign(discordId, msgId);
+      // console.log("st:", st);
 
       //
       return res.status(200).send({ success: true, data: createdExpress });

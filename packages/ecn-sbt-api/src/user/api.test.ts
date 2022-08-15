@@ -5,7 +5,7 @@ beforeAll(async () => {
   await prisma.user.create({
     data: {
       discordId: "848533604443095121",
-      ExpressCount: 0,
+      expressCount: 0,
       name: "kenth123",
       ethAddress: "0x9A34797de4bf5b556348fd1e5439561ad17925DD",
     },
@@ -13,7 +13,7 @@ beforeAll(async () => {
   await prisma.user.create({
     data: {
       discordId: "848533604443095133",
-      ExpressCount: 0,
+      expressCount: 0,
       name: "carl",
     },
   });

@@ -80,7 +80,7 @@ export const setupUserRoute = (
             },
             create: {
               name: discordName,
-              ExpressCount: 0,
+              expressCount: 0,
               discordId,
               ethAddress,
             },

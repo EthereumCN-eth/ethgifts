@@ -1,6 +1,18 @@
+import { signTicketAndVC } from "./../../../ecn-eip712vc/src/index";
 import { prisma } from "../server";
-import { storageMetaData } from "./generateMetaData";
+import { storeMetaData } from "./generateMetaData";
 import * as config from "./config";
+import { signTicket } from "ecn-eip712vc";
+import { APPROVER_PRIVATE_KEY } from "./constants";
+
+type TypeContributions = {
+  [index: string]: {
+    expressId: string;
+    content: string;
+    contentURI: string;
+    verifiedDate: string;
+  };
+};
 
 export const generateSignature = async (
   discordId: string,
@@ -32,90 +44,108 @@ export const generateSignature = async (
       };
     }
 
-    // generate metadata content
-    let contributions: {
-      [index: string]: {
-        expressId: string;
-        content: string;
-        contentURI: string;
-        verifiedDate: string;
-      };
-    } = {};
     const expresses = user.expressMessages;
 
-    for (let i = 0; i < expresses.length; i++) {
-      contributions[i + 1] = {
-        expressId: expresses[i].id.toString(),
-        content: expresses[i].expressMessage,
-        contentURI: expresses[i].expressUrl,
-        verifiedDate: expresses[i].verifiedAt.toString(),
-      };
-    }
+    const contributions = expresses.reduce(
+      (acc: TypeContributions, item, indx) => {
+        acc[indx + 1] = {
+          expressId: item.id.toString(),
+          content: item.expressMessage,
+          contentURI: item.expressUrl,
+          verifiedDate: item.verifiedAt.toString(),
+        };
+        return acc;
+      },
+      {}
+    );
 
     try {
       // generate metadata URI
-      // const metaDataStatus = await storageMetaData(
+
+      // const metaDataStatus = await storeMetaData(
       //   user.ethAddress,
       //   contributions,
-      //   expresses.length
+      //   user.expressCount
       // );
+      const metaDataStatus = {
+        success: true,
+        data: "https://dfafaf",
+        error: null,
+      };
 
-      // if (metaDataStatus.success === false) {
-      //   console.log(metaDataStatus);
-      //   return {
-      //     success: false,
-      //     error: metaDataStatus.error,
-      //     data: {
-      //       discordId: "",
-      //       expressId: "",
-      //       payloadId: 0,
-      //     },
-      //   };
-      // }
+      if (metaDataStatus.success === false) {
+        console.log(metaDataStatus);
+        return {
+          success: false,
+          error: metaDataStatus.error,
+          data: null,
+        };
+      }
 
-      const newPayload = await prisma.signaturePayload.create({
-        data: {
-          metaDataIpfsUrl: "https://exmaple.com", // testing. original code: metaDataStatus.data
-          receiverETHAddress: user.ethAddress,
-          ExpressCount: expresses.length,
+      const metadataURI = metaDataStatus.data;
+      const expressAmount = user.expressCount;
+      const receiver = user.ethAddress;
+      const { domain, message } = config.generateTicketData({
+        messageData: {
+          expressAmount,
+          metadataURI,
+          receiver,
         },
       });
 
-      config.typedData.domain.chainId = (
-        await config.provider().getNetwork()
-      ).chainId;
-      config.typedData.domain.verifyingContract =
-        config.ExpressSBT_ContractAddress;
-      config.typedData.message.receiver = user.ethAddress;
-      config.typedData.message.metadataURI = "https://exmaple.com"; // testing. original code: metaDataStatus.data
-      config.typedData.message.expressAmount = expresses.length;
+      const { ticketSignData, vc } = await signTicketAndVC({
+        issuer_ethAddr: config.APPROVER_ADDRESS,
+        issuer_privatekey: APPROVER_PRIVATE_KEY,
+        issuer_publickey: config.APPROVER_PUBLIC_KEY,
+        recipient_ethAddr: receiver,
+        ethContractData: domain,
+        ethContractMessage: message,
+      });
 
-      const approver = config.Approver();
+      console.log("ti", ticketSignData);
+      console.log("vc", vc);
 
-      const signature = await approver._signTypedData(
-        config.typedData.domain,
-        config.typedData.types,
-        config.typedData.message
-      );
-
-      if (!signature) {
+      if (!vc) {
         throw new Error("invalid typeData");
       }
 
-      const signatureRecord = await prisma.sBTSignatureRecord.create({
+      console.log("exid", expressId);
+
+      const signPayload = await prisma.signaturePayload.create({
         data: {
-          userId: discordId,
-          expressMessageId: expressId,
-          sbtContractTypeId: config.defaultSetting.SBTContractType,
-          signaturePayloadId: newPayload.id,
-          SignatureData: signature,
+          // expressMsgId: expressId,
+          metadataURI,
+          receiverETHAddress: user.ethAddress,
+          expressCount: user.expressCount,
+          expressMessage: {
+            connect: {
+              id: expressId,
+            },
+          },
+          sBTSignatureRecord: {
+            connectOrCreate: {
+              where: {
+                signaturePayloadId: expressId,
+              },
+              create: {
+                id: expressId,
+                userId: discordId,
+                sbtContractTypeId: config.CONTRACT_TYPE_ID,
+                signedVC: vc,
+                signatureData: ticketSignData,
+              },
+            },
+          },
+        },
+        include: {
+          sBTSignatureRecord: true,
         },
       });
 
       return {
         success: true,
         error: null,
-        data: signatureRecord,
+        data: signPayload.sBTSignatureRecord,
       };
     } catch (error) {
       return {

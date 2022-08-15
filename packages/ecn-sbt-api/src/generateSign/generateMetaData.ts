@@ -35,7 +35,7 @@ const generateMetaData = (
   const metaData: METADATA = {
     name: config.defaultSetting.SBTname,
     description: config.defaultSetting.SBTDescription,
-    issuer: config.Approver().address,
+    issuer: config.APPROVER_ADDRESS,
     expressAmount: expressAmount,
     subject: contributor,
     contributions: contributions,
@@ -44,7 +44,7 @@ const generateMetaData = (
   return metaData;
 };
 
-export const storageMetaData = async (
+export const storeMetaData = async (
   subject: string,
   contributions: {
     [index: string]: {
