@@ -18,7 +18,8 @@ export const generateSignature = async (
   discordId: string,
   expressId: string
 ) => {
-  const signStatus = await prisma.$transaction(async (prisma) => {
+  try {
+    // const signStatus = await prisma.$transaction(async (prisma) => {
     // get eth address
     const user = await prisma.user.findUnique({
       where: {
@@ -36,12 +37,15 @@ export const generateSignature = async (
       },
     });
 
-    if (typeof user?.ethAddress !== "string") {
-      return {
-        success: false,
-        error: "please register address at first",
-        data: null,
-      };
+    if (!user || !user.ethAddress) {
+      // return {
+      //   success: false,
+      //   error: "please register address at first",
+      //   data: null,
+      // };
+      //@ts-ignore
+
+      throw new Error("please register address at first");
     }
 
     const expresses = user.expressMessages;
@@ -59,102 +63,98 @@ export const generateSignature = async (
       {}
     );
 
-    try {
-      // generate metadata URI
+    // generate metadata URI
 
-      // const metaDataStatus = await storeMetaData(
-      //   user.ethAddress,
-      //   contributions,
-      //   user.expressCount
-      // );
-      const metaDataStatus = {
-        success: true,
-        data: "https://dfafaf",
-        error: null,
-      };
+    const metaDataStatus = await storeMetaData(
+      user.ethAddress,
+      contributions,
+      expresses.length
+    );
+    // const metaDataStatus = {
+    //   success: true,
+    //   data: "https://dfafaf",
+    //   error: null,
+    // };
 
-      if (metaDataStatus.success === false) {
-        console.log(metaDataStatus);
-        return {
-          success: false,
-          error: metaDataStatus.error,
-          data: null,
-        };
-      }
-
-      const metadataURI = metaDataStatus.data;
-      const expressAmount = user.expressCount;
-      const receiver = user.ethAddress;
-      const { domain, message } = config.generateTicketData({
-        messageData: {
-          expressAmount,
-          metadataURI,
-          receiver,
-        },
-      });
-
-      const { ticketSignData, vc } = await signTicketAndVC({
-        issuer_ethAddr: config.APPROVER_ADDRESS,
-        issuer_privatekey: APPROVER_PRIVATE_KEY,
-        issuer_publickey: config.APPROVER_PUBLIC_KEY,
-        recipient_ethAddr: receiver,
-        ethContractData: domain,
-        ethContractMessage: message,
-      });
-
-      console.log("ti", ticketSignData);
-      console.log("vc", vc);
-
-      if (!vc) {
-        throw new Error("invalid typeData");
-      }
-
-      console.log("exid", expressId);
-
-      const signPayload = await prisma.signaturePayload.create({
-        data: {
-          // expressMsgId: expressId,
-          metadataURI,
-          receiverETHAddress: user.ethAddress,
-          expressCount: user.expressCount,
-          expressMessage: {
-            connect: {
-              id: expressId,
-            },
-          },
-          sBTSignatureRecord: {
-            connectOrCreate: {
-              where: {
-                signaturePayloadId: expressId,
-              },
-              create: {
-                id: expressId,
-                userId: discordId,
-                sbtContractTypeId: config.CONTRACT_TYPE_ID,
-                signedVC: vc,
-                signatureData: ticketSignData,
-              },
-            },
-          },
-        },
-        include: {
-          sBTSignatureRecord: true,
-        },
-      });
-
-      return {
-        success: true,
-        error: null,
-        data: signPayload.sBTSignatureRecord,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: `signature generate error: ${error}`,
-        data: null,
-      };
+    if (metaDataStatus.success === false) {
+      console.log(metaDataStatus);
+      throw new Error(metaDataStatus.error);
+      // return {
+      //   success: false,
+      //   error: metaDataStatus.error,
+      //   data: null,
+      // };
     }
-  });
 
-  return signStatus;
+    const metadataURI = metaDataStatus.data;
+    const expressAmount = expresses.length;
+    const receiver = user.ethAddress;
+    const { domain, message } = config.generateTicketData({
+      messageData: {
+        expressAmount,
+        metadataURI,
+        receiver,
+      },
+    });
+
+    const { ticketSignData, vc } = await signTicketAndVC({
+      issuer_ethAddr: config.APPROVER_ADDRESS,
+      issuer_privatekey: APPROVER_PRIVATE_KEY,
+      issuer_publickey: config.APPROVER_PUBLIC_KEY,
+      recipient_ethAddr: receiver,
+      ethContractData: domain,
+      ethContractMessage: message,
+    });
+
+    // console.log("ti", ticketSignData);
+    // console.log("vc", vc);
+
+    if (!vc) {
+      throw new Error("invalid typeData");
+    }
+
+    // console.log("exid", expressId);
+
+    const signPayload = await prisma.signaturePayload.create({
+      data: {
+        // expressMsgId: expressId,
+        metadataURI,
+        receiverETHAddress: user.ethAddress,
+        expressCount: user.expressCount,
+        expressMessage: {
+          connect: {
+            id: expressId,
+          },
+        },
+        sBTSignatureRecord: {
+          connectOrCreate: {
+            where: {
+              signaturePayloadId: expressId,
+            },
+            create: {
+              id: expressId,
+              userId: discordId,
+              sbtContractTypeId: config.CONTRACT_TYPE_ID_DB,
+              signedVC: vc,
+              signatureData: ticketSignData,
+            },
+          },
+        },
+      },
+      include: {
+        sBTSignatureRecord: true,
+      },
+    });
+
+    return {
+      success: true,
+      error: null,
+      data: signPayload.sBTSignatureRecord,
+    };
+    // });
+
+    // return signStatus;
+  } catch (err) {
+    throw err;
+  }
 };

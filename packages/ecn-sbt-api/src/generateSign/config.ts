@@ -1,18 +1,18 @@
 import * as ethers from "ethers";
 import {
   APPROVER_PRIVATE_KEY,
-  ALKEMY_KEY_MAINNET,
-  INFURA_KEY_RINKEBY,
+  DB_CONTRACT_TYPE_ID,
+  DOMAIN_EXPRESS_SBT_CHAINID,
+  DOMAIN_EXPRESS_SBT_CONTRACT,
+  DOMAIN_EXPRESS_SBT_NAME,
+  DOMAIN_EXPRESS_SBT_VERSION,
 } from "./constants";
 
-export const EXPRESS_SBT_CONTRACT_ADDRESS =
-  "0x6a453A70F6faC3abEF56E1Cb6741B06A25b9E9fB";
-
 const DOMAIN_DATA = {
-  name: "ExpressSBT",
-  version: "1",
-  chainId: 1,
-  verifyingContract: EXPRESS_SBT_CONTRACT_ADDRESS,
+  name: DOMAIN_EXPRESS_SBT_NAME,
+  version: DOMAIN_EXPRESS_SBT_VERSION,
+  chainId: Number(DOMAIN_EXPRESS_SBT_CHAINID),
+  verifyingContract: DOMAIN_EXPRESS_SBT_CONTRACT,
 };
 
 export const generateTicketData = ({
@@ -45,17 +45,6 @@ export const generateTicketData = ({
 };
 
 const onTest = true;
-
-export const provider = () => {
-  if (onTest) {
-    return new ethers.providers.InfuraProvider("homestead", INFURA_KEY_RINKEBY);
-  } else {
-    return new ethers.providers.AlchemyProvider(
-      "homestead",
-      ALKEMY_KEY_MAINNET
-    );
-  }
-};
 
 const ARPPROVER_WALLET = new ethers.Wallet(APPROVER_PRIVATE_KEY);
 export const APPROVER_ADDRESS = ARPPROVER_WALLET.address;
@@ -91,5 +80,4 @@ export const defaultSetting = {
 //   },
 // };
 
-export const SBTLevels = [5, 10, 15];
-export const CONTRACT_TYPE_ID = 1;
+export const CONTRACT_TYPE_ID_DB = Number(DB_CONTRACT_TYPE_ID);

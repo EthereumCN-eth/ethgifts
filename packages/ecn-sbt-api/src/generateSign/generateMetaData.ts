@@ -74,9 +74,11 @@ export const storeMetaData = async (
     const bundle = await bundleAndSignData(dataItems, signer);
 
     const tx = await bundle.toTransaction({}, arweave, key);
+    tx.addTag("Bundle-Format", "json");
+    tx.addTag("Content-Type", "application/json");
     await arweave.transactions.sign(tx, key);
-    console.log(`posting...`);
-    console.log(await arweave.transactions.post(tx));
+    // console.log(`posting...`);
+    // console.log(await arweave.transactions.post(tx));
 
     if (await bundle.verify()) {
       return {

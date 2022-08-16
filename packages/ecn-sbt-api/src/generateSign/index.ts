@@ -9,11 +9,16 @@ signatureGenerationQueue.process(async (job: Job) => {
     job.data.expressId
   );
 
-  return signStatus;
+  // return signStatus;
+  if (signStatus && signStatus.success) {
+    return signStatus;
+  }
+
+  await job.moveToFailed({ message: "signatureGenerationQueue error" }, true);
 });
 
 signatureGenerationQueue.on("completed", (job, result) => {
-  console.log("completed:", result);
+  // console.log("completed:", "signatureGenerationQueue");
   return {
     result: "ok",
     error: null,
@@ -21,6 +26,12 @@ signatureGenerationQueue.on("completed", (job, result) => {
       signQueue: "completed",
     },
   };
+});
+
+signatureGenerationQueue.on("failed", function(job, err) {
+  // A job failed with reason `err`!
+  console.log("failed:", err);
+  return;
 });
 signatureGenerationQueue.on("error", (err) => {
   console.log("error:", err);
@@ -38,8 +49,8 @@ const addToSignatureGenerationQueue = async (
   expressId: string
 ) => {
   const option = {
-    attempts: 100,
-    backoff: { type: "exponential", delay: 5000 },
+    attempts: 1000,
+    backoff: 20000,
     removeOnComplete: true,
   };
   await signatureGenerationQueue.add(
