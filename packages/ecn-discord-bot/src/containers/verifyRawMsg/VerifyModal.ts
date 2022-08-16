@@ -2,14 +2,14 @@ import { addMsgApi } from "./../../api/index";
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   APIActionRowComponent,
-  APIMessageActionRowComponent,
+  APIMessageActionRowComponent
 } from "discord-api-types/v9";
 import {
   Modal,
   // ModalSubmitInteraction,
   SelectMenuComponent,
   showModal,
-  TextInputComponent,
+  TextInputComponent
 } from "discord-modals";
 import {
   ButtonInteraction,
@@ -19,7 +19,7 @@ import {
   MessageActionRowComponent,
   MessageActionRowComponentResolvable,
   MessageButton,
-  ModalSubmitInteraction,
+  ModalSubmitInteraction
 } from "discord.js";
 import { findRawMsg } from "../../api";
 import { client } from "../../client";
@@ -30,7 +30,7 @@ export const modifiedVerifyExpressModal = ({
   content,
   url,
   msgId,
-  discordId,
+  discordId
 }: // discordId,
 // msgId,
 {
@@ -47,14 +47,14 @@ export const modifiedVerifyExpressModal = ({
         .setCustomId("verify-express-msg-input")
         .setLabel("content")
         .setStyle("LONG") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
-        .setPlaceholder(content)
+        // .setPlaceholder(content)
         .setDefaultValue(content)
         .setRequired(true), // If it's required or not
       new TextInputComponent() // We create a Text Input Component
         .setCustomId("verify-express-msg-url")
         .setLabel("url")
         .setStyle("LONG") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
-        .setPlaceholder(url)
+        // .setDefaultValue(url)
         .setDefaultValue(url)
         .setRequired(true) // If it's required or not
     )
@@ -66,12 +66,12 @@ export const modifiedVerifyExpressModal = ({
           {
             label: "eth2",
             description: "the now of future.",
-            value: "eth2",
+            value: "eth2"
           },
           {
             label: "defi",
             description: "Some people hate it, some people like it.",
-            value: "defi",
+            value: "defi"
           }
         )
     );
@@ -81,7 +81,7 @@ export const modifiedVerifyExpressModal = ({
 export const modifiedVerifyBtn = () => {
   const makeVerifyBtnFunc = ({
     msgId,
-    discordId,
+    discordId
   }: {
     msgId: string;
     discordId: string;
@@ -106,7 +106,7 @@ export const modifiedVerifyBtn = () => {
         if (msgId && discordId) {
           // msgId = msgId
           const { success, data } = await findRawMsg({
-            msgId,
+            msgId
           });
           if (success) {
             content = data?.data?.parsedMessage || "";
@@ -117,11 +117,11 @@ export const modifiedVerifyBtn = () => {
               content,
               url,
               msgId,
-              discordId,
+              discordId
             }),
             {
               client, // Client to show the Modal through the Discord API.
-              interaction, // Show the modal with interaction data.
+              interaction // Show the modal with interaction data.
             }
           );
         }
@@ -151,7 +151,7 @@ export const modifiedVerifyBtn = () => {
           url,
           contentType,
           msgId,
-          discordId,
+          discordId
         });
         if (success) {
           await modal.editReply(
@@ -170,6 +170,6 @@ export const modifiedVerifyBtn = () => {
   return {
     makeVerifyBtnFunc,
     verifyBtnCb,
-    verifyModalCb,
+    verifyModalCb
   };
 };
