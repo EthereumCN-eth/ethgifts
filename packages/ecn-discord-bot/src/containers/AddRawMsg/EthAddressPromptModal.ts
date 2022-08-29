@@ -8,7 +8,7 @@ import { CacheType, Interaction } from "discord.js";
 
 const { btn: repromptEthAddrbtn, btnCb: repromptCb } = createBtn({
   btnId: "reprompt-EthAddress-btn",
-  label: "Wrong ETH Address. Please resubmit.",
+  label: trans.AddRawMsg.address_modal_relpy_wrong_format_btn_txt,
   style: "PRIMARY",
   callbackTop: async interaction => {
     await ethPromptModal(interaction);
@@ -16,7 +16,7 @@ const { btn: repromptEthAddrbtn, btnCb: repromptCb } = createBtn({
 });
 const { btn: submitEthAddrbtn, btnCb: submitCb } = createBtn({
   btnId: "submit-EthAddress-btn",
-  label: "click to input eth address",
+  label: trans.AddRawMsg.address_prompt_ask_btn_txt,
   style: "PRIMARY",
   callbackTop: async interaction => {
     await ethPromptModal(interaction);

@@ -5,6 +5,7 @@ export const trans = {
     address_prompt_btn_txt: "ETH Address",
     address_prompt_existed: (addr: string) => `your address is ${addr}`,
     address_prompt_ask: "click to input eth address",
+    address_prompt_ask_btn_txt: "click to input eth address",
     address_prompt_wrong: "something went wrong",
     address_modal_title: "Get Eth Address",
     address_modal_label: "ask-ethAddress-input",
@@ -12,7 +13,9 @@ export const trans = {
       `eth address right. got u ${userAddress}`,
     address_modal_reply_reject: (error: string) =>
       `something went wrong. ${error}`,
-    address_modal_reply_wrong_format: "please get the eth address right"
+    address_modal_reply_wrong_format: "please get the eth address right",
+    address_modal_relpy_wrong_format_btn_txt:
+      '"Wrong ETH Address. Please resubmit."'
   }
 };
 
