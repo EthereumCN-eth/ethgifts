@@ -18,7 +18,7 @@ signatureGenerationQueue.process(async (job: Job) => {
 });
 
 signatureGenerationQueue.on("completed", (job, result) => {
-  // console.log("completed:", "signatureGenerationQueue");
+  console.log("completed:", job.data.expressId);
   return {
     result: "ok",
     error: null,

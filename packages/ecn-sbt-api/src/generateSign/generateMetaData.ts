@@ -69,13 +69,19 @@ export const storeMetaData = async (
 
   const key = JSON.parse(ARWEAVE_KEY);
   const signer = new ArweaveSigner(key);
-  const dataItems = [createData(JSON.stringify(metadata), signer)];
+  const dataItems = [
+    createData(JSON.stringify(metadata, null, 2), signer, {
+      tags: [
+        { name: "Bundle-Format", value: "json" },
+        { name: "Bundle-Version", value: "1.0.0" },
+        { name: "Content-Type", value: "application/json" },
+      ],
+    }),
+  ];
   try {
     const bundle = await bundleAndSignData(dataItems, signer);
 
     const tx = await bundle.toTransaction({}, arweave, key);
-    tx.addTag("Bundle-Format", "json");
-    tx.addTag("Content-Type", "application/json");
     await arweave.transactions.sign(tx, key);
     // console.log(`posting...`);
     // console.log(await arweave.transactions.post(tx));
