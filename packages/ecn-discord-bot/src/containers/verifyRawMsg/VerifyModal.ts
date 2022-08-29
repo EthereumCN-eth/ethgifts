@@ -1,10 +1,6 @@
 import { addMsgApi } from "./../../api/index";
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
-  APIActionRowComponent,
-  APIMessageActionRowComponent
-} from "discord-api-types/v9";
-import {
   Modal,
   // ModalSubmitInteraction,
   SelectMenuComponent,
@@ -12,18 +8,16 @@ import {
   TextInputComponent
 } from "discord-modals";
 import {
-  ButtonInteraction,
   CacheType,
   Interaction,
   MessageActionRow,
-  MessageActionRowComponent,
-  MessageActionRowComponentResolvable,
   MessageButton,
   ModalSubmitInteraction
 } from "discord.js";
 import { findRawMsg } from "../../api";
 import { client } from "../../client";
 import { createBtn } from "../../comps/createBtn";
+import { express_modal_options } from "../../trans";
 
 // const modal: Modal | null = null;
 export const modifiedVerifyExpressModal = ({
@@ -62,18 +56,7 @@ export const modifiedVerifyExpressModal = ({
       new SelectMenuComponent() // We create a Select Menu Component
         .setCustomId("verify-express-select")
         .setPlaceholder("What topic?")
-        .addOptions(
-          {
-            label: "eth2",
-            description: "the now of future.",
-            value: "eth2"
-          },
-          {
-            label: "defi",
-            description: "Some people hate it, some people like it.",
-            value: "defi"
-          }
-        )
+        .addOptions(...express_modal_options)
     );
   return modal;
 };

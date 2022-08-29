@@ -1,3 +1,4 @@
+import { trans } from "./../../trans";
 import { createBtn } from "../../comps/createBtn";
 import { createModalWithInteraction } from "../../comps/createModalWithInteraction";
 import { isAddress } from "@ethersproject/address";
@@ -9,17 +10,17 @@ const { btn: repromptEthAddrbtn, btnCb: repromptCb } = createBtn({
   btnId: "reprompt-EthAddress-btn",
   label: "Wrong ETH Address. Please resubmit.",
   style: "PRIMARY",
-  callbackTop: async (interaction) => {
+  callbackTop: async interaction => {
     await ethPromptModal(interaction);
-  },
+  }
 });
 const { btn: submitEthAddrbtn, btnCb: submitCb } = createBtn({
   btnId: "submit-EthAddress-btn",
   label: "click to input eth address",
   style: "PRIMARY",
-  callbackTop: async (interaction) => {
+  callbackTop: async interaction => {
     await ethPromptModal(interaction);
-  },
+  }
 });
 
 const ethPromptModal = createModalWithInteraction({
@@ -27,17 +28,17 @@ const ethPromptModal = createModalWithInteraction({
   inputs: [
     {
       id: "ask-ethAddress-input",
-      label: "ask-ethAddress-input",
-      style: "SHORT",
-    },
+      label: trans.AddRawMsg.address_modal_label,
+      style: "SHORT"
+    }
   ],
   time: 300000,
-  title: "Get Eth Address",
+  title: trans.AddRawMsg.address_modal_title,
   callbackModal: async (interaction, [userAddress]: string[]) => {
     // invalid eth address
     if (isAddress(userAddress)) {
       await interaction.deferReply({
-        ephemeral: true,
+        ephemeral: true
       });
       // # TODO make sure eth address not existed
       // # TODO send api to collect
@@ -46,25 +47,25 @@ const ethPromptModal = createModalWithInteraction({
       const { success, error } = await updateAddressApi({
         discordId,
         discordName,
-        ethAddress: userAddress,
+        ethAddress: userAddress
       });
       if (success) {
         await interaction.editReply({
-          content: ` eth address right. got u ${userAddress}.`,
+          content: trans.AddRawMsg.address_modal_reply_accept(userAddress)
         });
       } else {
         await interaction.editReply({
-          content: `something went wrong: ${error}.`,
+          content: trans.AddRawMsg.address_modal_reply_reject(error || "")
         });
       }
     } else {
       await interaction.reply({
-        content: "please get the eth address right",
+        content: trans.AddRawMsg.address_modal_reply_wrong_format,
         components: [repromptEthAddrbtn],
-        ephemeral: true,
+        ephemeral: true
       });
     }
-  },
+  }
   // callbackTopToRun: async (interaction) => {
   //   await repromptCb(interaction);
   // },
@@ -72,9 +73,9 @@ const ethPromptModal = createModalWithInteraction({
 
 const { btn: getEthAddressbtnComp, btnCb: promptCb } = createBtn({
   btnId: "prompt-ethAddress-btn",
-  label: "ETH Address",
+  label: trans.AddRawMsg.address_prompt_btn_txt,
   style: "PRIMARY",
-  callbackTop: async (interaction) => {
+  callbackTop: async interaction => {
     // # TODO check has eth address(discordId)
     const discordId = interaction.user.id;
     console.log("dsid:", discordId);
@@ -86,25 +87,25 @@ const { btn: getEthAddressbtnComp, btnCb: promptCb } = createBtn({
     }
     await interaction.deferReply({ ephemeral: true });
     const { success, hasEthAddress, user } = await userHasAddressApi({
-      discordId,
+      discordId
     });
     if (success) {
-      if (hasEthAddress && user) {
+      if (hasEthAddress && user && user.ethAddress) {
         await interaction.editReply({
-          content: `your address is ${user?.ethAddress}`,
+          content: trans.AddRawMsg.address_prompt_existed(user.ethAddress)
         });
       } else {
         // await ethModalPrompt(interaction);
         await interaction.editReply({
-          content: "click to input eth address",
-          components: [submitEthAddrbtn],
+          content: trans.AddRawMsg.address_prompt_ask,
+          components: [submitEthAddrbtn]
         });
       }
     } else {
       //
-      await interaction.editReply("something went wrong.");
+      await interaction.editReply(trans.AddRawMsg.address_prompt_wrong);
     }
-  },
+  }
 });
 
 export const createEthAdressModalContainer = () => {
@@ -114,6 +115,6 @@ export const createEthAdressModalContainer = () => {
       await promptCb(interaction);
       await repromptCb(interaction);
       await submitCb(interaction);
-    },
+    }
   };
 };

@@ -1,6 +1,6 @@
 import {
   APIActionRowComponent,
-  APIMessageActionRowComponent,
+  APIMessageActionRowComponent
 } from "discord-api-types/v9";
 import {
   Client,
@@ -8,10 +8,11 @@ import {
   MessageActionRow,
   MessageActionRowComponent,
   MessageActionRowComponentResolvable,
-  TextChannel,
+  TextChannel
 } from "discord.js";
 import { addRawMsgApi } from "../../api";
 import { CHANNEL_ID, lastest_no_address_discordId } from "../../constants";
+import { trans } from "../../trans";
 
 export const AddRawMsg = async (
   msg: Message<boolean>,
@@ -31,7 +32,7 @@ export const AddRawMsg = async (
       rawMessage: msg.content,
       discordId: msg.author.id,
       discordName: msg.author.username,
-      msgId: msg.id,
+      msgId: msg.id
     };
     try {
       const { success, data } = await addRawMsgApi(msgPayload);
@@ -40,9 +41,8 @@ export const AddRawMsg = async (
         if (data && data.user && !data.user.ethAddress) {
           lastest_no_address_discordId.set("latest", data.user.discordId);
           await (client.channels.cache.get(CHANNEL_ID) as TextChannel).send({
-            content:
-              "Hello here! Let us know your eth address for the orange juice!",
-            components: [btn],
+            content: trans.AddRawMsg.address_prompt,
+            components: [btn]
           });
         }
       }
