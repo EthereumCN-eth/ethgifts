@@ -19,15 +19,4 @@ export const trans = {
   }
 };
 
-export const express_modal_options = [
-  {
-    label: "eth2",
-    description: "the now of future.",
-    value: "eth2"
-  },
-  {
-    label: "defi",
-    description: "Some people hate it, some people like it.",
-    value: "defi"
-  }
-];
+export const express_modal_options = "defi, eth2";

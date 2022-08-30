@@ -53,11 +53,21 @@ export const modifiedVerifyExpressModal = ({
         .setRequired(true) // If it's required or not
     )
     .addComponents(
-      new SelectMenuComponent() // We create a Select Menu Component
+      new TextInputComponent() // We create a Text Input Component
         .setCustomId("verify-express-select")
-        .setPlaceholder("What topic?")
-        .addOptions(...express_modal_options)
+        .setLabel(`options: ${express_modal_options} (lowercase)`)
+        .setStyle("LONG") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
+        .setDefaultValue(url)
+        .setPlaceholder(express_modal_options)
+        .setDefaultValue("")
+        .setRequired(true) // If it's required or not
     );
+  // .addComponents(
+  //   new SelectMenuComponent() // We create a Select Menu Component
+  //     .setCustomId("verify-express-select")
+  //     .setPlaceholder("What topic?")
+  //     .addOptions(...express_modal_options)
+  // );
   return modal;
 };
 
@@ -125,8 +135,9 @@ export const modifiedVerifyBtn = () => {
       //@ts-ignore
       const url = modal.getTextInputValue("verify-express-msg-url");
       //@ts-ignore
-      const topics = modal.getSelectMenuValues("verify-express-select");
-      const [contentType] = topics;
+      const contentType = modal.getTextInputValue("verify-express-select");
+      // const topics = modal.getSelectMenuValues("verify-express-select");
+      // const [contentType] = topics;
       if (msgId && discordId) {
         await modal.deferReply();
         const { success, data } = await addMsgApi({
@@ -144,7 +155,7 @@ export const modifiedVerifyBtn = () => {
         }
       }
       await modal.editReply(
-        `❌ failed; try again later.\n msgId ${msgId} \n; or duplicate msgId(added previously)`
+        `❌ failed; try again later.\n msgId ${msgId} \n; or duplicate msgId(added previously) or invalid option`
       );
       return;
     }
