@@ -1,6 +1,5 @@
 import request from "supertest";
 import { app, prisma } from "../../src/server";
-import { PrismaClient, Prisma, RawExpressMessage } from "@prisma/client";
 
 describe("test /rawMsg/addRawMessage", () => {
   it("input without url", async () => {
@@ -142,7 +141,7 @@ describe("test /msg/addMessage", () => {
       },
     });
     const beforeExpressCount = user?.expressCount;
-    console.log("beforeExpressC", beforeExpressCount);
+    // console.log("beforeExpressC", beforeExpressCount);
     const res = await request(app)
       .post("/msg/addMessage")
       .send({

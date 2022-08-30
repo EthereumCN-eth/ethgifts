@@ -29,7 +29,6 @@ class PrismaTestEnvironment extends NodeEnvironment {
     const url = `${process.env.DATABASE_TEST_URL}?schema=${this.schema}`;
     process.env.DATABASE_URL = url;
     this.global.process.env.DATABASE_URL = url;
-    process.env.NODE_ENV = 'test'
 
     await exec("yarn prisma migrate deploy");
     return super.setup();

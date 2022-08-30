@@ -141,6 +141,7 @@ export const setupAddMessageRoute = (
 
       // const st = await sign(discordId, msgId);
       // console.log("st:", st);
+
       await addToSignatureGenerationQueue(discordId, msgId);
 
       //

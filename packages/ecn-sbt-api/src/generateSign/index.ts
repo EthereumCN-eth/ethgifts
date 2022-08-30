@@ -2,52 +2,61 @@ import Bull, { Job } from "bull";
 import { REDIS } from "./constants";
 import { generateSignature } from "./generateSignature";
 
-const signatureGenerationQueue = new Bull("sign", REDIS);
-signatureGenerationQueue.process(async (job: Job) => {
-  const signStatus = await generateSignature(
-    job.data.discordId,
-    job.data.expressId
-  );
+const signatureGenerationQueue =
+  process.env.NODE_ENV !== "test" && new Bull("sign", REDIS);
 
-  // return signStatus;
-  if (signStatus && signStatus.success) {
-    return signStatus;
-  }
+const setupBull = () => {
+  if (!signatureGenerationQueue) return;
 
-  await job.moveToFailed({ message: "signatureGenerationQueue error" }, true);
-});
+  signatureGenerationQueue.process(async (job: Job) => {
+    const signStatus = await generateSignature(
+      job.data.discordId,
+      job.data.expressId
+    );
 
-signatureGenerationQueue.on("completed", (job, result) => {
-  console.log("completed:", job.data.expressId);
-  return {
-    result: "ok",
-    error: null,
-    status: {
-      signQueue: "completed",
-    },
-  };
-});
+    // return signStatus;
+    if (signStatus && signStatus.success) {
+      return signStatus;
+    }
 
-signatureGenerationQueue.on("failed", function(job, err) {
-  // A job failed with reason `err`!
-  console.log("failed:", err);
-  return;
-});
-signatureGenerationQueue.on("error", (err) => {
-  console.log("error:", err);
-  return {
-    result: "error",
-    error: `fail to excute sign message`,
-    status: {
-      signQueue: "error",
-    },
-  };
-});
+    await job.moveToFailed({ message: "signatureGenerationQueue error" }, true);
+  });
+
+  signatureGenerationQueue.on("completed", (job, result) => {
+    console.log("completed:", job.data.expressId);
+    return {
+      result: "ok",
+      error: null,
+      status: {
+        signQueue: "completed",
+      },
+    };
+  });
+
+  signatureGenerationQueue.on("failed", function(job, err) {
+    // A job failed with reason `err`!
+    console.log("failed:", err);
+    return;
+  });
+  signatureGenerationQueue.on("error", (err) => {
+    // console.log("error:", err);
+    return {
+      result: "error",
+      error: `fail to excute sign message`,
+      status: {
+        signQueue: "error",
+      },
+    };
+  });
+};
+
+setupBull();
 
 const addToSignatureGenerationQueue = async (
   discordId: string,
   expressId: string
 ) => {
+  if (!signatureGenerationQueue) return;
   const option = {
     attempts: 1000,
     backoff: 20000,
