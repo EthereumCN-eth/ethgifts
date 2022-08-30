@@ -1,3 +1,5 @@
+
+require('dotenv').config()
 const NodeEnvironment = require("jest-environment-node").default;
 const randomString = require("randomstring");
 const util = require("util");

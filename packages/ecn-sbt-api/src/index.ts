@@ -1,10 +1,9 @@
+import "dotenv/config";
 import { app } from "./server";
-import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
 // import { sign } from "./generateSign/index";
 // import { signAndSaveSignature } from "./generateSign/queue/sign.queue";
 
-dotenv.config(); // Load the environment variables
 const PORT = process.env.PORT || 3010;
 
 app.use(bodyParser.json());
@@ -37,7 +36,3 @@ app
   .on("error", (e) => {
     console.log("Api error happened: ", e.message);
   });
-
-app.get("", (req, res) => {
-  res.send({ status: "ok" });
-});
