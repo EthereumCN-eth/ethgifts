@@ -1,10 +1,14 @@
 import { Module, CacheModule } from '@nestjs/common';
+import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     CacheModule.register({
       isGlobal: true,
     }),
+    PrismaModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
