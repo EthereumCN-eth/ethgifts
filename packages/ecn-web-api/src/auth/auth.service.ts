@@ -17,6 +17,7 @@ export class AuthService {
     const nonce = generateNonce();
     await this.cacheManager.set(ethAddress, nonce, { ttl: 60 * 2 });
     return {
+      success: true,
       nonce,
     };
   }
@@ -33,19 +34,20 @@ export class AuthService {
         const payload = { ethAddress: ethAddress?.toLowerCase() };
         // const profile = await this.profileService.findOne(payload);
         return {
+          success: true,
           access_token: this.jwtService.sign(payload),
           // profile,
         };
       } else {
         return {
+          success: false,
           access_token: null,
-          profile: null,
         };
       }
     } catch (e) {
       return {
+        success: false,
         access_token: null,
-        profile: null,
       };
     }
   }
