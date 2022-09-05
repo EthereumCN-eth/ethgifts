@@ -10,3 +10,6 @@ export const DOMAIN_EXPRESS_SBT_VERSION =
 export const DOMAIN_EXPRESS_SBT_CHAINID =
   process.env.DOMAIN_EXPRESS_SBT_CHAINID || "";
 export const DB_CONTRACT_TYPE_ID = process.env.DB_CONTRACT_TYPE_ID || "";
+export const PINATA_API_KEY = process.env.PINATA_API_KEY || "";
+export const PINATA_API_SECRET = process.env.PINATA_API_SECRET || "";
+export const PINATA_JWT = process.env.PINATA_JWT || "";
