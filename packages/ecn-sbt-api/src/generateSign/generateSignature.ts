@@ -2,7 +2,7 @@ import { signTicketAndVC } from "./../../../ecn-eip712vc/src/index";
 import { prisma } from "../server";
 import { storeMetaData } from "./generateMetaData";
 import * as config from "./config";
-import { signTicket } from "ecn-eip712vc";
+// import { signTicket } from "ecn-eip712vc";
 import { APPROVER_PRIVATE_KEY } from "./constants";
 
 type TypeContributions = {
@@ -38,18 +38,10 @@ export const generateSignature = async (
     });
 
     if (!user || !user.ethAddress) {
-      // return {
-      //   success: false,
-      //   error: "please register address at first",
-      //   data: null,
-      // };
-      //@ts-ignore
-
       throw new Error("please register address at first");
     }
 
     const expresses = user.expressMessages;
-
     const contributions = expresses.reduce(
       (acc: TypeContributions, item, indx) => {
         acc[indx + 1] = {
@@ -64,26 +56,15 @@ export const generateSignature = async (
     );
 
     // generate metadata URI
-
     const metaDataStatus = await storeMetaData(
       user.ethAddress,
       contributions,
       expresses.length
     );
-    // const metaDataStatus = {
-    //   success: true,
-    //   data: "https://dfafaf",
-    //   error: null,
-    // };
 
     if (metaDataStatus.success === false) {
       console.log(metaDataStatus);
       throw new Error(metaDataStatus.error);
-      // return {
-      //   success: false,
-      //   error: metaDataStatus.error,
-      //   data: null,
-      // };
     }
 
     const metadataURI = metaDataStatus.data;

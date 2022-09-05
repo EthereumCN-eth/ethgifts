@@ -44,8 +44,6 @@ export const generateTicketData = ({
   };
 };
 
-const onTest = true;
-
 const ARPPROVER_WALLET = new ethers.Wallet(APPROVER_PRIVATE_KEY);
 export const APPROVER_ADDRESS = ARPPROVER_WALLET.address;
 export const APPROVER_PUBLIC_KEY = ARPPROVER_WALLET.publicKey;
@@ -57,27 +55,20 @@ export const defaultSetting = {
   SBTContractType: 1,
 };
 
-// export const typedData = {
-//   types: {
-//     mintExpress: [
-//       { name: "receiver", type: "address" },
-//       { name: "metadataURI", type: "string" },
-//       { name: "expressAmount", type: "uint256" },
-//     ],
-//   },
-
-//   domain: {
-//     name: "ExpressSBT",
-//     version: "1",
-//     chainId: 1,
-//     verifyingContract: ExpressSBT_ContractAddress,
-//   },
-
-//   message: {
-//     receiver: "",
-//     metadataURI: "",
-//     expressAmount: 0,
-//   },
-// };
-
 export const CONTRACT_TYPE_ID_DB = Number(DB_CONTRACT_TYPE_ID);
+
+export interface METADATA {
+  name: string;
+  description: string;
+  issuer: string;
+  expressAmount: number;
+  subject: string;
+  contributions: {
+    [index: string]: {
+      expressId: string;
+      content: string;
+      contentURI: string;
+      verifiedDate: string;
+    };
+  };
+}
