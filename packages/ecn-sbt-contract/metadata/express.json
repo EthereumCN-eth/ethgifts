@@ -1,0 +1,21 @@
+{
+    "name": "SBT",
+    "description": "666",
+    "issuer": "",
+    "expressesCounter": 0,
+    "subject": "0xdfhg23...",
+    "contributions:": {
+        "1": {
+            "expresId": "12",
+            "content": "111",
+            "contentURI": "https://example.com",
+            "publishedDate": "2022 0809 .."
+        },
+        "2": {
+            "expresId": "23",
+            "content": "111",
+            "contentURI": "https://example.com",
+            "publishedDate": "2022 0809 .."
+        }
+    }
+}
