@@ -11,12 +11,10 @@ import {
 } from "src/state/dummy";
 import Link from "next/link";
 
+import "@rainbow-me/rainbowkit/styles.css";
+import { Header } from "src/components/layouts/header";
+
 const Home: NextPage = () => {
-  const dummyData = useAppSelector(dummySelector.selectDummyData);
-  const dispatch = useAppDispatch();
-  const onChangeInput = (val: string) => {
-    dispatch(DummyActions.setDummy(val));
-  };
   return (
     <div
       css={(theme) => css`
@@ -25,28 +23,48 @@ const Home: NextPage = () => {
         background-color: ${theme.colors.white};
       `}
     >
-      <h1>Home</h1>
-      <span
-        css={(theme) => css`
-          color: ${theme.colors.black};
-          ${theme.fontSize.std1}
-        `}
-      >
-        {dummyData}
-      </span>
-      <br />
-      <input
-        type={"text"}
-        onChange={(e) => {
-          onChangeInput(e.target.value);
-        }}
-      ></input>
-      <br />
-      <Link href="/second">
-        <a> to second</a>
-      </Link>
+      <Header />
     </div>
   );
 };
+
+// const Home: NextPage = () => {
+//   const dummyData = useAppSelector(dummySelector.selectDummyData);
+//   const dispatch = useAppDispatch();
+//   const onChangeInput = (val: string) => {
+//     dispatch(DummyActions.setDummy(val));
+//   };
+//   return (
+//     <div
+//       css={(theme) => css`
+//         width: 100%;
+//         height: 100vh;
+//         background-color: ${theme.colors.white};
+//       `}
+//     >
+//       <h1>Home</h1>
+//       <ConnectButton />
+//       <span
+//         css={(theme) => css`
+//           color: ${theme.colors.black};
+//           ${theme.fontSize.std1}
+//         `}
+//       >
+//         {dummyData}
+//       </span>
+//       <br />
+//       <input
+//         type={"text"}
+//         onChange={(e) => {
+//           onChangeInput(e.target.value);
+//         }}
+//       ></input>
+//       <br />
+//       <Link href="/second">
+//         <a> to second</a>
+//       </Link>
+//     </div>
+//   );
+// };
 
 export default Home;

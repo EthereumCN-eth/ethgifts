@@ -1,5 +1,4 @@
 import { ThemeProvider as EmotionThemeProvider, css } from "@emotion/react";
-import { reverse } from "dns";
 import { resposiveFontSize } from "./helpers";
 
 const theme = {

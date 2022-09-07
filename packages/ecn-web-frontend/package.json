@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
+    "@rainbow-me/rainbowkit": "^0.5.1",
     "@reduxjs/toolkit": "^1.8.5",
     "ethers": "^5.7.0",
     "next": "12.2.5",
