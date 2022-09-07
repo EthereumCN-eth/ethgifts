@@ -16,8 +16,8 @@ export class AuthController {
     },
   })
   @Post('nonce')
-  async nonce(@Body('ethAddress', new isEthAddressPipe()) ethAddress: string) {
-    return this.authService.nonce({ ethAddress });
+  async nonce() {
+    return this.authService.nonce();
   }
 
   @Post('verify')

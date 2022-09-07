@@ -35,6 +35,8 @@ describe('AppController (e2e)', () => {
       })
       .set('Accept', 'application/json')
       .expect(201);
+    // console.log('res1: ', res.body);
+    // { success: true, nonce: '~~~~' }
     expect(res.body).toHaveProperty('nonce');
     expect(res.body.success).toBe(true);
 
@@ -64,6 +66,11 @@ describe('AppController (e2e)', () => {
       })
       .set('Accept', 'application/json')
       .expect(201);
+    // console.log('res2: ', res2.body);
+    // {
+    //   success: true,
+    //   access_token: 'fdfadfadfasfas'
+    // }
     expect(res2.body).toHaveProperty('access_token');
     expect(res2.body.success).toBe(true);
   });
