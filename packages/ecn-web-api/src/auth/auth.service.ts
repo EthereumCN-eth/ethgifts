@@ -13,9 +13,9 @@ export class AuthService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async nonce({ ethAddress }: { ethAddress: string }) {
+  async nonce() {
     const nonce = generateNonce();
-    await this.cacheManager.set(ethAddress, nonce, { ttl: 60 * 2 });
+    // await this.cacheManager.set(ethAddress, nonce, { ttl: 60 * 2 });
     return {
       success: true,
       nonce,

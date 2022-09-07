@@ -23,7 +23,7 @@ export class isEthAddressPipe implements PipeTransform<any, string> {
     } catch (error) {
       throw new BadRequestException({
         sucess: false,
-        message: 'Validation failed',
+        error: 'Validation failed',
       });
     }
   }

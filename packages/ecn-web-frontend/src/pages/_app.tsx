@@ -9,9 +9,16 @@ import dynamic from "next/dynamic";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import {
+  AuthenticationStatus,
+  getDefaultWallets,
+  RainbowKitAuthenticationProvider,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
 
 import { connectorsForWallets, wallet } from "@rainbow-me/rainbowkit";
+import { useAuthAdapter } from "src/services/auth";
+import { useState } from "react";
 
 const NoSSRWrapper = dynamic(() => import("../state/NoSSRWrapper"), {
   ssr: false,
@@ -57,18 +64,25 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { authstatus, autAdapter } = useAuthAdapter();
+  // console.log("authstatus", authstatus);
   return (
     <NoSSRWrapper>
       <ReduxProvider store={store}>
         <WagmiConfig client={wagmiClient}>
-          <RainbowKitProvider chains={chains} modalSize="compact">
-            <PersistGate persistor={persistor}>
-              <ThemeProvider>
-                <GlobalStyle />
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </PersistGate>
-          </RainbowKitProvider>
+          <RainbowKitAuthenticationProvider
+            adapter={autAdapter}
+            status={authstatus}
+          >
+            <RainbowKitProvider chains={chains} modalSize="compact">
+              <PersistGate persistor={persistor}>
+                <ThemeProvider>
+                  <GlobalStyle />
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </PersistGate>
+            </RainbowKitProvider>
+          </RainbowKitAuthenticationProvider>
         </WagmiConfig>
       </ReduxProvider>
     </NoSSRWrapper>
