@@ -30,9 +30,7 @@ describe('AppController (e2e)', () => {
   it('get nonce and then verify', async () => {
     const res = await request(app.getHttpServer())
       .post('/auth/nonce')
-      .send({
-        ethAddress: JUNK_ADDR,
-      })
+      .send()
       .set('Accept', 'application/json')
       .expect(201);
     // console.log('res1: ', res.body);
