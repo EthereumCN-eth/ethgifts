@@ -70,8 +70,8 @@ export const createModalWithInteraction =
             modalInteraction.user.id === interaction.user.id &&
             modalInteraction.customId === modal.customId,
         });
-      const submitOps = inputs.map(({ label }) =>
-        submitModal.fields.getTextInputValue(label)
+      const submitOps = inputs.map(({ id }) =>
+        submitModal.fields.getTextInputValue(id)
       );
       if (callbackModal) {
         await callbackModal(submitModal, submitOps);
