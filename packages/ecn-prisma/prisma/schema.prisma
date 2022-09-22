@@ -78,6 +78,8 @@ model SBTContractType {
   contractAddress     String
   name                String
   countLevel          Int[]
+  imageLinks          String[]
+  videoLinks          String[]
   chainId             Int
   sbtSignatureRecords SBTSignatureRecord[]
 }
@@ -90,4 +92,32 @@ model SignaturePayload {
   sBTSignatureRecord SBTSignatureRecord?
   expressMessage     ExpressMessage      @relation(fields: [id], references: [id])
   id                 String              @id @unique
+}
+
+model NFT {
+  id              Int      @id @default(autoincrement())
+  contractAddress String
+  name            String
+  symbol          String
+  imageLinks      String[]
+  videoLinks      String[]
+  chainId         Int
+}
+
+model Poap {
+  id         Int      @id @default(autoincrement())
+  eventId    Int
+  name       String
+  imageLinks String[]
+  videoLinks String[]
+  chainId    Int
+}
+
+model Gallery {
+  id             Int      @id @default(autoincrement())
+  typeName       String
+  typeId         Int
+  tags           String[]
+  eventStartTime Int?
+  eventDuration  Int?
 }

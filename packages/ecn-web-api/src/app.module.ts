@@ -1,6 +1,7 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { GalleryModule } from './gallery/gallery.module';
 
 @Module({
   imports: [
@@ -9,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     PrismaModule,
     AuthModule,
+    GalleryModule,
   ],
 })
 export class AppModule {}
