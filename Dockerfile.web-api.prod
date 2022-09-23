@@ -1,0 +1,6 @@
+FROM node
+WORKDIR /app
+COPY ./ ./
+WORKDIR /app/packages/ecn-web-api/
+RUN yarn
+RUN yarn add pm2

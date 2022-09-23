@@ -7,7 +7,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "yarn build && pm2 start dist/index.js",
     "update_prisma": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
-    "prisma-gnerate": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
+    "prisma-generate": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
     "test": "jest"
   },
   "dependencies": {

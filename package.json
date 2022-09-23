@@ -7,8 +7,8 @@
   "scripts": {
     "clean": "lerna clean",
     "boot": "lerna bootstrap",
-    "ogapi": "lerna run --scope=ecn-ogapi start --stream",
-    "discord-bot": "lerna run --scope=ecn-discord-bot start --stream"
+    "discord-bot": "lerna run --scope=ecn-discord-bot start --stream",
+    "prisma-gen": "lerna run --scope=ecn-sbt-api prisma-generate --stream && lerna run --scope=ecn-web-api prisma-generate --stream"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

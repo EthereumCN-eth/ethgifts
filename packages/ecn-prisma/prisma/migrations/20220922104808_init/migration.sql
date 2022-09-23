@@ -46,7 +46,7 @@ CREATE TABLE "SBTSignatureRecord" (
     "sbtContractTypeId" INTEGER NOT NULL,
     "signedVC" TEXT NOT NULL,
     "signaturePayloadId" TEXT NOT NULL,
-    "SignatureData" TEXT NOT NULL,
+    "signatureData" TEXT NOT NULL,
 
     CONSTRAINT "SBTSignatureRecord_pkey" PRIMARY KEY ("id")
 );
@@ -57,6 +57,8 @@ CREATE TABLE "SBTContractType" (
     "contractAddress" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "countLevel" INTEGER[],
+    "imageLinks" TEXT[],
+    "videoLinks" TEXT[],
     "chainId" INTEGER NOT NULL,
 
     CONSTRAINT "SBTContractType_pkey" PRIMARY KEY ("id")
@@ -70,6 +72,43 @@ CREATE TABLE "SignaturePayload" (
     "id" TEXT NOT NULL,
 
     CONSTRAINT "SignaturePayload_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "NFT" (
+    "id" SERIAL NOT NULL,
+    "contractAddress" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "symbol" TEXT NOT NULL,
+    "imageLinks" TEXT[],
+    "videoLinks" TEXT[],
+    "chainId" INTEGER NOT NULL,
+
+    CONSTRAINT "NFT_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Poap" (
+    "id" SERIAL NOT NULL,
+    "eventId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "imageLinks" TEXT[],
+    "videoLinks" TEXT[],
+    "chainId" INTEGER NOT NULL,
+
+    CONSTRAINT "Poap_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Gallery" (
+    "id" SERIAL NOT NULL,
+    "typeName" TEXT NOT NULL,
+    "typeId" INTEGER NOT NULL,
+    "tags" TEXT[],
+    "eventStartTime" INTEGER,
+    "eventDuration" INTEGER,
+
+    CONSTRAINT "Gallery_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
