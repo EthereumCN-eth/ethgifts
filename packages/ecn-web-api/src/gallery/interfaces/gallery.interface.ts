@@ -1,26 +1,26 @@
-export interface Item {
-  [index: number]: {
-    typeName: string;
-    typeId: number;
-    tokenName: string;
-    startTime: number;
-    imageLinks: string[];
-    videoLinks: string[];
-    status: string;
-    tags: string[];
-    SBTLevel: number[] | null;
-    chainId: number | null;
-    contractAddress: string | null;
-    eventIds: number | null;
-  };
-}
+type EventItem = {
+  startTime: number;
+  endTime: number;
+  status: string;
+};
 
-export interface Token {
+type BaseItem = {
+  typeName: string;
   tokenName: string;
-  tokenImageLinks: string[];
-  tokenVideoLinks: string[];
-  chainId?: number;
-  contractAddress?: string;
-  sbtLevels?: number[];
-  eventId?: number;
-}
+  imgaeLinks: string[];
+  videoLinks: string[];
+  chainId: number;
+  tags: string[];
+} & EventItem;
+
+export type NFTItem = {
+  contractAddress: string;
+} & BaseItem;
+
+export type PoapItem = {
+  eventId: number;
+} & BaseItem;
+
+export type SBTItem = {
+  SBTLevel: number[];
+} & BaseItem;

@@ -15,7 +15,7 @@ describe('return a gallery item', () => {
     prisma = module.get<PrismaService>(PrismaService);
 
     const gallery = new GalleryService(prisma, cache);
-    const items = await gallery.acquireData();
+    const items = await gallery.acquireGeneralData();
 
     console.log(items);
   });

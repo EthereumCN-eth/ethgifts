@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Type } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
-import { isEthAddressPipe } from '../shared/pipes/isEthAddress.pipe';
+import { IsEthAddressPipe } from '../shared/pipes/IsEthAddress.pipe';
 import { AuthService } from './auth.service';
 import { VerifyDto } from './dto/verify.dto';
 
