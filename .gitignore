@@ -194,3 +194,4 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,yarn
 
 package-lock.json
+packages/ecn-web-api/prisma/*.crt
