@@ -12,7 +12,7 @@ import storage from "redux-persist/lib/storage";
 import { reducer } from "./reducer";
 import logger from "redux-logger";
 
-const PERSISTED_KEYS: string[] = ["persistDummy"];
+const PERSISTED_KEYS: string[] = ["persistDummy", "global"];
 
 const persistConfig = {
   key: "root",

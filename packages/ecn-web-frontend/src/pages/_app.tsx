@@ -1,6 +1,4 @@
 import type { AppProps } from "next/app";
-import { GlobalStyle } from "../styles/globals";
-import { ThemeProvider } from "../styles/theme";
 import store, { persistor } from "../state/store";
 import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -14,21 +12,28 @@ import {
   getDefaultWallets,
   RainbowKitAuthenticationProvider,
   RainbowKitProvider,
+  lightTheme,
 } from "@rainbow-me/rainbowkit";
 
 import { connectorsForWallets, wallet } from "@rainbow-me/rainbowkit";
-import { useAuthAdapter } from "src/services/auth";
-import { useState } from "react";
+import {
+  ECNRainbowKitAuthenticationProvider,
+  useAuthAdapter,
+} from "src/services/auth";
+import { Chakra } from "@/components/Chakra";
+import "@fontsource/red-rose";
+import { Layout } from "@/components/layouts/layout";
 
-const NoSSRWrapper = dynamic(() => import("../state/NoSSRWrapper"), {
+const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
   ssr: false,
 });
+``;
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.optimism, chain.arbitrum],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY }),
-    publicProvider(),
+    // publicProvider(),
   ]
 );
 
@@ -46,7 +51,7 @@ const connectors = connectorsForWallets([
         chains,
       }),
       wallet.trust({ chains }),
-      wallet.walletConnect({ chains }),
+      // wallet.walletConnect({ chains }),
 
       wallet.coinbase({ chains, appName: "My RainbowKit App" }),
     ],
@@ -64,25 +69,29 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { authstatus, autAdapter } = useAuthAdapter();
-  // console.log("authstatus", authstatus);
   return (
     <NoSSRWrapper>
       <ReduxProvider store={store}>
         <WagmiConfig client={wagmiClient}>
-          <RainbowKitAuthenticationProvider
-            adapter={autAdapter}
-            status={authstatus}
-          >
-            <RainbowKitProvider chains={chains} modalSize="compact">
+          <ECNRainbowKitAuthenticationProvider>
+            <RainbowKitProvider
+              chains={chains}
+              theme={lightTheme({
+                accentColor: "white",
+                accentColorForeground: "black",
+                borderRadius: "large",
+                fontStack: "system",
+              })}
+            >
               <PersistGate persistor={persistor}>
-                <ThemeProvider>
-                  <GlobalStyle />
-                  <Component {...pageProps} />
-                </ThemeProvider>
+                <Chakra>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </Chakra>
               </PersistGate>
             </RainbowKitProvider>
-          </RainbowKitAuthenticationProvider>
+          </ECNRainbowKitAuthenticationProvider>
         </WagmiConfig>
       </ReduxProvider>
     </NoSSRWrapper>

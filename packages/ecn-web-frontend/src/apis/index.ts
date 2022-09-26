@@ -1,4 +1,4 @@
-import { ECN_WEB_API_BASE } from "src/constants";
+import { NEXT_PUBLIC_ECN_WEB_API_BASE } from "src/constants";
 
 const defaultHeaders = {
   Accept: "application/json",
@@ -14,7 +14,7 @@ const AuthHeadersMaker = (token: string) => ({
 function apiMaker<TRequest, TResponse>({ path }: { path: string }) {
   return async function apiSend({ data }: { data: TRequest }) {
     try {
-      const res = await fetch(`${ECN_WEB_API_BASE}${path}`, {
+      const res = await fetch(`${NEXT_PUBLIC_ECN_WEB_API_BASE}${path}`, {
         method: "POST",
         headers: defaultHeaders,
         body: JSON.stringify(data),
@@ -39,7 +39,7 @@ function authApiMaker<TRequest, TResponse>({ path }: { path: string }) {
     token: string;
   }) {
     try {
-      const res = await fetch(`${ECN_WEB_API_BASE}/${path}`, {
+      const res = await fetch(`${NEXT_PUBLIC_ECN_WEB_API_BASE}/${path}`, {
         method: "POST",
         headers: AuthHeadersMaker(token),
         body: JSON.stringify(data),
