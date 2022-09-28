@@ -43,18 +43,12 @@ export class GalleryService {
           item = {};
         }
 
-        const {
-          contractAddress,
-          typeName,
-          imageLinks,
-          videoLinks,
-          chainId,
-          tags,
-        } = item;
+        const { contractAddress, imageLinks, videoLinks, chainId, name } = item;
         //
-        const { eventStartTime, eventDuration } = entry;
+        const { eventStartTime, eventDuration, typeName, tags } = entry;
         // console.log('eventStartTime', eventStartTime);
         return {
+          name,
           contractAddress,
           typeName,
           imageLinks,
