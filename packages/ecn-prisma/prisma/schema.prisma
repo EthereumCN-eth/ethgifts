@@ -118,6 +118,6 @@ model Gallery {
   typeName       String
   typeId         Int
   tags           String[]
-  eventStartTime Int?
-  eventDuration  Int?
+  eventStartTime Int
+  eventDuration  Int
 }

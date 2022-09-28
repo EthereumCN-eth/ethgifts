@@ -2,17 +2,19 @@ import {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
 } from "@rainbow-me/rainbowkit";
-import React, { useCallback, useMemo } from "react";
+import type React from "react";
+import { useCallback, useMemo } from "react";
 import { SiweMessage } from "siwe";
-import { ecnApiClient } from "src/apis";
+
+import type { TsetAuthPayload } from "../state/global";
 import {
   actions as globalActions,
   selectors as globalSelectors,
-  TsetAuthPayload,
 } from "../state/global";
-import { useAppSelector, useAppDispatch } from "src/state/reduxHooks";
+import { ecnApiClient } from "@/apis";
+import { useAppSelector, useAppDispatch } from "@/state/reduxHooks";
 
-const WRONG_NONCE: string = "wrong-nonce";
+const WRONG_NONCE = "wrong-nonce";
 
 export const useAuthAdapter = ({
   setAuthInfo,
@@ -22,10 +24,10 @@ export const useAuthAdapter = ({
   const autAdapter = useMemo(() => {
     return createAuthenticationAdapter({
       getNonce: async () => {
-        const { success, error, nonce } = await ecnApiClient.authNonce({
+        const { success, nonce } = await ecnApiClient.authNonce({
           data: {},
         });
-        if (!success) throw "cannot get nonce";
+        if (!success) throw Error("cannot get nonce");
         return nonce || WRONG_NONCE;
       },
       createMessage: ({ nonce, address, chainId }) => {
@@ -44,24 +46,24 @@ export const useAuthAdapter = ({
       },
       verify: async ({ message, signature }) => {
         setAuthInfo({
-          access_token: null,
+          accessToken: null,
           auth_status: "loading",
         });
-        const { success, access_token } = await ecnApiClient.authVerify({
+        const { success, accessToken } = await ecnApiClient.authVerify({
           data: {
             message: message.prepareMessage(),
             signature,
           },
         });
-        console.log("access_token", access_token);
-        if (access_token) {
+        // console.log("accessToken", accessToken);
+        if (accessToken) {
           setAuthInfo({
-            access_token,
+            accessToken,
             auth_status: "authenticated",
           });
         } else {
           setAuthInfo({
-            access_token: null,
+            accessToken: null,
             auth_status: "unauthenticated",
           });
         }
@@ -69,7 +71,7 @@ export const useAuthAdapter = ({
       },
       signOut: async () => {
         setAuthInfo({
-          access_token: null,
+          accessToken: null,
           auth_status: "unauthenticated",
         });
       },
@@ -88,15 +90,15 @@ export const ECNRainbowKitAuthenticationProvider = ({
   const authStatus = useAppSelector(globalSelectors.selectAuthStatus);
   const dispatch = useAppDispatch();
   const setAuthInfo = useCallback(
-    ({ access_token, auth_status }: TsetAuthPayload) => {
-      dispatch(globalActions.setAuth({ access_token, auth_status }));
+    ({ accessToken, auth_status }: TsetAuthPayload) => {
+      dispatch(globalActions.setAuth({ accessToken, auth_status }));
     },
     [dispatch]
   );
   const { autAdapter } = useAuthAdapter({
     setAuthInfo,
   });
-  console.log("authstatus", authStatus);
+  // console.log("authstatus", authStatus);
   return (
     <RainbowKitAuthenticationProvider adapter={autAdapter} status={authStatus}>
       {children}

@@ -1,5 +1,5 @@
 import "@rainbow-me/rainbowkit/styles.css";
-import {  useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState<{
@@ -20,13 +20,11 @@ const useScrollPosition = () => {
               direction: "up",
               scrollY: curY,
             };
-          } else
-            return {
-              direction: "down",
-              scrollY: curY,
-            };
-          {
           }
+          return {
+            direction: "down",
+            scrollY: curY,
+          };
         });
       });
     window.addEventListener("scroll", updatePosition);
@@ -44,13 +42,13 @@ export const useScrollProgress = () => {
   const progressRef = useRef(0);
   const scrollOpacityRef = useRef(1);
   // console.log("bottom", bottom);
-  console.log("scrollY", scrollY, scrollDirection);
+  // console.log("scrollY", scrollY, scrollDirection);
   // console.log("bottom", bottom);
   if (scrollY < 0.001) {
     progressRef.current = 0;
     scrollOpacityRef.current = 1;
   }
-  if (!isNaN(scrollY)) {
+  if (!Number.isNaN(scrollY)) {
     progressRef.current = Math.min(scrollY / (window.innerHeight - 0), 2);
     scrollOpacityRef.current = 1 - progressRef.current * 2;
   }

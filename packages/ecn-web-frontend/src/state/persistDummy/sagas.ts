@@ -1,5 +1,6 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { call, delay, put, takeEvery, takeLatest } from "redux-saga/effects";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { delay, put, takeLatest } from "redux-saga/effects";
+
 import { sagaActions, actions as persistDummyActions } from "./index";
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
@@ -15,6 +16,7 @@ function* setProcess(action: PayloadAction<string>) {
       type: persistDummyActions.setPersistDummy,
       payload: "ended",
     });
+    // eslint-disable-next-line no-empty
   } catch (e) {}
 }
 

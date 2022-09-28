@@ -1,6 +1,32 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": [
+    "sznm/react",
+    "plugin:react/jsx-runtime",
+    "plugin:@next/next/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        // use an array
+        "project": ["./tsconfig.json"]
+      }
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
   "rules": {
-    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
-  }
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "import/prefer-default-export": [0]
+  },
+  "overrides": [
+    {
+      "files": ["src/state/**/*"],
+      "rules": {
+        "no-param-reassign": ["error", { "props": false }]
+      }
+    }
+  ]
 }

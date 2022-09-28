@@ -1,6 +1,7 @@
 import { NEXT_PUBLIC_ECN_WEB_API_BASE } from "src/constants";
 
 const defaultHeaders = {
+  // eslint-disable-next-line sonarjs/no-duplicate-string
   Accept: "application/json",
   "Content-Type": "application/json",
 };
@@ -30,6 +31,7 @@ function apiMaker<TRequest, TResponse>({ path }: { path: string }) {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function authApiMaker<TRequest, TResponse>({ path }: { path: string }) {
   return async function apiAuthSend({
     data,
@@ -56,16 +58,17 @@ function authApiMaker<TRequest, TResponse>({ path }: { path: string }) {
 }
 
 export const ecnApiClient = {
-  authNonce: apiMaker<{}, { success: boolean; error?: string; nonce?: string }>(
-    {
-      path: "/auth/nonce",
-    }
-  ),
+  authNonce: apiMaker<
+    Record<string, never>,
+    { success: boolean; error?: string; nonce?: string }
+  >({
+    path: "/auth/nonce",
+  }),
   authVerify: apiMaker<
     { message: string; signature: string },
     {
       success: boolean;
-      access_token: null | string;
+      accessToken: null | string;
     }
   >({
     path: "/auth/verify",

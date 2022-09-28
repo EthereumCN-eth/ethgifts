@@ -1,33 +1,29 @@
-import type { AppProps } from "next/app";
-import store, { persistor } from "../state/store";
-import { Provider as ReduxProvider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import dynamic from "next/dynamic";
-// import NoSSRWrapper from "src/state/NoSSRWrapper";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { infuraProvider } from "wagmi/providers/infura";
-import { publicProvider } from "wagmi/providers/public";
 import {
-  AuthenticationStatus,
-  getDefaultWallets,
-  RainbowKitAuthenticationProvider,
   RainbowKitProvider,
   lightTheme,
+  connectorsForWallets,
+  wallet,
 } from "@rainbow-me/rainbowkit";
+import { DefaultSeo } from "next-seo";
+import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import { Provider as ReduxProvider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { infuraProvider } from "wagmi/providers/infura";
 
-import { connectorsForWallets, wallet } from "@rainbow-me/rainbowkit";
-import {
-  ECNRainbowKitAuthenticationProvider,
-  useAuthAdapter,
-} from "src/services/auth";
+import defaultSEOConfig from "../../next-seo.config";
+import store, { persistor } from "../state/store";
+// import NoSSRWrapper from "src/state/NoSSRWrapper";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
-import { Layout } from "@/components/layouts/layout";
+import { Layout } from "@/components/Layouts/Layout";
+import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
 const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
   ssr: false,
 });
-``;
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.optimism, chain.arbitrum],
@@ -53,7 +49,7 @@ const connectors = connectorsForWallets([
       wallet.trust({ chains }),
       // wallet.walletConnect({ chains }),
 
-      wallet.coinbase({ chains, appName: "My RainbowKit App" }),
+      wallet.coinbase({ chains, appName: "ETHGifts" }),
     ],
   },
   // {
@@ -85,6 +81,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             >
               <PersistGate persistor={persistor}>
                 <Chakra>
+                  <Head>
+                    <meta
+                      name="viewport"
+                      content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+                    />
+                  </Head>
+                  <DefaultSeo {...defaultSEOConfig} />
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>

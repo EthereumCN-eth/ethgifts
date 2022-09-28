@@ -1,5 +1,6 @@
-import { Box, Flex } from "@chakra-ui/react";
 import {
+  Box,
+  Flex,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
@@ -17,28 +18,28 @@ export const FAQItem = ({
     {({ isExpanded }) => (
       <>
         <Flex
-          as={"h2"}
+          as="h2"
           p={0}
           m={0}
-          border={"1px solid #7A7A7A"}
+          border="1px solid #7A7A7A"
           borderRadius={4}
-          h={"7.8rem"}
+          h="7.8rem"
           align="center"
         >
-          <AccordionButton h={"100%"} textAlign="center">
+          <AccordionButton h="100%" textAlign="center">
             <Box
               flex="1"
               textAlign="center"
-              fontSize={"2rem"}
+              fontSize="2rem"
               fontFamily="PingFang SC"
             >
               {question}
             </Box>
             {/* <AccordionIcon /> */}
             {isExpanded ? (
-              <AiFillUpCircle size={"2.3rem"} />
+              <AiFillUpCircle size="2.3rem" />
             ) : (
-              <AiFillDownCircle size={"2.3rem"} />
+              <AiFillDownCircle size="2.3rem" />
             )}
           </AccordionButton>
         </Flex>
@@ -49,11 +50,11 @@ export const FAQItem = ({
           px="16%"
           py={10}
           textAlign="center"
-          display={"flex"}
+          display="flex"
           alignItems="center"
-          justifyContent={"center"}
+          justifyContent="center"
           fontFamily="PingFang SC"
-          fontSize={"1rem"}
+          fontSize="1rem"
           lineHeight="taller"
         >
           {answer}

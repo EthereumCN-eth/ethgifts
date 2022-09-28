@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd ./packages/ecn-web-frontend/
+yarn commitlint --edit "$1"

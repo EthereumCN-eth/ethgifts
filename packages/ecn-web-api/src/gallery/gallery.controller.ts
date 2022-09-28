@@ -17,6 +17,18 @@ export class GalleryController {
 
   @Get()
   async nonwallet() {
-    return await this.galleryService.acquireGeneralData();
+    try {
+      const items = await this.galleryService.acquireGeneralData();
+      return {
+        success: true,
+        items,
+      };
+    } catch (e) {
+      console.log(e);
+      return {
+        success: false,
+        items: null,
+      };
+    }
   }
 }

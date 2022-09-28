@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd packages/ecn-web-frontend/
+yarn lint-staged
+yarn type-check

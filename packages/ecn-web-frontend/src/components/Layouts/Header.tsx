@@ -1,16 +1,13 @@
 import {
   Box,
   HStack,
-  IconButton,
   Link,
   ListItem,
   Text,
   UnorderedList,
-  useDisclosure,
+  // useDisclosure,
 } from "@chakra-ui/react";
-import { css } from "@emotion/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
 const navItems = [
   { label: "EthGifts Gallery", href: "#" },
@@ -20,15 +17,15 @@ const navItems = [
 ];
 
 const Header = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
-      as={"header"}
-      display={"flex"}
-      flexDirection={"row"}
-      alignItems={"center"}
-      width={"full"}
-      h={"120px"}
+      as="header"
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      width="full"
+      h="120px"
 
       // css={css`
       //   width: 100%;
@@ -41,20 +38,20 @@ const Header = () => {
       // `}
     >
       <HStack
-        width={"full"}
+        width="full"
         spacing={11}
-        alignItems={"center"}
+        alignItems="center"
         px={65}
-        justify={"space-between"}
+        justify="space-between"
         zIndex={100}
       >
-        <Text fontSize={"56px"} fontWeight={400} fontFamily={"Red Rose"}>
+        <Text fontSize="56px" fontWeight={400} fontFamily="Red Rose">
           EthGifts
         </Text>
 
         <HStack
           flex={1}
-          align={"center"}
+          align="center"
           sx={{
             "[data-rk] &  div button": {
               fontWeight: 400,
@@ -63,19 +60,19 @@ const Header = () => {
           display={{ base: "none", md: "flex" }}
         >
           <UnorderedList
-            justifyContent={"flex-end"}
+            justifyContent="flex-end"
             styleType="none"
             // display={"flex"}
             flex={1}
-            alignItems={"center"}
-            color={"#000000"}
-            fontFamily={"PingFang SC"}
+            alignItems="center"
+            color="#000000"
+            fontFamily="PingFang SC"
             fontWeight={400}
             display={{ base: "none", md: "flex" }}
           >
             {navItems.map((item) => {
               return (
-                <ListItem mr={"44px"} key={item.label} display={"inline-block"}>
+                <ListItem mr="44px" key={item.label} display="inline-block">
                   <Link
                     maxW={64}
                     fontSize="sm"

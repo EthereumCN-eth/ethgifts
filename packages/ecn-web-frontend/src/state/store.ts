@@ -1,16 +1,17 @@
+import type { Middleware } from "@reduxjs/toolkit";
 import {
-  StoreEnhancer,
-  ThunkAction,
-  Action,
+  // StoreEnhancer,
+  // ThunkAction,
+  // Action,
   configureStore,
-  Middleware,
 } from "@reduxjs/toolkit";
-import createSagaMiddleware from "redux-saga";
-import sagas from "./rootSagas";
+import logger from "redux-logger";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import createSagaMiddleware from "redux-saga";
+
 import { reducer } from "./reducer";
-import logger from "redux-logger";
+import sagas from "./rootSagas";
 
 const PERSISTED_KEYS: string[] = ["persistDummy", "global"];
 

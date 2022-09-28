@@ -1,19 +1,15 @@
-import { css } from "@emotion/react";
-
-
-import "@rainbow-me/rainbowkit/styles.css";
-import {
-  MutableRefObject,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from "react";
 import { Box, Flex, VStack } from "@chakra-ui/react";
-import { useScrollProgress } from "./useScrollProgress";
+import { css } from "@emotion/react";
+import "@rainbow-me/rainbowkit/styles.css";
+import throttle from "lodash.throttle";
+import type { MutableRefObject } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
+
 import { DesktopCards } from "./DesktopCards";
-import { throttle } from "lodash";
+import { useScrollProgress } from "./useScrollProgress";
 
 const circleLen = () => {
+  // eslint-disable-next-line no-nested-ternary
   return window.innerWidth * 0.33 > 740 && window.innerWidth * 0.33 < 690
     ? "33vw"
     : window.innerHeight > 690 && window.innerWidth > 690
@@ -23,11 +19,45 @@ const circleLen = () => {
 
 const HEIGHT_WHOLE = "250vh";
 
+const throttledScrollFixedY = (fixedScrollParam: number) => {
+  return throttle(
+    ({
+      fixedTopRef,
+      scrollDirection,
+      scrollY,
+    }: {
+      fixedTopRef: MutableRefObject<number>;
+      scrollDirection: "up" | "down";
+      scrollY: number;
+    }) => {
+      // eslint-disable-next-line sonarjs/no-collapsible-if
+      if (scrollDirection === "down" && scrollY > fixedScrollParam) {
+        if (fixedTopRef.current > scrollY || fixedTopRef.current === 0) {
+          // eslint-disable-next-line no-param-reassign
+          fixedTopRef.current = scrollY;
+        }
+      }
+      // eslint-disable-next-line sonarjs/no-collapsible-if
+      if (scrollDirection === "up" && scrollY < fixedScrollParam) {
+        if (fixedTopRef.current < scrollY || !fixedTopRef.current) {
+          // eslint-disable-next-line no-param-reassign
+          fixedTopRef.current = scrollY;
+        }
+      }
+    },
+    100,
+    {
+      trailing: false,
+      leading: true,
+    }
+  );
+};
+
 export const HomeScrollFixedView = () => {
   const { progressRef, scrollOpacityRef, scrollY, scrollDirection } =
     useScrollProgress();
-  console.log("progressRef.current", progressRef.current);
-  console.log("scrollOpacityRef.current", scrollOpacityRef.current);
+  // console.log("progressRef.current", progressRef.current);
+  // console.log("scrollOpacityRef.current", scrollOpacityRef.current);
   const hBarOpacity =
     progressRef.current > 0.1 ? 1 - scrollOpacityRef.current - 0.15 : 0;
   const vBarOpacity =
@@ -38,33 +68,7 @@ export const HomeScrollFixedView = () => {
   const FIXED_SCROLL_PARAM = useMemo(() => window.innerHeight * 1.3, []);
 
   const debFindScrollFixedY = useMemo(() => {
-    return throttle(
-      ({
-        fixedTopRef,
-        scrollDirection,
-        scrollY,
-      }: {
-        fixedTopRef: MutableRefObject<number>;
-        scrollDirection: "up" | "down";
-        scrollY: number;
-      }) => {
-        if (scrollDirection === "down" && scrollY > FIXED_SCROLL_PARAM) {
-          if (fixedTopRef.current > scrollY || fixedTopRef.current === 0) {
-            fixedTopRef.current = scrollY;
-          }
-        }
-        if (scrollDirection === "up" && scrollY < FIXED_SCROLL_PARAM) {
-          if (fixedTopRef.current < scrollY || !fixedTopRef.current) {
-            fixedTopRef.current = scrollY;
-          }
-        }
-      },
-      100,
-      {
-        trailing: false,
-        leading: true,
-      }
-    );
+    return throttledScrollFixedY(FIXED_SCROLL_PARAM);
   }, [FIXED_SCROLL_PARAM]);
 
   useLayoutEffect(() => {
@@ -95,20 +99,20 @@ export const HomeScrollFixedView = () => {
         {scrollOpacityRef.current > 0 && (
           <VStack
             zIndex={10}
-            h={"full"}
-            w={"full"}
+            h="full"
+            w="full"
             align="center"
-            justify={"center"}
-            position={"fixed"}
+            justify="center"
+            position="fixed"
             top={0}
             left={0}
             spacing={0}
           >
             <Flex
               align="center"
-              justify={"center"}
-              minH={"68vh"}
-              w={"full"}
+              justify="center"
+              minH="68vh"
+              w="full"
               overflow="hidden"
             >
               <div
@@ -170,11 +174,11 @@ export const HomeScrollFixedView = () => {
         )}
         <Flex
           zIndex={5}
-          direction={"column"}
-          h={"100vh"}
-          w={"120vw"}
+          direction="column"
+          h="100vh"
+          w="120vw"
           align="center"
-          justify={"center"}
+          justify="center"
           position={scrollY > FIXED_SCROLL_PARAM ? "sticky" : "fixed"}
           top={
             scrollY > FIXED_SCROLL_PARAM

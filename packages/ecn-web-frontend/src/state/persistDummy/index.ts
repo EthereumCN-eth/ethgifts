@@ -1,5 +1,7 @@
-import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppState } from "src/state/store";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
+
+import type { AppState } from "src/state/store";
 
 export interface PersistDummyState {
   persistDumbData: string;
@@ -19,7 +21,7 @@ export const persistDummySlice = createSlice({
   },
 });
 
-const actions = persistDummySlice.actions;
+const { actions } = persistDummySlice;
 
 const setProcess = createAction<string>(`${persistDummySlice.name}/setProcess`);
 const sagaActions = {

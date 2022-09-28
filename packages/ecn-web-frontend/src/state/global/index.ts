@@ -1,21 +1,23 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppState } from "src/state/store";
-import { AuthenticationStatus } from "@rainbow-me/rainbowkit";
+import type { AuthenticationStatus } from "@rainbow-me/rainbowkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
+import type { AppState } from "src/state/store";
 
 export type TAuthToken = string | null;
 
 export type TsetAuthPayload = {
-  access_token: TAuthToken;
+  accessToken: TAuthToken;
   auth_status: AuthenticationStatus;
 };
 
 export interface GlobalState {
-  access_token: TAuthToken;
+  accessToken: TAuthToken;
   auth_status: AuthenticationStatus;
 }
 
 const initialState: GlobalState = {
-  access_token: null,
+  accessToken: null,
   auth_status: "unauthenticated",
 };
 
@@ -24,7 +26,7 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<TsetAuthPayload>) => {
-      state.access_token = action.payload.access_token;
+      state.accessToken = action.payload.accessToken;
       state.auth_status = action.payload.auth_status;
     },
   },
@@ -36,7 +38,7 @@ const selectors = {
   selectAuthStatus,
 };
 
-const actions = globalSlice.actions;
+const { actions } = globalSlice;
 
 export default globalSlice.reducer;
 
