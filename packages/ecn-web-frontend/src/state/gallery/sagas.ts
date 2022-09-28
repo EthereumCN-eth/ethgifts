@@ -1,20 +1,22 @@
-import { delay, takeLatest } from "redux-saga/effects";
+import { call, delay, put, takeLatest } from "typed-redux-saga/macro";
 
-import { sagaActions } from "./index";
+import { ecnApiClient } from "@/apis";
+
+import { convertGalleryItem } from "./helpers";
+import { sagaActions, actions as galleryActions } from "./index";
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* fetchGalleryItems() {
   try {
-    yield delay(2000);
-    // yield put({
-    //   type: persistDummyActions.setPersistDummy,
-    //   payload: action.payload,
-    // });
+    yield* delay(2000);
+    const items = yield* call(ecnApiClient.gallery, { data: {} });
+    yield* put({
+      type: galleryActions.setGalleryItems,
+      payload: convertGalleryItem(items.items),
+    });
+
     // yield delay(2000);
-    // yield put({
-    //   type: persistDummyActions.setPersistDummy,
-    //   payload: "ended",
-    // });
+
     // eslint-disable-next-line no-empty
   } catch (e) {}
 }
@@ -26,9 +28,9 @@ function* fetchGalleryItems() {
   dispatched while a fetch is already pending, that pending fetch is cancelled
   and only the latest one will be run.
 */
-const GallerySagas = [
+const gallerySagas = [
   takeLatest(sagaActions.fetchGalleryItems, fetchGalleryItems),
   //
 ];
 
-export { GallerySagas };
+export { gallerySagas };

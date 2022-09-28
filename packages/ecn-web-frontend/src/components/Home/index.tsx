@@ -11,92 +11,30 @@ import {
 } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import type { NextPage } from "next";
+import { useEffect } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { FaDiscord, FaTwitter } from "react-icons/fa";
+
+import {
+  selectors as gallerySelectors,
+  sagaActions as gallerySagaActions,
+} from "@/state/gallery";
+import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 
 import { HomeFAQsView } from "./HomeFAQsView";
 import { HomeGalleryView } from "./HomeGalleryView";
 import { HomeScrollFixedView } from "./HomeScrollFixedView";
 
-const BTNTXT = "查看SBT及相关活动";
 // translateY(calc(${15}vh + ${scrollY}px))
-export const dummyGalleryItems = [
-  {
-    tags: [
-      { label: "SBT", variant: "whiteText" },
-      { label: "Ongoing", variant: "whiteBg" },
-    ],
-    imgSrc:
-      "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Toy-Machine-Monster-Sticker-_322489-front-US.jpg",
-    imgAlt: "toy",
-    title: "E群志初级SBT1",
-    desc: "2022年9月",
-    btnTxt: BTNTXT,
-  },
-  {
-    tags: [
-      { label: "SBT", variant: "whiteText" },
-      { label: "Ongoing", variant: "whiteBg" },
-    ],
-    imgSrc:
-      "https://media.titus.de/media/image/b3/fc/65/toy-machine-skateboard-decks-sect-eye-bloodshot-black-vorderansicht-0100322_600x600.jpg",
-    imgAlt: "toy",
-    title: "E群志初级SBT2",
-    desc: "2022年9月",
-    btnTxt: BTNTXT,
-  },
-  {
-    tags: [
-      { label: "SBT", variant: "whiteText" },
-      { label: "Ongoing", variant: "whiteBg" },
-    ],
-    imgSrc:
-      "https://i.etsystatic.com/10170765/r/il/eefcf6/1436657484/il_fullxfull.1436657484_ourm.jpg",
-    imgAlt: "toy",
-    title: "E群志初级SBT",
-    desc: "2022年9月",
-    btnTxt: BTNTXT,
-  },
-  {
-    tags: [
-      { label: "SBT", variant: "whiteText" },
-      { label: "Ongoing", variant: "whiteBg" },
-    ],
-    imgSrc:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbeAP4FQZQG70tz-sOuJLlv7A75OvNkjPKEQ&usqp=CAU",
-    imgAlt: "toy",
-    title: "E群志初级SBT3",
-    desc: "2022年9月",
-    btnTxt: BTNTXT,
-  },
-  {
-    tags: [
-      { label: "SBT", variant: "whiteText" },
-      { label: "Ongoing", variant: "whiteBg" },
-    ],
-    imgSrc:
-      "https://i.etsystatic.com/10170765/r/il/eefcf6/1436657484/il_fullxfull.1436657484_ourm.jpg",
-    imgAlt: "toy",
-    title: "E群志初级SBT4",
-    desc: "2022年9月",
-    btnTxt: BTNTXT,
-  },
-  {
-    tags: [
-      { label: "SBT", variant: "whiteText" },
-      { label: "Ongoing", variant: "whiteBg" },
-    ],
-    imgSrc:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbeAP4FQZQG70tz-sOuJLlv7A75OvNkjPKEQ&usqp=CAU",
-    imgAlt: "toy",
-    title: "E群志初级SBT6",
-    desc: "2022年9月",
-    btnTxt: BTNTXT,
-  },
-];
 
 export const Home: NextPage = () => {
   // const containerRef = useRef(null);
+  const items = useAppSelector(gallerySelectors.selectGalleryItems);
+  const appDispatch = useAppDispatch();
+
+  useEffect(() => {
+    appDispatch(gallerySagaActions.fetchGalleryItems());
+  }, [appDispatch]);
 
   return (
     <div
@@ -109,7 +47,7 @@ export const Home: NextPage = () => {
     >
       <HomeScrollFixedView />
 
-      <HomeGalleryView items={dummyGalleryItems} />
+      <HomeGalleryView items={items} />
       <HomeFAQsView />
       <Center w="full" minH="729px" bg="black" pt="166px" pb="107px">
         <Flex

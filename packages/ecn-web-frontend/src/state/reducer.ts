@@ -1,12 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
+import gallery from "./gallery";
 import global from "./global/index";
-import persistDummy from "./persistDummy/index";
 
 const reducer = combineReducers({
   //
-
-  persistDummy,
+  gallery,
   global,
 });
 

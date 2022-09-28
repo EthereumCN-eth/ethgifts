@@ -1,11 +1,10 @@
-import { all } from "redux-saga/effects";
+import { all } from "typed-redux-saga/macro";
 
-import { persistDummySagas } from "./persistDummy/sagas";
+import { gallerySagas } from "./gallery/sagas";
 
 export default function* sagas() {
-  yield all([
+  yield* all([
     //
-    // ...loginSaga,
-    ...persistDummySagas,
+    ...gallerySagas,
   ]);
 }

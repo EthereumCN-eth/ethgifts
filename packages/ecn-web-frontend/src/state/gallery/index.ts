@@ -3,27 +3,25 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 
 import type { AppState } from "src/state/store";
 
-type Tag = {
-  label: string;
-  variant: string;
-};
+import type { GalleryItemType, GalleryState } from "./types";
 
-export type GalleryItemType = {
-  tags: Tag[];
-  imgSrc: string;
-  imgAlt: string;
-  title: string;
-  desc: string;
-  btnTxt: string;
-};
-
-export type GalleryState = {
-  galleryItems: GalleryItemType[];
-  loading: boolean;
-};
+const dummyGalleryItems = [
+  {
+    tags: [
+      { label: "SBT", variant: "whiteText" },
+      { label: "Ongoing", variant: "whiteBg" },
+    ],
+    imgSrc:
+      "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Toy-Machine-Monster-Sticker-_322489-front-US.jpg",
+    imgAlt: "toy",
+    title: "E群志初级SBT1",
+    desc: "2022年9月",
+    btnTxt: "查看SBT及相关活动",
+  },
+];
 
 const initialState: GalleryState = {
-  galleryItems: [],
+  galleryItems: [...dummyGalleryItems],
   loading: false,
 };
 
@@ -44,10 +42,10 @@ const sagaActions = {
   fetchGalleryItems,
 };
 
-const selectAuthStatus = (state: AppState) => state.global.auth_status;
+const selectGalleryItems = (state: AppState) => state.gallery.galleryItems;
 
 const selectors = {
-  selectAuthStatus,
+  selectGalleryItems,
 };
 
 const { actions } = gallerySlice;

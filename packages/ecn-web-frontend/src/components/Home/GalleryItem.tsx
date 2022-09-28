@@ -26,7 +26,7 @@ export const GalleryItem = ({
   btnTxt,
 }: GiftItemProps) => {
   return (
-    <LinkBox>
+    <LinkBox key={title}>
       <Flex
         w={["50vw", "30vw", "22vw"]}
         h={[

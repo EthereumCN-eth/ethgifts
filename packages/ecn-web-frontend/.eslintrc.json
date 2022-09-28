@@ -17,16 +17,23 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["@jambit/typed-redux-saga"],
+
   "rules": {
     "react/no-unknown-property": ["error", { "ignore": ["css"] }],
-    "import/prefer-default-export": [0]
+    "import/prefer-default-export": [0],
+    "@jambit/typed-redux-saga/use-typed-effects": ["error", "macro"]
   },
   "overrides": [
     {
       "files": ["src/state/**/*"],
       "rules": {
-        "no-param-reassign": ["error", { "props": false }]
-      }
+        "no-param-reassign": ["error", { "props": false }],
+        "@jambit/typed-redux-saga/use-typed-effects": "error",
+        "@jambit/typed-redux-saga/delegate-effects": "error",
+        "@jambit/typed-redux-saga/yield-effects": "error"
+      },
+      "excludedFiles": ["./**/*.spec.ts"]
     }
   ]
 }

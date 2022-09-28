@@ -2,5 +2,13 @@
 [[ "$(uname -a)" = *"MINGW64"* ]] && exit 0
 . "$(dirname "$0")/_/husky.sh"
 
-cd packages/ecn-web-frontend/
-exec < /dev/tty && yarn cz --hook || true
+SRC_PATTERN="packages/ecn-web-frontend/"
+
+if git diff --cached --name-only | grep --quiet "$SRC_PATTERN"
+then
+    cd packages/ecn-web-frontend/
+    exec < /dev/tty && yarn cz --hook || true
+else
+    exit 0
+fi
+
