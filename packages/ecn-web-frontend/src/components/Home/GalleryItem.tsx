@@ -29,8 +29,8 @@ export const GalleryItem = ({
         w={["50vw", "30vw", "22vw"]}
         h={[
           `${(50 / 440) * 682}vw`,
-          `${(30 / 440) * 682}vw`,
-          `${(22 / 440) * 682}vw`,
+          `${(33 / 440) * 682}vw`,
+          `${(26 / 440) * 682}vw`,
         ]}
         direction="column"
         align="flex-start"
@@ -75,16 +75,23 @@ export const GalleryItem = ({
           width="full"
           // flexBasis={126}
           // flex={"1 0 126"}
-          h="19%"
+          minH="19%"
           align="center"
           justify="center"
+          mt="10px"
         >
           <LinkOverlay href="/#">
-            <Text fontWeight={600} fontSize="1rem" fontFamily="PingFang SC">
+            <Text
+              textAlign="center"
+              fontWeight={600}
+              fontSize="1rem"
+              fontFamily="PingFang SC"
+            >
               {title}
             </Text>
           </LinkOverlay>
           <Text
+            mt="5px"
             color="#A7A7A7"
             fontWeight={400}
             fontSize="1rem"
@@ -97,7 +104,8 @@ export const GalleryItem = ({
         <Center
           width="full"
           // flexBasis={43}
-          h="5%"
+          minH="5%"
+
           // flex={"1 0 43"}
         >
           <Button
@@ -111,7 +119,8 @@ export const GalleryItem = ({
               color: "#000",
               bg: "gray.300",
             }}
-            display={["none", "none", "none", "block"]}
+            minW="80%"
+            display={["none", "none", "none", "none", "block"]}
           >
             {btnTxt}
           </Button>

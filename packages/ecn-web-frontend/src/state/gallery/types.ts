@@ -9,6 +9,7 @@ export type GalleryItemType = {
   title: string;
   desc: string;
   btnTxt: string;
+  key: string;
 };
 export type GalleryState = {
   shellItemNumber: 8;

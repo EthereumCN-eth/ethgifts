@@ -15,7 +15,7 @@ export const convertGalleryItem = (
       //   endTime,
       status,
       imageLinks,
-      videoLinks,
+      // videoLinks,
       name,
     } = serverItem;
 
@@ -33,11 +33,16 @@ export const convertGalleryItem = (
           variant: "whiteBg",
         },
       ];
+    const dateObj = new Date(serverItem.startTime * 1000);
+    // const day = dateObj.getDate();
+    const month = dateObj.getMonth();
+    const year = dateObj.getFullYear();
     return {
+      key: `${serverItem.typeName}_${name}`,
       tags,
-      imgSrc: (imageLinks && imageLinks[0]) || (videoLinks && videoLinks[0]),
+      imgSrc: imageLinks && imageLinks[0],
       imgAlt: name,
-      desc: "date",
+      desc: `${year}年${month}月`,
       btnTxt,
       title: name,
     };

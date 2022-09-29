@@ -13,7 +13,7 @@ export const HomeGalleryView = ({
   shellNumber: number;
   loading: boolean;
 }) => {
-  const shellItems = new Array(shellNumber).fill(null).map((v, i) => ({
+  const shellItems = new Array(shellNumber).fill(null).map((_, i) => ({
     key: i,
   }));
   return (
@@ -43,7 +43,7 @@ export const HomeGalleryView = ({
         {!loading &&
           items.map((item) => {
             return (
-              <GridItem key={item.title}>
+              <GridItem key={item.key}>
                 <GalleryItem {...item} />
               </GridItem>
             );

@@ -10,6 +10,7 @@ type GiftItemProps = {
   title: string;
   desc: string;
   btnTxt: string;
+  key: string;
 };
 
 export type { TagType, GiftItemProps };
