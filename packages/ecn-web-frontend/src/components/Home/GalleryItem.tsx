@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Flex,
@@ -8,7 +7,6 @@ import {
   LinkBox,
   LinkOverlay,
   Skeleton,
-  Spinner,
   Tag,
   TagLabel,
   Text,
@@ -53,28 +51,24 @@ export const GalleryItem = ({
           })}
         </HStack>
         <Center width="full" h="62%">
-          {imgSrc && (
-            <Image fit="contain" h="full" w="full" src={imgSrc} alt={imgAlt} />
-          )}
-          {!imgSrc && (
-            <Box position="relative" w="full" h="full">
+          <Image
+            // loading="lazy"
+            loading="lazy"
+            fit="contain"
+            h="full"
+            w="full"
+            src={imgSrc}
+            alt={imgAlt}
+            fallbackStrategy="beforeLoadOrError"
+            fallback={
               <Skeleton
                 startColor="orange.200"
                 endColor="orange.400"
                 w="full"
                 h="full"
               />
-              <Center
-                top={0}
-                left={0}
-                position="absolute"
-                h="full"
-                width="full"
-              >
-                <Spinner />
-              </Center>
-            </Box>
-          )}
+            }
+          />
         </Center>
 
         <VStack

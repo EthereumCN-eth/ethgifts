@@ -11,6 +11,7 @@ export type GalleryItemType = {
   btnTxt: string;
 };
 export type GalleryState = {
+  shellItemNumber: 8;
   galleryItems: GalleryItemType[];
   loading: boolean;
 };

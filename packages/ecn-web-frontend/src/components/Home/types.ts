@@ -5,7 +5,7 @@ type TagType = {
 
 type GiftItemProps = {
   tags: TagType[];
-  imgSrc: string | null;
+  imgSrc: string;
   imgAlt?: string;
   title: string;
   desc: string;

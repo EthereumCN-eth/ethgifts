@@ -30,6 +30,8 @@ import { HomeScrollFixedView } from "./HomeScrollFixedView";
 export const Home: NextPage = () => {
   // const containerRef = useRef(null);
   const items = useAppSelector(gallerySelectors.selectGalleryItems);
+  const shellNumber = useAppSelector(gallerySelectors.selectShellItemNumber);
+  const loading = useAppSelector(gallerySelectors.selectLoading);
   const appDispatch = useAppDispatch();
 
   useEffect(() => {
@@ -47,7 +49,11 @@ export const Home: NextPage = () => {
     >
       <HomeScrollFixedView />
 
-      <HomeGalleryView items={items} />
+      <HomeGalleryView
+        items={items}
+        shellNumber={shellNumber}
+        loading={loading}
+      />
       <HomeFAQsView />
       <Center w="full" minH="729px" bg="black" pt="166px" pb="107px">
         <Flex

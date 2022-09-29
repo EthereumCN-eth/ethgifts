@@ -1,5 +1,5 @@
 import "@rainbow-me/rainbowkit/styles.css";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState<{
@@ -39,16 +39,22 @@ export default useScrollPosition;
 
 export const useScrollProgress = () => {
   const { scrollY, direction: scrollDirection } = useScrollPosition();
+  // nothing shown, before loaded
   const progressRef = useRef(0);
-  const scrollOpacityRef = useRef(1);
-  // console.log("bottom", bottom);
-  // console.log("scrollY", scrollY, scrollDirection);
-  // console.log("bottom", bottom);
-  if (scrollY < 0.001) {
-    progressRef.current = 0;
-    scrollOpacityRef.current = 1;
-  }
-  if (!Number.isNaN(scrollY)) {
+  const scrollOpacityRef = useRef(0);
+
+  const [loaded, setLoaded] = useState<boolean>(false);
+  useEffect(() => {
+    let timer: number;
+    if (!loaded) timer = window.setTimeout(() => setLoaded(true));
+    return () => clearTimeout(timer);
+  }, [loaded]);
+
+  // console.log("scrollOpacityRef", scrollOpacityRef.current);
+  // console.log("scrollY", scrollY);
+  // console.log("progressRef", progressRef.current);
+
+  if (!Number.isNaN(scrollY) && loaded) {
     progressRef.current = Math.min(scrollY / (window.innerHeight - 0), 2);
     scrollOpacityRef.current = 1 - progressRef.current * 2;
   }

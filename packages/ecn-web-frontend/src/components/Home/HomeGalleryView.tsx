@@ -1,11 +1,24 @@
 import { Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 
 import { GalleryItem } from "./GalleryItem";
+import { GalleryShellItem } from "./GalleryShellItem";
 import type { GiftItemProps } from "./types";
 
-export const HomeGalleryView = ({ items }: { items: GiftItemProps[] }) => {
+export const HomeGalleryView = ({
+  items,
+  loading,
+  shellNumber,
+}: {
+  items: GiftItemProps[];
+  shellNumber: number;
+  loading: boolean;
+}) => {
+  const shellItems = new Array(shellNumber).fill(null).map((v, i) => ({
+    key: i,
+  }));
   return (
     <Flex
+      zIndex={100}
       direction="column"
       my={30}
       bg="#0C0601"
@@ -23,13 +36,18 @@ export const HomeGalleryView = ({ items }: { items: GiftItemProps[] }) => {
         columnGap="5.6vw"
         pb="6.5vw"
       >
-        {items.map((item) => {
-          return (
-            <GridItem key={item.title}>
-              <GalleryItem {...item} />
-            </GridItem>
-          );
-        })}
+        {loading &&
+          shellItems.map((sitem) => {
+            return <GalleryShellItem key={sitem.key} />;
+          })}
+        {!loading &&
+          items.map((item) => {
+            return (
+              <GridItem key={item.title}>
+                <GalleryItem {...item} />
+              </GridItem>
+            );
+          })}
       </Grid>
     </Flex>
   );

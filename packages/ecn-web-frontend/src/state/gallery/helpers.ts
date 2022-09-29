@@ -19,16 +19,20 @@ export const convertGalleryItem = (
       name,
     } = serverItem;
 
-    const tags: Tag[] = [
+    let tags: Tag[] = [
       {
         label: serverItem.typeName,
         variant: "whiteText",
       },
-      {
-        label: status,
-        variant: "whiteBg",
-      },
     ];
+    if (status)
+      tags = [
+        ...tags,
+        {
+          label: status,
+          variant: "whiteBg",
+        },
+      ];
     return {
       tags,
       imgSrc: (imageLinks && imageLinks[0]) || (videoLinks && videoLinks[0]),
