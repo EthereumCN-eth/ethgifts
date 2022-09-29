@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-// import { generateSignature } from "../../ecn-sbt-api/src/generateSign/generateSignature";
+// import { generateSignature } from "ecn-sbt-api";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -7,8 +7,11 @@ async function main() {
     data: [
       {
         contractAddress: "0x0ceaea47985c4223e893599597494a35b9845b3d",
-        name: "Ethtigher",
+        name: "EthTiger",
         symbol: "ETHGifts",
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
+        ],
         videoLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
         ],
@@ -37,6 +40,7 @@ async function main() {
         name: "2021 The Year of 0x",
         symbol: "TY0",
         imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmdTy8AmhyikhxCABahQCMfBfcCbM5enNUM1qUs3ELN1D5",
           "https://icloud.mypinata.cloud/ipfs/QmQdYJfjdxiSU2mYnjgDPiL4joveA9Kx7cHoG2yzB9xTbi",
           "https://icloud.mypinata.cloud/ipfs/Qmana5KvWj2uqEvgZKrpcT4HJrcosWm575UXW3FTDaEtM2",
           "https://icloud.mypinata.cloud/ipfs/QmaqcsQTE1jTWbHRexBfGY6RSBfhLDu9r4kb21fB58HjfD",
@@ -49,7 +53,7 @@ async function main() {
         name: "The Merge Panda",
         symbol: "PANDA",
         imageLinks: [
-          "https://icloud.mypinata.cloud/ipfs/QmbV6qK79ibRH8psJsnuf2vjrXLSNAtkCRi8Mx1TAhahzJ",
+          "https://icloud.mypinata.cloud/ipfs/QmPStYeT6wRbQmdAjWHEqUNwnPyAr9SYaqpWhCzsgYTiqz",
         ],
         chainId: 1,
       },
@@ -61,7 +65,11 @@ async function main() {
       contractAddress: "0x11",
       name: "ExpressSBT",
       countLevel: [1, 3, 5],
-      imageLinks: ["a", "b", "c"],
+      imageLinks: [
+        "https://mirror-media.imgix.net/publication-images/cDosw4qHdNtOPrVxYn5CK.jpg?h=540&w=540",
+        "b",
+        "c",
+      ],
       chainId: 1,
     },
   });
@@ -70,7 +78,7 @@ async function main() {
     data: [
       {
         eventId: 42251,
-        name: "The Merge& Weeth",
+        name: "The Merge & Weeth",
         imageLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmdUwiMsxvsV3hp3sHkRTTYGd6zMJyZqeAZFfdk91LEKEd",
         ],
