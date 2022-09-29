@@ -61,7 +61,7 @@ export class GalleryService {
             eventStartTime > Date.now()
               ? 'coming soon'
               : Date.now() > eventStartTime + eventDuration
-              ? 'expired'
+              ? null
               : 'on going',
         } as GalleryItem;
       }),

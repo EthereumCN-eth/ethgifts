@@ -1,7 +1,7 @@
 type EventItem = {
   startTime: number;
   endTime: number;
-  status: string;
+  status: 'coming soon' | 'ongoing' | null;
 };
 
 type BaseItem = {
