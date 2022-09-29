@@ -22,6 +22,7 @@ export const useAuthAdapter = ({
   setAuthInfo: (payload: TsetAuthPayload) => void;
 }) => {
   const autAdapter = useMemo(() => {
+    // console.log("window.location.host", window.location.host);
     return createAuthenticationAdapter({
       getNonce: async () => {
         const { success, nonce } = await ecnApiClient.authNonce({
@@ -49,12 +50,13 @@ export const useAuthAdapter = ({
           accessToken: null,
           auth_status: "loading",
         });
-        const { success, accessToken } = await ecnApiClient.authVerify({
-          data: {
-            message: message.prepareMessage(),
-            signature,
-          },
-        });
+        const { success, access_token: accessToken } =
+          await ecnApiClient.authVerify({
+            data: {
+              message: message.prepareMessage(),
+              signature,
+            },
+          });
         // console.log("accessToken", accessToken);
         if (accessToken) {
           setAuthInfo({

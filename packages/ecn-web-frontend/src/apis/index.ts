@@ -15,7 +15,7 @@ const AuthHeadersMaker = (token: string) => ({
 
 function apiMaker<TRequest, TResponse>({
   path,
-  method,
+  method = "POST",
 }: {
   path: string;
   method?: string;
@@ -23,11 +23,12 @@ function apiMaker<TRequest, TResponse>({
   return async function apiSend({ data }: { data: TRequest }) {
     try {
       const res = await fetch(`${NEXT_PUBLIC_ECN_WEB_API_BASE}${path}`, {
-        method: method || "POST",
+        method,
         headers: defaultHeaders,
-        body: (method === "POST" && JSON.stringify(data)) || undefined,
+        body: method === "POST" ? JSON.stringify(data) : undefined,
       });
       const resjson = await res.json();
+      // console.log("resjson", resjson);
       return resjson as TResponse;
     } catch (error) {
       // console.log(error);
@@ -76,7 +77,7 @@ export const ecnApiClient = {
     { message: string; signature: string },
     {
       success: boolean;
-      accessToken: null | string;
+      access_token: null | string;
     }
   >({
     path: "/auth/verify",

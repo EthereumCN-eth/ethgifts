@@ -24,7 +24,9 @@ export class AuthService {
 
   async verify({ message, signature }: { message: string; signature: string }) {
     try {
+      // console.log('mes', message);
       const siweMessage = new SiweMessage(message);
+
       const fields = await siweMessage.verify({ signature });
       const {
         success,
@@ -45,6 +47,7 @@ export class AuthService {
         };
       }
     } catch (e) {
+      // console.log('auth', e);
       return {
         success: false,
         access_token: null,

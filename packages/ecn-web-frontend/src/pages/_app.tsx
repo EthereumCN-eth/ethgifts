@@ -11,7 +11,7 @@ import Head from "next/head";
 import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { infuraProvider } from "wagmi/providers/infura";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
 import defaultSEOConfig from "../../next-seo.config";
 import store, { persistor } from "../state/store";
@@ -19,6 +19,7 @@ import store, { persistor } from "../state/store";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
 import { Layout } from "@/components/Layouts/Layout";
+import { NEXT_PUBLIC_ALCHEMY_API_KEY } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
 const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
@@ -28,7 +29,8 @@ const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.optimism, chain.arbitrum],
   [
-    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY }),
+    alchemyProvider({ apiKey: NEXT_PUBLIC_ALCHEMY_API_KEY }),
+    // infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY }),
     // publicProvider(),
   ]
 );
