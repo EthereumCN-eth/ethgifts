@@ -8,6 +8,8 @@ import {
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { GalleryModule } from './gallery/gallery.module';
+import { UserModule } from './user/user.module';
+import { SbtModule } from './sbt/sbt.module';
 @Module({
   imports: [
     // LoggerModule.forRoot(),
@@ -17,6 +19,8 @@ import { GalleryModule } from './gallery/gallery.module';
     PrismaModule,
     AuthModule,
     GalleryModule,
+    UserModule,
+    SbtModule,
   ],
 })
 export class AppModule implements NestModule {
