@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "yarn build && pm2 start dist/index.js",
+    "start": "yarn build && pm2 start dist/ecn-sbt-api/src/index.js",
     "update_prisma": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
     "prisma-generate": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
     "test": "jest"

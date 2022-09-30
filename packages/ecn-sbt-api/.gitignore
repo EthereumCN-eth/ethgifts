@@ -204,3 +204,5 @@ dist
 prisma/migrations
 /prisma/client-identity.p12
 /prisma/rootCA.crt
+
+prisma/ca-certificate.crt
