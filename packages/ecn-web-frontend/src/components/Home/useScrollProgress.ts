@@ -1,4 +1,3 @@
-import "@rainbow-me/rainbowkit/styles.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const useScrollPosition = () => {

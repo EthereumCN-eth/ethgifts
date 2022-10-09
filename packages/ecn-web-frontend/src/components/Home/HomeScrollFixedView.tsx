@@ -1,6 +1,5 @@
 import { Box, Flex, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
-import "@rainbow-me/rainbowkit/styles.css";
 import throttle from "lodash.throttle";
 import type { MutableRefObject } from "react";
 import { useLayoutEffect, useMemo, useRef } from "react";

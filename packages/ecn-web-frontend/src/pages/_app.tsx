@@ -21,6 +21,7 @@ import "@fontsource/red-rose";
 import { Layout } from "@/components/Layouts/Layout";
 import { NEXT_PUBLIC_ALCHEMY_API_KEY } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
+import "@rainbow-me/rainbowkit/styles.css";
 
 const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
   ssr: false,
