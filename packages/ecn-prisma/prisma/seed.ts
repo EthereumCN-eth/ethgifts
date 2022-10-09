@@ -57,6 +57,15 @@ async function main() {
         ],
         chainId: 1,
       },
+      {
+        contractAddress: "0xD7648602bBd6d5287A0588E80D3e2eA1c6caf3AF",
+        name: "imToken & ECN Community AMA",
+        symbol: "imToken &amp;amp; ECN",
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmZWvHquvff87Ud3A8FynDiaks6sj9K9Xc1UeedtWCq64A",
+        ],
+        chainId: 42161,
+      },
     ],
   });
 
@@ -128,6 +137,13 @@ async function main() {
       {
         typeName: "nft",
         typeId: 5,
+        tags: [],
+        eventStartTime: 1635243208,
+        eventDuration: 3600,
+      },
+      {
+        typeName: "nft",
+        typeId: 6,
         tags: [],
         eventStartTime: 1635243208,
         eventDuration: 3600,

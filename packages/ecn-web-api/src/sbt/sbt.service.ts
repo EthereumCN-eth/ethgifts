@@ -9,8 +9,19 @@ export class SbtService {
   async findSBTRecordsByETHAddressAndSbtId({
     ethAddress,
     sbtId,
+    jwtEthAddress,
   }: FindSbtsByAddressAndSbtIdDto) {
     try {
+      if (
+        jwtEthAddress.toLowerCase().trim() !== ethAddress.toLowerCase().trim()
+      ) {
+        return {
+          success: false,
+          expressCount: null,
+          records: null,
+          error: Error('jwt address not matched'),
+        };
+      }
       const user = await this.userService.findSBTRecordsByETHAddressAndSbtId({
         ethAddress,
         sbtId,
@@ -19,20 +30,20 @@ export class SbtService {
       if (user) {
         return {
           success: true,
-          user,
+          expressCount: user.expressCount,
           records: user.sbtSignatureRecords,
         };
       } else {
         return {
           success: true,
-          user: null,
+          expressCount: null,
           records: null,
         };
       }
     } catch (e) {
       return {
         success: false,
-        user: null,
+        expressCount: null,
         records: null,
         error: e,
       };

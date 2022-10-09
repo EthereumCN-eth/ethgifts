@@ -9,6 +9,8 @@ type BaseItem = {
   videoLinks: string[];
   chainId: number;
   tags: string[];
+  id: number;
+  name: string;
 } & EventItem;
 
 export type NFTItem = {
