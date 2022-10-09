@@ -33,9 +33,11 @@ export const globalSlice = createSlice({
 });
 
 const selectAuthStatus = (state: AppState) => state.global.auth_status;
+const selectAccessToken = (state: AppState) => state.global.accessToken;
 
 const selectors = {
   selectAuthStatus,
+  selectAccessToken,
 };
 
 const { actions } = globalSlice;

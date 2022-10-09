@@ -12,8 +12,9 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 
-import type { GiftItemProps } from "./types";
+import type { GalleryItemType } from "@/state/gallery/types";
 
 export const GalleryItem = ({
   tags,
@@ -22,7 +23,9 @@ export const GalleryItem = ({
   title,
   desc,
   btnTxt,
-}: GiftItemProps) => {
+  id,
+  typeName,
+}: GalleryItemType) => {
   return (
     <LinkBox key={title}>
       <Flex
@@ -80,16 +83,18 @@ export const GalleryItem = ({
           justify="center"
           mt="10px"
         >
-          <LinkOverlay href="/#">
-            <Text
-              textAlign="center"
-              fontWeight={600}
-              fontSize="1rem"
-              fontFamily="PingFang SC"
-            >
-              {title}
-            </Text>
-          </LinkOverlay>
+          <NextLink href={`/${typeName}/${id}`} passHref>
+            <LinkOverlay>
+              <Text
+                textAlign="center"
+                fontWeight={600}
+                fontSize="1rem"
+                fontFamily="PingFang SC"
+              >
+                {title}
+              </Text>
+            </LinkOverlay>
+          </NextLink>
           <Text
             mt="5px"
             color="#A7A7A7"

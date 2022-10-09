@@ -5,11 +5,12 @@ type EventItem = {
 };
 
 type BaseItem = {
-  name: string;
   imageLinks: string[];
   videoLinks: string[];
   chainId: number;
   tags: string[];
+  id: number;
+  name: string;
 } & EventItem;
 
 export type NFTItem = {

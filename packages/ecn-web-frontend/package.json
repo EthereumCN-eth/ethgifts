@@ -4,7 +4,7 @@
   "private": true,
   "author": "ECN",
   "scripts": {
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && yarn prisma-generate",
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
@@ -17,7 +17,8 @@
     "up-latest": "yarn up --latest",
     "release": "cross-env HUSKY=0 standard-version",
     "push-release": "git push --follow-tags origin main",
-    "prepare": "cd ../../ && husky install packages/ecn-web-frontend/.husky"
+    "prepare": "cd ../../ && husky install packages/ecn-web-frontend/.husky",
+    "prisma-generate": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.9",

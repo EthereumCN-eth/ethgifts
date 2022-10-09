@@ -1,6 +1,7 @@
-import { call, delay, put, takeLeading } from "typed-redux-saga/macro";
+import { call, delay, put, select, takeLeading } from "typed-redux-saga/macro";
 
 import { ecnApiClient } from "@/apis";
+import { selectors as globalSelectors } from "@/state/global/index";
 
 import { convertGalleryItem } from "./helpers";
 import { sagaActions, actions as galleryActions } from "./index";
@@ -34,19 +35,27 @@ function* fetchGalleryItems() {
   yield* delay(3000);
 }
 
-// function* watchFetchGalleryItems() {
-//   yield* ;
-// }
+function* fetchSbtItemByContractId({
+  payload,
+}: ReturnType<typeof sagaActions.fetchSbtItemByContractId>) {
+  const token = yield* select(globalSelectors.selectAccessToken);
+  // console.log("token", token);
+  if (!token) {
+    //
+  } else {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const res = yield* call(ecnApiClient.sbtByContractId, {
+      token,
+      data: payload,
+    });
+    // console.log("res", res);
+  }
+  yield* delay(3000);
+}
 
-/*
-  Alternatively you may use takeLatest.
-
-  Does not allow concurrent fetches of user. If "USER_FETCH_REQUESTED" gets
-  dispatched while a fetch is already pending, that pending fetch is cancelled
-  and only the latest one will be run.
-*/
 const gallerySagas = [
   takeLeading(sagaActions.fetchGalleryItems, fetchGalleryItems),
+  takeLeading(sagaActions.fetchSbtItemByContractId, fetchSbtItemByContractId),
   //
 ];
 

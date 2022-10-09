@@ -1,15 +1,16 @@
 import { Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 
+import type { GalleryItemType } from "@/state/gallery/types";
+
 import { GalleryItem } from "./GalleryItem";
 import { GalleryShellItem } from "./GalleryShellItem";
-import type { GiftItemProps } from "./types";
 
 export const HomeGalleryView = ({
   items,
   loading,
   shellNumber,
 }: {
-  items: GiftItemProps[];
+  items: GalleryItemType[];
   shellNumber: number;
   loading: boolean;
 }) => {

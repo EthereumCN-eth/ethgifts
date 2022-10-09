@@ -42,8 +42,14 @@ export const gallerySlice = createSlice({
 const fetchGalleryItems = createAction(
   `${gallerySlice.name}/fetchGalleryItems`
 );
+
+const fetchSbtItemByContractId = createAction<{
+  ethAddress: string;
+  id: number;
+}>(`${gallerySlice.name}/fetchSbtItemByContractId`);
 const sagaActions = {
   fetchGalleryItems,
+  fetchSbtItemByContractId,
 };
 
 const selectGalleryItems = (state: AppState) => state.gallery.galleryItems;

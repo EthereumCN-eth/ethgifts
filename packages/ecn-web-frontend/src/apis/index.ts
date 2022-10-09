@@ -1,3 +1,5 @@
+import type { SBTSignatureRecord } from "@prisma/client";
+
 import type { GalleryServerItem } from "@/types/gallery.interface";
 import { NEXT_PUBLIC_ECN_WEB_API_BASE } from "src/constants";
 
@@ -50,7 +52,7 @@ function authApiMaker<TRequest, TResponse>({ path }: { path: string }) {
     token: string;
   }) {
     try {
-      const res = await fetch(`${NEXT_PUBLIC_ECN_WEB_API_BASE}/${path}`, {
+      const res = await fetch(`${NEXT_PUBLIC_ECN_WEB_API_BASE}${path}`, {
         method: "POST",
         headers: AuthHeadersMaker(token),
         body: JSON.stringify(data),
@@ -92,6 +94,25 @@ export const ecnApiClient = {
   >({
     path: "/gallery",
     method: "GET",
+  }),
+  sbtByContractId: authApiMaker<
+    {
+      ethAddress: string;
+      id: number;
+    },
+    | {
+        success: true;
+        expressCount: number | null;
+        records: SBTSignatureRecord[] | null;
+        // error?: Error;
+      }
+    | {
+        success: false;
+        expressCount: null;
+        error?: Error;
+      }
+  >({
+    path: "/sbt/address/id",
   }),
 };
 

@@ -9,6 +9,8 @@ export type GalleryItemType = {
   title: string;
   desc: string;
   btnTxt: string;
+  id: number;
+  typeName: string;
   key: string;
 };
 export type GalleryState = {

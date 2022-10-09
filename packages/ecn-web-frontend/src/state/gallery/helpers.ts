@@ -1,4 +1,4 @@
-import type { GalleryServerItem as GelleryServerItem } from "@/types/gallery.interface";
+import type { GalleryServerItem } from "@/types/gallery.interface";
 
 import type { GalleryItemType, Tag } from "./types";
 
@@ -7,15 +7,18 @@ const btnTxt = "查看SBT及相关活动";
 //   { label: "SBT", variant: "whiteText" },
 //   { label: "Ongoing", variant: "whiteBg" },
 export const convertGalleryItem = (
-  serverItems: GelleryServerItem[]
+  serverItems: GalleryServerItem[]
 ): GalleryItemType[] => {
   return serverItems.map((serverItem) => {
     const {
       //   startTime,
       //   endTime,
+      id,
       status,
       imageLinks,
+      typeName,
       // videoLinks,
+
       name,
     } = serverItem;
 
@@ -45,28 +48,8 @@ export const convertGalleryItem = (
       desc: `${year}年${month}月`,
       btnTxt,
       title: name,
+      id,
+      typeName,
     };
   });
 };
-// const tags: Tag[] = [
-//   {
-//     label: serverItem.typeName,
-//     variant: "whiteText",
-//   },
-//   {
-//     label: status,
-//     variant: whiteBg,
-//   },
-// ];
-// if (serverItem.typeName === "nft") {
-//   const { name } = serverItem;
-
-// }
-// if (serverItem.typeName === "poap") {
-//   const {} = serverItem;
-// } else if (serverItem.typeName === "sbt") {
-//   const {} = serverItem;
-// } else {
-//   // never
-// }
-//   });
