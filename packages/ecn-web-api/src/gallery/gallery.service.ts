@@ -1,7 +1,14 @@
 import { Injectable, CACHE_MANAGER, Inject } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Cache } from 'cache-manager';
-import { GalleryItem } from './interfaces/gallery.interface';
+import {
+  GalleryItem,
+  BaseItem,
+  SBTItem,
+  NFTItem,
+  PoapItem,
+} from './interfaces/gallery.interface';
+import { GalleryItemBase, NFT, Poap, SBTContractType } from '@prisma/client';
 // import { NFT, Poap, SBTContractType } from '@prisma/client';
 // import { array } from 'yup';
 
@@ -13,7 +20,7 @@ export class GalleryService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache, // private items: Item,
   ) {}
 
-  async acquireGeneralData() {
+  async acquireGeneralData(): Promise<GalleryItem[]> {
     const cachedItems = await this.cacheManager.get<GalleryItem[]>(
       GALLERY_CACHE_KEY,
     );
@@ -23,50 +30,102 @@ export class GalleryService {
     // console.log('no cache');
     // no cache
     //
-    const gallery = await this.prisma.gallery.findMany();
-    const nfts = await this.prisma.nFT.findMany();
-    const sbts = await this.prisma.sBTContractType.findMany();
-    const poaps = await this.prisma.poap.findMany();
 
-    // console.log(gallery);
-    const galleryItems = await Promise.all(
-      gallery.map(async (entry) => {
-        let item;
-        if (entry.typeName === 'nft') {
-          item = nfts.find((element) => element.id === entry.typeId);
-        } else if (entry.typeName === 'poap') {
-          item = poaps.find((element) => element.id === entry.typeId);
-        } else if (entry.typeName === 'sbt') {
-          item = sbts.find((element) => element.id === entry.typeId);
-        } else {
-          //  not gonna happen if database inputed correctly
-          item = {};
-        }
+    const nftsPromise = this.prisma.nFT.findMany({
+      include: {
+        galleryItemBase: true,
+      },
+    });
+    const sbtsPromise = this.prisma.sBTContractType.findMany({
+      include: {
+        galleryItemBase: true,
+      },
+    });
+    const poapsPromise = this.prisma.poap.findMany({
+      include: {
+        galleryItemBase: true,
+      },
+    });
 
-        const { contractAddress, imageLinks, videoLinks, chainId, name } = item;
-        //
-        const { eventStartTime, eventDuration, typeName, tags, typeId } = entry;
-        // console.log('eventStartTime', eventStartTime);
-        return {
-          name,
+    const [nfts, sbts, poaps] = await Promise.all([
+      nftsPromise,
+      sbtsPromise,
+      poapsPromise,
+    ]);
+
+    const galleryItems = [...nfts, ...sbts, ...poaps].map((item) => {
+      let additionalProps:
+        | Omit<SBTItem, keyof BaseItem>
+        | Omit<NFTItem, keyof BaseItem>
+        | Omit<PoapItem, keyof BaseItem>;
+      if ('countLevel' in item) {
+        const {
           contractAddress,
-          id: typeId,
-          typeName,
+          countLevel: SBTLevel,
+          galleryItemBase: { galleryItemType: typeName },
+        } = item;
+        additionalProps = {
+          contractAddress,
+          SBTLevel,
+          typeName: 'sbt',
+        };
+      } else if ('poapEventId' in item) {
+        const {
+          poapEventId: eventId,
+          galleryItemBase: { galleryItemType: typeName },
+        } = item;
+        additionalProps = {
+          eventId,
+          typeName: 'poap',
+        };
+      } else {
+        const {
+          contractAddress,
+          galleryItemBase: { galleryItemType: typeName },
+        } = item;
+        additionalProps = {
+          contractAddress,
+          typeName: 'nft',
+        };
+      }
+      const {
+        galleryItemBase: {
+          eventDuration,
+          eventStartTime,
+          tags,
+
           imageLinks,
           videoLinks,
           chainId,
-          tags,
-          startTime: eventStartTime,
-          endTime: eventStartTime + eventDuration,
-          status:
-            eventStartTime > Date.now()
-              ? 'coming soon'
-              : Date.now() > eventStartTime + eventDuration
-              ? null
-              : 'on going',
-        } as GalleryItem;
-      }),
-    );
+          name,
+        },
+        id,
+        contractAddress,
+      } = item;
+
+      const commonProps: BaseItem = {
+        endTime: eventStartTime + eventDuration,
+        startTime: eventStartTime,
+        tags,
+        imageLinks,
+        videoLinks,
+        chainId,
+        name,
+        id,
+        status:
+          eventStartTime > Date.now()
+            ? 'coming soon'
+            : Date.now() > eventStartTime + eventDuration
+            ? null
+            : 'ongoing',
+      };
+
+      return {
+        ...additionalProps,
+        ...commonProps,
+      };
+    });
+
     await this.cacheManager.set(GALLERY_CACHE_KEY, galleryItems, { ttl: 300 });
     return galleryItems;
   }

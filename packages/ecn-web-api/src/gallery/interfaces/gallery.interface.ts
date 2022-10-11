@@ -4,7 +4,7 @@ type EventItem = {
   status: 'coming soon' | 'ongoing' | null;
 };
 
-type BaseItem = {
+export type BaseItem = {
   imageLinks: string[];
   videoLinks: string[];
   chainId: number;
@@ -25,7 +25,7 @@ export type PoapItem = {
 
 export type SBTItem = {
   typeName: 'sbt';
-  eventId: number;
+  // eventId: number;
   contractAddress: string;
   SBTLevel: number[];
 } & BaseItem;
