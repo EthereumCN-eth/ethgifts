@@ -6,7 +6,6 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
 import Head from "next/head";
 import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -27,10 +26,7 @@ import {
   NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY,
 } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
-
-const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
-  ssr: false,
-});
+import "@rainbow-me/rainbowkit/styles.css";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.arbitrum],
@@ -82,38 +78,36 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NoSSRWrapper>
-      <ReduxProvider store={store}>
-        <WagmiConfig client={wagmiClient}>
-          <ECNRainbowKitAuthenticationProvider>
-            <RainbowKitProvider
-              chains={chains}
-              theme={lightTheme({
-                accentColor: "white",
-                accentColorForeground: "black",
-                borderRadius: "large",
-                fontStack: "system",
-              })}
-            >
-              <PersistGate persistor={persistor}>
-                <Chakra>
-                  <Head>
-                    <meta
-                      name="viewport"
-                      content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-                    />
-                  </Head>
-                  <DefaultSeo {...defaultSEOConfig} />
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </Chakra>
-              </PersistGate>
-            </RainbowKitProvider>
-          </ECNRainbowKitAuthenticationProvider>
-        </WagmiConfig>
-      </ReduxProvider>
-    </NoSSRWrapper>
+    <ReduxProvider store={store}>
+      <WagmiConfig client={wagmiClient}>
+        <ECNRainbowKitAuthenticationProvider>
+          <RainbowKitProvider
+            chains={chains}
+            theme={lightTheme({
+              accentColor: "white",
+              accentColorForeground: "black",
+              borderRadius: "large",
+              fontStack: "system",
+            })}
+          >
+            <PersistGate persistor={persistor}>
+              <Chakra>
+                <Head>
+                  <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+                  />
+                </Head>
+                <DefaultSeo {...defaultSEOConfig} />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </Chakra>
+            </PersistGate>
+          </RainbowKitProvider>
+        </ECNRainbowKitAuthenticationProvider>
+      </WagmiConfig>
+    </ReduxProvider>
   );
 }
 
