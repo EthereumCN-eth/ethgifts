@@ -5,21 +5,6 @@ import type { AppState } from "src/state/store";
 
 import type { GalleryItemType, GalleryState } from "./types";
 
-// const dummyGalleryItems = [
-//   {
-//     tags: [
-//       { label: "SBT", variant: "whiteText" },
-//       { label: "Ongoing", variant: "whiteBg" },
-//     ],
-//     imgSrc:
-//       "https://scene7.zumiez.com/is/image/zumiez/product_main_medium/Toy-Machine-Monster-Sticker-_322489-front-US.jpg",
-//     imgAlt: "toy",
-//     title: "E群志初级SBT1",
-//     desc: "2022年9月",
-//     btnTxt: "查看SBT及相关活动",
-//   },
-// ];
-
 const initialState: GalleryState = {
   shellItemNumber: 8,
   galleryItems: [],
@@ -31,7 +16,7 @@ export const gallerySlice = createSlice({
   initialState,
   reducers: {
     setGalleryItems: (state, action: PayloadAction<GalleryItemType[]>) => {
-      state.galleryItems = action.payload;
+      return { ...state, galleryItems: action.payload };
     },
     update: (state, action: PayloadAction<Partial<GalleryState>>) => {
       return { ...state, ...action.payload };
@@ -39,9 +24,9 @@ export const gallerySlice = createSlice({
   },
 });
 
-const fetchGalleryItems = createAction(
-  `${gallerySlice.name}/fetchGalleryItems`
-);
+const fetchGalleryItems = createAction<{
+  address: string | undefined;
+}>(`${gallerySlice.name}/fetchGalleryItems`);
 
 const fetchSbtItemByContractId = createAction<{
   ethAddress: string;

@@ -1,13 +1,31 @@
+import { erc721ABI } from "wagmi";
+
 import type { GalleryServerItem } from "@/types/gallery.interface";
 
 import type { GalleryItemType, Tag } from "./types";
 
 const btnTxt = "查看SBT及相关活动";
 
-//   { label: "SBT", variant: "whiteText" },
-//   { label: "Ongoing", variant: "whiteBg" },
+const constructContractReadObj = (
+  address: string | undefined,
+  item: GalleryServerItem
+) => {
+  if (address && (item.typeName === "nft" || item.typeName === "sbt")) {
+    return {
+      addressOrName: item.contractAddress,
+      chainId: item.chainId,
+      contractInterface: erc721ABI,
+      functionName: "balanceOf",
+      args: [address],
+    };
+  }
+  return null;
+
+  // return null;
+};
 export const convertGalleryItem = (
-  serverItems: GalleryServerItem[]
+  serverItems: GalleryServerItem[],
+  address: string | undefined
 ): GalleryItemType[] => {
   return serverItems.map((serverItem) => {
     const {
@@ -40,6 +58,8 @@ export const convertGalleryItem = (
     // const day = dateObj.getDate();
     const month = dateObj.getMonth();
     const year = dateObj.getFullYear();
+
+    const contractReadObj = constructContractReadObj(address, serverItem);
     return {
       key: `${serverItem.typeName}_${name}`,
       tags,
@@ -50,6 +70,7 @@ export const convertGalleryItem = (
       title: name,
       id,
       typeName,
-    };
+      contractReadObj,
+    } as GalleryItemType;
   });
 };

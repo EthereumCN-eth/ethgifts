@@ -13,6 +13,7 @@ import type { NextPage } from "next";
 import { useEffect } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { FaDiscord, FaTwitter } from "react-icons/fa";
+import { useAccount } from "wagmi";
 
 import {
   selectors as gallerySelectors,
@@ -28,14 +29,15 @@ import { HomeScrollFixedView } from "./HomeScrollFixedView";
 
 export const Home: NextPage = () => {
   // const containerRef = useRef(null);
+  const { address } = useAccount();
   const items = useAppSelector(gallerySelectors.selectGalleryItems);
   const shellNumber = useAppSelector(gallerySelectors.selectShellItemNumber);
   const loading = useAppSelector(gallerySelectors.selectLoading);
   const appDispatch = useAppDispatch();
 
   useEffect(() => {
-    appDispatch(gallerySagaActions.fetchGalleryItems());
-  }, [appDispatch]);
+    appDispatch(gallerySagaActions.fetchGalleryItems({ address }));
+  }, [address, appDispatch]);
 
   return (
     <div

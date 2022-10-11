@@ -2,7 +2,9 @@ import { Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 
 import type { GalleryItemType } from "@/state/gallery/types";
 
-import { GalleryItem } from "./GalleryItem";
+import { GalleryNFTItem } from "./GalleryNFTItem";
+import { GalleryPoapItem } from "./GalleryPoapItem";
+import { GallerySBTItem } from "./GallerySBTItem";
 import { GalleryShellItem } from "./GalleryShellItem";
 
 export const HomeGalleryView = ({
@@ -45,7 +47,9 @@ export const HomeGalleryView = ({
           items.map((item) => {
             return (
               <GridItem key={item.key}>
-                <GalleryItem {...item} />
+                {item.typeName === "nft" && <GalleryNFTItem {...item} />}
+                {item.typeName === "sbt" && <GallerySBTItem {...item} />}
+                {item.typeName === "poap" && <GalleryPoapItem {...item} />}
               </GridItem>
             );
           })}

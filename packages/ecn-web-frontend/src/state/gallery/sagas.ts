@@ -7,7 +7,9 @@ import { convertGalleryItem } from "./helpers";
 import { sagaActions, actions as galleryActions } from "./index";
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchGalleryItems() {
+function* fetchGalleryItems({
+  payload: { address },
+}: ReturnType<typeof sagaActions.fetchGalleryItems>) {
   try {
     yield* put({
       type: galleryActions.update,
@@ -16,7 +18,7 @@ function* fetchGalleryItems() {
     const items = yield* call(ecnApiClient.gallery, { data: {} });
     yield* put({
       type: galleryActions.setGalleryItems,
-      payload: convertGalleryItem(items.items),
+      payload: convertGalleryItem(items.items, address),
     });
     yield* put({
       type: galleryActions.update,

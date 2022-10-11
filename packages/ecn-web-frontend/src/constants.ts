@@ -1,4 +1,10 @@
 export const NEXT_PUBLIC_ECN_WEB_API_BASE =
   process.env.NEXT_PUBLIC_ECN_WEB_API_BASE || "http://localhost:3020";
-export const NEXT_PUBLIC_ALCHEMY_API_KEY =
-  process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || "";
+export const NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY =
+  process.env.NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY || "";
+
+export const NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS =
+  process.env.NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS || "";
+
+export const NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS =
+  process.env.NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS || "";

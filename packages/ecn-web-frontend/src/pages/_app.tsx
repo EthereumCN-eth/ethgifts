@@ -12,6 +12,8 @@ import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { publicProvider } from "wagmi/providers/public";
 
 import defaultSEOConfig from "../../next-seo.config";
 import store, { persistor } from "../state/store";
@@ -19,20 +21,31 @@ import store, { persistor } from "../state/store";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
 import { Layout } from "@/components/Layouts/Layout";
-import { NEXT_PUBLIC_ALCHEMY_API_KEY } from "@/constants";
+import {
+  NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
+  NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
+  NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY,
+} from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
-import "@rainbow-me/rainbowkit/styles.css";
 
 const NoSSRWrapper = dynamic(() => import("../components/NoSSRWrapper"), {
   ssr: false,
 });
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.optimism, chain.arbitrum],
+  [chain.mainnet, chain.arbitrum],
   [
-    alchemyProvider({ apiKey: NEXT_PUBLIC_ALCHEMY_API_KEY }),
-    // infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY }),
-    // publicProvider(),
+    alchemyProvider({ apiKey: NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY }),
+    jsonRpcProvider({
+      rpc: (rpcchain) => {
+        if (rpcchain.id !== chain.arbitrum.id) return null;
+        return {
+          http: NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
+          webSocket: NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
+        };
+      },
+    }),
+    publicProvider(),
   ]
 );
 

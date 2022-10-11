@@ -8,6 +8,7 @@ import {
   // useDisclosure,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import "@rainbow-me/rainbowkit/styles.css";
 
 const navItems = [
   { label: "EthGifts Gallery", href: "#" },
