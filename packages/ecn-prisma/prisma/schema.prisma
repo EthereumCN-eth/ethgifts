@@ -73,15 +73,9 @@ model SBTSignatureRecord {
   signatureData      String
 }
 
-model SBTContractType {
-  id                  Int                  @id @default(autoincrement())
-  contractAddress     String
-  name                String
-  countLevel          Int[]
-  imageLinks          String[]
-  videoLinks          String[]
-  chainId             Int
-  sbtSignatureRecords SBTSignatureRecord[]
+enum TokenType {
+  ERC721
+  ERC1155
 }
 
 model SignaturePayload {
@@ -94,30 +88,56 @@ model SignaturePayload {
   id                 String              @id @unique
 }
 
+enum GalleryItemType {
+  poap
+  nft
+  sbt
+}
+
+model GalleryItemBase {
+  id             Int       @id @default(autoincrement())
+  name           String
+  imageLinks     String[]
+  videoLinks     String[]
+  chainId        Int
+  tags           String[]
+  tokenType      TokenType @default(ERC721)
+  tokenId        String? //1155 token id
+  eventStartTime Int?
+  eventDuration  Int?
+
+  galleryItemType GalleryItemType
+  onShelf         Boolean
+
+  SBTContractType SBTContractType?
+  NFT             NFT?
+  Poap            Poap?
+}
+
+model SBTContractType {
+  id                Int             @id @default(autoincrement())
+  contractAddress   String
+  galleryItemBase   GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
+  galleryItemBaseId Int             @unique
+
+  countLevel Int[]
+
+  sbtSignatureRecords SBTSignatureRecord[]
+}
+
 model NFT {
-  id              Int      @id @default(autoincrement())
-  contractAddress String
-  name            String
-  symbol          String
-  imageLinks      String[]
-  videoLinks      String[]
-  chainId         Int
+  id                Int             @id @default(autoincrement())
+  contractAddress   String
+  galleryItemBase   GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
+  galleryItemBaseId Int             @unique
+
+  symbol String
 }
 
 model Poap {
-  id         Int      @id @default(autoincrement())
-  eventId    Int
-  name       String
-  imageLinks String[]
-  videoLinks String[]
-  chainId    Int
-}
-
-model Gallery {
-  id             Int      @id @default(autoincrement())
-  typeName       String
-  typeId         Int
-  tags           String[]
-  eventStartTime Int
-  eventDuration  Int
+  id                Int             @id @default(autoincrement())
+  contractAddress   String?
+  poapEventId       Int
+  galleryItemBase   GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
+  galleryItemBaseId Int             @unique
 }

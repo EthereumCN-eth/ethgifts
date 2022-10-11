@@ -1,3 +1,9 @@
+-- CreateEnum
+CREATE TYPE "TokenType" AS ENUM ('ERC721', 'ERC1155');
+
+-- CreateEnum
+CREATE TYPE "GalleryItemType" AS ENUM ('poap', 'nft', 'sbt');
+
 -- CreateTable
 CREATE TABLE "RawExpressMessage" (
     "id" TEXT NOT NULL,
@@ -52,19 +58,6 @@ CREATE TABLE "SBTSignatureRecord" (
 );
 
 -- CreateTable
-CREATE TABLE "SBTContractType" (
-    "id" SERIAL NOT NULL,
-    "contractAddress" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "countLevel" INTEGER[],
-    "imageLinks" TEXT[],
-    "videoLinks" TEXT[],
-    "chainId" INTEGER NOT NULL,
-
-    CONSTRAINT "SBTContractType_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "SignaturePayload" (
     "metadataURI" TEXT NOT NULL,
     "receiverETHAddress" TEXT NOT NULL,
@@ -75,14 +68,39 @@ CREATE TABLE "SignaturePayload" (
 );
 
 -- CreateTable
-CREATE TABLE "NFT" (
+CREATE TABLE "GalleryItemBase" (
     "id" SERIAL NOT NULL,
-    "contractAddress" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "symbol" TEXT NOT NULL,
     "imageLinks" TEXT[],
     "videoLinks" TEXT[],
     "chainId" INTEGER NOT NULL,
+    "tags" TEXT[],
+    "tokenType" "TokenType" NOT NULL DEFAULT 'ERC721',
+    "tokenId" TEXT,
+    "eventStartTime" INTEGER,
+    "eventDuration" INTEGER,
+    "galleryItemType" "GalleryItemType" NOT NULL,
+    "onShelf" BOOLEAN NOT NULL,
+
+    CONSTRAINT "GalleryItemBase_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "SBTContractType" (
+    "id" SERIAL NOT NULL,
+    "contractAddress" TEXT NOT NULL,
+    "galleryItemBaseId" INTEGER NOT NULL,
+    "countLevel" INTEGER[],
+
+    CONSTRAINT "SBTContractType_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "NFT" (
+    "id" SERIAL NOT NULL,
+    "contractAddress" TEXT NOT NULL,
+    "galleryItemBaseId" INTEGER NOT NULL,
+    "symbol" TEXT NOT NULL,
 
     CONSTRAINT "NFT_pkey" PRIMARY KEY ("id")
 );
@@ -90,25 +108,11 @@ CREATE TABLE "NFT" (
 -- CreateTable
 CREATE TABLE "Poap" (
     "id" SERIAL NOT NULL,
-    "eventId" INTEGER NOT NULL,
-    "name" TEXT NOT NULL,
-    "imageLinks" TEXT[],
-    "videoLinks" TEXT[],
-    "chainId" INTEGER NOT NULL,
+    "contractAddress" TEXT,
+    "poapEventId" INTEGER NOT NULL,
+    "galleryItemBaseId" INTEGER NOT NULL,
 
     CONSTRAINT "Poap_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Gallery" (
-    "id" SERIAL NOT NULL,
-    "typeName" TEXT NOT NULL,
-    "typeId" INTEGER NOT NULL,
-    "tags" TEXT[],
-    "eventStartTime" INTEGER,
-    "eventDuration" INTEGER,
-
-    CONSTRAINT "Gallery_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -122,6 +126,15 @@ CREATE UNIQUE INDEX "SBTSignatureRecord_signaturePayloadId_key" ON "SBTSignature
 
 -- CreateIndex
 CREATE UNIQUE INDEX "SignaturePayload_id_key" ON "SignaturePayload"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SBTContractType_galleryItemBaseId_key" ON "SBTContractType"("galleryItemBaseId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "NFT_galleryItemBaseId_key" ON "NFT"("galleryItemBaseId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Poap_galleryItemBaseId_key" ON "Poap"("galleryItemBaseId");
 
 -- AddForeignKey
 ALTER TABLE "RawExpressMessage" ADD CONSTRAINT "RawExpressMessage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("discordId") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -149,3 +162,12 @@ ALTER TABLE "SBTSignatureRecord" ADD CONSTRAINT "SBTSignatureRecord_signaturePay
 
 -- AddForeignKey
 ALTER TABLE "SignaturePayload" ADD CONSTRAINT "SignaturePayload_id_fkey" FOREIGN KEY ("id") REFERENCES "ExpressMessage"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SBTContractType" ADD CONSTRAINT "SBTContractType_galleryItemBaseId_fkey" FOREIGN KEY ("galleryItemBaseId") REFERENCES "GalleryItemBase"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "NFT" ADD CONSTRAINT "NFT_galleryItemBaseId_fkey" FOREIGN KEY ("galleryItemBaseId") REFERENCES "GalleryItemBase"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Poap" ADD CONSTRAINT "Poap_galleryItemBaseId_fkey" FOREIGN KEY ("galleryItemBaseId") REFERENCES "GalleryItemBase"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
