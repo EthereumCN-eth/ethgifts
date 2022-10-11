@@ -4,13 +4,16 @@ type EventItem = {
   status: "coming soon" | "ongoing" | null;
 };
 
-type BaseItem = {
+export type BaseItem = {
   imageLinks: string[];
   videoLinks: string[];
   chainId: number;
   tags: string[];
   id: number;
   name: string;
+  onShelf: boolean;
+  tokenType: "ERC1155" | "ERC721";
+  tokenId: string;
 } & EventItem;
 
 export type NFTItem = {
@@ -25,7 +28,7 @@ export type PoapItem = {
 
 export type SBTItem = {
   typeName: "sbt";
-  eventId: number;
+  // eventId: number;
   contractAddress: string;
   SBTLevel: number[];
 } & BaseItem;

@@ -11,6 +11,9 @@ export type BaseItem = {
   tags: string[];
   id: number;
   name: string;
+  onShelf: boolean;
+  tokenType: 'ERC1155' | 'ERC721';
+  tokenId: string;
 } & EventItem;
 
 export type NFTItem = {

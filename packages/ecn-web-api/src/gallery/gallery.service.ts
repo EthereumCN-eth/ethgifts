@@ -62,7 +62,7 @@ export class GalleryService {
         const {
           contractAddress,
           countLevel: SBTLevel,
-          galleryItemBase: { galleryItemType: typeName },
+          // galleryItemBase: { galleryItemType: typeName },
         } = item;
         additionalProps = {
           contractAddress,
@@ -72,7 +72,7 @@ export class GalleryService {
       } else if ('poapEventId' in item) {
         const {
           poapEventId: eventId,
-          galleryItemBase: { galleryItemType: typeName },
+          // galleryItemBase: { galleryItemType: typeName },
         } = item;
         additionalProps = {
           eventId,
@@ -81,7 +81,8 @@ export class GalleryService {
       } else {
         const {
           contractAddress,
-          galleryItemBase: { galleryItemType: typeName },
+
+          // galleryItemBase: { galleryItemType: typeName },
         } = item;
         additionalProps = {
           contractAddress,
@@ -98,9 +99,11 @@ export class GalleryService {
           videoLinks,
           chainId,
           name,
+          tokenType,
+          tokenId,
+          onShelf,
         },
         id,
-        contractAddress,
       } = item;
 
       const commonProps: BaseItem = {
@@ -112,6 +115,9 @@ export class GalleryService {
         chainId,
         name,
         id,
+        tokenType,
+        tokenId,
+        onShelf,
         status:
           eventStartTime > Date.now()
             ? 'coming soon'

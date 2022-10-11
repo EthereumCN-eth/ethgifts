@@ -1,5 +1,6 @@
 import { erc721ABI } from "wagmi";
 
+import erc1155ABI from "@/abis/ERC1155.json";
 import type { GalleryServerItem } from "@/types/gallery.interface";
 
 import type { GalleryItemType, Tag } from "./types";
@@ -11,13 +12,24 @@ const constructContractReadObj = (
   item: GalleryServerItem
 ) => {
   if (address && (item.typeName === "nft" || item.typeName === "sbt")) {
-    return {
-      addressOrName: item.contractAddress,
-      chainId: item.chainId,
-      contractInterface: erc721ABI,
-      functionName: "balanceOf",
-      args: [address],
-    };
+    if (item.tokenType === "ERC1155") {
+      return {
+        addressOrName: item.contractAddress,
+        chainId: item.chainId,
+        contractInterface: erc1155ABI,
+        functionName: "balanceOf",
+        args: [address, item.tokenId],
+      };
+    }
+    if (item.tokenType === "ERC721") {
+      return {
+        addressOrName: item.contractAddress,
+        chainId: item.chainId,
+        contractInterface: erc721ABI,
+        functionName: "balanceOf",
+        args: [address],
+      };
+    }
   }
   return null;
 
