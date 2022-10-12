@@ -114,6 +114,21 @@ export const ecnApiClient = {
   >({
     path: "/sbt/address/id",
   }),
+  getAllPoapEventByAddress: async ({ address }: { address: string }) => {
+    try {
+      const res = await fetch(`https://api.poap.tech/actions/scan/${address}`);
+      const events: { event: { id: number } }[] = await res.json();
+      return {
+        success: true,
+        data: events.map((e) => e?.event?.id),
+      };
+    } catch (e) {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+  },
 };
 
 // export interface TypeEcnApiClient {}

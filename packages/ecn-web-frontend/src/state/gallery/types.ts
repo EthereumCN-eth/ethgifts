@@ -5,7 +5,7 @@ export type Tag = {
   variant: string;
 };
 
-type BaseItemType = {
+export type BaseItemType = {
   tags: Tag[];
   imgSrc: string;
   imgAlt: string;
@@ -23,7 +23,8 @@ export type GallerySBTItemType = {
 
 export type GalleryPoapItemType = {
   typeName: "poap";
-  contractReadObj: null;
+  contractReadObj: Parameters<typeof useContractRead>[0];
+  eventId: number;
 } & BaseItemType;
 
 export type GalleryNFTItemType = {
@@ -40,4 +41,6 @@ export type GalleryState = {
   shellItemNumber: 8;
   galleryItems: GalleryItemType[];
   loading: boolean;
+  poapStatusLoading: false;
+  poapEvents: number[]; // eventid
 };

@@ -9,6 +9,8 @@ const initialState: GalleryState = {
   shellItemNumber: 8,
   galleryItems: [],
   loading: false,
+  poapStatusLoading: false,
+  poapEvents: [],
 };
 
 export const gallerySlice = createSlice({
@@ -32,9 +34,21 @@ const fetchSbtItemByContractId = createAction<{
   ethAddress: string;
   id: number;
 }>(`${gallerySlice.name}/fetchSbtItemByContractId`);
+const fetchNFTItemByContractId = createAction<{
+  ethAddress: string;
+  id: number;
+}>(`${gallerySlice.name}/fetchNFTItemByContractId`);
+
+const fetchPoapItemByContractId = createAction<{
+  ethAddress: string;
+  id: number;
+}>(`${gallerySlice.name}/fetchPoapItemByContractId`);
+
 const sagaActions = {
   fetchGalleryItems,
   fetchSbtItemByContractId,
+  fetchNFTItemByContractId,
+  fetchPoapItemByContractId,
 };
 
 const selectGalleryItems = (state: AppState) => state.gallery.galleryItems;

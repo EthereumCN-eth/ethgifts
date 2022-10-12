@@ -1,9 +1,17 @@
+import { constants } from "ethers";
 import { erc721ABI } from "wagmi";
 
 import erc1155ABI from "@/abis/ERC1155.json";
 import type { GalleryServerItem } from "@/types/gallery.interface";
 
-import type { GalleryItemType, Tag } from "./types";
+import type {
+  BaseItemType,
+  GalleryItemType,
+  GalleryNFTItemType,
+  GalleryPoapItemType,
+  GallerySBTItemType,
+  Tag,
+} from "./types";
 
 const btnTxt = "查看SBT及相关活动";
 
@@ -31,7 +39,14 @@ const constructContractReadObj = (
       };
     }
   }
-  return null;
+  // workaround as null
+  return {
+    addressOrName: constants.AddressZero,
+    chainId: 1,
+    contractInterface: erc721ABI,
+    functionName: "balanceOf",
+    args: [constants.AddressZero],
+  };
 
   // return null;
 };
@@ -46,7 +61,6 @@ export const convertGalleryItem = (
       id,
       status,
       imageLinks,
-      typeName,
       // videoLinks,
 
       name,
@@ -71,8 +85,7 @@ export const convertGalleryItem = (
     const month = dateObj.getMonth();
     const year = dateObj.getFullYear();
 
-    const contractReadObj = constructContractReadObj(address, serverItem);
-    return {
+    const baseProps: BaseItemType = {
       key: `${serverItem.typeName}_${name}`,
       tags,
       imgSrc: imageLinks && imageLinks[0],
@@ -81,8 +94,37 @@ export const convertGalleryItem = (
       btnTxt,
       title: name,
       id,
-      typeName,
+    };
+    const contractReadObj = constructContractReadObj(address, serverItem);
+    if (serverItem.typeName === "nft") {
+      const additionPorps: Omit<GalleryNFTItemType, keyof BaseItemType> = {
+        contractReadObj,
+        typeName: "nft",
+      };
+      return {
+        ...baseProps,
+        ...additionPorps,
+      };
+    }
+    if (serverItem.typeName === "poap") {
+      const additionPorps: Omit<GalleryPoapItemType, keyof BaseItemType> = {
+        typeName: "poap",
+        eventId: serverItem.eventId,
+        contractReadObj,
+      };
+      return {
+        ...baseProps,
+        ...additionPorps,
+      } as GalleryPoapItemType;
+    }
+    // sbt
+    const additionPorps: Omit<GallerySBTItemType, keyof BaseItemType> = {
       contractReadObj,
-    } as GalleryItemType;
+      typeName: "sbt",
+    };
+    return {
+      ...baseProps,
+      ...additionPorps,
+    };
   });
 };
