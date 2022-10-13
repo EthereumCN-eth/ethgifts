@@ -33,9 +33,10 @@ function* fetchGalleryIfNotAndSBTLevels({
   if (sbt) {
     yield* put(
       sbtActions.update({
-        SBTLevel: sbt.SBTLevel,
+        sbtLevel: sbt.SBTLevel,
         chainId: sbt.chainId,
         status: sbt.status,
+        artworks: sbt.artworks,
       })
     );
   }

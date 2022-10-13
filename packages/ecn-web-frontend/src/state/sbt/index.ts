@@ -7,20 +7,22 @@ import type { AppState } from "src/state/store";
 
 export interface SBTState {
   loaded: boolean;
-  SBTLevel: number[];
+  sbtLevel: number[];
   expressCount: number | null;
   status: "coming soon" | "ongoing" | null;
   chainId: number | null;
   records: SBTSignatureRecord[] | null;
+  artworks: string[];
 }
 
 const initialState: SBTState = {
   loaded: false,
-  SBTLevel: [],
+  sbtLevel: [],
   expressCount: 0,
   status: null,
   chainId: null,
   records: [],
+  artworks: [],
 };
 
 export const sbtSlice = createSlice({
@@ -50,8 +52,11 @@ const selectSBTLevels = (state: AppState, id: number) =>
     (i) => i.typeName === "sbt" && i.id === id
   ) as GallerySBTItemType[]) || [];
 
+const selectAll = (state: AppState) => state.sbt;
+
 const selectors = {
   selectSBTLevels,
+  selectAll,
 };
 
 const { actions } = sbtSlice;

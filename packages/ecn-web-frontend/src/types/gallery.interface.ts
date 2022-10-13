@@ -29,6 +29,7 @@ export type PoapItem = {
 export type SBTItem = {
   typeName: "sbt";
   // eventId: number;
+  artworks: string[];
   contractAddress: string;
   SBTLevel: number[];
 } & BaseItem;

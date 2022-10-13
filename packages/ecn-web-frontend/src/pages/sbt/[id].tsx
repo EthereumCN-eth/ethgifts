@@ -5,7 +5,10 @@ import { useAccount } from "wagmi";
 
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
-import { sagaActions as sbtSagaActions } from "@/state/sbt";
+import {
+  sagaActions as sbtSagaActions,
+  selectors as sbtSelectors,
+} from "@/state/sbt";
 
 const SBT = () => {
   const router = useRouter();
@@ -26,6 +29,9 @@ const SBT = () => {
         })
       );
   }, [address, appDispatch, id, router, accessToken]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { loaded, sbtLevel, status } = useAppSelector(sbtSelectors.selectAll);
 
   return (
     <Box

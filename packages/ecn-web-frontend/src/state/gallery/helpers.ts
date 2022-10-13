@@ -121,11 +121,12 @@ export const convertGalleryItem = (
       } as GalleryPoapItemType;
     }
 
-    const { SBTLevel } = serverItem;
+    const { SBTLevel, artworks } = serverItem;
     // sbt
     const additionPorps: Omit<GallerySBTItemType, keyof BaseItemType> = {
       contractReadObj,
       SBTLevel,
+      artworks,
       typeName: "sbt",
     };
     return {

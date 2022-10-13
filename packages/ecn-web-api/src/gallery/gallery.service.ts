@@ -62,11 +62,15 @@ export class GalleryService {
         const {
           contractAddress,
           countLevel: SBTLevel,
+          galleryItemBase: {
+            imageLinks: [_, ...artworks],
+          },
           // galleryItemBase: { galleryItemType: typeName },
         } = item;
         additionalProps = {
           contractAddress,
           SBTLevel,
+          artworks,
           typeName: 'sbt',
         };
       } else if ('poapEventId' in item) {

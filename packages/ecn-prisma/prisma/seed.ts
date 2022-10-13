@@ -176,8 +176,9 @@ const sbts: SBTCreateData[] = [
         galleryItemType: "sbt",
         imageLinks: [
           "https://mirror-media.imgix.net/publication-images/cDosw4qHdNtOPrVxYn5CK.jpg?h=540&w=540",
-          "b",
-          "c",
+          "https://foundation.app/images/drops/collection-01-02@2x.png",
+          "https://foundation.app/images/drops/collection-03-03@2x.png",
+          "https://foundation.app/images/drops/collection-02-02@2x.png",
         ],
       },
     },

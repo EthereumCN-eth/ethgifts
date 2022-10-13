@@ -21,6 +21,7 @@ export type BaseItemType = {
 export type GallerySBTItemType = {
   typeName: "sbt";
   SBTLevel: number[];
+  artworks: string[];
   contractReadObj: Parameters<typeof useContractRead>[0];
 } & BaseItemType;
 
