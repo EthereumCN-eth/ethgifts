@@ -30,10 +30,6 @@ const fetchGalleryItems = createAction<{
   address: string | undefined;
 }>(`${gallerySlice.name}/fetchGalleryItems`);
 
-const fetchSbtItemByContractId = createAction<{
-  ethAddress: string;
-  id: number;
-}>(`${gallerySlice.name}/fetchSbtItemByContractId`);
 const fetchNFTItemByContractId = createAction<{
   ethAddress: string;
   id: number;
@@ -46,7 +42,6 @@ const fetchPoapItemByContractId = createAction<{
 
 const sagaActions = {
   fetchGalleryItems,
-  fetchSbtItemByContractId,
   fetchNFTItemByContractId,
   fetchPoapItemByContractId,
 };

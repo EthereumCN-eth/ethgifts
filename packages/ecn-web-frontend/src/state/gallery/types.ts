@@ -14,10 +14,13 @@ export type BaseItemType = {
   btnTxt: string;
   id: number;
   key: string;
+  status: "coming soon" | "ongoing" | null;
+  chainId: number;
 };
 
 export type GallerySBTItemType = {
   typeName: "sbt";
+  SBTLevel: number[];
   contractReadObj: Parameters<typeof useContractRead>[0];
 } & BaseItemType;
 

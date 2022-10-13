@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
-import { sagaActions as gallerySagaActions } from "@/state/gallery";
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
+import { sagaActions as sbtSagaActions } from "@/state/sbt";
 
 const SBT = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const SBT = () => {
 
     if (id && address && Number.isInteger(Number(id)))
       appDispatch(
-        gallerySagaActions.fetchSbtItemByContractId({
+        sbtSagaActions.fetchSBTDetails({
           ethAddress: address,
           id: idNumber,
         })

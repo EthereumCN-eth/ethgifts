@@ -13,7 +13,6 @@ import {
   sagaActions,
   actions as galleryActions,
 } from "@/state/gallery/index";
-import { selectors as globalSelectors } from "@/state/global/index";
 
 import { convertGalleryItem } from "./helpers";
 
@@ -67,44 +66,20 @@ function* fetchGalleryItems({
     });
 
     // yield delay(2000);
-
-    // eslint-disable-next-line no-empty
   } catch (e) {
     yield* put({
       type: galleryActions.update,
-      payload: { loading: true },
+      payload: { loading: false },
     });
   }
   yield* delay(3000);
 }
 
-function* fetchGalleryIfNot({ address }: { address: string }) {
+export function* fetchGalleryIfNot({ address }: { address: string }) {
   const items = yield* select(gallerySelectors.selectGalleryItems);
   if (items.length === 0) {
     yield* call(fetchGalleryItems, { type: "_", payload: { address } });
   }
-}
-
-function* fetchSbtItemByContractId({
-  payload,
-}: ReturnType<typeof sagaActions.fetchSbtItemByContractId>) {
-  const token = yield* select(globalSelectors.selectAccessToken);
-
-  yield* call(fetchGalleryIfNot, {
-    address: payload.ethAddress,
-  });
-  // console.log("token", token);
-  if (!token) {
-    //
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const res = yield* call(ecnApiClient.sbtByContractId, {
-      token,
-      data: payload,
-    });
-    // console.log("res", res);
-  }
-  yield* delay(3000);
 }
 
 function* fetchNFTItemByContractId({
@@ -128,7 +103,6 @@ function* fetchPoapItemByContractId({
 
 const gallerySagas = [
   takeLeading(sagaActions.fetchGalleryItems, fetchGalleryItems),
-  takeLeading(sagaActions.fetchSbtItemByContractId, fetchSbtItemByContractId),
   takeLeading(sagaActions.fetchNFTItemByContractId, fetchNFTItemByContractId),
   takeLeading(sagaActions.fetchPoapItemByContractId, fetchPoapItemByContractId),
   //

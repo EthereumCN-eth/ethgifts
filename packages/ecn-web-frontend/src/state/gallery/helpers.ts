@@ -61,6 +61,7 @@ export const convertGalleryItem = (
       id,
       status,
       imageLinks,
+      chainId,
       // videoLinks,
 
       name,
@@ -94,6 +95,8 @@ export const convertGalleryItem = (
       btnTxt,
       title: name,
       id,
+      status,
+      chainId,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
     if (serverItem.typeName === "nft") {
@@ -117,9 +120,12 @@ export const convertGalleryItem = (
         ...additionPorps,
       } as GalleryPoapItemType;
     }
+
+    const { SBTLevel } = serverItem;
     // sbt
     const additionPorps: Omit<GallerySBTItemType, keyof BaseItemType> = {
       contractReadObj,
+      SBTLevel,
       typeName: "sbt",
     };
     return {

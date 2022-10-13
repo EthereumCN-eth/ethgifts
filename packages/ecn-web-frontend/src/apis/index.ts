@@ -63,7 +63,7 @@ function authApiMaker<TRequest, TResponse>({ path }: { path: string }) {
       return {
         success: false,
         error: "api client error",
-      };
+      } as TResponse;
     }
   };
 }
@@ -108,7 +108,8 @@ export const ecnApiClient = {
       }
     | {
         success: false;
-        expressCount: null;
+        expressCount?: null;
+        records?: null;
         error?: Error;
       }
   >({
