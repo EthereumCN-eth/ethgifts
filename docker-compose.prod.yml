@@ -60,6 +60,7 @@ services:
       - redisdata:/data
     ports:
       - 6379:6379
+    command: --slave-read-only no
 
 volumes:
   redisdata:
