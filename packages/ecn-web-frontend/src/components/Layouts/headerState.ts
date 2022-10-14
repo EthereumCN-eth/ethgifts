@@ -30,8 +30,8 @@ const darkObj = {
     textColor: "white",
   },
   rainbowTheme: darkTheme({
-    // accentColor: "white",
-    // accentColorForeground: "black",
+    accentColor: "black",
+    accentColorForeground: "white",
     borderRadius: "large",
     fontStack: "system",
   }),
