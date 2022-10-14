@@ -1,6 +1,5 @@
 import {
   RainbowKitProvider,
-  lightTheme,
   connectorsForWallets,
   wallet,
 } from "@rainbow-me/rainbowkit";
@@ -20,7 +19,7 @@ import store, { persistor } from "../state/store";
 import { AddressChangeLogout } from "@/components/AddressChangeLogout";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
-import { Layout } from "@/components/Layouts/Layout";
+import { useHeaderStore } from "@/components/Layouts/headerState";
 import {
   NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
   NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
@@ -78,20 +77,13 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const rainbowTheme = useHeaderStore((state) => state.rainbowTheme);
   return (
     <ReduxProvider store={store}>
       <WagmiConfig client={wagmiClient}>
-        <ECNRainbowKitAuthenticationProvider>
-          <RainbowKitProvider
-            chains={chains}
-            theme={lightTheme({
-              accentColor: "white",
-              accentColorForeground: "black",
-              borderRadius: "large",
-              fontStack: "system",
-            })}
-          >
-            <PersistGate persistor={persistor}>
+        <PersistGate persistor={persistor}>
+          <ECNRainbowKitAuthenticationProvider>
+            <RainbowKitProvider chains={chains} theme={rainbowTheme}>
               <Chakra>
                 <Head>
                   <meta
@@ -101,13 +93,12 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Head>
                 <DefaultSeo {...defaultSEOConfig} />
                 <AddressChangeLogout />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
+
+                <Component {...pageProps} />
               </Chakra>
-            </PersistGate>
-          </RainbowKitProvider>
-        </ECNRainbowKitAuthenticationProvider>
+            </RainbowKitProvider>
+          </ECNRainbowKitAuthenticationProvider>
+        </PersistGate>
       </WagmiConfig>
     </ReduxProvider>
   );

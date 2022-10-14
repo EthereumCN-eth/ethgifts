@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
+import { Layout } from "@/components/Layouts/Layout";
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 import {
@@ -34,18 +35,20 @@ const SBT = () => {
   const { loaded, sbtLevel, status } = useAppSelector(sbtSelectors.selectAll);
 
   return (
-    <Box
-      // css={css`
-      //   width: 100%;
-      //   min-height: 300vh;
-      //   position: relative;
-      //   /* background-color: "white"; */
-      // `}
-      w="100%"
-      minH="100vh"
-    >
-      `sbt/${id}`
-    </Box>
+    <Layout headerProps={{ colorTheme: "black" }}>
+      <Box
+        // css={css`
+        //   width: 100%;
+        //   min-height: 300vh;
+        //   position: relative;
+        //   /* background-color: "white"; */
+        // `}
+        w="100%"
+        minH="100vh"
+      >
+        `sbt/${id}`
+      </Box>
+    </Layout>
   );
 };
 

@@ -1,24 +1,28 @@
 import {
   Box,
   HStack,
+  Image,
   Link,
   ListItem,
-  Text,
   UnorderedList,
   // useDisclosure,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+
+import { useHeaderStore } from "./headerState";
 // import "@rainbow-me/rainbowkit/styles.css";
 
 const navItems = [
   { label: "EthGifts Gallery", href: "#" },
-  { label: "数字凭证", href: "#" },
+  // { label: "数字凭证", href: "#" },
   { label: "文档", href: "#" },
-  { label: "我的文档", href: "#" },
+  // { label: "我的文档", href: "#" },
 ];
 
 const Header = () => {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const { basebgColor, textColor } = useHeaderStore(
+    (state) => state.headerValues
+  );
   return (
     <Box
       as="header"
@@ -27,6 +31,7 @@ const Header = () => {
       alignItems="center"
       width="full"
       h="120px"
+      bgColor={basebgColor}
 
       // css={css`
       //   width: 100%;
@@ -46,9 +51,16 @@ const Header = () => {
         justify="space-between"
         zIndex={100}
       >
-        <Text fontSize="56px" fontWeight={400} fontFamily="Red Rose">
+        <Image
+          src="/giftslog.png"
+          h="50px"
+          w="10%"
+          fit="contain"
+          alt="ethgifts-logo"
+        />
+        {/* <Text fontSize="56px" fontWeight={400} fontFamily="Red Rose">
           EthGifts
-        </Text>
+        </Text> */}
 
         <HStack
           flex={1}
@@ -66,7 +78,7 @@ const Header = () => {
             // display={"flex"}
             flex={1}
             alignItems="center"
-            color="#000000"
+            color={textColor}
             fontFamily="PingFang SC"
             fontWeight={400}
             display={{ base: "none", md: "flex" }}
