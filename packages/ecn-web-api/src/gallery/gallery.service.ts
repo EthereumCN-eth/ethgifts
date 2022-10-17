@@ -98,7 +98,7 @@ export class GalleryService {
           eventDuration,
           eventStartTime,
           tags,
-
+          itemText,
           imageLinks,
           videoLinks,
           chainId,
@@ -114,6 +114,7 @@ export class GalleryService {
         endTime: eventStartTime + eventDuration,
         startTime: eventStartTime,
         tags,
+        itemText,
         imageLinks,
         videoLinks,
         chainId,

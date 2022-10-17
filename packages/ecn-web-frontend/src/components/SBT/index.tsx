@@ -33,9 +33,12 @@ export const SBT = () => {
   }, [address, appDispatch, id, router, accessToken]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loaded, sbtLevel, status, artworks } = useAppSelector(
+  const { loaded, sbtLevel, status, artworks, itemTexts } = useAppSelector(
     sbtSelectors.selectAll
   );
+  // console.log("sbtLevel", sbtLevel);
+  // console.log("artworks", artworks);
+  // console.log("itemTexts", itemTexts);
 
   return (
     <Flex
@@ -48,6 +51,7 @@ export const SBT = () => {
       w="100%"
       minH="100vh"
       direction="column"
+      bg="black"
     >
       <Flex
         direction="row"
@@ -56,11 +60,15 @@ export const SBT = () => {
         pt={20}
         // pb={10}
         h="100vh"
-        bg="blue.200"
+        // bg="blue.200"
         position="relative"
       >
-        <Flex w="50%" direction="column" h="95%" bg="green.200">
-          <Carousel artworks={artworks} />
+        <Flex w="50%" direction="column" h="95%" align="center">
+          <Carousel
+            artworks={artworks}
+            levels={sbtLevel}
+            itemTexts={itemTexts}
+          />
         </Flex>
         <Flex w="50%" direction="column" h="95%" bg="yellow.200">
           {/*  */}

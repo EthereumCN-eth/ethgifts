@@ -171,9 +171,10 @@ const sbts: SBTCreateData[] = [
     galleryItemBase: {
       create: {
         chainId: 1,
-        name: "ExpressSBT",
+        name: "E群志 SBT",
         onShelf: true,
         galleryItemType: "sbt",
+        itemText: ["E群志 SBT Lv 1", "E群志 SBT Lv 2", "E群志 SBT Lv 3"],
         imageLinks: [
           "https://mirror-media.imgix.net/publication-images/cDosw4qHdNtOPrVxYn5CK.jpg?h=540&w=540",
           "https://foundation.app/images/drops/collection-01-02@2x.png",

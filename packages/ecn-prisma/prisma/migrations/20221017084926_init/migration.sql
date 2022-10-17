@@ -71,6 +71,7 @@ CREATE TABLE "SignaturePayload" (
 CREATE TABLE "GalleryItemBase" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "itemText" TEXT[],
     "imageLinks" TEXT[],
     "videoLinks" TEXT[],
     "chainId" INTEGER NOT NULL,

@@ -37,6 +37,7 @@ function* fetchGalleryIfNotAndSBTLevels({
         chainId: sbt.chainId,
         status: sbt.status,
         artworks: sbt.artworks,
+        itemTexts: sbt.itemText,
       })
     );
   }

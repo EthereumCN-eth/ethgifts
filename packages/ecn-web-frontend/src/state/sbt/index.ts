@@ -13,6 +13,7 @@ export interface SBTState {
   chainId: number | null;
   records: SBTSignatureRecord[] | null;
   artworks: string[];
+  itemTexts: string[] | null;
 }
 
 const initialState: SBTState = {
@@ -23,6 +24,7 @@ const initialState: SBTState = {
   chainId: null,
   records: [],
   artworks: [],
+  itemTexts: [],
 };
 
 export const sbtSlice = createSlice({

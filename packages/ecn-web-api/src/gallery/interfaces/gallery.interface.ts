@@ -5,8 +5,9 @@ type EventItem = {
 };
 
 export type BaseItem = {
-  imageLinks: string[];
-  videoLinks: string[];
+  itemText: string[] | null;
+  imageLinks: string[] | null;
+  videoLinks: string[] | null;
   chainId: number;
   tags: string[];
   id: number;

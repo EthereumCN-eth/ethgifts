@@ -97,6 +97,7 @@ enum GalleryItemType {
 model GalleryItemBase {
   id             Int       @id @default(autoincrement())
   name           String
+  itemText       String[]
   imageLinks     String[]
   videoLinks     String[]
   chainId        Int
