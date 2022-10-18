@@ -41,24 +41,12 @@ export const SBT = () => {
   // console.log("itemTexts", itemTexts);
 
   return (
-    <Flex
-      // css={css`
-      //   width: 100%;
-      //   min-height: 300vh;
-      //   position: relative;
-      //   /* background-color: "white"; */
-      // `}
-      w="100%"
-      minH="100vh"
-      direction="column"
-      bg="black"
-    >
+    <Flex w="100%" minH="100vh" direction="column" bg="black">
       <Flex
         direction="row"
         px="10%"
         w="full"
         pt={20}
-        // pb={10}
         h="100vh"
         // bg="blue.200"
         position="relative"

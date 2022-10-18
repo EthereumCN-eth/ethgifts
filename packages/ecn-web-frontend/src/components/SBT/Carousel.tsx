@@ -1,17 +1,10 @@
-import {
-  Box,
-  Divider,
-  Flex,
-  IconButton,
-  Image,
-  Progress,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
-import { FaRegHandPointDown } from "react-icons/fa";
 
+import { BothSideImage } from "./BothSideImage";
 import { selectMainIndex, useComputedProgressVales } from "./helpers";
+import { ProgressBar } from "./ProgressBar";
 
 const RADIUS = 23;
 
@@ -28,7 +21,7 @@ export const Carousel = ({
   const selectedIndex = selectMainIndex(base, artworks.length);
   // console.log("base", base);
   const progressValues = useComputedProgressVales(levels);
-  const selectedProgress = progressValues[selectedIndex];
+
   const onClickArrowLeft = () => {
     setBase((v) => v + 1);
   };
@@ -57,6 +50,7 @@ export const Carousel = ({
         <Box
           position="absolute"
           sx={{
+            // eslint-disable-next-line sonarjs/no-duplicate-string
             transformStyle: "preserve-3d",
             transform: `translateZ(-${RADIUS}vw) rotateY(${
               base * (360 / artworks.length)
@@ -69,59 +63,16 @@ export const Carousel = ({
           {artworks.map((img, ind) => {
             const total = artworks.length;
             const eachDeg = 360 / total;
-            // console.log("v:", ((-base % total) + total) % total);
 
             return (
-              <Box
+              <BothSideImage
                 key={img}
-                position="absolute"
-                top={0}
-                bottom={0}
-                left={0}
-                right={0}
-                w="full"
-                h="full"
-                sx={{ transformStyle: "preserve-3d" }}
-              >
-                {[
-                  {
-                    additonalTransform: "rotateY(180deg)",
-                    additionalProps: {},
-                  },
-                  {
-                    additonalTransform: "",
-                    additionalProps: {
-                      backfaceVisibility: "hidden",
-                    },
-                  },
-                ].map((obj) => {
-                  return (
-                    <Image
-                      key={`${img}-${obj.additonalTransform}`}
-                      position="absolute"
-                      top={0}
-                      bottom={0}
-                      left={0}
-                      right={0}
-                      w="full"
-                      h="full"
-                      src={img}
-                      fit="contain"
-                      sx={{
-                        // transformStyle: "preserve-3d",
-                        transformOrigin: "center",
-                        transform: `rotateY(${
-                          eachDeg * ind
-                        }deg) translateZ(${RADIUS}vw) ${obj.additonalTransform}
-                ${selectedIndex === ind ? `scale(0.65)` : `scale(0.2)`}
-                `,
-                        transition: `transform 1s cubic-bezier(0.77, 0, 0.175, 1)`,
-                        ...obj.additionalProps,
-                      }}
-                    />
-                  );
-                })}
-              </Box>
+                eachDeg={eachDeg}
+                myIndex={ind}
+                img={img}
+                selectedIndex={selectedIndex}
+                zDepth={RADIUS}
+              />
             );
           })}
         </Box>
@@ -146,12 +97,6 @@ export const Carousel = ({
             variant="unstyled"
             icon={<AiOutlineLeftCircle size="28px" />}
             color="#FFFFFF"
-            // _hover={{
-            //   color: "#FFFFFF",
-            // }}
-            // _focus={{
-            //   color: "#FFFFFF",
-            // }}
           />
           <Divider orientation="vertical" h="35px" mx="33px" bg="#7A7A7A" />
           <IconButton
@@ -165,82 +110,16 @@ export const Carousel = ({
             variant="unstyled"
             icon={<AiOutlineRightCircle size="28px" />}
             color="#FFFFFF"
-            // _hover={{
-            //   color: "#FFFFFF",
-            // }}
-            // _focus={{
-            //   color: "#FFFFFF",
-            // }}
           />
         </Flex>
       </Flex>
       <Flex w="full" h="25%" align="center" justify="center">
-        <Box w="53%" position="relative" whiteSpace="nowrap">
-          <Box
-            position="absolute"
-            bottom="100%"
-            left={`${selectedProgress}%`}
-            transform="translateY(-4px) translateX(calc(-50% - 6px))"
-            transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
-          >
-            <FaRegHandPointDown color="#FFFFFF" size="25px" />
-          </Box>
-
-          {itemTexts &&
-            itemTexts.map((txt, index) => {
-              return (
-                <Text
-                  position="absolute"
-                  left={`${progressValues[index]}%`}
-                  // bottom="-200%"
-                  display="block"
-                  // transform="translateX(-50%) translateY(100%)"
-                  transform="translateX(-50%) translateY(-70px)"
-                  key={txt}
-                  color="white"
-                  opacity={selectedIndex === index ? 1 : 0}
-                  transition="opacity 1s cubic-bezier(0.77, 0, 0.175, 1)"
-                >
-                  {txt}
-                </Text>
-              );
-            })}
-
-          {progressValues.map((v, index) => (
-            <IconButton
-              key={v}
-              position="absolute"
-              left={`${v}%`}
-              h="60px"
-              minW="20px"
-              transform="translateX(calc(-50% - 8px))"
-              my="auto"
-              top={0}
-              bottom={0}
-              aria-label={`progress-${v}`}
-              variant="unstyled"
-              zIndex={100}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              onClick={() => {
-                onClickDot(index);
-              }}
-            >
-              <Box
-                key={v}
-                // position="absolute"
-                // left={`${v}%`}
-                h="4px"
-                w="4px"
-                bgColor={selectedProgress >= v ? "grey" : "white"}
-                borderRadius="50%"
-                transition="1000ms linear"
-              />
-            </IconButton>
-          ))}
-          <Progress value={selectedProgress} variant="whiteProgress" />
-        </Box>
+        <ProgressBar
+          itemTexts={itemTexts}
+          progressValues={progressValues}
+          selectedIndex={selectedIndex}
+          onClickDot={onClickDot}
+        />
       </Flex>
     </>
   );
