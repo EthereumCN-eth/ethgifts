@@ -1,4 +1,4 @@
-type EventItem = {
+export type EventItem = {
   startTime: number;
   endTime: number;
   status: 'coming soon' | 'ongoing' | null;

@@ -1,30 +1,9 @@
 import { Button } from "./button";
 import { Progress } from "./progress";
+import { Tag } from "./tag";
 
 export const components = {
   Button,
-  Tag: {
-    variants: {
-      whiteText: {
-        container: {
-          color: "white",
-          border: "white solid 1px",
-          borderRadius: "none",
-          px: "10px",
-          py: "6px",
-        },
-        label: {},
-      },
-      whiteBg: {
-        container: {
-          color: "black",
-          backgroundColor: "white",
-          borderRadius: "none",
-          px: "10px",
-          py: "6px",
-        },
-      },
-    },
-  },
+  Tag,
   Progress,
 };

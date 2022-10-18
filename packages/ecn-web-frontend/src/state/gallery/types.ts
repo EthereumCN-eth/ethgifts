@@ -6,7 +6,8 @@ export type Tag = {
 };
 
 export type BaseItemType = {
-  tags: Tag[];
+  homeTags: Tag[];
+  detailTags: Tag[];
   itemText: string[] | null;
   imgSrc: string;
   imgAlt: string;

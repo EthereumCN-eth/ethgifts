@@ -7,6 +7,7 @@ import {
   SBTItem,
   NFTItem,
   PoapItem,
+  EventItem,
 } from './interfaces/gallery.interface';
 import { GalleryItemBase, NFT, Poap, SBTContractType } from '@prisma/client';
 // import { NFT, Poap, SBTContractType } from '@prisma/client';
@@ -110,9 +111,41 @@ export class GalleryService {
         id,
       } = item;
 
+      let timeProps: EventItem;
+      if (eventDuration && eventStartTime) {
+        timeProps = {
+          endTime: eventDuration + eventStartTime,
+          startTime: eventStartTime,
+          status:
+            eventStartTime > Date.now()
+              ? 'coming soon'
+              : Date.now() > eventStartTime + eventDuration
+              ? null
+              : 'ongoing',
+        };
+      } else if (eventStartTime && !eventDuration) {
+        timeProps = {
+          endTime: Infinity,
+          startTime: eventStartTime,
+          status: eventStartTime > Date.now() ? 'coming soon' : 'ongoing',
+        };
+      } else if (!eventStartTime && !eventDuration) {
+        timeProps = {
+          endTime: Infinity,
+          startTime: 0,
+          status: 'ongoing',
+        };
+      } else {
+        // never
+        timeProps = {
+          endTime: Infinity,
+          startTime: 0,
+          status: 'ongoing',
+        };
+      }
+
       const commonProps: BaseItem = {
-        endTime: eventStartTime + eventDuration,
-        startTime: eventStartTime,
+        ...timeProps,
         tags,
         itemText,
         imageLinks,
@@ -123,12 +156,6 @@ export class GalleryService {
         tokenType,
         tokenId,
         onShelf,
-        status:
-          eventStartTime > Date.now()
-            ? 'coming soon'
-            : Date.now() > eventStartTime + eventDuration
-            ? null
-            : 'ongoing',
       };
 
       return {

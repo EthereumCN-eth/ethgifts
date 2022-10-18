@@ -38,6 +38,7 @@ function* fetchGalleryIfNotAndSBTLevels({
         status: sbt.status,
         artworks: sbt.artworks,
         itemTexts: sbt.itemText,
+        detailTags: sbt.detailTags,
       })
     );
   }

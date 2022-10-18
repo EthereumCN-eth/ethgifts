@@ -181,6 +181,8 @@ const sbts: SBTCreateData[] = [
           "https://foundation.app/images/drops/collection-03-03@2x.png",
           "https://foundation.app/images/drops/collection-02-02@2x.png",
         ],
+        tags: ["SBT", "工作量凭证", "成员资格凭证"],
+        eventStartTime: 1666076540,
       },
     },
   },

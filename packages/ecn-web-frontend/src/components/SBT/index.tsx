@@ -1,6 +1,6 @@
 import { Center, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 import { selectors as globalSelectors } from "@/state/global";
@@ -11,6 +11,8 @@ import {
 } from "@/state/sbt";
 
 import { Carousel } from "./Carousel";
+import { selectMainIndex } from "./helpers";
+import { StatusBoard } from "./StatusBoard";
 
 export const SBT = () => {
   const router = useRouter();
@@ -33,12 +35,13 @@ export const SBT = () => {
   }, [address, appDispatch, id, router, accessToken]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loaded, sbtLevel, status, artworks, itemTexts } = useAppSelector(
-    sbtSelectors.selectAll
-  );
+  const { loaded, sbtLevel, status, artworks, itemTexts, detailTags } =
+    useAppSelector(sbtSelectors.selectAll);
   // console.log("sbtLevel", sbtLevel);
   // console.log("artworks", artworks);
   // console.log("itemTexts", itemTexts);
+  const [base, setBase] = useState(0);
+  const selectedIndex = selectMainIndex(base, artworks.length);
 
   return (
     <Flex w="100%" minH="100vh" direction="column" bg="black">
@@ -53,13 +56,28 @@ export const SBT = () => {
       >
         <Flex w="50%" direction="column" h="95%" align="center">
           <Carousel
+            base={base}
+            setBase={setBase}
+            selectedIndex={selectedIndex}
             artworks={artworks}
             levels={sbtLevel}
             itemTexts={itemTexts}
           />
         </Flex>
-        <Flex w="50%" direction="column" h="95%" bg="yellow.200">
+        <Flex
+          w="50%"
+          direction="column"
+          h="95%"
+          // bg="silver"
+          justify="center"
+          pl="11%"
+        >
           {/*  */}
+          <StatusBoard
+            detailTags={detailTags}
+            itemTexts={itemTexts}
+            selectedIndex={selectedIndex}
+          />
         </Flex>
         <Center
           position="absolute"

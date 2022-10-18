@@ -1,9 +1,9 @@
 import { Box, Divider, Flex, IconButton } from "@chakra-ui/react";
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
 import { BothSideImage } from "./BothSideImage";
-import { selectMainIndex, useComputedProgressVales } from "./helpers";
+import { useComputedProgressVales } from "./helpers";
 import { ProgressBar } from "./ProgressBar";
 
 const RADIUS = 23;
@@ -12,14 +12,17 @@ export const Carousel = ({
   artworks = [],
   levels,
   itemTexts,
+  base,
+  setBase,
+  selectedIndex,
 }: {
   artworks: string[];
   levels: number[];
   itemTexts: string[] | null;
+  base: number;
+  setBase: Dispatch<SetStateAction<number>>;
+  selectedIndex: number;
 }) => {
-  const [base, setBase] = useState(0);
-  const selectedIndex = selectMainIndex(base, artworks.length);
-  // console.log("base", base);
   const progressValues = useComputedProgressVales(levels);
 
   const onClickArrowLeft = () => {

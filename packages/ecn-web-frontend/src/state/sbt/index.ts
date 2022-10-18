@@ -2,7 +2,7 @@ import type { SBTSignatureRecord } from "@prisma/client";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAction, createSlice } from "@reduxjs/toolkit";
 
-import type { GallerySBTItemType } from "../gallery/types";
+import type { GallerySBTItemType, Tag } from "../gallery/types";
 import type { AppState } from "src/state/store";
 
 export interface SBTState {
@@ -14,6 +14,7 @@ export interface SBTState {
   records: SBTSignatureRecord[] | null;
   artworks: string[];
   itemTexts: string[] | null;
+  detailTags: Tag[];
 }
 
 const initialState: SBTState = {
@@ -25,6 +26,7 @@ const initialState: SBTState = {
   records: [],
   artworks: [],
   itemTexts: [],
+  detailTags: [],
 };
 
 export const sbtSlice = createSlice({

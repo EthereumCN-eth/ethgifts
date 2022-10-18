@@ -64,24 +64,38 @@ export const convertGalleryItem = (
       chainId,
       // videoLinks,
       itemText,
-
+      tags,
       name,
     } = serverItem;
 
-    let tags: Tag[] = [
+    let homeTags: Tag[] = [
       {
         label: serverItem.typeName,
         variant: "whiteText",
       },
     ];
     if (status)
-      tags = [
-        ...tags,
+      homeTags = [
+        ...homeTags,
         {
           label: status,
           variant: "whiteBg",
         },
       ];
+
+    let detailTags: Tag[];
+    if (tags) {
+      const [typeTags, ...rest] = tags.map((txt) => ({
+        label: txt,
+        variant: "whiteText",
+      }));
+
+      detailTags = status
+        ? [typeTags, { label: status, variant: "live-whiteBg" }, ...rest]
+        : [typeTags, ...rest];
+    } else {
+      detailTags = [];
+    }
     const dateObj = new Date(serverItem.startTime * 1000);
     // const day = dateObj.getDate();
     const month = dateObj.getMonth();
@@ -89,7 +103,8 @@ export const convertGalleryItem = (
 
     const baseProps: BaseItemType = {
       key: `${serverItem.typeName}_${name}`,
-      tags,
+      detailTags,
+      homeTags,
       imgSrc: (imageLinks && imageLinks[0]) || "",
       imgAlt: name,
       desc: `${year}年${month}月`,

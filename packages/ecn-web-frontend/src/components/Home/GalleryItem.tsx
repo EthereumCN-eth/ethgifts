@@ -17,7 +17,7 @@ import NextLink from "next/link";
 import type { GalleryItemType } from "@/state/gallery/types";
 
 export const GalleryItem = ({
-  tags,
+  homeTags,
   imgSrc,
   imgAlt,
   title,
@@ -39,7 +39,7 @@ export const GalleryItem = ({
         align="flex-start"
       >
         <HStack w="full" h="12%" align="flex-start">
-          {tags.map((tagItem) => {
+          {homeTags.map((tagItem) => {
             return (
               <Tag
                 key={tagItem.label}
