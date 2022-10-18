@@ -21,7 +21,7 @@ function* fetchGalleryIfNotAndSBTLevels({
   address,
   id,
 }: {
-  address: string;
+  address: string | undefined;
   id: number;
 }) {
   yield* call(fetchGalleryIfNot, {
@@ -45,7 +45,7 @@ function* fetchGalleryIfNotAndSBTLevels({
 }
 
 export function* fetchSbtItemByContractId(payload: {
-  ethAddress: string;
+  ethAddress: string | undefined;
   id: number;
 }) {
   const token = yield* select(globalSelectors.selectAccessToken);
@@ -63,8 +63,9 @@ export function* fetchSbtItemByContractId(payload: {
     };
   }
 
+  const { ethAddress, id } = payload;
   // console.log("token", token);
-  if (!token) {
+  if (!token || !ethAddress) {
     //
     // return null;
     return {
@@ -76,7 +77,10 @@ export function* fetchSbtItemByContractId(payload: {
   try {
     const res = yield* call(ecnApiClient.sbtByContractId, {
       token,
-      data: payload,
+      data: {
+        ethAddress,
+        id,
+      },
     });
 
     if (res.success) {

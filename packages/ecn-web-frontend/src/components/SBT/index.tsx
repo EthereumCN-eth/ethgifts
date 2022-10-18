@@ -25,7 +25,7 @@ export const SBT = () => {
     // console.log("id", id);
     // console.log("address", address);
 
-    if (id && address && Number.isInteger(Number(id)))
+    if (id && Number.isInteger(Number(id)))
       appDispatch(
         sbtSagaActions.fetchSBTDetails({
           ethAddress: address,

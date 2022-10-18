@@ -43,7 +43,7 @@ export const sbtSlice = createSlice({
   },
 });
 const fetchSBTDetails = createAction<{
-  ethAddress: string;
+  ethAddress: string | undefined;
   id: number;
 }>(`${sbtSlice.name}/fetchSBTDetails`);
 

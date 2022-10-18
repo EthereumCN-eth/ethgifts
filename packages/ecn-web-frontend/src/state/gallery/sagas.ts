@@ -75,7 +75,11 @@ function* fetchGalleryItems({
   yield* delay(3000);
 }
 
-export function* fetchGalleryIfNot({ address }: { address: string }) {
+export function* fetchGalleryIfNot({
+  address,
+}: {
+  address: string | undefined;
+}) {
   const items = yield* select(gallerySelectors.selectGalleryItems);
   if (items.length === 0) {
     yield* call(fetchGalleryItems, { type: "_", payload: { address } });
