@@ -164,7 +164,24 @@ export class GalleryService {
       };
     });
 
-    await this.cacheManager.set(GALLERY_CACHE_KEY, galleryItems, { ttl: 300 });
-    return galleryItems;
+    const sortedItems = galleryItems
+      .sort((x, y) => {
+        return y.startTime - x.startTime;
+      })
+      .reduce((acc, item) => {
+        if (item.typeName === 'sbt') {
+          const items = item.SBTLevel.map((level, ind) => {
+            return {
+              ...item,
+              currentLevel: level,
+              name: item.itemText[ind],
+            };
+          });
+          return [...acc, ...items];
+        }
+        return [...acc, item];
+      }, []);
+    await this.cacheManager.set(GALLERY_CACHE_KEY, sortedItems, { ttl: 300 });
+    return sortedItems;
   }
 }
