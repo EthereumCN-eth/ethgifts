@@ -16,7 +16,7 @@ import { publicProvider } from "wagmi/providers/public";
 import defaultSEOConfig from "../../next-seo.config";
 import store, { persistor } from "../state/store";
 // import NoSSRWrapper from "src/state/NoSSRWrapper";
-import { AddressChangeLogout } from "@/components/AddressChangeLogout";
+import { AddressOrNetworkChange } from "@/components/AddressOrNetworkChange";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
 import { useHeaderStore } from "@/components/Layouts/headerState";
@@ -92,7 +92,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   />
                 </Head>
                 <DefaultSeo {...defaultSEOConfig} />
-                <AddressChangeLogout />
+                <AddressOrNetworkChange />
 
                 <Component {...pageProps} />
               </Chakra>

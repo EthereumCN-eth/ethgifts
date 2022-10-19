@@ -1,7 +1,7 @@
 import { Center, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
@@ -21,7 +21,13 @@ export const SBT = () => {
   const [idNumber, setIdNumber] = useState<number>();
   const appDispatch = useAppDispatch();
   const { address } = useAccount();
-  const accessToken = useAppSelector(globalSelectors.selectAccessToken);
+  const { chain } = useNetwork();
+  const accessToken = useAppSelector((state) =>
+    globalSelectors.selectAccessToken(state, {
+      address,
+      chainId: chain?.id,
+    })
+  );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loaded, sbtLevel, status, artworks, itemTexts, detailTags } =
     useAppSelector(sbtSelectors.selectAll);
@@ -45,12 +51,13 @@ export const SBT = () => {
       setIdNumber(parsedId);
       appDispatch(
         sbtSagaActions.fetchSBTDetails({
+          chainId: chain?.id,
           ethAddress: address,
           id: parsedId,
         })
       );
     }
-  }, [address, appDispatch, id, router, accessToken]);
+  }, [address, appDispatch, id, router, accessToken, chain?.id]);
 
   // console.log("sbtLevel", sbtLevel);
   // console.log("artworks", artworks);

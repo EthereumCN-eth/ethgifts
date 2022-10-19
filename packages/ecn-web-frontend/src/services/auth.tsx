@@ -5,6 +5,7 @@ import {
 import type React from "react";
 import { useCallback, useMemo } from "react";
 import { SiweMessage } from "siwe";
+import { useAccount, useNetwork } from "wagmi";
 
 import type { TsetAuthPayload } from "../state/global";
 import {
@@ -18,11 +19,16 @@ const WRONG_NONCE = "wrong-nonce";
 
 export const useAuthAdapter = ({
   setAuthInfo,
+  connectedChainId,
+  connectedAddress,
 }: {
   setAuthInfo: (payload: TsetAuthPayload) => void;
+  connectedAddress: string | undefined;
+  connectedChainId: number | undefined;
 }) => {
   const autAdapter = useMemo(() => {
     // console.log("window.location.host", window.location.host);
+
     return createAuthenticationAdapter({
       getNonce: async () => {
         const { success, nonce } = await ecnApiClient.authNonce({
@@ -32,6 +38,8 @@ export const useAuthAdapter = ({
         return nonce || WRONG_NONCE;
       },
       createMessage: ({ nonce, address, chainId }) => {
+        // currentChainId = chainId;
+        // currentAddress = address;
         return new SiweMessage({
           domain: window.location.host,
           address,
@@ -47,6 +55,8 @@ export const useAuthAdapter = ({
       },
       verify: async ({ message, signature }) => {
         setAuthInfo({
+          address: connectedAddress,
+          chainId: connectedChainId,
           accessToken: null,
           auth_status: "loading",
         });
@@ -60,11 +70,15 @@ export const useAuthAdapter = ({
         // console.log("accessToken", accessToken);
         if (accessToken) {
           setAuthInfo({
+            address: connectedAddress,
+            chainId: connectedChainId,
             accessToken,
             auth_status: "authenticated",
           });
         } else {
           setAuthInfo({
+            address: connectedAddress,
+            chainId: connectedChainId,
             accessToken: null,
             auth_status: "unauthenticated",
           });
@@ -73,12 +87,14 @@ export const useAuthAdapter = ({
       },
       signOut: async () => {
         setAuthInfo({
+          address: connectedAddress,
+          chainId: connectedChainId,
           accessToken: null,
           auth_status: "unauthenticated",
         });
       },
     });
-  }, [setAuthInfo]);
+  }, [connectedAddress, connectedChainId, setAuthInfo]);
   return {
     autAdapter,
   };
@@ -89,16 +105,28 @@ export const ECNRainbowKitAuthenticationProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const authStatus = useAppSelector(globalSelectors.selectAuthStatus);
+  const { address: connectedAddress } = useAccount();
+  const { chain } = useNetwork();
+  const connectedChainId = chain?.id;
+  const authStatus = useAppSelector((state) =>
+    globalSelectors.selectAuthStatus(state, {
+      address: connectedAddress,
+      chainId: connectedChainId,
+    })
+  );
   const dispatch = useAppDispatch();
   const setAuthInfo = useCallback(
-    ({ accessToken, auth_status }: TsetAuthPayload) => {
-      dispatch(globalActions.setAuth({ accessToken, auth_status }));
+    ({ accessToken, auth_status, address, chainId }: TsetAuthPayload) => {
+      dispatch(
+        globalActions.setAuth({ accessToken, auth_status, address, chainId })
+      );
     },
     [dispatch]
   );
   const { autAdapter } = useAuthAdapter({
     setAuthInfo,
+    connectedChainId,
+    connectedAddress,
   });
   // console.log("authstatus", authStatus);
   return (

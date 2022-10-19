@@ -9,31 +9,74 @@ export type TAuthToken = string | null;
 export type TsetAuthPayload = {
   accessToken: TAuthToken;
   auth_status: AuthenticationStatus;
+  address: string | undefined;
+  chainId: number | undefined;
 };
 
 export interface GlobalState {
-  accessToken: TAuthToken;
-  auth_status: AuthenticationStatus;
+  [addressAndChain: string]: {
+    accessToken: TAuthToken;
+    auth_status: AuthenticationStatus;
+  };
 }
 
-const initialState: GlobalState = {
-  accessToken: null,
-  auth_status: "unauthenticated",
-};
+const initialState: GlobalState = {};
 
 export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<TsetAuthPayload>) => {
-      state.accessToken = action.payload.accessToken;
-      state.auth_status = action.payload.auth_status;
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { accessToken, address, auth_status, chainId } = action.payload;
+      if (!address || !chainId) return state;
+      return {
+        ...state,
+        [`${address.toLowerCase().trim()}-${chainId}`]: {
+          accessToken,
+          auth_status,
+        },
+      };
     },
   },
 });
 
-const selectAuthStatus = (state: AppState) => state.global.auth_status;
-const selectAccessToken = (state: AppState) => state.global.accessToken;
+const selectAuthStatus = (
+  state: AppState,
+  {
+    address,
+    chainId,
+  }: {
+    address: string | undefined;
+    chainId: number | undefined;
+  }
+) => {
+  if (address && chainId) {
+    const obj = state.global[`${address.toLowerCase().trim()}-${chainId}`];
+    if (obj) {
+      return obj.auth_status;
+    }
+  }
+  return "unauthenticated";
+};
+const selectAccessToken = (
+  state: AppState,
+  {
+    address,
+    chainId,
+  }: {
+    address: string | undefined;
+    chainId: number | undefined;
+  }
+) => {
+  if (address && chainId) {
+    const obj = state.global[`${address.toLowerCase().trim()}-${chainId}`];
+    if (obj) {
+      return obj.accessToken;
+    }
+  }
+  return null;
+};
 
 const selectors = {
   selectAuthStatus,

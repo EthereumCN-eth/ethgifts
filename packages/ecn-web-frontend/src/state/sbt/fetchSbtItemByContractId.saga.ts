@@ -1,18 +1,54 @@
-import { call, select } from "typed-redux-saga/macro";
+import { call, put, select, fork } from "typed-redux-saga/macro";
 
 import { fetchGalleryIfNot } from "../gallery/sagas";
 import { ecnApiClient } from "@/apis";
 import { selectors as globalSelectors } from "@/state/global/index";
 
-export function* fetchSbtItemByContractId(payload: {
-  ethAddress: string;
+import { actions as sbtActions, selectors as sbtSelectors } from ".";
+
+function* fetchGalleryIfNotAndSBTLevels({
+  address,
+  id,
+}: {
+  address: string | undefined;
   id: number;
 }) {
-  const token = yield* select(globalSelectors.selectAccessToken);
+  yield* call(fetchGalleryIfNot, {
+    address,
+  });
+  const [sbt] = yield* select((state) =>
+    sbtSelectors.selectSBTLevels(state, id)
+  );
+  if (sbt) {
+    yield* put(
+      sbtActions.update({
+        sbtLevel: sbt.SBTLevel,
+        chainId: sbt.chainId,
+        status: sbt.status,
+        artworks: sbt.artworks,
+        itemTexts: sbt.itemText,
+        detailTags: sbt.detailTags,
+      })
+    );
+  }
+}
+
+export function* fetchSbtItemByContractId(payload: {
+  ethAddress: string | undefined;
+  id: number;
+  chainId: number | undefined;
+}) {
+  const token = yield* select((state) =>
+    globalSelectors.selectAccessToken(state, {
+      address: payload.ethAddress,
+      chainId: payload.chainId,
+    })
+  );
 
   try {
-    yield* call(fetchGalleryIfNot, {
+    yield* fork(fetchGalleryIfNotAndSBTLevels, {
       address: payload.ethAddress,
+      id: payload.id,
     });
   } catch (e) {
     return {
@@ -22,8 +58,9 @@ export function* fetchSbtItemByContractId(payload: {
     };
   }
 
+  const { ethAddress, id } = payload;
   // console.log("token", token);
-  if (!token) {
+  if (!token || !ethAddress) {
     //
     // return null;
     return {
@@ -35,7 +72,10 @@ export function* fetchSbtItemByContractId(payload: {
   try {
     const res = yield* call(ecnApiClient.sbtByContractId, {
       token,
-      data: payload,
+      data: {
+        ethAddress,
+        id,
+      },
     });
 
     if (res.success) {

@@ -36,15 +36,12 @@ export const sbtSlice = createSlice({
     update: (state, action: PayloadAction<Partial<SBTState>>) => {
       return { ...state, ...action.payload };
     },
-    // setAuth: (state, action: PayloadAction<TsetAuthPayload>) => {
-    //   state.accessToken = action.payload.accessToken;
-    //   state.auth_status = action.payload.auth_status;
-    // },
   },
 });
 const fetchSBTDetails = createAction<{
   ethAddress: string | undefined;
   id: number;
+  chainId: number | undefined;
 }>(`${sbtSlice.name}/fetchSBTDetails`);
 
 const sagaActions = {

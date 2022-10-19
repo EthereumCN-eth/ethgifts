@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 
 import { sagaActions as gallerySagaActions } from "@/state/gallery";
 import { selectors as globalSelectors } from "@/state/global";
@@ -12,7 +12,13 @@ const Poap = () => {
   const { id } = router.query;
   const appDispatch = useAppDispatch();
   const { address } = useAccount();
-  const accessToken = useAppSelector(globalSelectors.selectAccessToken);
+  const { chain } = useNetwork();
+  const accessToken = useAppSelector((state) =>
+    globalSelectors.selectAccessToken(state, {
+      address,
+      chainId: chain?.id,
+    })
+  );
   useEffect(() => {
     const idNumber = Number(id);
     // console.log("id", id);
