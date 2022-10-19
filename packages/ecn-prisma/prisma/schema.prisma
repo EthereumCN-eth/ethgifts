@@ -98,6 +98,7 @@ model GalleryItemBase {
   id             Int       @id @default(autoincrement())
   name           String
   itemText       String[]
+  coverLink      String
   imageLinks     String[]
   videoLinks     String[]
   chainId        Int

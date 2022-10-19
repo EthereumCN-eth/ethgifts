@@ -53,9 +53,9 @@ const nfts: NFTCreateData[] = [
         tags: [],
         eventStartTime: 1643710408,
         eventDuration: 3600,
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
-        ],
+        imageLinks: [],
         videoLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
         ],
@@ -67,9 +67,9 @@ const nfts: NFTCreateData[] = [
     symbol: "The Merge & Weeth",
     galleryItemBase: {
       create: {
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
-        ],
+        imageLinks: [],
         name: "The Merge & Weeth",
         chainId: 1,
         tokenType: "ERC1155",
@@ -88,9 +88,9 @@ const nfts: NFTCreateData[] = [
     symbol: "The Merge & Weeth",
     galleryItemBase: {
       create: {
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmWibxWeaZLLPRdBFYT3ci7yB6CMHFfhdK66jmpZGW2jWL",
-        ],
+        imageLinks: [],
         name: "Decentralize staking with Rocket Pool",
         chainId: 1,
         onShelf: true,
@@ -116,9 +116,9 @@ const nfts: NFTCreateData[] = [
         tags: [],
         eventStartTime: 1612260808,
         eventDuration: 3600,
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmdTy8AmhyikhxCABahQCMfBfcCbM5enNUM1qUs3ELN1D5",
-        ],
+        imageLinks: [],
       },
     },
   },
@@ -127,9 +127,9 @@ const nfts: NFTCreateData[] = [
     symbol: "PANDA",
     galleryItemBase: {
       create: {
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmPStYeT6wRbQmdAjWHEqUNwnPyAr9SYaqpWhCzsgYTiqz",
-        ],
+        imageLinks: [],
         chainId: 1,
         name: "The Merge Panda",
         tags: [],
@@ -145,9 +145,9 @@ const nfts: NFTCreateData[] = [
     symbol: "imToken &amp;amp; ECN",
     galleryItemBase: {
       create: {
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmZWvHquvff87Ud3A8FynDiaks6sj9K9Xc1UeedtWCq64A",
-        ],
+        imageLinks: [],
         chainId: 42161,
         name: "imToken & ECN Community AMA",
         tags: [],
@@ -170,13 +170,14 @@ const sbts: SBTCreateData[] = [
 
     galleryItemBase: {
       create: {
+        coverLink: "",
         chainId: 1,
         name: "E群志 SBT",
         onShelf: true,
         galleryItemType: "sbt",
         itemText: ["E群志 SBT Lv 1", "E群志 SBT Lv 2", "E群志 SBT Lv 3"],
         imageLinks: [
-          "https://mirror-media.imgix.net/publication-images/cDosw4qHdNtOPrVxYn5CK.jpg?h=540&w=540",
+          // "https://mirror-media.imgix.net/publication-images/cDosw4qHdNtOPrVxYn5CK.jpg?h=540&w=540",
           "https://foundation.app/images/drops/collection-01-02@2x.png",
           "https://foundation.app/images/drops/collection-03-03@2x.png",
           "https://foundation.app/images/drops/collection-02-02@2x.png",
@@ -193,10 +194,10 @@ const poaps: PoapCreateData[] = [
     poapEventId: 42251,
     galleryItemBase: {
       create: {
-        name: "The Merge & Weeth",
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmdUwiMsxvsV3hp3sHkRTTYGd6zMJyZqeAZFfdk91LEKEd",
-        ],
+        name: "The Merge & Weeth",
+        imageLinks: [],
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,
@@ -208,10 +209,9 @@ const poaps: PoapCreateData[] = [
     galleryItemBase: {
       create: {
         name: "Chinese New Year with Vitalik",
-
-        imageLinks: [
+        coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmcpPK5vn57tieWR18duxK9mcUru611Ad8HxSaXze6n9u9",
-        ],
+        imageLinks: [],
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,

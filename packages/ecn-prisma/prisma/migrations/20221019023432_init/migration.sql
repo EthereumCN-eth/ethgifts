@@ -72,6 +72,7 @@ CREATE TABLE "GalleryItemBase" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "itemText" TEXT[],
+    "coverLink" TEXT NOT NULL,
     "imageLinks" TEXT[],
     "videoLinks" TEXT[],
     "chainId" INTEGER NOT NULL,

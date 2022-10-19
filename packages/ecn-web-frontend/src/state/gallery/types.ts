@@ -18,6 +18,7 @@ export type BaseItemType = {
   key: string;
   status: "coming soon" | "ongoing" | null;
   chainId: number;
+  // imageLinks: string[] | null;
 };
 
 export type GallerySBTItemType = {

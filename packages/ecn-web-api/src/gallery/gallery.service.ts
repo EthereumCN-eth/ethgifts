@@ -13,6 +13,29 @@ import { GalleryItemBase, NFT, Poap, SBTContractType } from '@prisma/client';
 // import { NFT, Poap, SBTContractType } from '@prisma/client';
 // import { array } from 'yup';
 
+const expandSBTItems = (
+  sbts: (SBTContractType & {
+    galleryItemBase: GalleryItemBase;
+  })[],
+): (SBTContractType & {
+  galleryItemBase: GalleryItemBase;
+} & { currentLevel: number })[] => {
+  return sbts.reduce((acc, item) => {
+    const items = item.countLevel.map((level, ind) => {
+      return {
+        ...item,
+        currentLevel: level,
+        galleryItemBase: {
+          ...item.galleryItemBase,
+          name: item.galleryItemBase.itemText[ind],
+          coverLink: item.galleryItemBase.imageLinks[ind],
+        },
+      };
+    });
+    return [...acc, ...items];
+  }, []);
+};
+
 const GALLERY_CACHE_KEY = 'GALLERY_CACHE_KEY';
 @Injectable()
 export class GalleryService {
@@ -54,134 +77,128 @@ export class GalleryService {
       poapsPromise,
     ]);
 
-    const galleryItems = [...nfts, ...sbts, ...poaps].map((item) => {
-      let additionalProps:
-        | Omit<SBTItem, keyof BaseItem>
-        | Omit<NFTItem, keyof BaseItem>
-        | Omit<PoapItem, keyof BaseItem>;
-      if ('countLevel' in item) {
-        const {
-          contractAddress,
-          countLevel: SBTLevel,
-          galleryItemBase: {
-            imageLinks: [_, ...artworks],
-          },
-          // galleryItemBase: { galleryItemType: typeName },
-        } = item;
-        additionalProps = {
-          contractAddress,
-          SBTLevel,
-          artworks,
-          typeName: 'sbt',
-        };
-      } else if ('poapEventId' in item) {
-        const {
-          poapEventId: eventId,
-          // galleryItemBase: { galleryItemType: typeName },
-        } = item;
-        additionalProps = {
-          eventId,
-          typeName: 'poap',
-        };
-      } else {
-        const {
-          contractAddress,
+    console.log(...expandSBTItems(sbts));
 
-          // galleryItemBase: { galleryItemType: typeName },
+    const galleryItems = [...nfts, ...expandSBTItems(sbts), ...poaps].map(
+      (item) => {
+        let additionalProps:
+          | Omit<SBTItem, keyof BaseItem>
+          | Omit<NFTItem, keyof BaseItem>
+          | Omit<PoapItem, keyof BaseItem>;
+        if ('countLevel' in item) {
+          const {
+            contractAddress,
+            countLevel: SBTLevel,
+            galleryItemBase: { imageLinks: artworks },
+            currentLevel,
+
+            // galleryItemBase: { galleryItemType: typeName },
+          } = item;
+          additionalProps = {
+            currentLevel,
+            contractAddress,
+            SBTLevel,
+            artworks,
+            typeName: 'sbt',
+          };
+        } else if ('poapEventId' in item) {
+          const {
+            poapEventId: eventId,
+            // galleryItemBase: { galleryItemType: typeName },
+          } = item;
+          additionalProps = {
+            eventId,
+            typeName: 'poap',
+          };
+        } else {
+          const {
+            contractAddress,
+
+            // galleryItemBase: { galleryItemType: typeName },
+          } = item;
+          additionalProps = {
+            contractAddress,
+            typeName: 'nft',
+          };
+        }
+        const {
+          galleryItemBase: {
+            eventDuration,
+            eventStartTime,
+            tags,
+            itemText,
+            imageLinks,
+            videoLinks,
+            chainId,
+            name,
+            tokenType,
+            tokenId,
+            onShelf,
+            coverLink,
+          },
+          id,
         } = item;
-        additionalProps = {
-          contractAddress,
-          typeName: 'nft',
-        };
-      }
-      const {
-        galleryItemBase: {
-          eventDuration,
-          eventStartTime,
+
+        let timeProps: EventItem;
+        if (eventDuration && eventStartTime) {
+          timeProps = {
+            endTime: eventDuration + eventStartTime,
+            startTime: eventStartTime,
+            status:
+              eventStartTime > Date.now()
+                ? 'coming soon'
+                : Date.now() > eventStartTime + eventDuration
+                ? null
+                : 'ongoing',
+          };
+        } else if (eventStartTime && !eventDuration) {
+          timeProps = {
+            endTime: Infinity,
+            startTime: eventStartTime,
+            status: eventStartTime > Date.now() ? 'coming soon' : 'ongoing',
+          };
+        } else if (!eventStartTime && !eventDuration) {
+          timeProps = {
+            endTime: Infinity,
+            startTime: 0,
+            status: 'ongoing',
+          };
+        } else {
+          // never
+          timeProps = {
+            endTime: Infinity,
+            startTime: 0,
+            status: 'ongoing',
+          };
+        }
+
+        const commonProps: BaseItem = {
+          ...timeProps,
           tags,
           itemText,
           imageLinks,
           videoLinks,
           chainId,
           name,
+          id,
           tokenType,
           tokenId,
           onShelf,
-        },
-        id,
-      } = item;
+          coverLink,
+        };
 
-      let timeProps: EventItem;
-      if (eventDuration && eventStartTime) {
-        timeProps = {
-          endTime: eventDuration + eventStartTime,
-          startTime: eventStartTime,
-          status:
-            eventStartTime > Date.now()
-              ? 'coming soon'
-              : Date.now() > eventStartTime + eventDuration
-              ? null
-              : 'ongoing',
+        return {
+          ...additionalProps,
+          ...commonProps,
         };
-      } else if (eventStartTime && !eventDuration) {
-        timeProps = {
-          endTime: Infinity,
-          startTime: eventStartTime,
-          status: eventStartTime > Date.now() ? 'coming soon' : 'ongoing',
-        };
-      } else if (!eventStartTime && !eventDuration) {
-        timeProps = {
-          endTime: Infinity,
-          startTime: 0,
-          status: 'ongoing',
-        };
-      } else {
-        // never
-        timeProps = {
-          endTime: Infinity,
-          startTime: 0,
-          status: 'ongoing',
-        };
-      }
+      },
+    );
 
-      const commonProps: BaseItem = {
-        ...timeProps,
-        tags,
-        itemText,
-        imageLinks,
-        videoLinks,
-        chainId,
-        name,
-        id,
-        tokenType,
-        tokenId,
-        onShelf,
-      };
-
-      return {
-        ...additionalProps,
-        ...commonProps,
-      };
+    const sortedItems = galleryItems.sort((x, y) => {
+      return y.startTime - x.startTime;
     });
 
-    const sortedItems = galleryItems
-      .sort((x, y) => {
-        return y.startTime - x.startTime;
-      })
-      .reduce((acc, item) => {
-        if (item.typeName === 'sbt') {
-          const items = item.SBTLevel.map((level, ind) => {
-            return {
-              ...item,
-              currentLevel: level,
-              name: item.itemText[ind],
-            };
-          });
-          return [...acc, ...items];
-        }
-        return [...acc, item];
-      }, []);
-    await this.cacheManager.set(GALLERY_CACHE_KEY, sortedItems, { ttl: 300 });
+    await this.cacheManager.set(GALLERY_CACHE_KEY, sortedItems, { ttl: 900 });
     return sortedItems;
   }
 }

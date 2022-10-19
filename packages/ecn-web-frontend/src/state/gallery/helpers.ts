@@ -60,7 +60,8 @@ export const convertGalleryItem = (
       //   endTime,
       id,
       status,
-      imageLinks,
+      // imageLinks,
+      coverLink,
       chainId,
       // videoLinks,
       itemText,
@@ -105,7 +106,7 @@ export const convertGalleryItem = (
       key: `${serverItem.typeName}_${name}`,
       detailTags,
       homeTags,
-      imgSrc: (imageLinks && imageLinks[0]) || "",
+      imgSrc: coverLink,
       imgAlt: name,
       desc: `${year}年${month}月`,
       btnTxt,
@@ -114,6 +115,7 @@ export const convertGalleryItem = (
       status,
       chainId,
       itemText,
+      // imageLinks,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
     if (serverItem.typeName === "nft") {

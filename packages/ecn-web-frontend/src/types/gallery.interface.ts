@@ -1,4 +1,4 @@
-type EventItem = {
+export type EventItem = {
   startTime: number;
   endTime: number;
   status: "coming soon" | "ongoing" | null;
@@ -6,6 +6,7 @@ type EventItem = {
 
 export type BaseItem = {
   itemText: string[] | null;
+  coverLink: string;
   imageLinks: string[] | null;
   videoLinks: string[] | null;
   chainId: number;
@@ -33,6 +34,6 @@ export type SBTItem = {
   artworks: string[];
   contractAddress: string;
   SBTLevel: number[];
+  currentLevel: number;
 } & BaseItem;
-
 export type GalleryServerItem = NFTItem | PoapItem | SBTItem;

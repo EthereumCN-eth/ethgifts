@@ -6,6 +6,7 @@ export type EventItem = {
 
 export type BaseItem = {
   itemText: string[] | null;
+  coverLink: string;
   imageLinks: string[] | null;
   videoLinks: string[] | null;
   chainId: number;
@@ -33,6 +34,7 @@ export type SBTItem = {
   artworks: string[];
   contractAddress: string;
   SBTLevel: number[];
+  currentLevel: number;
 } & BaseItem;
 
 export type GalleryItem = NFTItem | PoapItem | SBTItem;
