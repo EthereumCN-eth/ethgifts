@@ -9,11 +9,10 @@ import { useScrollProgress } from "./useScrollProgress";
 
 const circleLen = () => {
   // eslint-disable-next-line no-nested-ternary
-  return window.innerWidth * 0.33 > 740 && window.innerWidth * 0.33 < 690
-    ? "33vw"
-    : window.innerHeight > 690 && window.innerWidth > 690
-    ? "550px"
-    : "300px";
+  if (window.innerWidth * 0.33 > 740 && window.innerWidth * 0.33 < 690)
+    return "33vw";
+  const len = window.innerHeight > 690 && window.innerWidth > 690 ? 550 : 300;
+  return `${Math.min(window.innerHeight * 0.65, len)}px`;
 };
 
 const HEIGHT_WHOLE = "250vh";
@@ -113,6 +112,7 @@ export const HomeScrollFixedView = () => {
               minH="68vh"
               w="full"
               overflow="hidden"
+              // bg="green"
             >
               <div
                 css={css`
@@ -121,7 +121,7 @@ export const HomeScrollFixedView = () => {
                   height: calc(${circleLen()} * 1);
                   background-color: transparent;
                   border-radius: 50%;
-                  transform: ${`translateY(${-3}vh)  scale(${
+                  transform: ${`translateY(${0}vh)  scale(${
                     4.2 * progressRef.current + 1
                   })`};
                   opacity: ${scrollOpacityRef.current};
@@ -136,7 +136,7 @@ export const HomeScrollFixedView = () => {
             <div
               css={css`
                 position: fixed;
-                transform: ${`translateY(-1vw) `};
+                /* transform: ${`translateY(-1vw) `}; */
                 opacity: ${scrollOpacityRef.current};
                 display: flex;
                 flex-direction: column;
