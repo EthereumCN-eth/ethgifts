@@ -19,12 +19,13 @@ const expandSBTItems = (
   })[],
 ): (SBTContractType & {
   galleryItemBase: GalleryItemBase;
-} & { currentLevel: number })[] => {
+} & { currentLevel: number; currentIndex: number })[] => {
   return sbts.reduce((acc, item) => {
     const items = item.countLevel.map((level, ind) => {
       return {
         ...item,
         currentLevel: level,
+        currentIndex: ind,
         galleryItemBase: {
           ...item.galleryItemBase,
           name: item.galleryItemBase.itemText[ind],
@@ -91,6 +92,7 @@ export class GalleryService {
             countLevel: SBTLevel,
             galleryItemBase: { imageLinks: artworks },
             currentLevel,
+            currentIndex,
 
             // galleryItemBase: { galleryItemType: typeName },
           } = item;
@@ -100,6 +102,7 @@ export class GalleryService {
             SBTLevel,
             artworks,
             typeName: 'sbt',
+            currentIndex,
           };
         } else if ('poapEventId' in item) {
           const {

@@ -9,5 +9,6 @@ export const GalleryNFTItem = (galleryItem: GalleryNFTItemType) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useNFTAndSBTRead(contractReadObj);
   // console.log("nft data", data);
-  return <GalleryItem {...galleryItem} />;
+  const { id, typeName } = galleryItem;
+  return <GalleryItem linkTo={`/${typeName}/${id}`} {...galleryItem} />;
 };

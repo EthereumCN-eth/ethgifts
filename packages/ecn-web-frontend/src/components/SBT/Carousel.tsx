@@ -1,5 +1,4 @@
 import { Box, Divider, Flex, IconButton } from "@chakra-ui/react";
-import type { Dispatch, SetStateAction } from "react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
 import { BothSideImage } from "./BothSideImage";
@@ -13,28 +12,27 @@ export const Carousel = ({
   levels,
   itemTexts,
   base,
-  setBase,
+
   selectedIndex,
+  clickPrev,
+  clickNext,
+  clickDot,
+  isLeftDisable,
+  isRightDisable,
 }: {
   artworks: string[];
   levels: number[];
   itemTexts: string[] | null;
   base: number;
-  setBase: Dispatch<SetStateAction<number>>;
+  // setBase: Dispatch<SetStateAction<number>>;
   selectedIndex: number;
+  clickPrev: () => void;
+  clickNext: () => void;
+  clickDot: (index: number) => void;
+  isLeftDisable: boolean;
+  isRightDisable: boolean;
 }) => {
   const progressValues = useComputedProgressVales(levels);
-
-  const onClickArrowLeft = () => {
-    setBase((v) => v + 1);
-  };
-  const onClickArrowRight = () => {
-    setBase((v) => v - 1);
-  };
-  const onClickDot = (index: number) => {
-    setBase(-index);
-  };
-  // console.log("artworks", artworks);
   return (
     <>
       <Flex
@@ -91,7 +89,7 @@ export const Carousel = ({
         >
           <IconButton
             aria-label="left"
-            onClick={onClickArrowLeft}
+            onClick={clickPrev}
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -100,11 +98,12 @@ export const Carousel = ({
             variant="unstyled"
             icon={<AiOutlineLeftCircle size="28px" />}
             color="#FFFFFF"
+            disabled={isLeftDisable}
           />
           <Divider orientation="vertical" h="35px" mx="33px" bg="#7A7A7A" />
           <IconButton
             aria-label="left"
-            onClick={onClickArrowRight}
+            onClick={clickNext}
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -113,6 +112,7 @@ export const Carousel = ({
             variant="unstyled"
             icon={<AiOutlineRightCircle size="28px" />}
             color="#FFFFFF"
+            disabled={isRightDisable}
           />
         </Flex>
       </Flex>
@@ -121,7 +121,7 @@ export const Carousel = ({
           itemTexts={itemTexts}
           progressValues={progressValues}
           selectedIndex={selectedIndex}
-          onClickDot={onClickDot}
+          onClickDot={clickDot}
         />
       </Flex>
     </>

@@ -9,5 +9,11 @@ export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useNFTAndSBTRead(contractReadObj);
   // console.log("sbt data", data);
-  return <GalleryItem {...galleryItem} />;
+  const { id, typeName, currentIndex } = galleryItem;
+  return (
+    <GalleryItem
+      linkTo={`/${typeName}/${id}/${currentIndex + 1}`}
+      {...galleryItem}
+    />
+  );
 };

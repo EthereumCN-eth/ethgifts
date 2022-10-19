@@ -1,6 +1,7 @@
 import {
   Box,
   HStack,
+  IconButton,
   Image,
   Link,
   ListItem,
@@ -8,6 +9,7 @@ import {
   // useDisclosure,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useRouter } from "next/router";
 
 import { useHeaderStore } from "./headerState";
 // import "@rainbow-me/rainbowkit/styles.css";
@@ -23,6 +25,7 @@ const Header = () => {
   const { basebgColor, textColor } = useHeaderStore(
     (state) => state.headerValues
   );
+  const router = useRouter();
   return (
     <Box
       as="header"
@@ -51,13 +54,23 @@ const Header = () => {
         justify="space-between"
         zIndex={100}
       >
-        <Image
-          src="/giftslog.png"
-          h="50px"
-          w="10%"
-          fit="contain"
-          alt="ethgifts-logo"
+        <IconButton
+          onClick={() => {
+            router.push("/");
+          }}
+          icon={
+            <Image
+              src="/giftslog.png"
+              h="50px"
+              w="10vw"
+              fit="contain"
+              alt="ethgifts-logo"
+            />
+          }
+          variant="unstyled"
+          aria-label="ethgifts-logo"
         />
+
         {/* <Text fontSize="56px" fontWeight={400} fontFamily="Red Rose">
           EthGifts
         </Text> */}

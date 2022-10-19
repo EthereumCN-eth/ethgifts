@@ -1,6 +1,6 @@
 import { Center, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
 import { selectors as globalSelectors } from "@/state/global";
@@ -11,37 +11,75 @@ import {
 } from "@/state/sbt";
 
 import { Carousel } from "./Carousel";
-import { selectMainIndex } from "./helpers";
+import { mainNumberToBase, selectMainIndex, useRouteByIndex } from "./helpers";
 import { StatusBoard } from "./StatusBoard";
 
 export const SBT = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, num } = router.query;
+  const [base, setBase] = useState(mainNumberToBase(1));
+  const [idNumber, setIdNumber] = useState<number>();
   const appDispatch = useAppDispatch();
   const { address } = useAccount();
   const accessToken = useAppSelector(globalSelectors.selectAccessToken);
-  useEffect(() => {
-    const idNumber = Number(id);
-    // console.log("id", id);
-    // console.log("address", address);
-
-    if (id && Number.isInteger(Number(id)))
-      appDispatch(
-        sbtSagaActions.fetchSBTDetails({
-          ethAddress: address,
-          id: idNumber,
-        })
-      );
-  }, [address, appDispatch, id, router, accessToken]);
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loaded, sbtLevel, status, artworks, itemTexts, detailTags } =
     useAppSelector(sbtSelectors.selectAll);
+  useEffect(() => {
+    const numNumber = Number(num);
+    if (router.isReady && loaded) {
+      if (
+        Number.isInteger(numNumber) &&
+        numNumber >= 1 &&
+        numNumber <= artworks.length
+      ) {
+        setBase(mainNumberToBase(numNumber));
+      } else {
+        router.replace("/404");
+      }
+    }
+  }, [num, router.isReady, router, artworks.length, loaded]);
+  useEffect(() => {
+    const parsedId = Number(id);
+    if (id && Number.isInteger(Number(id))) {
+      setIdNumber(parsedId);
+      appDispatch(
+        sbtSagaActions.fetchSBTDetails({
+          ethAddress: address,
+          id: parsedId,
+        })
+      );
+    }
+  }, [address, appDispatch, id, router, accessToken]);
+
   // console.log("sbtLevel", sbtLevel);
   // console.log("artworks", artworks);
   // console.log("itemTexts", itemTexts);
-  const [base, setBase] = useState(0);
-  const selectedIndex = selectMainIndex(base, artworks.length);
+
+  const selectedIndex = useMemo(
+    () => selectMainIndex(base, artworks.length),
+    [artworks.length, base]
+  );
+
+  const isLeftDisable = useMemo(() => {
+    if (loaded) {
+      return selectedIndex === 0;
+    }
+    return true;
+  }, [selectedIndex, loaded]);
+  const isRightDisable = useMemo(() => {
+    if (loaded) {
+      return selectedIndex === artworks.length - 1;
+    }
+    return true;
+  }, [loaded, selectedIndex, artworks.length]);
+  const { clickDot, clickNext, clickPrev } = useRouteByIndex({
+    id: idNumber,
+    selectedIndex,
+  });
+
+  // console.log("base", base);
+  // console.log("selectedIndex", selectedIndex);
 
   return (
     <Flex w="100%" minH="100vh" direction="column" bg="black">
@@ -56,8 +94,13 @@ export const SBT = () => {
       >
         <Flex w="50%" direction="column" h="95%" align="center">
           <Carousel
+            isLeftDisable={isLeftDisable}
+            isRightDisable={isRightDisable}
+            clickDot={clickDot}
+            clickPrev={clickPrev}
+            clickNext={clickNext}
             base={base}
-            setBase={setBase}
+            // setBase={setBase}
             selectedIndex={selectedIndex}
             artworks={artworks}
             levels={sbtLevel}

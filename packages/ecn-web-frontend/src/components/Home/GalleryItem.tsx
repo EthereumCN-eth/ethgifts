@@ -23,9 +23,10 @@ export const GalleryItem = ({
   title,
   desc,
   btnTxt,
-  id,
-  typeName,
-}: GalleryItemType) => {
+  linkTo,
+}: GalleryItemType & {
+  linkTo: string;
+}) => {
   return (
     <LinkBox key={title}>
       <Flex
@@ -83,7 +84,7 @@ export const GalleryItem = ({
           justify="center"
           mt="10px"
         >
-          <NextLink href={`/${typeName}/${id}`} passHref>
+          <NextLink href={linkTo} passHref>
             <LinkOverlay>
               <Text
                 textAlign="center"

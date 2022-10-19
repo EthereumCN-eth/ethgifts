@@ -140,13 +140,15 @@ export const convertGalleryItem = (
       } as GalleryPoapItemType;
     }
 
-    const { SBTLevel, artworks } = serverItem;
+    const { SBTLevel, artworks, currentLevel, currentIndex } = serverItem;
     // sbt
     const additionPorps: Omit<GallerySBTItemType, keyof BaseItemType> = {
       contractReadObj,
       SBTLevel,
       artworks,
       typeName: "sbt",
+      currentLevel,
+      currentIndex,
     };
     return {
       ...baseProps,

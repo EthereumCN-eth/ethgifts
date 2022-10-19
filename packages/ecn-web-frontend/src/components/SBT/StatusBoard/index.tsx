@@ -1,7 +1,7 @@
 import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 import { AiOutlineDownload } from "react-icons/ai";
 
-import { TextTag } from "../TextTag";
+import { TextTag } from "../../TextTag";
 import type { Tag } from "@/state/gallery/types";
 
 type StatusBoardPropstype = {

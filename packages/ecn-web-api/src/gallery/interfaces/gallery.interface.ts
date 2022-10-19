@@ -35,6 +35,7 @@ export type SBTItem = {
   contractAddress: string;
   SBTLevel: number[];
   currentLevel: number;
+  currentIndex: number;
 } & BaseItem;
 
 export type GalleryItem = NFTItem | PoapItem | SBTItem;
