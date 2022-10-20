@@ -112,6 +112,8 @@ export const HomeScrollFixedView = () => {
               minH="68vh"
               w="full"
               overflow="hidden"
+              // background="rgba(255, 255, 255, 0.8)"
+              // backdropFilter="blur(150px)"
               // bg="green"
             >
               <div
@@ -119,16 +121,19 @@ export const HomeScrollFixedView = () => {
                   width: calc(${circleLen()} * 1);
 
                   height: calc(${circleLen()} * 1);
-                  background-color: transparent;
+                  background: white;
                   border-radius: 50%;
                   transform: ${`translateY(${0}vh)  scale(${
                     4.2 * progressRef.current + 1
                   })`};
                   opacity: ${scrollOpacityRef.current};
-                  border: ${1 + 1 * progressRef.current}px solid black;
+                  /* border: ${1 + 1 * progressRef.current}px solid black; */
                   display: flex;
                   justify-content: center;
                   align-items: center;
+                  /* box-shadow: rgba(255, 255, 255, 0.6) 0px 25px 50px -12px;
+                   */
+                  filter: drop-shadow(18px 18px 20px rgba(0, 0, 0, 0.25));
                 `}
               />
             </Flex>
@@ -146,24 +151,29 @@ export const HomeScrollFixedView = () => {
             >
               <p
                 css={css`
-                  font-family: "Red Rose";
+                  font-family: "PingFang SC";
                   font-style: normal;
                   font-weight: 400;
-                  font-size: calc(${circleLen()} / 8);
+                  font-size: calc(${circleLen()} / 12);
+                  color: rgba(15, 7, 1, 0.6);
+                  font-weight: 600;
                 `}
               >
-                ETHGift
+                ETHGifts
               </p>
               <p
                 css={css`
                   font-family: "PingFang SC";
                   font-style: normal;
                   width: calc(${circleLen()} * 0.68);
-                  font-weight: 400;
-                  font-size: calc(${circleLen()} / 20);
+                  font-weight: 600;
+                  font-size: calc(${circleLen()} / 34);
                   text-align: center;
                   line-height: 1.7;
-                  margin-top: 10px;
+                  margin-top: 15px;
+                  width: 70%;
+                  letter-spacing: 0.01em;
+                  color: rgba(15, 7, 1, 0.6);
                 `}
               >
                 把你在ECN的社区参与编码为 web3 的数字凭证

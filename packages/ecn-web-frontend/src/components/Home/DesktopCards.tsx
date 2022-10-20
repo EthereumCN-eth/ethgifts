@@ -2,10 +2,10 @@ import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 const data = [
-  { text: "工作量凭证", imageSrc: "/rect.png" },
-  { text: "技能凭证", imageSrc: "/circle.png" },
-  { text: "参与凭证", imageSrc: "/tri.png" },
-  { text: "成员资格凭证", imageSrc: "/star.png" },
+  { text: "工作量凭证", imageSrc: "/pow.png" },
+  { text: "技能凭证", imageSrc: "/pos.png" },
+  { text: "参与凭证", imageSrc: "/pop.png" },
+  { text: "成员资格凭证", imageSrc: "/pom.png" },
 ];
 
 export const DesktopCards = ({
@@ -18,7 +18,7 @@ export const DesktopCards = ({
   return (
     <>
       <Box
-        bg="black"
+        bg="#E1E1E1"
         w="120vw"
         minH="1px"
         css={css`
@@ -34,9 +34,10 @@ export const DesktopCards = ({
         gap={0}
         css={css`
           opacity: ${vBarOpacity};
+          background: rgba(255, 255, 255, 0.6);
         `}
       >
-        <VStack m={0} flex={1} minH="68vh" borderLeft="black solid 1px" />
+        <VStack m={0} flex={1} minH="68vh" borderLeft="#E1E1E1 solid 1px" />
         {data.map((i) => {
           return (
             <VStack
@@ -44,7 +45,7 @@ export const DesktopCards = ({
               m={0}
               flex={1}
               minH="68vh"
-              borderLeft="black solid 1px"
+              borderLeft="#E1E1E1 solid 1px"
               align="center"
               position="relative"
               // justify={"center"}
@@ -67,10 +68,10 @@ export const DesktopCards = ({
           );
         })}
 
-        <VStack m={0} flex={1} minH="68vh" borderLeft="black solid 1px" />
+        <VStack m={0} flex={1} minH="68vh" borderLeft="#E1E1E1 solid 1px" />
       </HStack>
       <Box
-        bg="black"
+        bg="#E1E1E1"
         w="120vw"
         minH="1px"
         css={css`
