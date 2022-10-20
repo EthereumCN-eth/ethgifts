@@ -37,7 +37,7 @@ contract ExpressSBT is EIP712, ERC721Enumerable, IExpressSBT, Ownable {
     mapping(address => uint256[]) internal _mintedLevels;
 
     // grade line of express SBT, initial setting is [20,100,300]
-    uint256[] private gradeLine;
+    uint256[] public gradeLine;
 
     constructor(address _approver, uint256[] memory _gradeLine)
         EIP712('ExpressSBT', '1')
@@ -54,7 +54,7 @@ contract ExpressSBT is EIP712, ERC721Enumerable, IExpressSBT, Ownable {
      *
      * Requirements: tokenId exists.
      */
-    function currentLevels(address account)
+    function mintedLevels(address account)
         public
         view
         virtual
@@ -277,7 +277,7 @@ contract ExpressSBT is EIP712, ERC721Enumerable, IExpressSBT, Ownable {
         returns (bool available, uint256 mintableLevel)
     {
         uint256 balance = balanceOf(account);
-        uint256[] memory mintedLevels = currentLevels(account);
+        uint256[] memory levels = mintedLevels(account);
 
         require(
             balance != gradeLine.length,
@@ -286,10 +286,10 @@ contract ExpressSBT is EIP712, ERC721Enumerable, IExpressSBT, Ownable {
 
         // check if account holds minting level SBT
         uint256 mintableHighestLevel = _mintableHighestLevel(expressAmount);
-        if (mintedLevels.length != 0) {
-            for (uint256 i = 0; i < mintedLevels.length; i++) {
+        if (levels.length != 0) {
+            for (uint256 i = 0; i < levels.length; i++) {
                 require(
-                    mintedLevels[i] != mintableHighestLevel,
+                    levels[i] != mintableHighestLevel,
                     'you have minted this level'
                 );
             }

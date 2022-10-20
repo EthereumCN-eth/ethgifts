@@ -33,7 +33,7 @@ interface IExpressSBT {
      *
      * Requirements: tokenId exists.
      */
-    function currentLevels(address account)
+    function mintedLevels(address account)
         external
         view
         returns (uint256[] memory);
