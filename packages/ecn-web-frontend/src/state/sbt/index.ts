@@ -1,6 +1,7 @@
 import type { SBTSignatureRecord } from "@prisma/client";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAction, createSlice } from "@reduxjs/toolkit";
+import { constants } from "ethers";
 
 import type { GallerySBTItemType, Tag } from "../gallery/types";
 import type { AppState } from "src/state/store";
@@ -10,11 +11,12 @@ export interface SBTState {
   sbtLevel: number[];
   expressCount: number | null;
   status: "coming soon" | "ongoing" | null;
-  chainId: number | null;
+  chainId: number;
   records: SBTSignatureRecord[] | null;
   artworks: string[];
   itemTexts: string[] | null;
   detailTags: Tag[];
+  contractAddress: string;
 }
 
 const initialState: SBTState = {
@@ -22,11 +24,12 @@ const initialState: SBTState = {
   sbtLevel: [],
   expressCount: 0,
   status: null,
-  chainId: null,
+  chainId: 0,
   records: [],
   artworks: [],
   itemTexts: [],
   detailTags: [],
+  contractAddress: constants.AddressZero,
 };
 
 export const sbtSlice = createSlice({

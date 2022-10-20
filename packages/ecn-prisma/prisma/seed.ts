@@ -164,14 +164,14 @@ const sbts: SBTCreateData[] = [
   {
     // contractAddress,
 
-    contractAddress: "0x266eb7895221c6331994F2C285824ccB891C4c54",
+    contractAddress: "0x2057aC52fe393a51b11aa39E064e1C230A450ed8",
     //       name: "ExpressSBT",
-    countLevel: [1, 3, 5],
+    countLevel: [2, 4, 6],
 
     galleryItemBase: {
       create: {
         coverLink: "",
-        chainId: 1,
+        chainId: 5,
         name: "E群志 SBT",
         onShelf: true,
         galleryItemType: "sbt",

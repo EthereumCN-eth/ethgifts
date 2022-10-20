@@ -28,6 +28,7 @@ export type GallerySBTItemType = {
   currentLevel: number;
   currentIndex: number;
   contractReadObj: Parameters<typeof useContractRead>[0];
+  contractAddress: string;
 } & BaseItemType;
 
 export type GalleryPoapItemType = {
@@ -38,6 +39,7 @@ export type GalleryPoapItemType = {
 
 export type GalleryNFTItemType = {
   typeName: "nft";
+  contractAddress: string;
   contractReadObj: Parameters<typeof useContractRead>[0];
 } & BaseItemType;
 

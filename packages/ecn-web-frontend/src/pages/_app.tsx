@@ -29,7 +29,7 @@ import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 import "@rainbow-me/rainbowkit/styles.css";
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.arbitrum],
+  [chain.mainnet, chain.arbitrum, chain.goerli],
   [
     alchemyProvider({ apiKey: NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY }),
     jsonRpcProvider({

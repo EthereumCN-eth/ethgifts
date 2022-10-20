@@ -29,8 +29,17 @@ export const SBT = () => {
     })
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loaded, sbtLevel, status, artworks, itemTexts, detailTags } =
-    useAppSelector(sbtSelectors.selectAll);
+  const {
+    loaded,
+    sbtLevel,
+    // status,
+    artworks,
+    itemTexts,
+    detailTags,
+    expressCount,
+    contractAddress,
+    chainId,
+  } = useAppSelector(sbtSelectors.selectAll);
   useEffect(() => {
     const numNumber = Number(num);
     if (router.isReady && loaded) {
@@ -127,6 +136,10 @@ export const SBT = () => {
             detailTags={detailTags}
             itemTexts={itemTexts}
             selectedIndex={selectedIndex}
+            expressCount={expressCount}
+            sbtLevel={sbtLevel}
+            contractAddress={contractAddress}
+            chainId={chainId}
           />
         </Flex>
         <Center

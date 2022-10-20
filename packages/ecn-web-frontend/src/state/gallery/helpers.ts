@@ -118,10 +118,13 @@ export const convertGalleryItem = (
       // imageLinks,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
+
     if (serverItem.typeName === "nft") {
+      const { contractAddress } = serverItem;
       const additionPorps: Omit<GalleryNFTItemType, keyof BaseItemType> = {
         contractReadObj,
         typeName: "nft",
+        contractAddress,
       };
       return {
         ...baseProps,
@@ -140,7 +143,8 @@ export const convertGalleryItem = (
       } as GalleryPoapItemType;
     }
 
-    const { SBTLevel, artworks, currentLevel, currentIndex } = serverItem;
+    const { SBTLevel, artworks, currentLevel, currentIndex, contractAddress } =
+      serverItem;
     // sbt
     const additionPorps: Omit<GallerySBTItemType, keyof BaseItemType> = {
       contractReadObj,
@@ -149,6 +153,7 @@ export const convertGalleryItem = (
       typeName: "sbt",
       currentLevel,
       currentIndex,
+      contractAddress,
     };
     return {
       ...baseProps,

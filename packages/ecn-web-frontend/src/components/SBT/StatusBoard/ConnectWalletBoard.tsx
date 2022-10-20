@@ -3,13 +3,13 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import { TextTag } from "../../TextTag";
 
-import type { StatusBoardPropstype } from "./types";
+import type { ConnectWalletBoardProps } from "./types";
 
 export const ConnectWalletBoard = ({
   detailTags,
   itemTexts,
   selectedIndex,
-}: StatusBoardPropstype) => {
+}: ConnectWalletBoardProps) => {
   return (
     <>
       <HStack gap={3} wrap="wrap">

@@ -21,6 +21,7 @@
 
   "rules": {
     "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "no-else-return": [0],
     "import/prefer-default-export": [0],
     "@jambit/typed-redux-saga/use-typed-effects": ["error", "macro"]
   },
