@@ -125,7 +125,7 @@ describe('simple mint 3 level SBT', () => {
 
     expect(await ESBT.balanceOf(user1.address)).to.equal(2);
 
-    let levels = await ESBT.currentLevels(user1.address);
+    let levels = await ESBT.mintedLevels(user1.address);
     expect(levels.toString()).to.equal('1,2');
 
     // mint the level 3
@@ -140,7 +140,7 @@ describe('simple mint 3 level SBT', () => {
 
     expect(await ESBT.balanceOf(user1.address)).to.equal(3);
 
-    let alllevels = await ESBT.currentLevels(user1.address);
+    let alllevels = await ESBT.mintedLevels(user1.address);
     expect(alllevels.toString()).to.equal('1,2,3');
   });
 
@@ -381,7 +381,7 @@ describe('admin functions', () => {
     );
 
     expect(await ESBT.balanceOf(user1.address)).to.equal(1);
-    await ESBT.currentLevels(user1.address).then((levels) => {
+    await ESBT.mintedLevels(user1.address).then((levels) => {
       expect(levels.toString()).to.equal('4');
     });
   });
