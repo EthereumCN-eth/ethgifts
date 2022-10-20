@@ -6,19 +6,31 @@ export const ProgressBar = ({
   progressValues,
   selectedIndex,
   onClickDot,
+  expressCount,
+  levels,
 }: {
   itemTexts: string[] | null;
   progressValues: number[];
   selectedIndex: number;
   onClickDot: (index: number) => void;
+  expressCount: number | null;
+  levels: number[];
 }) => {
-  const selectedProgress = progressValues[selectedIndex];
+  const total = levels.length
+    ? levels[levels.length - 1]
+    : Number.POSITIVE_INFINITY;
+  const currentCount = expressCount || 0;
+  const expressProgress = (currentCount / total) * 100;
+  const selectedLevelProgressVal = progressValues[selectedIndex];
+  // console.log("levels", levels);
+  // console.log("currentCount", currentCount);
+
   return (
     <Box w="53%" position="relative" whiteSpace="nowrap">
       <Box
         position="absolute"
         bottom="100%"
-        left={`${selectedProgress}%`}
+        left={`${selectedLevelProgressVal}%`}
         transform="translateY(-4px) translateX(calc(-50% - 6px))"
         transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
       >
@@ -72,13 +84,13 @@ export const ProgressBar = ({
             // left={`${v}%`}
             h="4px"
             w="4px"
-            bgColor={selectedProgress >= v ? "grey" : "white"}
+            bgColor={selectedLevelProgressVal >= v ? "grey" : "white"}
             borderRadius="50%"
             transition="1000ms linear"
           />
         </IconButton>
       ))}
-      <Progress value={selectedProgress} variant="whiteProgress" />
+      <Progress value={expressProgress} variant="whiteProgress" />
     </Box>
   );
 };

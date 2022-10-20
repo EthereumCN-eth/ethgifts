@@ -19,6 +19,7 @@ export const Carousel = ({
   clickDot,
   isLeftDisable,
   isRightDisable,
+  expressCount,
 }: {
   artworks: string[];
   levels: number[];
@@ -31,6 +32,7 @@ export const Carousel = ({
   clickDot: (index: number) => void;
   isLeftDisable: boolean;
   isRightDisable: boolean;
+  expressCount: number | null;
 }) => {
   const progressValues = useComputedProgressVales(levels);
   return (
@@ -122,6 +124,8 @@ export const Carousel = ({
           progressValues={progressValues}
           selectedIndex={selectedIndex}
           onClickDot={clickDot}
+          expressCount={expressCount}
+          levels={levels}
         />
       </Flex>
     </>

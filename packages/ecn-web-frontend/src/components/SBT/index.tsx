@@ -121,6 +121,7 @@ export const SBT = () => {
             artworks={artworks}
             levels={sbtLevel}
             itemTexts={itemTexts}
+            expressCount={expressCount}
           />
         </Flex>
         <Flex
