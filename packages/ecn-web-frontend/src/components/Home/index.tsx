@@ -43,7 +43,7 @@ export const Home: NextPage = () => {
     <div
       css={css`
         width: 100%;
-        min-height: 300vh;
+        min-height: 250vh;
         position: relative;
         /* background-color: "white"; */
       `}
