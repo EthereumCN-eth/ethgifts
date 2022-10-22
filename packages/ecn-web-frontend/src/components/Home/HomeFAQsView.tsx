@@ -22,24 +22,32 @@ export const HomeFAQsView = () => {
   return (
     <Flex
       direction="column"
-      mt="7.5rem"
-      mb="22rem"
+      mt="11.5rem"
+      mb="146px"
       // bg="#0C0601"
       color="#FFFFFF"
       // minH={"500px"}
       w="full"
       align="center"
+      // bgColor="green"
     >
-      <Heading color="#000000" py="120px" fontWeight={400} fontSize="4rem">
+      <Heading
+        color="#010215"
+        fontFamily="PingFang SC"
+        fontWeight={600}
+        fontSize="2.75rem"
+        mb="2.75rem"
+      >
         FAQs
       </Heading>
 
       <Accordion
         color="#000000"
-        width="80%"
+        width="47%"
+        // minW={}
         defaultIndex={[0]}
         allowMultiple
-        mb={4}
+        mb={3}
         borderColor="transparent"
       >
         {fAQData.map((faqItem) => {

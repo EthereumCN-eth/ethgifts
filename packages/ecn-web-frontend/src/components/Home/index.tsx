@@ -56,7 +56,13 @@ export const Home: NextPage = () => {
         loading={loading}
       />
       <HomeFAQsView />
-      <Center w="full" minH="729px" bg="black" pt="166px" pb="107px">
+      <Center
+        w="full"
+        minH="729px"
+        background="rgba(12, 6, 1, 0.82)"
+        pt="160px"
+        pb="107px"
+      >
         <Flex
           direction="column"
           minH="729px"
@@ -64,16 +70,24 @@ export const Home: NextPage = () => {
           maxW="857px"
           // px={"27%"}
           // bg="grey"
+          // bgColor="background: rgba(12, 6, 1, 0.8)"
           align="center"
         >
-          <Heading color="#fff" mb="53px" fontWeight={400} fontSize="4rem">
+          <Heading
+            color="#EE862B"
+            mb="56px"
+            fontWeight={400}
+            fontSize="2.75rem"
+          >
             ETH Gifts
           </Heading>
           <Text
             fontFamily="PingFang SC"
-            fontSize="1.25rem"
+            fontSize="sm"
             lineHeight={2}
-            color="#B5B5B5"
+            fontWeight={500}
+            color="#DDD9D7"
+            maxW="690px"
           >
             Ethgift 是展示、认证和申领 ECN 社区成员的参与和贡献的XXX。过去，ECN
             曾举办过不少线下 meetup 和线上 AMA 活动，都有给积极参与者发放过 NFT
@@ -83,16 +97,16 @@ export const Home: NextPage = () => {
             SBT，让每个成员的不同类型参与和贡献都能得到恰当的认可和展示。
           </Text>
           <Text
-            mt="50px"
+            mt="56px"
             mb="12px"
-            fontSize="sm"
-            fontWeight="300"
+            fontSize="xs"
+            fontWeight="400"
             fontFamily="PingFang SC"
-            color="#FFFFFF"
+            color="#EE862B"
           >
             点击加入成为ECN社区成员！
           </Text>
-          <Text mb="55px" fontSize="2.25rem">
+          <Text mb="24px" fontSize="2.25rem">
             👇
           </Text>
           <Button
@@ -106,11 +120,14 @@ export const Home: NextPage = () => {
               bg: "gray.300",
             }}
             variant="outline"
-            fontSize="2rem"
-            py="14.5px"
-            px="36px"
+            fontSize="sm"
+            py="10px"
+            px="39px"
             h="auto"
             w="auto"
+            borderRadius="8px"
+            // outline="none"
+            bgColor="#EE862B"
           >
             加入 ECN’s Discord!
           </Button>
