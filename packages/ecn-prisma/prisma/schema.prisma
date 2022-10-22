@@ -105,7 +105,7 @@ model GalleryItemBase {
   tags           String[]
   tokenType      TokenType @default(ERC721)
   tokenId        String? //1155 token id
-  eventStartTime Int?
+  eventStartTime Int
   eventDuration  Int?
 
   galleryItemType GalleryItemType

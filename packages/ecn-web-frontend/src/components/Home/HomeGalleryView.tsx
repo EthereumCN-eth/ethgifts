@@ -24,19 +24,26 @@ export const HomeGalleryView = ({
       zIndex={100}
       direction="column"
       my={30}
-      bg="#0C0601"
+      background="rgba(12, 6, 1, 0.82)"
       color="#FFFFFF"
       minH="500px"
       w="full"
       align="center"
     >
-      <Heading py="120px" fontWeight={400} fontSize="4rem">
+      <Heading
+        py="120px"
+        fontFamily="PingFang SC"
+        fontWeight={600}
+        color="#EE862B"
+        fontSize="2.75rem"
+      >
         EthGift Gallery
       </Heading>
       <Grid
         templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
-        rowGap="6.5vw"
-        columnGap="5.6vw"
+        // rowGap="6.5vw"
+        px="10%"
+        // columnGap="5.6vw"
         pb="6.5vw"
       >
         {loading &&

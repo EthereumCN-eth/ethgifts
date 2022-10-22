@@ -185,7 +185,9 @@ export const DesktopCards = ({
                     transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
                   >
                     {i.text.split("").map((char) => (
-                      <span className="ecn-card-title-char">{char}</span>
+                      <span key={`${char}`} className="ecn-card-title-char">
+                        {char}
+                      </span>
                     ))}
                   </Text>
                   <Box

@@ -4,17 +4,16 @@ const whiteTextProps = {
   container: {
     color: "white",
     border: "white solid 1px",
-    borderRadius: "none",
+    borderRadius: "4px",
     px: "10px",
     py: "6px",
   },
-  label: {},
 };
 const whiteBgProps = {
   container: {
     color: "black",
+    borderRadius: "4px",
     backgroundColor: "white",
-    borderRadius: "none",
     px: "10px",
     py: "6px",
   },

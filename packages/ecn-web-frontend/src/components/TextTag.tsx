@@ -1,13 +1,16 @@
 import { Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
+import type { ComponentPropsWithoutRef } from "react";
 
 import { LiveAnimate } from "./LiveAnimate";
 
 export const TextTag = ({
   text,
   variant,
+  tagRestProps = {},
 }: {
   text: string;
   variant: string;
+  tagRestProps?: ComponentPropsWithoutRef<typeof Tag>;
 }) => {
   const isLive = variant.startsWith("live");
   return (
@@ -18,6 +21,7 @@ export const TextTag = ({
       variant={variant}
       borderRadius="4px"
       fontSize="xs"
+      {...tagRestProps}
     >
       {isLive && <TagLeftIcon boxSize="18px" as={LiveAnimate} />}
       <TagLabel ml={isLive ? "5px" : "0"} textTransform="uppercase">

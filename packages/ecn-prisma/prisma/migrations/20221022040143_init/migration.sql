@@ -79,7 +79,7 @@ CREATE TABLE "GalleryItemBase" (
     "tags" TEXT[],
     "tokenType" "TokenType" NOT NULL DEFAULT 'ERC721',
     "tokenId" TEXT,
-    "eventStartTime" INTEGER,
+    "eventStartTime" INTEGER NOT NULL,
     "eventDuration" INTEGER,
     "galleryItemType" "GalleryItemType" NOT NULL,
     "onShelf" BOOLEAN NOT NULL,

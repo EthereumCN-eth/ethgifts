@@ -69,20 +69,20 @@ export const convertGalleryItem = (
       name,
     } = serverItem;
 
-    let homeTags: Tag[] = [
-      {
-        label: serverItem.typeName,
-        variant: "whiteText",
-      },
-    ];
-    if (status)
-      homeTags = [
-        ...homeTags,
-        {
-          label: status,
-          variant: "whiteBg",
-        },
-      ];
+    // let homeTags: Tag[] = [
+    //   {
+    //     label: serverItem.typeName,
+    //     variant: "whiteText",
+    //   },
+    // ];
+    // if (status)
+    //   homeTags = [
+    //     ...homeTags,
+    //     {
+    //       label: status,
+    //       variant: "whiteBg",
+    //     },
+    //   ];
 
     let detailTags: Tag[];
     if (tags) {
@@ -97,6 +97,7 @@ export const convertGalleryItem = (
     } else {
       detailTags = [];
     }
+    const homeTags = detailTags;
     const dateObj = new Date(serverItem.startTime * 1000);
     // const day = dateObj.getDate();
     const month = dateObj.getMonth();
