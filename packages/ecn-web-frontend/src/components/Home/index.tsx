@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import type { NextPage } from "next";
+import { darken } from "polished";
 import { useEffect } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { FaDiscord, FaTwitter } from "react-icons/fa";
@@ -58,14 +59,14 @@ export const Home: NextPage = () => {
       <HomeFAQsView />
       <Center
         w="full"
-        minH="729px"
+        // minH="729px"
         background="rgba(12, 6, 1, 0.82)"
         pt="160px"
         pb="107px"
       >
         <Flex
           direction="column"
-          minH="729px"
+          // minH="729px"
           w="80vw"
           maxW="857px"
           // px={"27%"}
@@ -112,12 +113,10 @@ export const Home: NextPage = () => {
           <Button
             color="#fff"
             _hover={{
-              color: "#000",
-              bg: "#F2F2F2",
+              bg: darken(0.1, "#EE862B"),
             }}
             _active={{
-              color: "#000",
-              bg: "gray.300",
+              bg: darken(0.2, "#EE862B"),
             }}
             variant="outline"
             fontSize="sm"
@@ -126,12 +125,19 @@ export const Home: NextPage = () => {
             h="auto"
             w="auto"
             borderRadius="8px"
-            // outline="none"
+            border="none"
             bgColor="#EE862B"
+            width="210px"
           >
             加入 ECN’s Discord!
           </Button>
-          <HStack my="54px" gap="20px">
+          <HStack
+            mt="61px"
+            mb="21px"
+            w="188px"
+            align="center"
+            justify="space-between"
+          >
             <IconButton
               variant="unstyled"
               aria-label="home"

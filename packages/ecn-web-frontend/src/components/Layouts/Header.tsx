@@ -17,7 +17,7 @@ import { useHeaderStore } from "./headerState";
 const navItems = [
   { label: "EthGifts Gallery", href: "#" },
   // { label: "数字凭证", href: "#" },
-  { label: "文档", href: "#" },
+  { label: "文档↗", href: "#" },
   // { label: "我的文档", href: "#" },
 ];
 
@@ -105,6 +105,8 @@ const Header = () => {
                     lineHeight={4}
                     display="block"
                     href={item.href}
+                    fontFamily="PingFang SC"
+                    color="#000000"
                   >
                     {item.label}
                   </Link>
