@@ -1,4 +1,4 @@
-import { Poap, PrismaClient } from "@prisma/client";
+import { Poap, PrismaClient, Prisma } from "@prisma/client";
 // import { generateSignature } from "ecn-sbt-api";
 const prisma = new PrismaClient();
 
@@ -55,10 +55,53 @@ const nfts: NFTCreateData[] = [
         eventDuration: 3600,
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
+        ],
         videoLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
         ],
+        infoDetail: {
+          title: "The Merge & Weeth 系列活动的第一场：以太坊 PoS 之路",
+          subTitle: "The Merge and Weeth",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 <i>The Merge & Weeth</i> —— 以太坊合并与我们的距离的系列活动，在首场活动邀请了以太坊基金会研究员🥳 Hsiao-Wei Wang (合并熊猫 🐼 这个 meme 的创作者) 给大家带来“以太坊 PoS 之路”的主题分享。",
+                "在 AMA 环节，提前在我们 discrod 进行有效提问的朋友都有机会获得此款 NFT。",
+              ],
+            },
+            {
+              heading: "直播回放",
+              subHeading: "Playback",
+              type: "image",
+              data: [
+                {
+                  src: "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
+                  alt: "data",
+                },
+                {
+                  src: "https://icloud.mypinata.cloud/ipfs/QmaqcsQTE1jTWbHRexBfGY6RSBfhLDu9r4kb21fB58HjfD",
+                  alt: "data",
+                },
+              ],
+            },
+            {
+              heading: "直播回放 video",
+              subHeading: "Playback Video",
+              type: "video",
+              data: [
+                {
+                  src: "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
+                  type: "video/mp4",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -69,7 +112,9 @@ const nfts: NFTCreateData[] = [
       create: {
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
+        ],
         name: "The Merge & Weeth",
         chainId: 1,
         tokenType: "ERC1155",
@@ -90,7 +135,9 @@ const nfts: NFTCreateData[] = [
       create: {
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmWibxWeaZLLPRdBFYT3ci7yB6CMHFfhdK66jmpZGW2jWL",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmWibxWeaZLLPRdBFYT3ci7yB6CMHFfhdK66jmpZGW2jWL",
+        ],
         name: "Decentralize staking with Rocket Pool",
         chainId: 1,
         onShelf: true,
@@ -118,7 +165,11 @@ const nfts: NFTCreateData[] = [
         eventDuration: 3600,
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmdTy8AmhyikhxCABahQCMfBfcCbM5enNUM1qUs3ELN1D5",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmaqcsQTE1jTWbHRexBfGY6RSBfhLDu9r4kb21fB58HjfD",
+          "https://icloud.mypinata.cloud/ipfs/QmQdYJfjdxiSU2mYnjgDPiL4joveA9Kx7cHoG2yzB9xTbi",
+          "https://icloud.mypinata.cloud/ipfs/Qmana5KvWj2uqEvgZKrpcT4HJrcosWm575UXW3FTDaEtM2",
+        ],
       },
     },
   },
@@ -129,7 +180,10 @@ const nfts: NFTCreateData[] = [
       create: {
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmPStYeT6wRbQmdAjWHEqUNwnPyAr9SYaqpWhCzsgYTiqz",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmPStYeT6wRbQmdAjWHEqUNwnPyAr9SYaqpWhCzsgYTiqz",
+        ],
+
         chainId: 1,
         name: "The Merge Panda",
         tags: ["NFT", "参与凭证"],
@@ -147,7 +201,9 @@ const nfts: NFTCreateData[] = [
       create: {
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmZWvHquvff87Ud3A8FynDiaks6sj9K9Xc1UeedtWCq64A",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmZWvHquvff87Ud3A8FynDiaks6sj9K9Xc1UeedtWCq64A",
+        ],
         chainId: 42161,
         name: "imToken & ECN Community AMA",
         tags: ["NFT", "参与凭证"],

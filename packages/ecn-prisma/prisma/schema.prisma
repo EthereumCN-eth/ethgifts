@@ -110,6 +110,7 @@ model GalleryItemBase {
 
   galleryItemType GalleryItemType
   onShelf         Boolean
+  infoDetail      Json?
 
   SBTContractType SBTContractType?
   NFT             NFT?

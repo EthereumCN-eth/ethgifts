@@ -60,14 +60,17 @@ export const convertGalleryItem = (
       //   endTime,
       id,
       status,
-      // imageLinks,
+      imageLinks,
       coverLink,
       chainId,
       // videoLinks,
       itemText,
       tags,
       name,
+      infoDetail,
     } = serverItem;
+
+    // console.log("infoDetail", infoDetail);
 
     // let homeTags: Tag[] = [
     //   {
@@ -116,7 +119,8 @@ export const convertGalleryItem = (
       status,
       chainId,
       itemText,
-      // imageLinks,
+      imageLinks,
+      infoDetail,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
 

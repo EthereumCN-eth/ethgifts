@@ -10,5 +10,5 @@ export const GalleryNFTItem = (galleryItem: GalleryNFTItemType) => {
   const { data } = useNFTAndSBTRead(contractReadObj);
   // console.log("nft data", data);
   const { id, typeName } = galleryItem;
-  return <GalleryItem linkTo={`/${typeName}/${id}`} {...galleryItem} />;
+  return <GalleryItem linkTo={`/${typeName}/${id}/1`} {...galleryItem} />;
 };

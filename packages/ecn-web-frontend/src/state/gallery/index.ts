@@ -3,7 +3,11 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 
 import type { AppState } from "src/state/store";
 
-import type { GalleryItemType, GalleryState } from "./types";
+import type {
+  GalleryItemType,
+  GalleryNFTItemType,
+  GalleryState,
+} from "./types";
 
 const initialState: GalleryState = {
   shellItemNumber: 8,
@@ -51,12 +55,28 @@ const selectShellItemNumber = (state: AppState) =>
   state.gallery.shellItemNumber;
 const selectLoading = (state: AppState) => state.gallery.loading;
 
+const isGalleryNFTType = (
+  item: GalleryItemType
+): item is GalleryNFTItemType => {
+  return item.typeName === "nft";
+};
+const selectNFTById = (state: AppState, id: number) => {
+  const itemArray = state.gallery.galleryItems.filter(
+    (item): item is GalleryNFTItemType =>
+      item.id === id && isGalleryNFTType(item)
+  );
+  if (itemArray.length) {
+    return itemArray[0];
+  }
+  return null;
+};
+
 const selectors = {
   selectGalleryItems,
   selectShellItemNumber,
   selectLoading,
+  selectNFTById,
 };
-
 const { actions } = gallerySlice;
 
 export default gallerySlice.reducer;

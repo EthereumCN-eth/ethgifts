@@ -1,7 +1,7 @@
 import { Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
 import type { ComponentPropsWithoutRef } from "react";
 
-import { LiveAnimate } from "./LiveAnimate";
+import { LiveAnimate } from "../LiveAnimate";
 
 export const TextTag = ({
   text,

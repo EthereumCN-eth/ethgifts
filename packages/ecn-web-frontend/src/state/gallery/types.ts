@@ -1,8 +1,35 @@
+import type { Prisma } from "@prisma/client";
 import type { useContractRead } from "wagmi";
 
 export type Tag = {
   label: string;
   variant: string;
+};
+
+export type InfoHTMLType = {
+  heading: string;
+  subHeading: string;
+  type: "html";
+  data: string[];
+};
+export type InfoImageType = {
+  heading: string;
+  subHeading: string;
+  type: "image";
+  data: {
+    src: string;
+    alt: string;
+  }[];
+};
+export type InfoVideoType = {
+  heading: string;
+  subHeading: string;
+  type: "video";
+  data: {
+    src: string;
+    type: string;
+    // alt: string;
+  }[];
 };
 
 export type BaseItemType = {
@@ -18,7 +45,8 @@ export type BaseItemType = {
   key: string;
   status: "coming soon" | "ongoing" | null;
   chainId: number;
-  // imageLinks: string[] | null;
+  imageLinks: string[] | null;
+  infoDetail?: Prisma.JsonValue;
 };
 
 export type GallerySBTItemType = {

@@ -83,6 +83,7 @@ CREATE TABLE "GalleryItemBase" (
     "eventDuration" INTEGER,
     "galleryItemType" "GalleryItemType" NOT NULL,
     "onShelf" BOOLEAN NOT NULL,
+    "infoDetail" JSONB,
 
     CONSTRAINT "GalleryItemBase_pkey" PRIMARY KEY ("id")
 );

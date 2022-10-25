@@ -1,3 +1,5 @@
+import type { Prisma } from "@prisma/client";
+
 export type EventItem = {
   startTime: number;
   endTime: number;
@@ -16,6 +18,7 @@ export type BaseItem = {
   onShelf: boolean;
   tokenType: "ERC1155" | "ERC721";
   tokenId: string;
+  infoDetail: Prisma.JsonValue;
 } & EventItem;
 
 export type NFTItem = {

@@ -8,6 +8,7 @@ const fAQData = [
     answer: `EthGift过去主要发放POAP和NFT作为参与凭证，现在则主要是以推广SBT (Soul
           Bound Token) 和VC (Verifiable Credential)为主，结合blablabla`,
   },
+
   {
     question: "SBT (Soul Bound Token)是什么？",
     answer: `SBT (Soul Bound Token) 是公开可见、不可转移，且可能可由发行方撤回的NFT。`,

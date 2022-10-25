@@ -138,6 +138,7 @@ export class GalleryService {
             tokenId,
             onShelf,
             coverLink,
+            infoDetail,
           },
           id,
         } = item;
@@ -188,6 +189,7 @@ export class GalleryService {
           tokenId,
           onShelf,
           coverLink,
+          infoDetail,
         };
 
         return {

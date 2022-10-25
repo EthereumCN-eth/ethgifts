@@ -13,7 +13,7 @@ import {
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 
-import { TextTag } from "../TextTag";
+import { TextTag } from "../shared/TextTag";
 import type { GalleryItemType } from "@/state/gallery/types";
 
 export const GalleryItem = ({
@@ -66,7 +66,7 @@ export const GalleryItem = ({
             );
           })}
         </HStack>
-        <Center width="100%" h="400px" my="48px">
+        <Center width="100%" h="360px" my="10px">
           <Image
             // loading="lazy"
             loading="lazy"

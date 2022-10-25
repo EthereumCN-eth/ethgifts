@@ -2,7 +2,7 @@ import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 import { AiOutlineDownload } from "react-icons/ai";
 import { useAccount, useNetwork } from "wagmi";
 
-import { TextTag } from "../../TextTag";
+import { TextTag } from "../../shared/TextTag";
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppSelector } from "@/state/reduxHooks";
 

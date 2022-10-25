@@ -104,7 +104,7 @@ export const SBT = () => {
         px="10%"
         w="full"
         pt={20}
-        h="100vh"
+        h="85vh"
         // bg="blue.200"
         position="relative"
       >
