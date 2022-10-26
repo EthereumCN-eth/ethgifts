@@ -59,6 +59,7 @@ export class GalleryService {
     const nftsPromise = this.prisma.nFT.findMany({
       include: {
         galleryItemBase: true,
+        nftDeliveryData: true,
       },
     });
     const sbtsPromise = this.prisma.sBTContractType.findMany({
@@ -116,10 +117,14 @@ export class GalleryService {
         } else {
           const {
             contractAddress,
+            nftAppType,
+            nftDeliveryData,
 
             // galleryItemBase: { galleryItemType: typeName },
           } = item;
           additionalProps = {
+            nftDeliveryData,
+            nftAppType,
             contractAddress,
             typeName: 'nft',
           };

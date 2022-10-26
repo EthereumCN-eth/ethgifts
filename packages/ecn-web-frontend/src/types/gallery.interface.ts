@@ -1,4 +1,4 @@
-import type { Prisma } from "@prisma/client";
+import type { Prisma, NFTDeliveryData } from "@prisma/client";
 
 export type EventItem = {
   startTime: number;
@@ -24,6 +24,8 @@ export type BaseItem = {
 export type NFTItem = {
   typeName: "nft";
   contractAddress: string;
+  nftDeliveryData: NFTDeliveryData | null;
+  nftAppType: "PERSENT" | "DELIVERY";
 } & BaseItem;
 
 export type PoapItem = {

@@ -44,6 +44,14 @@ const nfts: NFTCreateData[] = [
     contractAddress: "0x0ceaea47985c4223e893599597494a35b9845b3d",
     // name: "EthTiger",
     symbol: "ETHGifts",
+    nftAppType: "DELIVERY",
+    nftDeliveryData: {
+      create: {
+        merkleUrl: "",
+        tokenType: "ERC721",
+        contractAddress: "",
+      },
+    },
     galleryItemBase: {
       create: {
         chainId: 1,
@@ -62,6 +70,7 @@ const nfts: NFTCreateData[] = [
           "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
         ],
         infoDetail: {
+          eventDescription: "hello ongoing event description",
           title: "The Merge & Weeth 系列活动的第一场：以太坊 PoS 之路",
           subTitle: "The Merge and Weeth",
           dataSection: [

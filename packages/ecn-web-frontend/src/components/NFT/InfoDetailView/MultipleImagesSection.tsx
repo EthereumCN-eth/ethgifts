@@ -150,6 +150,7 @@ export const MultipleImagesSection = ({
               <IconButton
                 position="absolute"
                 // zIndex={100}
+                key={`${item.src}`}
                 variant="unstyled"
                 w="100px"
                 h="135px"

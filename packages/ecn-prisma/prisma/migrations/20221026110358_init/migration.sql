@@ -4,6 +4,9 @@ CREATE TYPE "TokenType" AS ENUM ('ERC721', 'ERC1155');
 -- CreateEnum
 CREATE TYPE "GalleryItemType" AS ENUM ('poap', 'nft', 'sbt');
 
+-- CreateEnum
+CREATE TYPE "NFTAppType" AS ENUM ('PERSENT', 'DELIVERY');
+
 -- CreateTable
 CREATE TABLE "RawExpressMessage" (
     "id" TEXT NOT NULL,
@@ -99,11 +102,24 @@ CREATE TABLE "SBTContractType" (
 );
 
 -- CreateTable
+CREATE TABLE "NFTDeliveryData" (
+    "eventData" JSONB,
+    "merkleUrl" TEXT NOT NULL,
+    "contractAddress" TEXT NOT NULL,
+    "tokenType" "TokenType" NOT NULL DEFAULT 'ERC721',
+    "tokenId" TEXT,
+    "id" INTEGER NOT NULL,
+
+    CONSTRAINT "NFTDeliveryData_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "NFT" (
     "id" SERIAL NOT NULL,
     "contractAddress" TEXT NOT NULL,
     "galleryItemBaseId" INTEGER NOT NULL,
     "symbol" TEXT NOT NULL,
+    "nftAppType" "NFTAppType" NOT NULL DEFAULT 'PERSENT',
 
     CONSTRAINT "NFT_pkey" PRIMARY KEY ("id")
 );
@@ -132,6 +148,9 @@ CREATE UNIQUE INDEX "SignaturePayload_id_key" ON "SignaturePayload"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "SBTContractType_galleryItemBaseId_key" ON "SBTContractType"("galleryItemBaseId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "NFTDeliveryData_id_key" ON "NFTDeliveryData"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "NFT_galleryItemBaseId_key" ON "NFT"("galleryItemBaseId");
@@ -168,6 +187,9 @@ ALTER TABLE "SignaturePayload" ADD CONSTRAINT "SignaturePayload_id_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "SBTContractType" ADD CONSTRAINT "SBTContractType_galleryItemBaseId_fkey" FOREIGN KEY ("galleryItemBaseId") REFERENCES "GalleryItemBase"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "NFTDeliveryData" ADD CONSTRAINT "NFTDeliveryData_id_fkey" FOREIGN KEY ("id") REFERENCES "NFT"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "NFT" ADD CONSTRAINT "NFT_galleryItemBaseId_fkey" FOREIGN KEY ("galleryItemBaseId") REFERENCES "GalleryItemBase"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

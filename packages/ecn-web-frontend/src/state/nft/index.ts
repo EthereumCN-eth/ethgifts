@@ -1,41 +1,50 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAction, createSlice } from "@reduxjs/toolkit";
+import { constants } from "ethers";
+import { erc721ABI } from "wagmi";
 
-import type { GalleryNFTItemType } from "../gallery/types";
+import type { GalleryNFTItemType, Tag } from "../gallery/types";
 import type { AppState } from "src/state/store";
 
-type NFTState =
-  | ({
-      loaded: boolean;
-    } & GalleryNFTItemType)
-  | null;
+export type NFTState = {
+  loaded: boolean;
+} & GalleryNFTItemType;
 
-const initialState = null as NFTState;
+const initialDummyState = {
+  loaded: false,
+  homeTags: [] as Tag[],
+  detailTags: [] as Tag[],
+  itemText: [""],
+  imgSrc: "",
+  imgAlt: "",
+  title: "",
+  desc: "",
+  btnTxt: "",
+  id: -1,
+  key: "",
+  status: null,
+  chainId: -1,
+  imageLinks: null,
+  typeName: "nft",
+  contractAddress: constants.AddressZero,
+  nftAppType: "PERSENT",
+  contractReadObj: {
+    addressOrName: constants.AddressZero,
+    chainId: -1,
+    contractInterface: erc721ABI,
+    functionName: "balanceOf",
+    args: [constants.AddressZero],
+  },
+  nftDeliveryData: null,
+  //   infoDetail?: Prisma.JsonValue,
+} as NFTState;
 
 export const nftSlice = createSlice({
   name: "nft",
-  initialState,
+  initialState: initialDummyState,
   reducers: {
-    update: (
-      state,
-      action: PayloadAction<
-        | GalleryNFTItemType
-        | { loaded: boolean }
-        | ({
-            loaded: boolean;
-          } & GalleryNFTItemType)
-      >
-    ) => {
-      if (state) {
-        return {
-          ...state,
-          ...action.payload,
-        };
-      } else {
-        return action.payload as {
-          loaded: boolean;
-        } & GalleryNFTItemType;
-      }
+    update: (state, action: PayloadAction<Partial<NFTState>>) => {
+      return { ...state, ...action.payload } as NFTState;
     },
   },
 });

@@ -1,55 +1,19 @@
-import { constants } from "ethers";
-import { erc721ABI } from "wagmi";
-
-import erc1155ABI from "@/abis/ERC1155.json";
-import type { GalleryServerItem } from "@/types/gallery.interface";
-
 import type {
   BaseItemType,
+  DetailInfoType,
   GalleryItemType,
   GalleryNFTItemType,
   GalleryPoapItemType,
   GallerySBTItemType,
   Tag,
-} from "./types";
+} from "../types";
+import type { GalleryServerItem } from "@/types/gallery.interface";
+
+import { constructContractReadObj } from "./constructContractReadObj";
+import { convertDateToYearMonthStr } from "./convertDateToYearMonthStr";
 
 const btnTxt = "查看SBT及相关活动";
 
-const constructContractReadObj = (
-  address: string | undefined,
-  item: GalleryServerItem
-) => {
-  if (address && (item.typeName === "nft" || item.typeName === "sbt")) {
-    if (item.tokenType === "ERC1155") {
-      return {
-        addressOrName: item.contractAddress,
-        chainId: item.chainId,
-        contractInterface: erc1155ABI,
-        functionName: "balanceOf",
-        args: [address, item.tokenId],
-      };
-    }
-    if (item.tokenType === "ERC721") {
-      return {
-        addressOrName: item.contractAddress,
-        chainId: item.chainId,
-        contractInterface: erc721ABI,
-        functionName: "balanceOf",
-        args: [address],
-      };
-    }
-  }
-  // workaround as null
-  return {
-    addressOrName: constants.AddressZero,
-    chainId: 1,
-    contractInterface: erc721ABI,
-    functionName: "balanceOf",
-    args: [constants.AddressZero],
-  };
-
-  // return null;
-};
 export const convertGalleryItem = (
   serverItems: GalleryServerItem[],
   address: string | undefined
@@ -101,10 +65,12 @@ export const convertGalleryItem = (
       detailTags = [];
     }
     const homeTags = detailTags;
-    const dateObj = new Date(serverItem.startTime * 1000);
-    // const day = dateObj.getDate();
-    const month = dateObj.getMonth();
-    const year = dateObj.getFullYear();
+
+    const yearMonthStr = convertDateToYearMonthStr(serverItem.startTime);
+    // const dateObj = new Date(serverItem.startTime * 1000);
+    // // const day = dateObj.getDate();
+    // const month = dateObj.getMonth();
+    // const year = dateObj.getFullYear();
 
     const baseProps: BaseItemType = {
       key: `${serverItem.typeName}_${name}`,
@@ -112,7 +78,7 @@ export const convertGalleryItem = (
       homeTags,
       imgSrc: coverLink,
       imgAlt: name,
-      desc: `${year}年${month}月`,
+      desc: yearMonthStr,
       btnTxt,
       title: name,
       id,
@@ -120,16 +86,18 @@ export const convertGalleryItem = (
       chainId,
       itemText,
       imageLinks,
-      infoDetail,
+      infoDetail: infoDetail as DetailInfoType,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
 
     if (serverItem.typeName === "nft") {
-      const { contractAddress } = serverItem;
+      const { contractAddress, nftAppType, nftDeliveryData } = serverItem;
       const additionPorps: Omit<GalleryNFTItemType, keyof BaseItemType> = {
         contractReadObj,
         typeName: "nft",
         contractAddress,
+        nftAppType,
+        nftDeliveryData,
       };
       return {
         ...baseProps,

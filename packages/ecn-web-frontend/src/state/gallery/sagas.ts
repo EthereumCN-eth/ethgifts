@@ -14,7 +14,7 @@ import {
   actions as galleryActions,
 } from "@/state/gallery/index";
 
-import { convertGalleryItem } from "./helpers";
+import { convertGalleryItem } from "./helper";
 
 function* fetchPoapEventsApi(address: string) {
   try {

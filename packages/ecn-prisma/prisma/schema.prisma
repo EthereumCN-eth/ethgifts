@@ -128,13 +128,29 @@ model SBTContractType {
   sbtSignatureRecords SBTSignatureRecord[]
 }
 
+enum NFTAppType {
+  PERSENT
+  DELIVERY
+}
+
+model NFTDeliveryData {
+  merkleUrl       String
+  contractAddress String
+  tokenType       TokenType @default(ERC721)
+  tokenId         String? //1155 token id
+  nft             NFT       @relation(fields: [id], references: [id])
+  id              Int       @id @unique
+}
+
 model NFT {
   id                Int             @id @default(autoincrement())
   contractAddress   String
   galleryItemBase   GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
   galleryItemBaseId Int             @unique
 
-  symbol String
+  symbol          String
+  nftAppType      NFTAppType       @default(PERSENT)
+  nftDeliveryData NFTDeliveryData?
 }
 
 model Poap {

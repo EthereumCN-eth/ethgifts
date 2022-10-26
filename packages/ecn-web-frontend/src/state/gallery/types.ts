@@ -1,4 +1,4 @@
-import type { Prisma } from "@prisma/client";
+import type { NFTDeliveryData } from "@prisma/client";
 import type { useContractRead } from "wagmi";
 
 export type Tag = {
@@ -32,6 +32,13 @@ export type InfoVideoType = {
   }[];
 };
 
+export type DetailInfoType = {
+  eventDescription: string;
+  title: string;
+  subTitle: string;
+  dataSection: Array<InfoHTMLType | InfoImageType | InfoVideoType>;
+} | null;
+
 export type BaseItemType = {
   homeTags: Tag[];
   detailTags: Tag[];
@@ -46,7 +53,8 @@ export type BaseItemType = {
   status: "coming soon" | "ongoing" | null;
   chainId: number;
   imageLinks: string[] | null;
-  infoDetail?: Prisma.JsonValue;
+  infoDetail?: DetailInfoType;
+  //  Prisma.JsonValue;
 };
 
 export type GallerySBTItemType = {
@@ -68,6 +76,8 @@ export type GalleryPoapItemType = {
 export type GalleryNFTItemType = {
   typeName: "nft";
   contractAddress: string;
+  nftAppType: "PERSENT" | "DELIVERY";
+  nftDeliveryData: NFTDeliveryData | null;
   contractReadObj: Parameters<typeof useContractRead>[0];
 } & BaseItemType;
 

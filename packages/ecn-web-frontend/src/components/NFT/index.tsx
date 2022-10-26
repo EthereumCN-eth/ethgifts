@@ -12,7 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 
 import { InfoDetailView } from "./InfoDetailView";
-import type { DetailInfoType } from "./InfoDetailView/types";
+import { NFTStatusBoard } from "./NFTStatusBoard";
 
 export const NFT = () => {
   const router = useRouter();
@@ -81,14 +81,16 @@ export const NFT = () => {
           w="50%"
           direction="column"
           h="95%"
-          bg="silver"
+          // bg="silver"
           justify="center"
           pl="11%"
-        />
+        >
+          <NFTStatusBoard nftData={nftData} loaded={!!nftData?.loaded} />
+        </Flex>
       </Flex>
       <InfoDetailView
         loaded={nftData?.loaded ?? false}
-        detailInfoOfNFT={nftData?.infoDetail as DetailInfoType | undefined}
+        detailInfoOfNFT={nftData?.infoDetail}
       />
     </Flex>
   );
