@@ -4,22 +4,19 @@ pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MergePartyNFT is ERC721 {
+contract MergePartyNFT is ERC721, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter public counters;
 
-    bytes32 public immutable merkleRoot;
+    bytes32 public merkleRoot;
     address public receiver;
     string public baseURI_;
 
-    constructor(bytes32 _merkleRoot, string memory _baseUri)
-        ERC721("MergePartyNFT", "MergePartyNFT")
-    {
-        baseURI_ = _baseUri;
-        merkleRoot = _merkleRoot;
-    }
+    constructor() ERC721("MergePartyNFT", "MergePartyNFT") {}
 
+    /** ========== view functions ========== */
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI_;
     }
@@ -35,6 +32,15 @@ contract MergePartyNFT is ERC721 {
 
         string memory baseURI = _baseURI();
         return bytes(baseURI).length > 0 ? baseURI : "";
+    }
+
+    /** ========== admin functions ========== */
+    function initializeEvent(bytes32 _merkleRoot, string memory _baseUri)
+        external
+        onlyOwner
+    {
+        baseURI_ = _baseUri;
+        merkleRoot = _merkleRoot;
     }
 
     // This is a packed array of booleans.

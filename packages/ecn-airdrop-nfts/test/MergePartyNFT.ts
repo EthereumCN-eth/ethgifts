@@ -19,7 +19,7 @@ interface MerkleDistributorInfo {
   };
 }
 
-let deployer1: SignerWithAddress;
+let admin: SignerWithAddress;
 let user1: SignerWithAddress;
 let user2: SignerWithAddress;
 let mergePartyNFT: MergePartyNFT;
@@ -28,7 +28,7 @@ let baseURI: string;
 let merkleTree: MerkleDistributorInfo;
 
 before(async () => {
-  [deployer1, user1, user2] = await hre.ethers.getSigners();
+  [admin, user1, user2] = await hre.ethers.getSigners();
 
   baseURI = "https://example.com";
   merkleRoot =
@@ -46,11 +46,12 @@ before(async () => {
 
   // contract deployment
   const mergePartyNFTFactory = hre.ethers.getContractFactory("MergePartyNFT");
-  mergePartyNFT = await (
-    await mergePartyNFTFactory
-  ).deploy(merkleRoot, baseURI);
+  mergePartyNFT = await (await mergePartyNFTFactory).deploy();
 
   await mergePartyNFT.deployed();
+
+  // initialize event
+  await mergePartyNFT.connect(admin).initializeEvent(merkleRoot, baseURI);
 });
 
 describe("mint merge party nft", () => {
