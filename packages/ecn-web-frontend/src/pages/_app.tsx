@@ -3,6 +3,7 @@ import {
   connectorsForWallets,
   wallet,
 } from "@rainbow-me/rainbowkit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -26,7 +27,10 @@ import {
   NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY,
 } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
+
 import "@rainbow-me/rainbowkit/styles.css";
+
+const queryClient = new QueryClient();
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.arbitrum, chain.goerli],
@@ -93,8 +97,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Head>
                 <DefaultSeo {...defaultSEOConfig} />
                 <AddressOrNetworkChange />
-
-                <Component {...pageProps} />
+                <QueryClientProvider client={queryClient}>
+                  <Component {...pageProps} />
+                </QueryClientProvider>
               </Chakra>
             </RainbowKitProvider>
           </ECNRainbowKitAuthenticationProvider>

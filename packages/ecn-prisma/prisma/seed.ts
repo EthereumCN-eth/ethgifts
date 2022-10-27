@@ -47,7 +47,8 @@ const nfts: NFTCreateData[] = [
     nftAppType: "DELIVERY",
     nftDeliveryData: {
       create: {
-        merkleUrl: "",
+        merkleUrl:
+          "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x1bc892bb6e598efe98b86c40b2d2046a59aea65b5ca64df57c24b3708a752975.json",
         tokenType: "ERC721",
         contractAddress: "",
       },

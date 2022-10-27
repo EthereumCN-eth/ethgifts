@@ -1,13 +1,13 @@
-import { HStack } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { useAccount, useNetwork } from "wagmi";
 
-import { TextTag } from "../../shared/TextTag";
 import { selectors as globalSelectors } from "@/state/global";
 import type { NFTState } from "@/state/nft";
 import { useAppSelector } from "@/state/reduxHooks";
 
 import { AfterStatus } from "./AfterStatus";
 import { CommingSoonStatus } from "./CommingSoonStatus";
+import { DetailTagsView } from "./DetailTagsView";
 import { NFTConnectWalletBoard } from "./NFTConnectWalletBoard";
 import { OngoingStatus } from "./OngoingStatus";
 
@@ -29,35 +29,53 @@ export const NFTStatusBoard = ({
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { detailTags, title, nftDeliveryData, infoDetail, status } = nftData;
+  const { detailTags, title, nftDeliveryData, infoDetail, status, nftAppType } =
+    nftData;
 
   // console.log("data", data);
   if (authStatus !== "authenticated")
     return <NFTConnectWalletBoard title={title} detailTags={detailTags} />;
 
+  if (nftAppType === "DELIVERY") {
+    return (
+      <>
+        <DetailTagsView detailTags={detailTags} />
+
+        {loaded && status === "coming soon" && (
+          <CommingSoonStatus
+            title={title}
+            desc={infoDetail?.eventDescription}
+          />
+        )}
+        {loaded && status === "ongoing" && (
+          <OngoingStatus title={title} desc={infoDetail?.eventDescription} />
+        )}
+        {loaded && !status && (
+          <AfterStatus
+            nftData={nftData}
+            title={title}
+            desc={infoDetail?.eventDescription}
+          />
+        )}
+      </>
+    );
+  }
+
   return (
     <>
-      <HStack gap={3} wrap="wrap">
-        {detailTags.map((tag) => {
-          return (
-            <TextTag key={tag.label} text={tag.label} variant={tag.variant} />
-          );
-        })}
-      </HStack>
-
-      {status === "coming soon" && (
-        <CommingSoonStatus title={title} desc={infoDetail?.eventDescription} />
-      )}
-      {status === "ongoing" && (
-        <OngoingStatus title={title} desc={infoDetail?.eventDescription} />
-      )}
-      {!status && (
-        <AfterStatus
-          nftData={nftData}
-          title={title}
-          desc={infoDetail?.eventDescription}
-        />
-      )}
+      <DetailTagsView detailTags={detailTags} />
+      <Text my="8.1%" fontFamily="PingFang SC" color="white" fontSize="4xl">
+        {title}
+      </Text>
+      <Text
+        fontSize="md"
+        fontFamily="PingFang SC"
+        color="white"
+        letterSpacing="0.02em"
+        mb="8.1%"
+      >
+        {infoDetail?.eventDescription}
+      </Text>
     </>
   );
 };

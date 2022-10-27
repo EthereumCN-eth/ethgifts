@@ -22,6 +22,22 @@ export const Button: ComponentStyleConfig = {
         bgColor: darken(0.2, "#EE862B"),
       },
     },
+    grayBg: {
+      borderRadius: "8px",
+      bgColor: "#757575",
+      color: "#DDD9D7",
+      _hover: {
+        color: darken(0.1, "#DDD9D7"),
+        bgColor: darken(0.1, "#757575"),
+        _disabled: {
+          bgColor: "gray.300",
+        },
+      },
+      _active: {
+        color: darken(0.2, "#DDD9D7"),
+        bgColor: darken(0.2, "#757575"),
+      },
+    },
     orangeOutline: {
       borderRadius: "8px",
       bgColor: "black",

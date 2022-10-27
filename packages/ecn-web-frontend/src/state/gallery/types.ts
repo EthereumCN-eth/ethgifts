@@ -12,6 +12,7 @@ export type InfoHTMLType = {
   type: "html";
   data: string[];
 };
+
 export type InfoImageType = {
   heading: string;
   subHeading: string;
@@ -21,6 +22,7 @@ export type InfoImageType = {
     alt: string;
   }[];
 };
+
 export type InfoVideoType = {
   heading: string;
   subHeading: string;
