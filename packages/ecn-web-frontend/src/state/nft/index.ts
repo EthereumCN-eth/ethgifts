@@ -35,6 +35,8 @@ const initialDummyState = {
     functionName: "balanceOf",
     args: [constants.AddressZero],
   },
+  mainViewType: "image",
+  videoLinks: [],
   nftDeliveryData: null,
   //   infoDetail?: Prisma.JsonValue,
 } as NFTState;

@@ -144,6 +144,7 @@ export class GalleryService {
             onShelf,
             coverLink,
             infoDetail,
+            mainViewType,
           },
           id,
         } = item;
@@ -195,6 +196,7 @@ export class GalleryService {
           onShelf,
           coverLink,
           infoDetail,
+          mainViewType,
         };
 
         return {

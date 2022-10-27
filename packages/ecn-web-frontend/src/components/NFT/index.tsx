@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 
 import { InfoDetailView } from "./InfoDetailView";
 import { NFTStatusBoard } from "./NFTStatusBoard";
+import { VideoView } from "./VideoView";
 
 export const NFT = () => {
   const router = useRouter();
@@ -68,14 +69,22 @@ export const NFT = () => {
         position="relative"
       >
         <Flex w="50%" direction="column" h="95%" align="center">
-          <Carousel
-            loaded={nftData?.loaded ?? false}
-            artworks={nftData?.imageLinks ?? []}
-            idNumber={idNumber}
-            selectedIndex={selectedIndex}
-            pathname="/nft/[id]/[num]"
-            // numNumber={numNumber}
-          />
+          {nftData?.mainViewType === "image" && (
+            <Carousel
+              loaded={nftData?.loaded ?? false}
+              artworks={nftData?.imageLinks ?? []}
+              idNumber={idNumber}
+              selectedIndex={selectedIndex}
+              pathname="/nft/[id]/[num]"
+              // numNumber={numNumber}
+            />
+          )}
+          {nftData?.mainViewType === "video" && nftData?.loaded && (
+            <VideoView
+              videoUrl={nftData?.videoLinks?.[0]}
+              // numNumber={numNumber}
+            />
+          )}
         </Flex>
         <Flex
           w="50%"

@@ -25,6 +25,7 @@ export const convertGalleryItem = (
       id,
       status,
       imageLinks,
+      videoLinks,
       coverLink,
       chainId,
       // videoLinks,
@@ -32,6 +33,7 @@ export const convertGalleryItem = (
       tags,
       name,
       infoDetail,
+      mainViewType,
     } = serverItem;
 
     // console.log("infoDetail", infoDetail);
@@ -85,8 +87,10 @@ export const convertGalleryItem = (
       status,
       chainId,
       itemText,
+      videoLinks,
       imageLinks,
       infoDetail: infoDetail as DetailInfoType,
+      mainViewType,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
 

@@ -1,4 +1,4 @@
-import type { NFTDeliveryData } from "@prisma/client";
+import type { MainViewType, NFTDeliveryData } from "@prisma/client";
 import type { useContractRead } from "wagmi";
 
 export type Tag = {
@@ -55,7 +55,9 @@ export type BaseItemType = {
   status: "coming soon" | "ongoing" | null;
   chainId: number;
   imageLinks: string[] | null;
+  videoLinks: string[] | null;
   infoDetail?: DetailInfoType;
+  mainViewType: MainViewType;
   //  Prisma.JsonValue;
 };
 

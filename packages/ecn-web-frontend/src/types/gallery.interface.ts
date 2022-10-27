@@ -1,4 +1,4 @@
-import type { Prisma, NFTDeliveryData } from "@prisma/client";
+import type { Prisma, NFTDeliveryData, MainViewType } from "@prisma/client";
 
 export type EventItem = {
   startTime: number;
@@ -19,6 +19,7 @@ export type BaseItem = {
   tokenType: "ERC1155" | "ERC721";
   tokenId: string;
   infoDetail: Prisma.JsonValue;
+  mainViewType: MainViewType;
 } & EventItem;
 
 export type NFTItem = {

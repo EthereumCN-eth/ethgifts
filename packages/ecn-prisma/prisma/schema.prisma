@@ -94,16 +94,22 @@ enum GalleryItemType {
   sbt
 }
 
+enum MainViewType {
+  image
+  video
+}
+
 model GalleryItemBase {
-  id             Int       @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   name           String
   itemText       String[]
   coverLink      String
+  mainViewType   MainViewType @default(image)
   imageLinks     String[]
   videoLinks     String[]
   chainId        Int
   tags           String[]
-  tokenType      TokenType @default(ERC721)
+  tokenType      TokenType    @default(ERC721)
   tokenId        String? //1155 token id
   eventStartTime Int
   eventDuration  Int?

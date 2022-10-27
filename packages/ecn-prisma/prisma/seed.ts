@@ -58,6 +58,7 @@ const nfts: NFTCreateData[] = [
         chainId: 1,
         name: "EthTiger",
         onShelf: true,
+        mainViewType: "video",
         galleryItemType: "nft",
         tags: ["NFT", "参与凭证"],
         eventStartTime: 1643710408,

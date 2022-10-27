@@ -5,6 +5,9 @@ CREATE TYPE "TokenType" AS ENUM ('ERC721', 'ERC1155');
 CREATE TYPE "GalleryItemType" AS ENUM ('poap', 'nft', 'sbt');
 
 -- CreateEnum
+CREATE TYPE "MainViewType" AS ENUM ('image', 'video');
+
+-- CreateEnum
 CREATE TYPE "NFTAppType" AS ENUM ('PERSENT', 'DELIVERY');
 
 -- CreateTable
@@ -76,6 +79,7 @@ CREATE TABLE "GalleryItemBase" (
     "name" TEXT NOT NULL,
     "itemText" TEXT[],
     "coverLink" TEXT NOT NULL,
+    "mainViewType" "MainViewType" NOT NULL DEFAULT 'image',
     "imageLinks" TEXT[],
     "videoLinks" TEXT[],
     "chainId" INTEGER NOT NULL,
@@ -103,7 +107,6 @@ CREATE TABLE "SBTContractType" (
 
 -- CreateTable
 CREATE TABLE "NFTDeliveryData" (
-    "eventData" JSONB,
     "merkleUrl" TEXT NOT NULL,
     "contractAddress" TEXT NOT NULL,
     "tokenType" "TokenType" NOT NULL DEFAULT 'ERC721',
