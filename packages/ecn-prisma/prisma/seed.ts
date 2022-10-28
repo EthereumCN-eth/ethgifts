@@ -124,7 +124,7 @@ const nfts: NFTCreateData[] = [
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
         imageLinks: [
-          "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
+          "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
         ],
         name: "The Merge & Weeth",
         chainId: 1,
@@ -263,14 +263,58 @@ const poaps: PoapCreateData[] = [
       create: {
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmdUwiMsxvsV3hp3sHkRTTYGd6zMJyZqeAZFfdk91LEKEd",
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmdUwiMsxvsV3hp3sHkRTTYGd6zMJyZqeAZFfdk91LEKEd",
+        ],
         name: "The Merge & Weeth",
-        imageLinks: [],
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,
         tags: ["POAP", "参与凭证"],
         eventStartTime: 1643710408,
         eventDuration: 3600,
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title: "The Merge & Weeth 系列活动的第一场：以太坊 PoS 之路",
+          subTitle: "The Merge and Weeth",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 <i>The Merge & Weeth</i> —— 以太坊合并与我们的距离的系列活动，在首场活动邀请了以太坊基金会研究员🥳 Hsiao-Wei Wang (合并熊猫 🐼 这个 meme 的创作者) 给大家带来“以太坊 PoS 之路”的主题分享。",
+                "在 AMA 环节，提前在我们 discrod 进行有效提问的朋友都有机会获得此款 NFT。",
+              ],
+            },
+            {
+              heading: "直播回放",
+              subHeading: "Playback",
+              type: "image",
+              data: [
+                {
+                  src: "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
+                  alt: "data",
+                },
+                {
+                  src: "https://icloud.mypinata.cloud/ipfs/QmaqcsQTE1jTWbHRexBfGY6RSBfhLDu9r4kb21fB58HjfD",
+                  alt: "data",
+                },
+              ],
+            },
+            {
+              heading: "直播回放 video",
+              subHeading: "Playback Video",
+              type: "video",
+              data: [
+                {
+                  src: "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
+                  type: "video/mp4",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -281,7 +325,9 @@ const poaps: PoapCreateData[] = [
         name: "Chinese New Year with Vitalik",
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmcpPK5vn57tieWR18duxK9mcUru611Ad8HxSaXze6n9u9",
-        imageLinks: [],
+        imageLinks: [
+          "https://icloud.mypinata.cloud/ipfs/QmcpPK5vn57tieWR18duxK9mcUru611Ad8HxSaXze6n9u9",
+        ],
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,

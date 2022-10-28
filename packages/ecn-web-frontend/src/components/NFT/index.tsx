@@ -5,6 +5,7 @@ import { useAccount, useNetwork } from "wagmi";
 
 import { Carousel } from "../shared/Carousel/Carousel";
 import { InfoDetailView } from "../shared/InfoDetailView";
+import { NFTStatusBoard } from "../shared/NFTStatusBoard";
 import { selectors as globalSelectors } from "@/state/global";
 import {
   sagaActions as nftSagaActions,
@@ -12,7 +13,6 @@ import {
 } from "@/state/nft";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 
-import { NFTStatusBoard } from "./NFTStatusBoard";
 import { VideoView } from "./VideoView";
 
 export const NFT = () => {

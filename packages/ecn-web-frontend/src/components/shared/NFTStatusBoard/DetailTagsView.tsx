@@ -1,6 +1,6 @@
 import { HStack } from "@chakra-ui/react";
 
-import { TextTag } from "../../shared/TextTag";
+import { TextTag } from "../TextTag";
 import type { Tag } from "@/state/gallery/types";
 
 export function DetailTagsView({ detailTags }: { detailTags: Tag[] }) {

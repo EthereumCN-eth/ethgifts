@@ -1,7 +1,7 @@
 import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-import { TextTag } from "../../shared/TextTag";
+import { TextTag } from "../TextTag";
 
 import type { ConnectWalletBoardProps } from "./types";
 

@@ -5,11 +5,12 @@ import { useAccount, useNetwork } from "wagmi";
 
 import { Carousel } from "../shared/Carousel/Carousel";
 import { InfoDetailView } from "../shared/InfoDetailView";
+import { PoapStatusBoard } from "../shared/PoapStatusBoard";
 import { selectors as globalSelectors } from "@/state/global";
 import {
-  sagaActions as nftSagaActions,
-  selectors as nftSelectors,
-} from "@/state/nft";
+  sagaActions as poapSagaActions,
+  selectors as poapSelectors,
+} from "@/state/poap";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 
 export const POAP = () => {
@@ -28,7 +29,7 @@ export const POAP = () => {
       chainId: chain?.id,
     })
   );
-  const nftData = useAppSelector(nftSelectors.selectNFT);
+  const poapData = useAppSelector(poapSelectors.selectPoap);
 
   useEffect(() => {
     const parsedId = Number(id);
@@ -40,7 +41,7 @@ export const POAP = () => {
       if (id && Number.isInteger(parsedId)) {
         setIdNumber(parsedId);
         appDispatch(
-          nftSagaActions.fetchNFTDetails({
+          poapSagaActions.fetchPoapDetails({
             chainId: chain?.id,
             ethAddress: address,
             id: parsedId,
@@ -66,14 +67,13 @@ export const POAP = () => {
         position="relative"
       >
         <Flex w="50%" direction="column" h="95%" align="center">
-          {nftData?.mainViewType === "image" && (
+          {poapData?.mainViewType === "image" && (
             <Carousel
-              loaded={nftData?.loaded ?? false}
-              artworks={nftData?.imageLinks ?? []}
+              loaded={poapData?.loaded ?? false}
+              artworks={poapData?.imageLinks ?? []}
               idNumber={idNumber}
               selectedIndex={selectedIndex}
-              pathname="/nft/[id]/[num]"
-              // numNumber={numNumber}
+              pathname="/poap/[id]/[num]"
             />
           )}
         </Flex>
@@ -85,12 +85,12 @@ export const POAP = () => {
           justify="center"
           pl="11%"
         >
-          {/* <NFTStatusBoard nftData={nftData} loaded={!!nftData?.loaded} /> */}
+          <PoapStatusBoard poapData={poapData} loaded={!!poapData?.loaded} />
         </Flex>
       </Flex>
       <InfoDetailView
-        loaded={nftData?.loaded ?? false}
-        detailInfoOfNFT={nftData?.infoDetail}
+        loaded={poapData?.loaded ?? false}
+        detailInfoOfNFT={poapData?.infoDetail}
       />
     </Flex>
   );
