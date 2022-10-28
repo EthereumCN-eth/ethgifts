@@ -98,63 +98,69 @@ export const SBT = () => {
   // console.log("selectedIndex", selectedIndex);
 
   return (
-    <Flex w="100%" minH="100vh" direction="column" bg="black">
-      <Flex
-        direction="row"
-        px="10%"
-        w="full"
-        pt={20}
-        h="85vh"
-        // bg="blue.200"
-        position="relative"
-      >
-        <Flex w="50%" direction="column" h="95%" align="center">
-          <Carousel
-            isLeftDisable={isLeftDisable}
-            isRightDisable={isRightDisable}
-            clickDot={clickDot}
-            clickPrev={clickPrev}
-            clickNext={clickNext}
-            base={base}
-            // setBase={setBase}
-            selectedIndex={selectedIndex}
-            artworks={artworks}
-            levels={sbtLevel}
-            itemTexts={itemTexts}
-            expressCount={expressCount}
-          />
-        </Flex>
+    <>
+      <Flex w="100%" minH="100vh" direction="column" bg="black">
         <Flex
-          w="50%"
-          direction="column"
-          h="95%"
-          // bg="silver"
-          justify="center"
-          pl="11%"
+          direction="row"
+          px="10%"
+          w="full"
+          pt={20}
+          h="85vh"
+          // bg="blue.200"
+          position="relative"
         >
-          {/*  */}
-          <StatusBoard
-            detailTags={detailTags}
-            itemTexts={itemTexts}
-            selectedIndex={selectedIndex}
-            expressCount={expressCount}
-            sbtLevel={sbtLevel}
-            contractAddress={contractAddress}
-            chainId={chainId}
-          />
+          <Flex w="50%" direction="column" h="95%" align="center">
+            <Carousel
+              isLeftDisable={isLeftDisable}
+              isRightDisable={isRightDisable}
+              clickDot={clickDot}
+              clickPrev={clickPrev}
+              clickNext={clickNext}
+              base={base}
+              // setBase={setBase}
+              selectedIndex={selectedIndex}
+              artworks={artworks}
+              levels={sbtLevel}
+              itemTexts={itemTexts}
+              expressCount={expressCount}
+            />
+          </Flex>
+          <Flex
+            w="50%"
+            direction="column"
+            h="95%"
+            // bg="silver"
+            justify="center"
+            pl="11%"
+          >
+            {/*  */}
+            <StatusBoard
+              detailTags={detailTags}
+              itemTexts={itemTexts}
+              selectedIndex={selectedIndex}
+              expressCount={expressCount}
+              sbtLevel={sbtLevel}
+              contractAddress={contractAddress}
+              chainId={chainId}
+            />
+          </Flex>
+          <Center
+            position="absolute"
+            bottom={0}
+            left={0}
+            margin="auto"
+            right={0}
+            h={10}
+            w="200px"
+          >
+            click
+          </Center>
         </Flex>
-        <Center
-          position="absolute"
-          bottom={0}
-          left={0}
-          margin="auto"
-          right={0}
-          h={10}
-          w="200px"
-        >
-          click
-        </Center>
       </Flex>
-    </Flex>
+
+      <Flex w="100%" minH="100vh" direction="column" bg="white">
+        {/*  */}
+      </Flex>
+    </>
   );
 };

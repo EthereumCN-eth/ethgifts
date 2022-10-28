@@ -67,6 +67,7 @@ const nfts: NFTCreateData[] = [
         imageLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
         ],
+        mainViewType: "video",
         videoLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
         ],

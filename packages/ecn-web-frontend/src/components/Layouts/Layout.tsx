@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { Header } from "@/components/Layouts/Header";
 
+import { Footer } from "./Footer";
 import { useHeaderStore } from "./headerState";
 import type { HeaderProps } from "./types";
 
@@ -18,6 +19,7 @@ export const Layout = ({
     <>
       <Header />
       {children}
+      <Footer />
     </>
   );
 };
