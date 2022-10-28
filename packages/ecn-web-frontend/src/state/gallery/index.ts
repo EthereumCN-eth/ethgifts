@@ -6,6 +6,7 @@ import type { AppState } from "src/state/store";
 import type {
   GalleryItemType,
   GalleryNFTItemType,
+  GalleryPoapItemType,
   GalleryState,
 } from "./types";
 
@@ -70,12 +71,28 @@ const selectNFTById = (state: AppState, id: number) => {
   }
   return null;
 };
+const isGalleryPoapType = (
+  item: GalleryItemType
+): item is GalleryPoapItemType => {
+  return item.typeName === "poap";
+};
+const selectPoapById = (state: AppState, id: number) => {
+  const itemArray = state.gallery.galleryItems.filter(
+    (item): item is GalleryPoapItemType =>
+      item.id === id && isGalleryPoapType(item)
+  );
+  if (itemArray.length) {
+    return itemArray[0];
+  }
+  return null;
+};
 
 const selectors = {
   selectGalleryItems,
   selectShellItemNumber,
   selectLoading,
   selectNFTById,
+  selectPoapById,
 };
 const { actions } = gallerySlice;
 

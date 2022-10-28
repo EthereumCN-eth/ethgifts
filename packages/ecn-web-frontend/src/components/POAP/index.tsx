@@ -12,10 +12,7 @@ import {
 } from "@/state/nft";
 import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 
-import { NFTStatusBoard } from "./NFTStatusBoard";
-import { VideoView } from "./VideoView";
-
-export const NFT = () => {
+export const POAP = () => {
   const router = useRouter();
   const { id, num } = router.query;
   const [idNumber, setIdNumber] = useState<number>();
@@ -79,12 +76,6 @@ export const NFT = () => {
               // numNumber={numNumber}
             />
           )}
-          {nftData?.mainViewType === "video" && nftData?.loaded && (
-            <VideoView
-              videoUrl={nftData?.videoLinks?.[0]}
-              // numNumber={numNumber}
-            />
-          )}
         </Flex>
         <Flex
           w="50%"
@@ -94,7 +85,7 @@ export const NFT = () => {
           justify="center"
           pl="11%"
         >
-          <NFTStatusBoard nftData={nftData} loaded={!!nftData?.loaded} />
+          {/* <NFTStatusBoard nftData={nftData} loaded={!!nftData?.loaded} /> */}
         </Flex>
       </Flex>
       <InfoDetailView

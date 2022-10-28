@@ -4,5 +4,5 @@ import { GalleryItem } from "./GalleryItem";
 
 export const GalleryPoapItem = (galleryItem: GalleryPoapItemType) => {
   const { id, typeName } = galleryItem;
-  return <GalleryItem linkTo={`/${typeName}/${id}`} {...galleryItem} />;
+  return <GalleryItem linkTo={`/${typeName}/${id}/1`} {...galleryItem} />;
 };
