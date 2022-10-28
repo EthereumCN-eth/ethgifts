@@ -1,11 +1,11 @@
-import hre from "hardhat";
-import { MERGEPARTY_NFT_MERKLEROOT, MERGEPARTY_NFT_BASEURI } from "./constants";
-import fs from "fs";
-import path from "path";
+import hre from 'hardhat';
+import { MERGEPARTY_NFT_MERKLEROOT, MERGEPARTY_NFT_BASEURI } from './constants';
+import fs from 'fs';
+import path from 'path';
 
 const deploy = async () => {
   const MergePartyNFTFactory = await hre.ethers.getContractFactory(
-    "MergePartyNFT"
+    'MergePartyNFT'
   );
   const MergePartyNFT = await MergePartyNFTFactory.deploy();
 
@@ -25,17 +25,17 @@ const deploy = async () => {
 
   // save deployed info
   fs.writeFileSync(
-    path.join(__dirname, "../deployedContract/MergeContract.json"),
+    path.join(__dirname, '../deployedContract/MergeContract.json'),
     JSON.stringify(deployInfo)
   );
 
   console.log(`MergeNFT deployed: ${MergePartyNFT.address}
   initialize event: 
-  { ${MERGEPARTY_NFT_MERKLEROOT},
-    ${MERGEPARTY_NFT_BASEURI}
+  { MerkleRoot: ${MERGEPARTY_NFT_MERKLEROOT},
+    BaseURI: ${MERGEPARTY_NFT_BASEURI}
   }`);
 };
 
 (async () => {
-  deploy();
+  await deploy();
 })();

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
+import '@openzeppelin/contracts/utils/Counters.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
 
 contract ECNAnniversary_4 is ERC721, Ownable {
     using Counters for Counters.Counter;
@@ -14,7 +14,7 @@ contract ECNAnniversary_4 is ERC721, Ownable {
     address public receiver;
     string public baseURI_;
 
-    constructor() ERC721("ECNAnniversary_4", "ECNAnniversary_4") {}
+    constructor() ERC721('ECNAnniversary_4', 'ECNAnniversary_4') {}
 
     /** ========== view functions ========== */
     function _baseURI() internal view virtual override returns (string memory) {
@@ -31,7 +31,7 @@ contract ECNAnniversary_4 is ERC721, Ownable {
         _requireMinted(tokenId);
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? baseURI : "";
+        return bytes(baseURI).length > 0 ? baseURI : '';
     }
 
     /** ========== admin functions ========== */
@@ -67,14 +67,14 @@ contract ECNAnniversary_4 is ERC721, Ownable {
         address account,
         bytes32[] calldata merkleProof
     ) external {
-        require(!isClaimed(index), "airDrop: Drop already claimed.");
+        require(!isClaimed(index), 'airDrop: Drop already claimed.');
 
         // Verify the merkle proof.
         uint256 _amount = 1;
         bytes32 node = keccak256(abi.encodePacked(index, account, _amount));
         require(
             MerkleProof.verify(merkleProof, merkleRoot, node),
-            "airDrop: Invalid proof."
+            'airDrop: Invalid proof.'
         );
 
         // Mark it claimed and send the merge party nft.
