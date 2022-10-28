@@ -59,7 +59,7 @@ const nfts: NFTCreateData[] = [
         name: "EthTiger",
         onShelf: true,
         galleryItemType: "nft",
-        tags: ["NFT", "参与凭证"],
+        tags: ["NFT", "参与证明"],
         eventStartTime: 1642902731,
         eventDuration: 3600,
         coverLink:
@@ -67,10 +67,10 @@ const nfts: NFTCreateData[] = [
         imageLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
         ],
-        mainViewType: "video",
         videoLinks: [
           "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
         ],
+        mainViewType: "video",
         infoDetail: {
           eventDescription: "hello ongoing event description",
           title: "2022年虎年新春",
@@ -81,7 +81,7 @@ const nfts: NFTCreateData[] = [
               subHeading: "Activities",
               type: "html",
               data: [
-                "2022 年的虎年新春，ECN 组织举办了以太坊社区新春系列活动：<li>We create ——虎年 NFT Bounty 计划，在社区发起以春节、虎年和以太坊为主题的 NFT 设计比赛</li><li>We vote —— NFT 设计比赛的优胜作品由社区投票选出</li><li>We create ——虎年 NFT Bounty 计划，在社区发起以春节、虎年和以太坊为主题的 NFT 设计比赛</li><li>We vote —— NFT 设计比赛的优胜作品由社区投票选出</li><li>We learn and have fun —— ECN 邀请了 Vitalik 来中文社区举行线上访谈和 AMA，与大家互动</li>",
+                "2022 年的虎年新春，ECN 组织举办了以太坊社区新春系列活动：<li>We create ——虎年 NFT Bounty 计划，在社区发起以春节、虎年和以太坊为主题的 NFT 设计比赛</li><li>We vote —— NFT 设计比赛的优胜作品由社区投票选出</li><li>We learn and have fun —— ECN 邀请了 Vitalik 来中文社区举行线上访谈和 AMA，与大家互动</li>",
                 "我们把此次 NFT 设计比赛的最佳作品铸造成 NFT 作为奖品回馈给积极参与我们活动的朋友，以作纪念。",
               ],
             },
@@ -133,16 +133,17 @@ const nfts: NFTCreateData[] = [
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
         imageLinks: [
-          "https://icloud.mypinata.cloud/ipfs/QmYA4JbwQxw18JVNtDGDYnR66e9F6XNEG2hBe1nwruBcFh",
+          "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
         ],
+
         name: "The Merge & Weeth",
         chainId: 1,
         tokenType: "ERC1155",
         tokenId:
           "60575999203224897677942571825279155748894443364198416085237471895517392797712",
         galleryItemType: "nft",
-        tags: ["NFT", "参与凭证"],
-        eventStartTime: 1643710408,
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1652052946,
         eventDuration: 3600,
         onShelf: true,
         infoDetail: {
@@ -160,28 +161,13 @@ const nfts: NFTCreateData[] = [
               ],
             },
             {
-              heading: "直播回放",
-              subHeading: "Playback",
-              type: "image",
-              data: [
-                {
-                  src: "https://icloud.mypinata.cloud/ipfs/QmVH7jdf5aJpko2BiATUaWAFzHcyX6kU9JPsxidsnW1Jax",
-                  alt: "data",
-                },
-                {
-                  src: "https://icloud.mypinata.cloud/ipfs/QmaqcsQTE1jTWbHRexBfGY6RSBfhLDu9r4kb21fB58HjfD",
-                  alt: "data",
-                },
-              ],
-            },
-            {
               heading: "直播回放 video",
               subHeading: "Playback Video",
               type: "video",
               data: [
                 {
-                  src: "https://icloud.mypinata.cloud/ipfs/QmS1vhN4GdxZFZoRHBH3SEKGHWaMZ3CW3WSNFGRTxr39mj",
-                  type: "video/mp4",
+                  src: "//player.bilibili.com/player.html?aid=896420843&bvid=BV1WA4y1S7hs&cid=716634312&page=1",
+                  type: "iframe",
                 },
               ],
             },
@@ -207,9 +193,37 @@ const nfts: NFTCreateData[] = [
         tokenId:
           "60575999203224897677942571825279155748894443364198416085237471896616904425492",
         galleryItemType: "nft",
-        tags: ["NFT", "参与凭证"],
-        eventStartTime: 1654164808,
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1653435346,
         eventDuration: 3600,
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title:
+            "The Merge & Weeth 系列活动的第二场：Rocket Pool 如何实现以太坊质押去中心化",
+          subTitle: "The Merge and Weeth",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 The Merge & Weeth —— 以太坊合并与我们的距离的系列活动，在第二场活动邀请了去中心化以太坊质押协议 Rocket Pool 的总经理 Darren Langerly 给大家带来“Rocket Pool 如何实现以太坊质押去中心化”的主题分享。",
+                "在 AMA 环节，提前在我们 discrod 进行有效提问的朋友都有机会获得此款 NFT。",
+              ],
+            },
+            {
+              heading: "直播回放 video",
+              subHeading: "Playback Video",
+              type: "video",
+              data: [
+                {
+                  src: `//player.bilibili.com/player.html?aid=641992663&bvid=BV1cY4y1V7JQ&cid=730374576&page=1`,
+                  type: "iframe",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -222,8 +236,8 @@ const nfts: NFTCreateData[] = [
         name: "2021 The Year of 0x",
         onShelf: true,
         galleryItemType: "nft",
-        tags: ["NFT", "参与凭证"],
-        eventStartTime: 1612260808,
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1613000146,
         eventDuration: 3600,
         coverLink:
           "https://icloud.mypinata.cloud/ipfs/QmdTy8AmhyikhxCABahQCMfBfcCbM5enNUM1qUs3ELN1D5",
@@ -232,6 +246,36 @@ const nfts: NFTCreateData[] = [
           "https://icloud.mypinata.cloud/ipfs/QmQdYJfjdxiSU2mYnjgDPiL4joveA9Kx7cHoG2yzB9xTbi",
           "https://icloud.mypinata.cloud/ipfs/Qmana5KvWj2uqEvgZKrpcT4HJrcosWm575UXW3FTDaEtM2",
         ],
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title: "当以太坊遇见虚拟世界和非遗传统文化",
+          subTitle: "2021 The Year of 0x",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "2021 年 2 月 11 日~14 日，ECN 在 Decentraland 的龙城举行了牛年新春活动，主题为“当以太坊遇见虚拟世界和非遗传统文化”。此次活动内容丰富，奖品特别。ECN 邀请了 AI 和区块链艺术家宋婷 (Twitter@song11ting) 制作此次活动的奖品，包括 Non Fungible Indigo 系列的0号作品和1号作品，以及以以太坊为主题的扎染和蜡染作品，其中的创作理念是，“扎染”是中国非物质文化遗产，古称扎缬、绞缬、夹缬和染缬。“扎”的过程如同创建私钥，“染”的过程如同基于私钥创建公钥。艺术家宋婷也想以区块链技术守护古典技艺瑰宝、传递可持续发展理念。",
+              ],
+            },
+            {
+              heading: "NFT制作花絮",
+              subHeading: "Showcase",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmNZhCC7zkJL7jqfskjZK1pEWwDAWd1vUFBUxDJ7sVjikG",
+                  alt: "扎染",
+                },
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmT7ZUCJnvUFbZ8HJfgCp9B8Cs4hSoSmZBYPdpQ4SuGFXd",
+                  alt: "蜡染",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -248,7 +292,7 @@ const nfts: NFTCreateData[] = [
 
         chainId: 1,
         name: "The Merge Panda",
-        tags: ["NFT", "参与凭证"],
+        tags: ["NFT", "参与证明"],
         eventStartTime: 1635243208,
         eventDuration: 3600,
         onShelf: true,

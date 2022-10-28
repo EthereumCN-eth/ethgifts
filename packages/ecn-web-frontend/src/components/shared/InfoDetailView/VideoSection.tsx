@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { css } from "@emotion/react";
-import DOMPurify from "dompurify";
 import ReactPlayer from "react-player/lazy";
 
 import type { InfoVideoType } from "./types";
@@ -13,6 +12,8 @@ export const VideoSection = ({
   dataItem: InfoVideoType;
   loaded: boolean;
 }) => {
+  // console.log("di", dataItem);
+  // console.log("d", DOMPurify.sanitize(dataItem.data[0].src));
   if (dataItem.data[0].type === "iframe") {
     return (
       <div
@@ -21,10 +22,26 @@ export const VideoSection = ({
           height: ${(39.4 / 758) * 424}vw;
         `}
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(dataItem.data[0].src),
-        }}
-      />
+        // dangerouslySetInnerHTML={{
+        //   __html: dataItem.data[0].src,
+        // }}
+      >
+        `
+        <iframe
+          width="100%"
+          title="iframe-video"
+          height="100%"
+          src={dataItem.data[0].src}
+          scrolling="no"
+          // border="0"
+          frameBorder="no"
+          // frameSpacing="0"
+          allowFullScreen
+          // webkitAllowFullScreen
+          // mozAllowFullScreen
+        />
+        `
+      </div>
     );
   }
   // console.log("dataItem", dataItem);
