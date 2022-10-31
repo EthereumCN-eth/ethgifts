@@ -1,6 +1,27 @@
 import { HStack, VStack, Text } from "@chakra-ui/react";
 
+import { useAppSelector } from "@/state/reduxHooks";
+import { selectors as sbtSelectors } from "@/state/sbt";
+
+const chainIdToName = (id: number) => {
+  return {
+    1: "mainnet",
+    10: "optimism",
+    5: "goerli",
+    42161: "arbitrum",
+  }[id];
+};
+const shortenName = (address: string) =>
+  address && [address.slice(0, 4), address.slice(38)].join("...");
+
 export const ContractDetail = () => {
+  const { loaded, contractAddress, chainId, issuerAddress } = useAppSelector(
+    sbtSelectors.selectAll
+  );
+  const issuerAddText = loaded ? shortenName(issuerAddress) : "--";
+  const contractAddText = loaded ? shortenName(contractAddress) : "--";
+  const chainName = loaded ? chainIdToName(chainId) : "--";
+
   return (
     <VStack
       minH="176px"
@@ -28,19 +49,20 @@ export const ContractDetail = () => {
       {[
         {
           leftText: "Contract Address",
-          rightText: "0x98dfsfjofjosdhg",
+          rightText: contractAddText,
         },
         {
           leftText: "Blockchain",
-          rightText: "Optimism",
+          rightText: chainName,
         },
         {
           leftText: "Issuer address",
-          rightText: "dd",
+          rightText: issuerAddText,
         },
       ].map((item) => {
         return (
           <HStack
+            key={item.leftText}
             fontWeight={500}
             letterSpacing="0.01em"
             fontFamily="PingFang SC"

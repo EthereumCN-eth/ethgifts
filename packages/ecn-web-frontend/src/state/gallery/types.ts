@@ -69,6 +69,7 @@ export type GallerySBTItemType = {
   currentIndex: number;
   contractReadObj: Parameters<typeof useContractRead>[0];
   contractAddress: string;
+  issuerAddress: string;
 } & BaseItemType;
 
 export type GalleryPoapItemType = {

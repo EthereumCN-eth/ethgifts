@@ -17,6 +17,7 @@ export interface SBTState {
   itemTexts: string[] | null;
   detailTags: Tag[];
   contractAddress: string;
+  issuerAddress: string;
 }
 
 const initialState: SBTState = {
@@ -25,11 +26,12 @@ const initialState: SBTState = {
   expressCount: 0,
   status: null,
   chainId: 0,
-  records: [],
+  records: null,
   artworks: [],
   itemTexts: [],
   detailTags: [],
   contractAddress: constants.AddressZero,
+  issuerAddress: "",
 };
 
 export const sbtSlice = createSlice({

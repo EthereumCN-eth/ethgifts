@@ -89,6 +89,7 @@ export class GalleryService {
           | Omit<PoapItem, keyof BaseItem>;
         if ('countLevel' in item) {
           const {
+            issuerAddress,
             contractAddress,
             countLevel: SBTLevel,
             galleryItemBase: { imageLinks: artworks },
@@ -99,6 +100,7 @@ export class GalleryService {
           } = item;
           additionalProps = {
             currentLevel,
+            issuerAddress,
             contractAddress,
             SBTLevel,
             artworks,

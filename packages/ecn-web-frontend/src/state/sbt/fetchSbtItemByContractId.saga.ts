@@ -29,6 +29,7 @@ function* fetchGalleryIfNotAndSBTLevels({
         itemTexts: sbt.itemText,
         detailTags: sbt.detailTags,
         contractAddress: sbt.contractAddress,
+        issuerAddress: sbt.issuerAddress,
       })
     );
   }

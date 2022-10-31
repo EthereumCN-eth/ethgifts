@@ -100,6 +100,7 @@ CREATE TABLE "SBTContractType" (
     "id" SERIAL NOT NULL,
     "contractAddress" TEXT NOT NULL,
     "galleryItemBaseId" INTEGER NOT NULL,
+    "issuerAddress" TEXT NOT NULL,
     "countLevel" INTEGER[],
 
     CONSTRAINT "SBTContractType_pkey" PRIMARY KEY ("id")

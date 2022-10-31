@@ -41,6 +41,7 @@ export const VCCard = () => {
       ].map((item) => {
         return (
           <HStack
+            key={item.leftText}
             fontWeight={500}
             letterSpacing="0.06em"
             fontFamily="PingFang SC"

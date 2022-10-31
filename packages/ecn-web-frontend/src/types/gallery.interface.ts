@@ -42,5 +42,6 @@ export type SBTItem = {
   SBTLevel: number[];
   currentLevel: number;
   currentIndex: number;
+  issuerAddress: string;
 } & BaseItem;
 export type GalleryServerItem = NFTItem | PoapItem | SBTItem;

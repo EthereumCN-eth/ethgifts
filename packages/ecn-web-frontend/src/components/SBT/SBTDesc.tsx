@@ -21,14 +21,14 @@ const sbtFaqs = [
   {
     question: "什么是 E 群誌 VC ？为什么有两款？",
     answer: (
-      <Text>
+      <VStack>
         <Text>
           作为链上凭证 SBT 的补充，ECN 开发了两款 E 群誌相关的 VC (了解什么是
           VC)，它们基于区块链，存储在链下，获取不需要消耗
           gas，可由所有者保管并自主选择向谁出示。链上链下的数据凭证结合可给社区成员对其
           web3 数据更多的选择权。{" "}
         </Text>
-        <UnorderedList pl="7px" mt="10px">
+        <UnorderedList pl="15px" mt="10px">
           <ListItem mb="5px">
             {`“E 群誌 SBT"一一对应的 VC：当社区成员的贡献数达到可铸造 SBT
           的级别时，即可下载 SBT 对应的 VC。拥有了此
@@ -40,7 +40,7 @@ const sbtFaqs = [
             签名验证，可随时下载。
           </ListItem>
         </UnorderedList>
-      </Text>
+      </VStack>
     ),
   },
 ];
@@ -157,6 +157,7 @@ export const SBTDesc = () => (
     ].map((text) => {
       return (
         <Text
+          key={text}
           mb="10px"
           fontSize="sm"
           fontFamily="PingFang SC"

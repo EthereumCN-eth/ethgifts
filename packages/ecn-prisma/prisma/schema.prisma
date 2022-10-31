@@ -128,6 +128,7 @@ model SBTContractType {
   contractAddress   String
   galleryItemBase   GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
   galleryItemBaseId Int             @unique
+  issuerAddress     String
 
   countLevel Int[]
 
