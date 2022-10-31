@@ -25,7 +25,7 @@ export const VCDetail = () => {
       <Text color="#000" fontWeight={600} fontSize="lg" mb="22px">
         {!isAuth && "请连接钱包以显示你的VC数据"}
         {isAuth && !loaded && "加载中..."}
-        {isAuth && loaded && !records === null && "我们没有你的VC数据"}
+        {isAuth && loaded && !records && "我们没有你的VC数据"}
         {isAuth && loaded && !!records && "E群誌贡献VC的关键数据"}
       </Text>
       <VCCard />
