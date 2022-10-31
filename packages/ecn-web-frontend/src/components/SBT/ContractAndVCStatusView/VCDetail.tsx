@@ -1,9 +1,15 @@
 import { VStack, Text } from "@chakra-ui/react";
 
+import { useIsAuth } from "@/state/global/hooks";
+import { useAppSelector } from "@/state/reduxHooks";
+import { selectors as sbtSelectors } from "@/state/sbt";
+
 import { VCButton } from "./VCButton";
 import { VCCard } from "./VCCard";
 
 export const VCDetail = () => {
+  const isAuth = useIsAuth();
+  const { loaded, records } = useAppSelector(sbtSelectors.selectAll);
   return (
     <VStack
       mt="12px"
@@ -17,7 +23,10 @@ export const VCDetail = () => {
       py="30px"
     >
       <Text color="#000" fontWeight={600} fontSize="lg" mb="22px">
-        我们没有你的VC数据
+        {!isAuth && "请连接钱包以显示你的VC数据"}
+        {isAuth && !loaded && "加载中..."}
+        {isAuth && loaded && !records === null && "我们没有你的VC数据"}
+        {isAuth && loaded && !!records && "E群誌贡献VC的关键数据"}
       </Text>
       <VCCard />
 

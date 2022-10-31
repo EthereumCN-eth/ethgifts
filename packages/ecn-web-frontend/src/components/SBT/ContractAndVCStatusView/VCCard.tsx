@@ -1,10 +1,47 @@
 import { HStack, VStack, Text, Box } from "@chakra-ui/react";
 import { AiFillFile } from "react-icons/ai";
 
+import { useIsAuth } from "@/state/global/hooks";
+import { useAppSelector } from "@/state/reduxHooks";
+import { selectors as sbtSelectors } from "@/state/sbt";
+
+type VCType = {
+  credentialSubject: {
+    id: string;
+    ethContractMessage: {
+      expressAmount: number;
+      metadataURI: string;
+    };
+  };
+  issuer: string;
+  issuanceDate: string;
+};
+
 export const VCCard = () => {
+  const isAuth = useIsAuth();
+  const { loaded, records } = useAppSelector(sbtSelectors.selectAll);
+  const contributionRecord =
+    loaded && records && records[0] && records[0].signedVC
+      ? (JSON.parse(records[0].signedVC) as VCType)
+      : null;
+  // console.log("contributionRecord", contributionRecord);
+  const credsubjidText = contributionRecord
+    ? contributionRecord.credentialSubject.id
+    : "--";
+  const expressCountText =
+    contributionRecord?.credentialSubject.ethContractMessage.expressAmount ??
+    "--";
+  const metaUrl =
+    contributionRecord?.credentialSubject.ethContractMessage.metadataURI ??
+    "--";
+  const issuerIdText = contributionRecord?.issuer ?? "--";
+  const dateText = contributionRecord
+    ? new Date(contributionRecord.issuanceDate).toLocaleDateString()
+    : "--";
+  const hasVcJson = isAuth && loaded && !!records;
   return (
     <VStack
-      minH="197px"
+      minH="220px"
       w="full"
       bgColor="#DDD9D7"
       borderRadius="8px"
@@ -20,23 +57,23 @@ export const VCCard = () => {
         },
         {
           leftText: "Credential Subject ID",
-          rightText: "--",
+          rightText: credsubjidText,
         },
         {
           leftText: "Express Count",
-          rightText: "--",
+          rightText: expressCountText,
         },
         {
           leftText: "Matadata URI",
-          rightText: "--",
+          rightText: metaUrl,
         },
         {
           leftText: "Issuer ID",
-          rightText: "--",
+          rightText: issuerIdText,
         },
         {
           leftText: "Issuance Date",
-          rightText: "--",
+          rightText: dateText,
         },
       ].map((item) => {
         return (
@@ -50,7 +87,9 @@ export const VCCard = () => {
             justify="space-between"
           >
             <Text color="#8E8D8C">{item.leftText}</Text>
-            <Text color="#000000">{item.rightText}</Text>
+            <Text w="50%" textAlign="end" color="#000000">
+              {item.rightText}
+            </Text>
           </HStack>
         );
       })}
@@ -61,7 +100,7 @@ export const VCCard = () => {
         bottom="0"
         h="25px"
         width="full"
-        bgColor="#757575" // borderBottomRadius="16px"
+        bgColor={hasVcJson ? "#EE862B" : "#757575"} // borderBottomRadius="16px"
       >
         <AiFillFile size="12px" color="#fff" />
         <Text fontSize="sm" color="#fff" fontWeight={500}>

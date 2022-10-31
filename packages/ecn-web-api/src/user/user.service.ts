@@ -21,6 +21,14 @@ export class UserService {
           where: {
             sbtContractTypeId: sbtId,
           },
+          include: {
+            signaturePayload: true,
+          },
+          orderBy: {
+            signaturePayload: {
+              expressCount: 'desc',
+            },
+          },
         },
       },
     });
