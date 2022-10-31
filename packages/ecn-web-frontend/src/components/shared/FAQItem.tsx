@@ -1,3 +1,4 @@
+import type { AccordionPanelProps } from "@chakra-ui/react";
 import {
   Box,
   Flex,
@@ -5,14 +6,17 @@ import {
   AccordionButton,
   AccordionPanel,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 import { AiFillDownCircle, AiFillUpCircle } from "react-icons/ai";
 
 export const FAQItem = ({
   question,
   answer,
+  accordionPanelProps,
 }: {
   question: string;
-  answer: string;
+  answer: ReactNode;
+  accordionPanelProps?: AccordionPanelProps;
 }) => (
   <AccordionItem mb={3}>
     {({ isExpanded }) => (
@@ -68,6 +72,7 @@ export const FAQItem = ({
           color="#000000"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           borderRadius="16px"
+          {...accordionPanelProps}
         >
           {answer}
         </AccordionPanel>

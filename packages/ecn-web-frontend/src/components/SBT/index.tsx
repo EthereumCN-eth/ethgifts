@@ -11,7 +11,9 @@ import {
 } from "@/state/sbt";
 
 import { Carousel } from "./Carousel";
+import { ContractAndVCStatusView } from "./ContractAndVCStatusView/index";
 import { mainNumberToBase, selectMainIndex, useRouteByIndex } from "./helpers";
+import { SBTDesc } from "./SBTDesc";
 import { StatusBoard } from "./StatusBoard";
 
 export const SBT = () => {
@@ -158,8 +160,9 @@ export const SBT = () => {
         </Flex>
       </Flex>
 
-      <Flex w="100%" minH="100vh" direction="column" bg="white">
-        {/*  */}
+      <Flex w="100%" minH="500px" direction="row">
+        <ContractAndVCStatusView />
+        <SBTDesc />
       </Flex>
     </>
   );

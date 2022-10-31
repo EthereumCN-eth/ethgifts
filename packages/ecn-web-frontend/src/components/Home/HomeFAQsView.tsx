@@ -1,6 +1,6 @@
 import { Flex, Heading, Accordion } from "@chakra-ui/react";
 
-import { FAQItem } from "./FAQItem";
+import { FAQItem } from "../shared/FAQItem";
 
 const fAQData = [
   {
@@ -46,7 +46,7 @@ export const HomeFAQsView = () => {
         color="#000000"
         width="47%"
         // minW={}
-        defaultIndex={[0]}
+        defaultIndex={[]}
         allowMultiple
         mb={3}
         borderColor="transparent"

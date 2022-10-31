@@ -72,5 +72,22 @@ export const Button: ComponentStyleConfig = {
         border: `1px solid ${darken(0.2, "#FFFFFF")}`,
       },
     },
+    blcakOutline: {
+      borderRadius: "8px",
+      bgColor: "#fff",
+      border: " 1px solid #000",
+      color: "#000",
+      _hover: {
+        color: darken(0.1, "#000"),
+        border: `1px solid ${darken(0.1, "#000")}`,
+        _disabled: {
+          bgColor: "gray.300",
+        },
+      },
+      _active: {
+        color: darken(0.2, "#000"),
+        border: `1px solid ${darken(0.2, "#000")}`,
+      },
+    },
   },
 };
