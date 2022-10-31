@@ -140,12 +140,12 @@ export const HomeScrollFixedView = () => {
           // position="sticky"
           position="fixed"
           css={css`
-            transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: all 2s cubic-bezier(0.77, 0, 0.175, 1);
           `}
           // transform={scrollY > FIXED_SCROLL_PARAM ? 0 : 0}
           // scrollY > FIXED_SCROLL_PARAM ? `${fixedTopRef.current - 120}px` :
           opacity={scrollY > FIXED_SCROLL_PARAM ? 0 : 1}
-          top={scrollY > FIXED_SCROLL_PARAM ? -window.innerHeight / 1.5 : 0}
+          top={scrollY > FIXED_SCROLL_PARAM ? -window.innerHeight : 0}
 
           // position={"sticky"}
           // top={"8vh"}

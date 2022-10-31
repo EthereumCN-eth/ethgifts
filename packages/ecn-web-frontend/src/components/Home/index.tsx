@@ -51,7 +51,7 @@ export const Home: NextPage = () => {
       <Box
         css={css`
           transform: translateY(
-            ${scrollY > FIXED_SCROLL_PARAM ? -window.innerHeight / 3 : 0}px
+            ${scrollY > FIXED_SCROLL_PARAM ? -window.innerHeight / 2 : 0}px
           );
           transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1);
         `}

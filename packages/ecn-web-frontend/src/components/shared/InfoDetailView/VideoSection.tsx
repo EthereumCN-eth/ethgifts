@@ -20,13 +20,13 @@ export const VideoSection = ({
         css={css`
           width: 39.4vw;
           height: ${(39.4 / 758) * 424}vw;
+          position: relative;
         `}
         // eslint-disable-next-line react/no-danger
         // dangerouslySetInnerHTML={{
         //   __html: dataItem.data[0].src,
         // }}
       >
-        `
         <iframe
           width="100%"
           title="iframe-video"
@@ -37,10 +37,15 @@ export const VideoSection = ({
           frameBorder="no"
           // frameSpacing="0"
           allowFullScreen
+          css={css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: contain;
+          `}
           // webkitAllowFullScreen
           // mozAllowFullScreen
         />
-        `
       </div>
     );
   }
