@@ -297,6 +297,45 @@ const nfts: NFTCreateData[] = [
         eventDuration: 3600,
         onShelf: true,
         galleryItemType: "nft",
+
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title: "2021 Shanghai Meetup",
+          subTitle: "The Merge Panda",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2021 年 10 月 26 日，ECN 携 togETHer 的社区伙伴 (ETHPlanet/DAOSquare/原语里弄/Hiblock/Rebase/BTCU) 在上海举办了以太坊社区 Meetup，现场气氛活跃，干货满满，对多个主题进行了讨论，包括 EIP-1559、以太坊2.0、MEV、DAO、区块链安全等。",
+                "ECN 还为此次现场参与的朋友准备了以合并熊猫为主题的生成式 NFT 铸造活动。我们对熊猫的背景、身体、耳朵、眼睛、脸部和嘴巴都进行了多种样式的设计，参与者铸造出来的熊猫是各个部件随机组合的结果，为此次 Meetup 增添了不少乐趣。",
+              ],
+            },
+            {
+              heading: "活动海报",
+              subHeading: "Poster",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmW3eqdAUnVWaKKcbVzkreAxGZjUXBUQLh5GPQbGwCDGYt",
+                  alt: "poster",
+                },
+              ],
+            },
+            {
+              heading: "NFT全景图",
+              subHeading: "Review",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmbV6qK79ibRH8psJsnuf2vjrXLSNAtkCRi8Mx1TAhahzJ",
+                  type: "Review",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -312,11 +351,39 @@ const nfts: NFTCreateData[] = [
         ],
         chainId: 42161,
         name: "imToken & ECN Community AMA",
-        tags: ["NFT", "参与凭证"],
-        eventStartTime: 1635243208,
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1664237148,
         eventDuration: 3600,
         onShelf: true,
         galleryItemType: "nft",
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title: "Learn and Earn with imToken",
+          subTitle: "The Merge of Ethereum",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "ECN 有幸受邀与 imToken 联合举办此次以太坊合并主题活动。<br>学习以太坊合并知识并完成答题，即可赢取 imToken 以太坊升级系列 NFT 和 5000 USDC。<br>以太坊已于 2022 年 9 月 15 日完成期待已久的合并，从 PoW 共识机制顺利升级至 PoS。",
+                "那么：<li>什么是以太坊合并？<li>以太坊会走向哪里？<li>什么是以太坊质押？<li>我该如何选择并参与质押？",
+                "参加此次活动，在学习以太坊合并的同时还有 NFT 和奖金等大家拿！<br>活动入口：https://www.campaign.token.im/zh",
+              ],
+            },
+            {
+              heading: "活动海报",
+              subHeading: "Poster",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/Qmakhp7gnHcVq8Fi13ZkGPPN4ckcY7iDmzVA4bpUnJuXLw",
+                  alt: "poster",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -365,9 +432,40 @@ const poaps: PoapCreateData[] = [
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,
-        tags: ["POAP", "参与凭证"],
-        eventStartTime: 1643710408,
+        tags: ["POAP", "贡献证明"],
+        eventStartTime: 1652054748,
         eventDuration: 3600,
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title: "The Merge & Weeth 系列活动课代表计划",
+          subTitle: "Community Support Project",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 联合区块律动、链捕手、巴比特 和 DeFi 之道，举办主题为 The Merge & Weeth —— 以太坊合并与我们的距离的活动，邀请了以太坊基金会研究员🥳 Hsiao-Wei Wang (合并熊猫 🐼 这个 meme 的创作者)以及去中心化质押服务提供商🤟 Rocket Pool 的总经理 Darren Langerly 给大家带来主题分享+AMA，解答大家关于合并与 Staking 尽可能多的疑问。 ",
+                "此外，ECN 在此次活动还设计了社区互动环节——“课代表”评选，活动中给大家分享相关资料帮助理解，或者担任野生字幕君的社区成员都有机会获得此款限量版 POAP。",
+              ],
+            },
+            {
+              heading: "活动海报",
+              subHeading: "Poster",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmbkADv27C6ZVMQBKr78QEvesbvvqjdXpUiM6jWG58Ca6L",
+                  alt: "poster",
+                },
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmNyXywDs296Wd6vufb6eVRMSTrZxBgDRpvXuyDZWrXiHy",
+                  alt: "poster",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
@@ -384,9 +482,47 @@ const poaps: PoapCreateData[] = [
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,
-        tags: ["POAP", "参与凭证"],
-        eventStartTime: 1644436823,
+        tags: ["POAP", "参与证明"],
+        eventStartTime: 1643933148,
         eventDuration: 3600,
+        infoDetail: {
+          eventDescription: "hello ongoing event description",
+          title: "2022 新春访谈&AMA with Vitalik",
+          subTitle: "Chinese New Year with Vitalik",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "2022 年 2 月 4 日大年初四，ECN 邀请了以太坊联合创始人 Vitalik Buterin 来中文社区过年，通过线上访谈和 AMA 的形式与大家互动，主题聚焦以太坊过去一年的发展以及对新岁的展望。活动期间，Vitalik 向以太坊中文社区拜年，并对以太坊未来一年的发展致以祝福。",
+                "活动除了在 Bilibili (以太坊中国) 上直播，还在 Decentraland 的Dragon City上同步直播，把中国农历新年的庆祝氛围带到了虚拟世界。",
+              ],
+            },
+            {
+              heading: "活动花絮",
+              subHeading: "highlights",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmRjq2amwaG7ZZKfqCAzjAi8Lr9Zfc1Q3ddQxNUvhQX5VQ",
+                  alt: "highlights",
+                },
+              ],
+            },
+            {
+              heading: "直播回放 video",
+              subHeading: "Playback Video",
+              type: "video",
+              data: [
+                {
+                  src: `//player.bilibili.com/player.html?aid=593785919&bvid=BV1Gq4y1b7pZ&cid=503275322&page=1`,
+                  type: "iframe",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
       },
     },
   },
