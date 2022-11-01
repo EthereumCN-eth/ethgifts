@@ -15,8 +15,9 @@ export const VCDownloadButton = ({
   sbtLevel: number[];
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  if (!expressCount || !itemTexts || !sbtLevel.length) return null;
-  const hasVc = expressCount >= sbtLevel[selectedIndex];
+  const isDisabled = !expressCount || !itemTexts || !sbtLevel.length;
+  const hasVc = expressCount && expressCount >= sbtLevel[selectedIndex];
+  const expressCountNum = expressCount || 0;
 
   return (
     <>
@@ -28,15 +29,19 @@ export const VCDownloadButton = ({
         minW="47%"
         mt="30px"
         leftIcon={<AiOutlineDownload color="white" />}
-        disabled={!hasVc}
+        disabled={isDisabled || !hasVc}
         onClick={onOpen}
       >
         {/* {`E群志 SBT Lv2 对应的VC`} */}
-        {`${itemTexts[selectedIndex]} 对应的VC`}
+        {`${
+          itemTexts && itemTexts[selectedIndex]
+            ? itemTexts[selectedIndex]
+            : "E群志 SBT"
+        } 对应的VC`}
       </Button>
       <DownloadModal
         currentLevel={sbtLevel[selectedIndex]}
-        expressCount={expressCount}
+        expressCount={expressCountNum}
         onClose={onClose}
         isOpen={isOpen}
       />

@@ -28,27 +28,31 @@ export const ProgressBar = ({
 
   return (
     <Box w="53%" position="relative" whiteSpace="nowrap">
-      <Box
-        position="absolute"
-        bottom="calc(100% + 5px)"
-        left={`${expressProgress}%`}
-        transform="translateY(-4px) translateX(calc(-50% - 6px))"
-        transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
-      >
-        <FaRegHandPointDown color="#FFFFFF" size="20px" />
-      </Box>
-      <Text
-        position="absolute"
-        bottom="calc(100% + 28px)"
-        left={`${expressProgress}%`}
-        // left={`${selectedLevelProgressVal}%`}
-        color="#FFFFFF"
-        fontSize="xs"
-        transform="translateY(-4px) translateX(calc(-50% - 6px))"
-        transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
-      >
-        {`你在这里(${expressCount})`}
-      </Text>
+      {expressCount && (
+        <Box
+          position="absolute"
+          bottom="calc(100% + 5px)"
+          left={`${expressProgress}%`}
+          transform="translateY(-4px) translateX(calc(-50% - 6px))"
+          transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
+        >
+          <FaRegHandPointDown color="#FFFFFF" size="20px" />
+        </Box>
+      )}
+      {expressCount && (
+        <Text
+          position="absolute"
+          bottom="calc(100% + 28px)"
+          left={`${expressProgress}%`}
+          // left={`${selectedLevelProgressVal}%`}
+          color="#FFFFFF"
+          fontSize="xs"
+          transform="translateY(-4px) translateX(calc(-50% - 6px))"
+          transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
+        >
+          {`你在这里(${expressCount})`}
+        </Text>
+      )}
 
       {!!levels.length &&
         levels.map((level, index) => {
