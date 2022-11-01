@@ -2,13 +2,13 @@ import { Box, IconButton, Progress, Text } from "@chakra-ui/react";
 import { FaRegHandPointDown } from "react-icons/fa";
 
 export const ProgressBar = ({
-  itemTexts,
   progressValues,
   selectedIndex,
   onClickDot,
   expressCount,
   levels,
 }: {
+  // eslint-disable-next-line react/no-unused-prop-types
   itemTexts: string[] | null;
   progressValues: number[];
   selectedIndex: number;
@@ -20,6 +20,7 @@ export const ProgressBar = ({
     ? levels[levels.length - 1]
     : Number.POSITIVE_INFINITY;
   const currentCount = expressCount || 0;
+
   const expressProgress = (currentCount / total) * 100;
   const selectedLevelProgressVal = progressValues[selectedIndex];
   // console.log("levels", levels);
@@ -29,30 +30,42 @@ export const ProgressBar = ({
     <Box w="53%" position="relative" whiteSpace="nowrap">
       <Box
         position="absolute"
-        bottom="100%"
-        left={`${selectedLevelProgressVal}%`}
+        bottom="calc(100% + 5px)"
+        left={`${expressProgress}%`}
         transform="translateY(-4px) translateX(calc(-50% - 6px))"
         transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
       >
-        <FaRegHandPointDown color="#FFFFFF" size="25px" />
+        <FaRegHandPointDown color="#FFFFFF" size="20px" />
       </Box>
+      <Text
+        position="absolute"
+        bottom="calc(100% + 28px)"
+        left={`${expressProgress}%`}
+        // left={`${selectedLevelProgressVal}%`}
+        color="#FFFFFF"
+        fontSize="xs"
+        transform="translateY(-4px) translateX(calc(-50% - 6px))"
+        transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
+      >
+        {`你在这里(${expressCount})`}
+      </Text>
 
-      {itemTexts &&
-        itemTexts.map((txt, index) => {
+      {!!levels.length &&
+        levels.map((level, index) => {
           return (
             <Text
               position="absolute"
               left={`${progressValues[index]}%`}
               // bottom="-200%"
               display="block"
-              // transform="translateX(-50%) translateY(100%)"
-              transform="translateX(-50%) translateY(-70px)"
-              key={txt}
-              color="white"
-              opacity={selectedIndex === index ? 1 : 0}
+              transform="translateX(-50%) translateY(100%)"
+              // transform="translateX(-50%) translateY(-70px)"
+              key={level}
+              color={level <= currentCount ? "white" : "#757575"}
+              // opacity={? 1 : 0}
               transition="opacity 1s cubic-bezier(0.77, 0, 0.175, 1)"
             >
-              {txt}
+              {`Lv${index + 1} (${level})`}
             </Text>
           );
         })}

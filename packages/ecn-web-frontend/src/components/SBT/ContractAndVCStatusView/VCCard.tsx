@@ -1,21 +1,10 @@
-import { HStack, VStack, Text, Box } from "@chakra-ui/react";
-import { AiFillFile } from "react-icons/ai";
+import { HStack, VStack, Text } from "@chakra-ui/react";
 
+import { JSONBottomLabel } from "../JSONBottomLabel";
+import type { VCType } from "../types";
 import { useIsAuth } from "@/state/global/hooks";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
-
-type VCType = {
-  credentialSubject: {
-    id: string;
-    ethContractMessage: {
-      expressAmount: number;
-      metadataURI: string;
-    };
-  };
-  issuer: string;
-  issuanceDate: string;
-};
 
 export const VCCard = () => {
   const isAuth = useIsAuth();
@@ -39,6 +28,7 @@ export const VCCard = () => {
     ? new Date(contributionRecord.issuanceDate).toLocaleDateString()
     : "--";
   const hasVcJson = isAuth && loaded && !!records;
+  const type = contributionRecord ? contributionRecord.type.join(" ,") : "--";
   return (
     <VStack
       minH="220px"
@@ -53,7 +43,7 @@ export const VCCard = () => {
       {[
         {
           leftText: "Type",
-          rightText: "--",
+          rightText: type,
         },
         {
           leftText: "Credential Subject ID",
@@ -93,20 +83,7 @@ export const VCCard = () => {
           </HStack>
         );
       })}
-      <Box marginTop="30px" />
-      <HStack
-        justify="center"
-        position="absolute"
-        bottom="0"
-        h="25px"
-        width="full"
-        bgColor={hasVcJson ? "#EE862B" : "#757575"} // borderBottomRadius="16px"
-      >
-        <AiFillFile size="12px" color="#fff" />
-        <Text fontSize="sm" color="#fff" fontWeight={500}>
-          JSON
-        </Text>
-      </HStack>
+      <JSONBottomLabel hasVcJson={hasVcJson} />
     </VStack>
   );
 };

@@ -21,7 +21,7 @@ export const VCButton = () => {
             variant="blcakOutline"
             onClick={openConnectModal}
           >
-            加入Discord做贡献
+            连接钱包
           </Button>
         )}
       </ConnectButton.Custom>

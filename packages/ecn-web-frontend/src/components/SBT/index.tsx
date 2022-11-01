@@ -60,6 +60,7 @@ export const SBT = () => {
     const parsedId = Number(id);
     if (id && Number.isInteger(Number(id))) {
       setIdNumber(parsedId);
+      // TODO: fetch optimise
       appDispatch(
         sbtSagaActions.fetchSBTDetails({
           chainId: chain?.id,

@@ -1,5 +1,4 @@
 import { Button, Flex, HStack, Text } from "@chakra-ui/react";
-import { AiOutlineDownload } from "react-icons/ai";
 import { useAccount, useNetwork } from "wagmi";
 
 import { TextTag } from "../../shared/TextTag";
@@ -9,6 +8,7 @@ import { useAppSelector } from "@/state/reduxHooks";
 import { ConnectWalletBoard } from "./ConnectWalletBoard";
 import type { StatusBoardPropstype } from "./types";
 import { useReadClaimedLevel } from "./useReadClaimedLevel";
+import { VCDownloadButton } from "./VCDownloadButton";
 
 const renderStatusText = ({
   index,
@@ -107,17 +107,12 @@ export const StatusBoard = ({
         <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="47%">
           申领 SBT
         </Button>
-        <Button
-          my="1.5%"
-          mx="auto"
-          variant="whiteOutline"
-          colorScheme="whiteOutline"
-          minW="47%"
-          mt="30px"
-          leftIcon={<AiOutlineDownload color="white" />}
-        >
-          E群志 SBT Lv2 对应的VC
-        </Button>
+        <VCDownloadButton
+          expressCount={expressCount}
+          itemTexts={itemTexts}
+          selectedIndex={selectedIndex}
+          sbtLevel={sbtLevel}
+        />
       </Flex>
     </>
   );
