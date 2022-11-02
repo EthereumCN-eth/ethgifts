@@ -7,6 +7,7 @@ import { selectors as sbtSelectors } from "@/state/sbt";
 
 import { useInternalDragState } from "./internalDragState";
 import { LevelTabList } from "./LevelTabList";
+import { LevelTabPanels } from "./LevelTabPanels";
 
 export const DragInternalVC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,8 +32,8 @@ export const DragInternalVC = () => {
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>
-      <Flex w="full" h="496px" mt="56px" bgColor="green">
-        {/*  */}
+      <Flex w="full" h="496px" mt="56px">
+        <LevelTabPanels />
       </Flex>
       <Text
         fontSize="xl"
