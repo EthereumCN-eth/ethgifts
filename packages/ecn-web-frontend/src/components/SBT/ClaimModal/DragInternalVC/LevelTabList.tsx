@@ -6,16 +6,12 @@ import { selectors as sbtSelectors } from "@/state/sbt";
 export const LevelTabList = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loaded, records, sbtLevel } = useAppSelector(sbtSelectors.selectAll);
-  //   const { getRootProps, getRadioProps } = useRadioGroup({
-  //     name: "levels",
-  //     defaultValue: 1,
-  //     onChange: console.log,
-  //   });
-  //   const group = getRootProps();
+  // console.log("loaded", loaded);
+
   return (
     <TabList border="none">
       <Flex
-        w="148px"
+        minW="148px"
         h="25px"
         bgColor="#DDD9D7"
         borderRadius="25px"

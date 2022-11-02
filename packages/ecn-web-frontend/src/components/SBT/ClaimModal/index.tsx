@@ -57,7 +57,7 @@ export const ClaimModal = ({
           position="absolute"
           transform="translateY(-2px)"
         />
-        <ModalBody p={0} m={0} width="100%">
+        <ModalBody p={0} m={0} width="100%" borderRadius="24px">
           <Tabs w="100%" variant="enclosed">
             <TabList
               border="none"

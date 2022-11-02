@@ -3,7 +3,7 @@ import {
   connectorsForWallets,
   wallet,
 } from "@rainbow-me/rainbowkit";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -15,6 +15,7 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
 
 import defaultSEOConfig from "../../next-seo.config";
+import { apiQueryClient } from "../services/queryClient";
 import store, { persistor } from "../state/store";
 // import NoSSRWrapper from "src/state/NoSSRWrapper";
 import { AddressOrNetworkChange } from "@/components/AddressOrNetworkChange";
@@ -29,8 +30,6 @@ import {
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
 import "@rainbow-me/rainbowkit/styles.css";
-
-const queryClient = new QueryClient();
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.arbitrum, chain.goerli],
@@ -97,7 +96,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Head>
                 <DefaultSeo {...defaultSEOConfig} />
                 <AddressOrNetworkChange />
-                <QueryClientProvider client={queryClient}>
+                <QueryClientProvider client={apiQueryClient}>
                   <Component {...pageProps} />
                 </QueryClientProvider>
               </Chakra>

@@ -69,8 +69,13 @@ export const SBT = () => {
         })
       );
     }
-  }, [address, appDispatch, id, router, accessToken, chain?.id]);
-
+  }, [address, appDispatch, id, accessToken, chain?.id]);
+  // console.log("addr", address);
+  // console.log("appDispatch", appDispatch);
+  // console.log("id", id);
+  // console.log("router", router);
+  // console.log("accessToken", accessToken);
+  // console.log("chain?.id", chain?.id);
   // console.log("sbtLevel", sbtLevel);
   // console.log("artworks", artworks);
   // console.log("itemTexts", itemTexts);
