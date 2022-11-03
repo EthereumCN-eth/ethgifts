@@ -17,6 +17,7 @@ export const VCDownloadButton = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isDisabled = !expressCount || !itemTexts || !sbtLevel.length;
   const hasVc = expressCount && expressCount >= sbtLevel[selectedIndex];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const expressCountNum = expressCount || 0;
 
   return (
@@ -40,8 +41,9 @@ export const VCDownloadButton = ({
         } 对应的VC`}
       </Button>
       <DownloadModal
-        currentLevel={sbtLevel[selectedIndex]}
-        expressCount={expressCountNum}
+        currentLevelCount={sbtLevel[selectedIndex]}
+        selectedIndex={selectedIndex}
+        // expressCount={expressCountNum}
         onClose={onClose}
         isOpen={isOpen}
       />

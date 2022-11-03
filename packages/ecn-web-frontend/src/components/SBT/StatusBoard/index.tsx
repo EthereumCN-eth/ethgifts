@@ -26,7 +26,7 @@ export const StatusBoard = ({
   const authStatus = useAppSelector((state) =>
     globalSelectors.selectAuthStatus(state, { address, chainId: chain?.id })
   );
-  const claimedSbtArrayByLevel = useReadClaimedLevel({
+  const { data: claimedSbtArrayByLevel } = useReadClaimedLevel({
     chainId,
     connectedAddress: address,
     contractAddress,
@@ -71,7 +71,7 @@ export const StatusBoard = ({
         })}
       </Text>
       <Flex direction="row" align="center" justify="space-between" wrap="wrap">
-        <ClaimButton />
+        <ClaimButton selectedIndex={selectedIndex} />
         <VCDownloadButton
           expressCount={expressCount}
           itemTexts={itemTexts}

@@ -1,4 +1,4 @@
-import type { SBTSignatureRecord } from "@prisma/client";
+import type { SBTSignatureRecord, SignaturePayload } from "@prisma/client";
 
 import type { GalleryServerItem } from "@/types/gallery.interface";
 import { NEXT_PUBLIC_ECN_WEB_API_BASE } from "src/constants";
@@ -103,7 +103,9 @@ export const ecnApiClient = {
     | {
         success: true;
         expressCount: number | null;
-        records: SBTSignatureRecord[] | null;
+        records:
+          | (SBTSignatureRecord & { signaturePayload: SignaturePayload })[]
+          | null;
         // error?: Error;
       }
     | {

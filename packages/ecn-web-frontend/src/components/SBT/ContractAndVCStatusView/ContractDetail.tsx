@@ -1,18 +1,9 @@
 import { HStack, VStack, Text } from "@chakra-ui/react";
 
+import { chainIdToName } from "../../../utils/chainIdToName";
+import { shortenName } from "../../../utils/shortenName";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
-
-const chainIdToName = (id: number) => {
-  return {
-    1: "mainnet",
-    10: "optimism",
-    5: "goerli",
-    42161: "arbitrum",
-  }[id];
-};
-const shortenName = (address: string) =>
-  address && [address.slice(0, 4), address.slice(38)].join("...");
 
 export const ContractDetail = () => {
   const { loaded, contractAddress, chainId, issuerAddress } = useAppSelector(
@@ -32,7 +23,7 @@ export const ContractDetail = () => {
       p="20px"
       mb="66px"
     >
-      <HStack
+      {/* <HStack
         fontWeight={500}
         letterSpacing="0.01em"
         fontFamily="PingFang SC"
@@ -42,7 +33,7 @@ export const ContractDetail = () => {
       >
         <Text color="#000000">ExpressCount</Text>
         <Text>--</Text>
-      </HStack>
+      </HStack> */}
       <Text fontSize="xl" fontWeight={600}>
         Contract Details
       </Text>

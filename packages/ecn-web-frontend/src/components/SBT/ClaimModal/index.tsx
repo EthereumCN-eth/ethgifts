@@ -19,11 +19,13 @@ import { DragInternalVC } from "./DragInternalVC";
 export const ClaimModal = ({
   isOpen,
   onClose,
+  viewingSelectedIndex,
 }: //   expressCount,
 //   currentLevel,
 {
   onClose: () => void;
   isOpen: boolean;
+  viewingSelectedIndex: number;
   //   expressCount: number;
   //   currentLevel: number;
 }) => {
@@ -100,7 +102,7 @@ export const ClaimModal = ({
               borderBottomRadius="24px"
             >
               <TabPanel>
-                <DragInternalVC />
+                <DragInternalVC viewingSelectedIndex={viewingSelectedIndex} />
               </TabPanel>
               <TabPanel>
                 <p>two!</p>

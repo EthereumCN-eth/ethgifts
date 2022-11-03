@@ -26,6 +26,8 @@ import {
   NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
   NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
   NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY,
+  NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS,
+  NEXT_PUBLIC_GOERLI_ALCHEMY_WEBSOCKETS,
 } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
@@ -37,11 +39,18 @@ const { chains, provider } = configureChains(
     alchemyProvider({ apiKey: NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY }),
     jsonRpcProvider({
       rpc: (rpcchain) => {
-        if (rpcchain.id !== chain.arbitrum.id) return null;
-        return {
-          http: NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
-          webSocket: NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
-        };
+        if (rpcchain.id === chain.arbitrum.id) {
+          return {
+            http: NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
+            webSocket: NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
+          };
+        } else if (rpcchain.id === chain.goerli.id) {
+          return {
+            http: NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS,
+            webSocket: NEXT_PUBLIC_GOERLI_ALCHEMY_WEBSOCKETS,
+          };
+        }
+        return null;
       },
     }),
     publicProvider(),

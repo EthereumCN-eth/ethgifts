@@ -19,20 +19,18 @@ import type { VCType } from "../types";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
-export const DownloadModal = ({
+export const LatestDownModal = ({
   isOpen,
   onClose,
-  // expressCount,
-  currentLevelCount,
-  selectedIndex,
-}: {
+}: // expressCount,
+
+{
   onClose: () => void;
   isOpen: boolean;
-  // expressCount: number;
-  currentLevelCount: number;
-  selectedIndex: number;
 }) => {
-  const { loaded, records } = useAppSelector(sbtSelectors.selectAll);
+  const { loaded, records, expressCount } = useAppSelector(
+    sbtSelectors.selectAll
+  );
   const vc = useMemo(() => {
     if (loaded) {
       const recordsArr = records
@@ -40,19 +38,19 @@ export const DownloadModal = ({
         .filter(
           (vcItem) =>
             vcItem.credentialSubject.ethContractMessage.expressAmount ===
-            currentLevelCount
+            expressCount
         );
       return recordsArr && recordsArr[0] ? recordsArr[0] : null;
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentLevelCount, loaded]);
+  }, [expressCount, loaded]);
 
   const onDownloadVcCallback = () => {
     const file = new Blob([JSON.stringify(vc, null, 2)], {
       type: "text/json;charset=utf-8",
     });
-    saveAs(file, `ecn_express_lv${selectedIndex + 1}.json`);
+    saveAs(file, `ecn_express_contribution.json`);
     // const url = URL.createObjectURL(file);
     // window.open(url, "_blank download")?.focus();
   };

@@ -1,7 +1,9 @@
-import type { SBTSignatureRecord } from "@prisma/client";
+import type { SBTSignatureRecord, SignaturePayload } from "@prisma/client";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { constants } from "ethers";
+import type { useContractRead } from "wagmi";
+import { erc721ABI } from "wagmi";
 
 import type { GallerySBTItemType, Tag } from "../gallery/types";
 import type { AppState } from "src/state/store";
@@ -12,15 +14,21 @@ export interface SBTState {
   expressCount: number | null;
   status: "coming soon" | "ongoing" | null;
   chainId: number;
-  records: SBTSignatureRecord[] | null;
+  records:
+    | (SBTSignatureRecord & {
+        signaturePayload: SignaturePayload;
+      })[]
+    | null;
   artworks: string[];
   itemTexts: string[] | null;
   detailTags: Tag[];
   contractAddress: string;
   issuerAddress: string;
+  sbtTitle: string;
+  contractReadObj: Parameters<typeof useContractRead>[0];
 }
 
-const initialState: SBTState = {
+export const initialState: SBTState = {
   loaded: false,
   sbtLevel: [],
   expressCount: 0,
@@ -32,6 +40,14 @@ const initialState: SBTState = {
   detailTags: [],
   contractAddress: constants.AddressZero,
   issuerAddress: "",
+  sbtTitle: "",
+  contractReadObj: {
+    addressOrName: constants.AddressZero,
+    chainId: -1,
+    contractInterface: erc721ABI,
+    functionName: "balanceOf",
+    args: [constants.AddressZero],
+  },
 };
 
 export const sbtSlice = createSlice({

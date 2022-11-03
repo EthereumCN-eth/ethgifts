@@ -2,7 +2,7 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 
 import { ClaimModal } from "../ClaimModal";
 
-export const ClaimButton = () => {
+export const ClaimButton = ({ selectedIndex }: { selectedIndex: number }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -16,7 +16,11 @@ export const ClaimButton = () => {
       >
         申领 SBT
       </Button>
-      <ClaimModal isOpen={isOpen} onClose={onClose} />
+      <ClaimModal
+        viewingSelectedIndex={selectedIndex}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </>
   );
 };

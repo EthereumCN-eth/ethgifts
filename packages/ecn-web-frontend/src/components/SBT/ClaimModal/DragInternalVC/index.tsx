@@ -1,28 +1,19 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
-import { useAppSelector } from "@/state/reduxHooks";
-import { selectors as sbtSelectors } from "@/state/sbt";
-
+import { useInitInternalDragState } from "./hooks";
 import { useInternalDragState } from "./internalDragState";
 import { LevelTabList } from "./LevelTabList";
 import { LevelTabPanels } from "./LevelTabPanels";
 
-export const DragInternalVC = () => {
+export const DragInternalVC = ({
+  viewingSelectedIndex,
+}: {
+  viewingSelectedIndex: number;
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loaded, records, sbtLevel } = useAppSelector(sbtSelectors.selectAll);
 
-  const init = useInternalDragState((state) => state.init);
-  useEffect(() => {
-    if (loaded) {
-      // console.log("load init");
-      init(
-        sbtLevel.map((_, i) => i),
-        0
-      );
-    }
-  }, [init, loaded, sbtLevel]);
+  useInitInternalDragState({ viewingSelectedIndex });
   const selectedIndex = useInternalDragState((state) => state.selectedIndex);
   const clickLevel = useInternalDragState((state) => state.clickLevel);
   const clickNext = useInternalDragState((state) => state.clickNext);
@@ -32,7 +23,7 @@ export const DragInternalVC = () => {
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>
-      <Flex w="full" h="496px" mt="56px">
+      <Flex w="full" h="45%" mt="56px">
         <LevelTabPanels />
       </Flex>
       <Text
@@ -43,7 +34,9 @@ export const DragInternalVC = () => {
         color="#fff"
         textAlign="center"
       >
-        请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv1 的申领。
+        {`请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
+          selectedIndex + 1
+        } 的申领。`}
       </Text>
       <HStack w="full" justify="center">
         <IconButton

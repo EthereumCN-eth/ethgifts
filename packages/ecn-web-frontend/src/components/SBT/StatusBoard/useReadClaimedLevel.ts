@@ -13,7 +13,7 @@ export const useReadClaimedLevel = ({
   connectedAddress: string | undefined;
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, isError, isLoading } = useContractRead({
+  return useContractRead({
     //   abi: wagmigotchiABI,
     contractInterface: SBT1.abi,
     addressOrName: contractAddress || constants.AddressZero,
@@ -21,6 +21,4 @@ export const useReadClaimedLevel = ({
     functionName: "mintedLevels",
     args: [connectedAddress || constants.AddressZero],
   });
-
-  return data;
 };
