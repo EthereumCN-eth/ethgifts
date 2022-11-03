@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './../prisma/prisma.service';
-
+import { PrismaClient, Prisma, User } from '@prisma/client';
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
@@ -11,27 +11,66 @@ export class UserService {
     ethAddress: string;
     sbtId: number;
   }) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        ethAddress,
-      },
-      select: {
-        expressCount: true,
-        sbtSignatureRecords: {
+    const resp = await this.prisma.$transaction(
+      async (
+        prisma: PrismaClient<
+          Prisma.PrismaClientOptions,
+          never,
+          Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
+        >,
+      ) => {
+        const [levels, expressCountFromUser] = await Promise.all([
+          this.prisma.sBTContractType.findUnique({
+            where: {
+              id: sbtId,
+            },
+            select: {
+              countLevel: true,
+            },
+          }),
+          this.prisma.user.findUnique({
+            where: {
+              ethAddress,
+            },
+            select: {
+              expressCount: true,
+            },
+          }),
+        ]);
+
+        const levelFilterCondition = [
+          ...levels.countLevel,
+          expressCountFromUser.expressCount,
+        ].map((levelNumber) => ({
+          signaturePayload: {
+            expressCount: levelNumber,
+          },
+        }));
+        const user = await this.prisma.user.findUnique({
           where: {
-            sbtContractTypeId: sbtId,
+            ethAddress,
           },
-          include: {
-            signaturePayload: true,
-          },
-          orderBy: {
-            signaturePayload: {
-              expressCount: 'desc',
+          select: {
+            expressCount: true,
+            sbtSignatureRecords: {
+              where: {
+                sbtContractTypeId: sbtId,
+                OR: levelFilterCondition,
+              },
+              include: {
+                signaturePayload: true,
+              },
+              orderBy: {
+                signaturePayload: {
+                  expressCount: 'desc',
+                },
+              },
             },
           },
-        },
+        });
+        return user;
       },
-    });
-    return user;
+    );
+    return resp;
   }
 }
