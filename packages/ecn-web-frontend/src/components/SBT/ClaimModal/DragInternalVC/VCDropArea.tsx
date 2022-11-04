@@ -4,8 +4,9 @@ import { useDrop } from "react-dnd";
 import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
-import { verifyVC } from "@/utils/vc";
+import { parseVCForPayload, verifyVC } from "@/utils/vc";
 
+import { useComputeDropAreaTransformValue } from "./hooks";
 import { useInternalDragState } from "./internalDragState";
 import { VCDraggable } from "./VCDraggable";
 
@@ -25,6 +26,8 @@ export const VCDropArea = () => {
 
   const [bgOpacity, setBgOpacity] = useState(0.2);
   const [dropText, setDropText] = useState("Drag & Drop");
+
+  // console.log("left", left);
   const [{ isOver }, dropRef] = useDrop(
     () => ({
       accept: ["VC"],
@@ -33,9 +36,15 @@ export const VCDropArea = () => {
         if (vcStr) {
           setDrop(true, selectedIndex);
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const res = await verifyVC(vcStr);
+          const isVerifiedVC = await verifyVC(vcStr);
           // eslint-disable-next-line no-console
-          console.log("verifyVC(vcStr)", res);
+          console.log("isVerifiedVC", isVerifiedVC);
+          if (isVerifiedVC) {
+            const payload = parseVCForPayload(vcStr);
+            // eslint-disable-next-line no-console
+            console.log("payload", payload);
+            // setTimeout(() => setDrop(false, selectedIndex), 1000);
+          }
         }
 
         // onDrop(monitor.getItemType());
@@ -44,11 +53,13 @@ export const VCDropArea = () => {
 
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),
+
         // canDrop: monitor.canDrop(),
       }),
     }),
     [selectedIndex, vcStr]
   );
+
   useEffect(() => {
     if (dropped) {
       setBgOpacity(0.5);
@@ -61,11 +72,20 @@ export const VCDropArea = () => {
       setDropText("Drag & Drop");
     }
   }, [isOver, dropped]);
+
+  const { ref: moveRef, droppedStyle } = useComputeDropAreaTransformValue({
+    dropped,
+  });
+
   return (
     <Flex
+      sx={{ ...droppedStyle }}
       direction="column"
       align="center"
-      ref={dropRef}
+      ref={(ref) => {
+        dropRef(ref);
+        moveRef.current = ref;
+      }}
       w="24vw"
       h="24vw"
       maxWidth="460px"
@@ -76,6 +96,7 @@ export const VCDropArea = () => {
       justify="center"
       position="relative"
       bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
+      transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
     >
       <Image
         src={selectedArtwork}

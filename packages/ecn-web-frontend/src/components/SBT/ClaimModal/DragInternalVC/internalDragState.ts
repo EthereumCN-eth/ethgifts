@@ -5,6 +5,7 @@ import { initialState as sbtInitalState } from "@/state/sbt";
 
 interface InternalDragState {
   levelIndexs: number[];
+  setDropTargetX: (dropTargetXVal: number) => void;
   syncClaimLevels: (claimedSbtIndexed: number[]) => void;
   init: (
     levels: number[],
@@ -26,6 +27,7 @@ interface InternalDragState {
 
   computed: typeof computed;
   claimed: boolean[];
+  dropTargetX: number;
 }
 
 const initState = {
@@ -37,6 +39,7 @@ const initState = {
   rightDisabled: true,
   dropped: [],
   claimed: [],
+  dropTargetX: 0,
 };
 
 const computed = {
@@ -58,6 +61,12 @@ const computed = {
 export const useInternalDragState = create<InternalDragState>()((set) => ({
   ...initState,
   computed,
+  setDropTargetX: (dropTargetXVal) =>
+    set(() => {
+      return {
+        dropTargetX: dropTargetXVal,
+      };
+    }),
   reset: () => set(() => initState),
   syncClaimLevels: (claimedSbtIndexed) =>
     set((state) => {

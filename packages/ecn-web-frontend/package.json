@@ -26,7 +26,6 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fontsource/red-rose": "^4.5.9",
-    "@mantine/hooks": "^5.6.4",
     "@prisma/client": "^4.2.1",
     "@rainbow-me/rainbowkit": "^0.5.1",
     "@react-hook/size": "^2.1.2",

@@ -3,10 +3,10 @@ import { useDrag } from "react-dnd";
 import type { DragSourceMonitor } from "react-dnd";
 
 import { JSONBottomLabel } from "../../JSONBottomLabel";
-import type { VCType } from "../../types";
 import { VCCheckListCard } from "../../VCCheckListCard";
 import type { VCCheckItemType } from "../../VCCheckListCard";
 import type { SBTState } from "@/state/sbt";
+import type { VCType } from "@/state/sbt/types";
 import { shortenName } from "@/utils/shortenName";
 
 import { useInternalDragState } from "./internalDragState";
@@ -25,7 +25,8 @@ export const VCDraggableView = ({
     state.computed.selectedSBTTitle(state)
   );
   const parsedVc = record && (JSON.parse(record.signedVC) as VCType);
-  const issuerText = (parsedVc && shortenName(parsedVc.issuer)) || "--";
+  const issuerText =
+    (parsedVc && parsedVc.issuer && shortenName(parsedVc.issuer)) || "--";
   const expressCountText =
     record?.signaturePayload?.expressCount.toString() || "--";
   const metaUrlText = record?.signaturePayload?.metadataURI || "--";

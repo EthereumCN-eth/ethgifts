@@ -14,8 +14,8 @@ import { saveAs } from "file-saver";
 import { useMemo } from "react";
 import { AiOutlineDownload } from "react-icons/ai";
 
+import type { VCType } from "../../../state/sbt/types";
 import { JSONBottomLabel } from "../JSONBottomLabel";
-import type { VCType } from "../types";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
@@ -39,7 +39,7 @@ export const DownloadModal = ({
         ?.map((record) => JSON.parse(record.signedVC) as VCType)
         .filter(
           (vcItem) =>
-            vcItem.credentialSubject.ethContractMessage.expressAmount ===
+            vcItem?.credentialSubject?.ethContractMessage?.expressAmount ===
             currentLevelCount
         );
       return recordsArr && recordsArr[0] ? recordsArr[0] : null;

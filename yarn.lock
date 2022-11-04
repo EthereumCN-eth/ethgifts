@@ -4010,11 +4010,6 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
-"@mantine/hooks@^5.6.4":
-  version "5.6.4"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.6.4.tgz#252bddb0591a167ce0e132bb446c2e7a39a5f0da"
-  integrity sha512-oalipPx2B9WJzYRPs/3FQVx2/opYei/KvITfJyClPZDUAmgAIG5/PdU8kfQcH01cQxQ9GLXIGP8ceZuzo1x1+Q==
-
 "@metamask/eth-sig-util@^4.0.0", "@metamask/eth-sig-util@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@metamask/eth-sig-util/-/eth-sig-util-4.0.1.tgz#3ad61f6ea9ad73ba5b19db780d40d9aae5157088"

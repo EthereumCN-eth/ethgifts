@@ -1,12 +1,12 @@
 import { VStack } from "@chakra-ui/react";
 
 import { JSONBottomLabel } from "../JSONBottomLabel";
-import type { VCType } from "../types";
 import type { VCCheckItemType } from "../VCCheckListCard";
 import { VCCheckListCard } from "../VCCheckListCard";
 import { useIsAuth } from "@/state/global/hooks";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
+import type { VCType } from "@/state/sbt/types";
 
 export const VCCard = () => {
   const isAuth = useIsAuth();
@@ -16,21 +16,26 @@ export const VCCard = () => {
       ? (JSON.parse(records[0].signedVC) as VCType)
       : null;
   // console.log("contributionRecord", contributionRecord);
-  const credsubjidText = contributionRecord
-    ? contributionRecord.credentialSubject.id
-    : "--";
+  const credsubjidText =
+    contributionRecord && contributionRecord.credentialSubject
+      ? contributionRecord.credentialSubject.id
+      : "--";
   const expressCountText =
-    contributionRecord?.credentialSubject.ethContractMessage.expressAmount ??
+    contributionRecord?.credentialSubject?.ethContractMessage?.expressAmount ??
     "--";
   const metaUrl =
-    contributionRecord?.credentialSubject.ethContractMessage.metadataURI ??
+    contributionRecord?.credentialSubject?.ethContractMessage?.metadataURI ??
     "--";
   const issuerIdText = contributionRecord?.issuer ?? "--";
-  const dateText = contributionRecord
-    ? new Date(contributionRecord.issuanceDate).toLocaleDateString()
-    : "--";
+  const dateText =
+    contributionRecord && contributionRecord.issuanceDate
+      ? new Date(contributionRecord.issuanceDate).toLocaleDateString()
+      : "--";
   const hasVcJson = isAuth && loaded && !!records;
-  const type = contributionRecord ? contributionRecord.type.join(" ,") : "--";
+  const type =
+    contributionRecord && contributionRecord.type
+      ? contributionRecord.type.join(" ,")
+      : "--";
   return (
     <VStack
       minH="220px"

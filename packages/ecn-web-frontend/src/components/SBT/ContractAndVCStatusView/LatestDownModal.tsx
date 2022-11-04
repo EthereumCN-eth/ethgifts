@@ -15,9 +15,9 @@ import { useMemo } from "react";
 import { AiOutlineDownload } from "react-icons/ai";
 
 import { JSONBottomLabel } from "../JSONBottomLabel";
-import type { VCType } from "../types";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
+import type { VCType } from "@/state/sbt/types";
 
 export const LatestDownModal = ({
   isOpen,
@@ -37,7 +37,7 @@ export const LatestDownModal = ({
         ?.map((record) => JSON.parse(record.signedVC) as VCType)
         .filter(
           (vcItem) =>
-            vcItem.credentialSubject.ethContractMessage.expressAmount ===
+            vcItem?.credentialSubject?.ethContractMessage?.expressAmount ===
             expressCount
         );
       return recordsArr && recordsArr[0] ? recordsArr[0] : null;

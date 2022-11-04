@@ -6,7 +6,7 @@ import { VCDropArea } from "./VCDropArea";
 
 export const InternalDragPanel = () => {
   return (
-    <Flex w="100%" h="100%" align="center" justify="center">
+    <Flex w="100%" h="100%" align="center" justify="center" position="relative">
       <VCDraggable type="VC" isControlHidden />
       <Box w="3vw" />
       <DragIndicator />
