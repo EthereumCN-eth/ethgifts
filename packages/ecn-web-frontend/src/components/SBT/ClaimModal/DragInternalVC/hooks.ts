@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
-import { useReadClaimedLevel } from "../../StatusBoard/useReadClaimedLevel";
+import { useReadClaimedLevel } from "../../../../hooks/useReadClaimedLevel";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
@@ -21,17 +21,36 @@ export const useInitInternalDragState = ({
     contractAddress,
   });
 
+  const isLoadedClaimedLevels = !!claimedSbtArrayByLevel;
+
+  const syncClaimLevels = useInternalDragState(
+    (state) => state.syncClaimLevels
+  );
+
+  // sync onChain claim into zustand store
+  useEffect(() => {
+    if (isLoadedClaimedLevels) {
+      syncClaimLevels(
+        claimedSbtArrayByLevel?.map((level: unknown) => Number(level) - 1)
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadedClaimedLevels, claimedSbtArrayByLevel?.length, syncClaimLevels]);
+
   const init = useInternalDragState((state) => state.init);
   const reset = useInternalDragState((state) => state.reset);
 
   useEffect(() => {
     if (loaded && isSuccess) {
+      const claimedSbtArrayByLevelNumber =
+        claimedSbtArrayByLevel?.map((level: unknown) => Number(level) - 1) ||
+        [];
       // console.log("load init");
       init(
         sbtLevel.map((_, i) => i),
         viewingSelectedIndex,
         sbtReduxState,
-        claimedSbtArrayByLevel?.map((level: unknown) => Number(level) - 1) || []
+        claimedSbtArrayByLevelNumber
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,15 +1,16 @@
 import { Flex, HStack, Text } from "@chakra-ui/react";
 import { useAccount, useNetwork } from "wagmi";
 
+import { useReadClaimedLevel } from "../../../hooks/useReadClaimedLevel";
 import { TextTag } from "../../shared/TextTag";
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppSelector } from "@/state/reduxHooks";
+import { selectors as sbtSelectors } from "@/state/sbt";
 
 import { ClaimButton } from "./ClaimButton";
 import { ConnectWalletBoard } from "./ConnectWalletBoard";
 import { StatusText } from "./StatusText";
 import type { StatusBoardPropstype } from "./types";
-import { useReadClaimedLevel } from "./useReadClaimedLevel";
 import { VCDownloadButton } from "./VCDownloadButton";
 
 export const StatusBoard = ({
@@ -19,20 +20,22 @@ export const StatusBoard = ({
   expressCount,
   sbtLevel,
   contractAddress,
-  chainId,
-}: StatusBoardPropstype) => {
+}: // chainId,
+StatusBoardPropstype) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
   const authStatus = useAppSelector((state) =>
     globalSelectors.selectAuthStatus(state, { address, chainId: chain?.id })
   );
+  const { chainId } = useAppSelector(sbtSelectors.selectAll);
   const { data: claimedSbtArrayByLevel } = useReadClaimedLevel({
     chainId,
     connectedAddress: address,
     contractAddress,
   });
 
-  // console.log("data", data);
+  // eslint-disable-next-line no-console
+  console.log("claimedSbtArrayByLevel", claimedSbtArrayByLevel);
   if (authStatus !== "authenticated")
     return (
       <ConnectWalletBoard

@@ -7,7 +7,7 @@ export type StatusBoardPropstype = {
   sbtLevel: number[];
   expressCount: number | null;
   contractAddress: string;
-  chainId: number;
+  // chainId: number;
 };
 
 export type ConnectWalletBoardProps = {

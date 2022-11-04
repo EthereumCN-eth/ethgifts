@@ -20,6 +20,9 @@ export const DragInternalVC = ({
   const clickPre = useInternalDragState((state) => state.clickPre);
   const leftDisabled = useInternalDragState((state) => state.leftDisabled);
   const rightDisabled = useInternalDragState((state) => state.rightDisabled);
+  const claimedArray = useInternalDragState((state) => state.claimed);
+  const isClaimed = !!claimedArray[selectedIndex];
+  const claimText = isClaimed ? "已申领" : "未申领";
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>
@@ -90,7 +93,7 @@ export const DragInternalVC = ({
         mt="24px"
         mb="56px"
       >
-        SBT申领状态：未申领
+        {`SBT申领状态：${claimText}`}
       </Text>
     </Tabs>
   );

@@ -1,8 +1,8 @@
 export const chainIdToName = (id: number) => {
   return {
-    1: "mainnet",
-    10: "optimism",
-    5: "goerli",
-    42161: "arbitrum",
+    1: "Mainnet",
+    10: "Optimism",
+    5: "Goerli",
+    42161: "Arbitrum",
   }[id];
 };

@@ -5,6 +5,7 @@ import { initialState as sbtInitalState } from "@/state/sbt";
 
 interface InternalDragState {
   levelIndexs: number[];
+  syncClaimLevels: (claimedSbtIndexed: number[]) => void;
   init: (
     levels: number[],
     selectedIndex: number,
@@ -51,12 +52,21 @@ const computed = {
   selectedSBTTitle: (state: InternalDragState) => state.sbtReduxState.sbtTitle,
   selectedDropped: (state: InternalDragState) =>
     state.dropped[state.selectedIndex],
+  selectChainId: (state: InternalDragState) => state.sbtReduxState.chainId,
 };
 
 export const useInternalDragState = create<InternalDragState>()((set) => ({
   ...initState,
   computed,
   reset: () => set(() => initState),
+  syncClaimLevels: (claimedSbtIndexed) =>
+    set((state) => {
+      const { levelIndexs } = state;
+      const claimed = levelIndexs.map((ind) => claimedSbtIndexed.includes(ind));
+      return {
+        claimed,
+      };
+    }),
   init: (levels, selectedIndex, sbtReduxState, claimedSbtIndexed) =>
     set(() => {
       const leftDisabled = selectedIndex === 0;

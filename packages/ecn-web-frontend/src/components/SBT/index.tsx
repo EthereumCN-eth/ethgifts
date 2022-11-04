@@ -40,7 +40,6 @@ export const SBT = () => {
     detailTags,
     expressCount,
     contractAddress,
-    chainId,
   } = useAppSelector(sbtSelectors.selectAll);
   useEffect(() => {
     const numNumber = Number(num);
@@ -149,7 +148,7 @@ export const SBT = () => {
               expressCount={expressCount}
               sbtLevel={sbtLevel}
               contractAddress={contractAddress}
-              chainId={chainId}
+              // chainId={chainId}
             />
           </Flex>
           <Center

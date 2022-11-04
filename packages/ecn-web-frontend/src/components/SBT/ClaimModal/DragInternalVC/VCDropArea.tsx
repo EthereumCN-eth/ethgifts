@@ -4,6 +4,8 @@ import { useDrop } from "react-dnd";
 import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
+import { verifyVC } from "@/utils/vc";
+
 import { useInternalDragState } from "./internalDragState";
 import { VCDraggable } from "./VCDraggable";
 
@@ -16,6 +18,10 @@ export const VCDropArea = () => {
     state.computed.selectedDropped(state)
   );
   const selectedIndex = useInternalDragState((state) => state.selectedIndex);
+  const record = useInternalDragState((state) =>
+    state.computed.selectedRecord(state)
+  );
+  const vcStr = record?.signedVC;
 
   const [bgOpacity, setBgOpacity] = useState(0.2);
   const [dropText, setDropText] = useState("Drag & Drop");
@@ -23,8 +29,14 @@ export const VCDropArea = () => {
     () => ({
       accept: ["VC"],
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      drop(item, monitor) {
-        setDrop(true, selectedIndex);
+      drop: async (item, monitor) => {
+        if (vcStr) {
+          setDrop(true, selectedIndex);
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const res = await verifyVC(vcStr);
+          // eslint-disable-next-line no-console
+          console.log("verifyVC(vcStr)", res);
+        }
 
         // onDrop(monitor.getItemType());
         return undefined;
@@ -35,7 +47,7 @@ export const VCDropArea = () => {
         // canDrop: monitor.canDrop(),
       }),
     }),
-    [selectedIndex]
+    [selectedIndex, vcStr]
   );
   useEffect(() => {
     if (dropped) {

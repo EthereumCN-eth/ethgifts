@@ -13,7 +13,18 @@ const withPWA = require("next-pwa")({
 module.exports = withPWA({
   swcMinify: true,
   reactStrictMode: true,
+  webpack: function (config, options) {
+    const experiments = config.experiments || {}
+    config.experiments = { ...experiments, asyncWebAssembly: true }
+    config.output.assetModuleFilename = 'static/[hash][ext]'
+    config.output.publicPath = '/_next/'
+    config.module.rules.push({
+      test: /\.wasm/,
+      type: 'webassembly/async'
+    })
+    return config
+  },
   eslint: {
     dirs: ["src"],
-  },
+  }
 });

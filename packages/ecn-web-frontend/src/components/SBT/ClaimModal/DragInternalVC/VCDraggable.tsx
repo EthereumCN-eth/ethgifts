@@ -2,6 +2,7 @@ import { Center } from "@chakra-ui/react";
 
 import { useInternalDragState } from "./internalDragState";
 import { NoVcDragView } from "./NoVcDragView";
+import { SwitchNetworkOverlay } from "./SwitchNetworkOverlay";
 import { VCDraggableView } from "./VCDraggableView";
 
 const absoluteStyle = {
@@ -32,6 +33,7 @@ export const VCDraggable = ({
   const dropped = useInternalDragState((state) =>
     state.computed.selectedDropped(state)
   );
+
   const hasVc = !!record;
   const sxStyle = isAbsolute ? absoluteStyle : {};
   const isHiddenProps = isControlHidden && dropped ? hiddenStyleProps : {};
@@ -47,8 +49,9 @@ export const VCDraggable = ({
   }
 
   return (
-    <Center sx={combinedStyle}>
+    <Center sx={combinedStyle} position="relative">
       <VCDraggableView type={type} record={record} />
+      <SwitchNetworkOverlay />
     </Center>
   );
 };
