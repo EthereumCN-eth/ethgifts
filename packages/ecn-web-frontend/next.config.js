@@ -1,3 +1,6 @@
+const { access, symlink } = require("fs/promises");
+const { join } = require("path");
+
 const withPWA = require("next-pwa")({
   dest: "public",
   disable:
@@ -13,18 +16,54 @@ const withPWA = require("next-pwa")({
 module.exports = withPWA({
   swcMinify: true,
   reactStrictMode: true,
-  webpack: function (config, options) {
-    const experiments = config.experiments || {}
-    config.experiments = { ...experiments, asyncWebAssembly: true }
-    config.output.assetModuleFilename = 'static/[hash][ext]'
-    config.output.publicPath = '/_next/'
+  webpack: function (
+    config,
+    { buildId, dev, isServer, defaultLoaders, webpack }
+  ) {
+    config.experiments = Object.assign(config.experiments || {}, {
+      asyncWebAssembly: true,
+    });
+
     config.module.rules.push({
-      test: /\.wasm/,
-      type: 'webassembly/async'
-    })
-    return config
+      test: /\.wasm$/,
+      type: "webassembly/async",
+    });
+
+    //  https://github.com/vercel/next.js/issues/25852
+    config.plugins.push(
+      new (class {
+        apply(compiler) {
+          compiler.hooks.afterEmit.tapPromise(
+            "SymlinkWebpackPlugin",
+            async (compiler) => {
+              if (isServer) {
+                const from = join(compiler.options.output.path, "../static");
+                const to = join(compiler.options.output.path, "static");
+
+                try {
+                  await access(from);
+                  console.log(`${from} already exists`);
+                  return;
+                } catch (error) {
+                  if (error.code === "ENOENT") {
+                    // No link exists
+                  } else {
+                    throw error;
+                  }
+                }
+
+                await symlink(to, from, "junction");
+                console.log(`created symlink ${from} -> ${to}`);
+              }
+            }
+          );
+        }
+      })()
+    );
+
+    return config;
   },
   eslint: {
     dirs: ["src"],
-  }
+  },
 });
