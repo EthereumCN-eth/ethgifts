@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import create from "zustand";
 
 import type { SBTState } from "@/state/sbt";
@@ -28,6 +29,9 @@ interface InternalDragState {
   computed: typeof computed;
   claimed: boolean[];
   dropTargetX: number;
+
+  setClaimingHint: ({ claimingHint }: { claimingHint: string }) => void;
+  claimingHint: ReactNode;
 }
 
 const initState = {
@@ -40,6 +44,7 @@ const initState = {
   dropped: [],
   claimed: [],
   dropTargetX: 0,
+  claimingHint: "",
 };
 
 const computed = {
@@ -61,6 +66,12 @@ const computed = {
 export const useInternalDragState = create<InternalDragState>()((set) => ({
   ...initState,
   computed,
+  setClaimingHint: ({ claimingHint }) =>
+    set(() => {
+      return {
+        claimingHint,
+      };
+    }),
   setDropTargetX: (dropTargetXVal) =>
     set(() => {
       return {

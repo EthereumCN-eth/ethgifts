@@ -19,6 +19,9 @@ export const verifyVC = async (vcStr: string) => {
   console.log("res", res);
   return res.errors.length === 0;
 };
+export type ParseVCForPayloadDataType = ReturnType<
+  typeof parseVCForPayload
+>["data"];
 
 export const parseVCForPayload = (vcStr: string) => {
   try {

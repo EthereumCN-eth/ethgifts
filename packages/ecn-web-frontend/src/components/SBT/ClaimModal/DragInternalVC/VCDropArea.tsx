@@ -4,9 +4,11 @@ import { useDrop } from "react-dnd";
 import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
+import type { ParseVCForPayloadDataType } from "@/utils/vc";
 import { parseVCForPayload, verifyVC } from "@/utils/vc";
 
-import { useComputeDropAreaTransformValue } from "./hooks";
+import { useClaimSBTFromVC } from "./hooks/useClaimSBTFromVC";
+import { useComputeDropAreaTransformValue } from "./hooks/useComputeDropAreaTransformValue";
 import { useInternalDragState } from "./internalDragState";
 import { VCDraggable } from "./VCDraggable";
 
@@ -27,6 +29,11 @@ export const VCDropArea = () => {
   const [bgOpacity, setBgOpacity] = useState(0.2);
   const [dropText, setDropText] = useState("Drag & Drop");
 
+  const [verifyPayload, setVerifyPayload] =
+    useState<ParseVCForPayloadDataType>(null);
+
+  useClaimSBTFromVC({ verifyPayload });
+
   // console.log("left", left);
   const [{ isOver }, dropRef] = useDrop(
     () => ({
@@ -41,8 +48,11 @@ export const VCDropArea = () => {
           console.log("isVerifiedVC", isVerifiedVC);
           if (isVerifiedVC) {
             const payload = parseVCForPayload(vcStr);
-            // eslint-disable-next-line no-console
-            console.log("payload", payload);
+            const { success, data } = payload;
+            if (success) {
+              setVerifyPayload(data);
+            }
+            // console.log("payload", payload);
             // setTimeout(() => setDrop(false, selectedIndex), 1000);
           }
         }
@@ -63,7 +73,7 @@ export const VCDropArea = () => {
   useEffect(() => {
     if (dropped) {
       setBgOpacity(0.5);
-      setDropText("Please Confirm On Wallet");
+      setDropText("");
     } else if (isOver) {
       setBgOpacity(0.5);
       setDropText("Drop to Claim");
