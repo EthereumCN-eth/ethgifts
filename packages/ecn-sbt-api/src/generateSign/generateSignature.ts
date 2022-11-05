@@ -56,11 +56,18 @@ export const generateSignature = async (
     );
 
     // generate metadata URI
-    const metaDataStatus = await storeMetaData(
-      user.ethAddress,
-      contributions,
-      expresses.length
-    );
+    // const metaDataStatus = await storeMetaData(
+    //   user.ethAddress,
+    //   contributions,
+    //   expresses.length
+    // );
+
+    // faked data, off it before product launch
+    const metaDataStatus = {
+      success: true,
+      data: "ipfs://QmbVCG8W3iwL9SL7KEBfQnjLEkePPgj2ACyay2BzDraBim",
+      error: ``,
+    };
 
     if (metaDataStatus.success === false) {
       console.log(metaDataStatus);

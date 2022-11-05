@@ -1,24 +1,29 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
+import '@openzeppelin/contracts/utils/Counters.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
+import './interfaces/IThe_Merge_Watch_Party.sol';
 
-contract MergePartyNFT is ERC721, Ownable {
+contract MergeParty is ERC721, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter public counters;
 
     bytes32 public merkleRoot;
     address public receiver;
-    string public baseURI_;
+    string public messageBoard;
 
-    constructor() ERC721("MergePartyNFT", "MergePartyNFT") {}
+    // mainnet
+    address public constant MergeWatchParty =
+        0x333C0D9E898fa551D8f9D07f4cef095C6319d4a6;
+
+    constructor() ERC721('MergeParty MessagesBoard', 'ETHGifts') {}
 
     /** ========== view functions ========== */
     function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI_;
+        return messageBoard;
     }
 
     function tokenURI(uint256 tokenId)
@@ -30,16 +35,28 @@ contract MergePartyNFT is ERC721, Ownable {
     {
         _requireMinted(tokenId);
 
-        string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? baseURI : "";
+        string memory messageBoard_ = _baseURI();
+        return bytes(messageBoard_).length > 0 ? messageBoard_ : '';
+    }
+
+    // where messages of message board are from
+    function urMessages(address account) public view returns (string memory) {
+        return IThe_Merge_Watch_Party(MergeWatchParty).userMessage(account);
     }
 
     /** ========== admin functions ========== */
-    function initializeEvent(bytes32 _merkleRoot, string memory _baseUri)
+    /**
+     * @dev allow to initialize the event at anytime, but just allow to implement once
+     */
+    function initializeEvent(bytes32 _merkleRoot, string memory _messageboard)
         external
         onlyOwner
     {
-        baseURI_ = _baseUri;
+        require(
+            _merkleRoot.length != 0,
+            'MergeParty: the event has been initialized'
+        );
+        messageBoard = _messageboard;
         merkleRoot = _merkleRoot;
     }
 
@@ -67,14 +84,14 @@ contract MergePartyNFT is ERC721, Ownable {
         address account,
         bytes32[] calldata merkleProof
     ) external {
-        require(!isClaimed(index), "airDrop: Drop already claimed.");
+        require(!isClaimed(index), 'MergeParty: Drop already claimed.');
 
         // Verify the merkle proof.
         uint256 _amount = 1;
         bytes32 node = keccak256(abi.encodePacked(index, account, _amount));
         require(
             MerkleProof.verify(merkleProof, merkleRoot, node),
-            "airDrop: Invalid proof."
+            'MergeParty: Invalid proof.'
         );
 
         // Mark it claimed and send the merge party nft.

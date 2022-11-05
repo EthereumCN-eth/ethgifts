@@ -1,4 +1,8 @@
 import { Poap, PrismaClient, Prisma } from "@prisma/client";
+import { MD_DATA, COLLECTOR } from "./types";
+import { addMsgApi, userHasAddressApi } from "../apis/sbt-api";
+import fs from "fs";
+import path from "path";
 // import { generateSignature } from "ecn-sbt-api";
 const prisma = new PrismaClient();
 
@@ -535,179 +539,111 @@ const contentTypes: ContentTypeCreateData[] = [
   {
     contentType: "defi",
   },
+  {
+    contentType: "uncategorized",
+  },
 ];
 
-// const messages = [
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "1",
-//     ethAddress: "0x6a453A70F6faC3abEF56E1Cb6741B06A25b9E9fB",
-//     msgId: "1",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "2",
-//     ethAddress: "0xDF9B124Efd74fb0400fa026be557DE99c053ec69",
-//     msgId: "2",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "2",
-//     ethAddress: "0xDF9B124Efd74fb0400fa026be557DE99c053ec69",
-//     msgId: "3",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "2",
-//     ethAddress: "0xDF9B124Efd74fb0400fa026be557DE99c053ec69",
-//     msgId: "4",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "3",
-//     ethAddress: "0x4Dc0da20f0f47038cC87F0fD3C814D5282a73518",
-//     msgId: "5",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "3",
-//     ethAddress: "0x4Dc0da20f0f47038cC87F0fD3C814D5282a73518",
-//     msgId: "6",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "3",
-//     ethAddress: "0x4Dc0da20f0f47038cC87F0fD3C814D5282a73518",
-//     msgId: "7",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "3",
-//     ethAddress: "0x4Dc0da20f0f47038cC87F0fD3C814D5282a73518",
-//     msgId: "8",
-//   },
-//   {
-//     rawMsg: "aaa https://example.com",
-//     discordName: "yourDaddy",
-//     content: "aaa",
-//     url: "https://example.com",
-//     contentType: "eth2",
-//     discordId: "3",
-//     ethAddress: "0x4Dc0da20f0f47038cC87F0fD3C814D5282a73518",
-//     msgId: "9",
-//   },
-// ];
+const rawMessages: MD_DATA[] = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "../originalData/discordData.json"),
+    "utf-8"
+  )
+);
 
-interface rawMessage {
-  rawMsg: string;
-  discordName: string;
-  content: string;
-  url: string;
-  contentType: string;
-  discordId: string;
-  ethAddress: string;
-  msgId: string;
-}
+const createMessages = async (msgs: MD_DATA[]) => {
+  await Promise.all([
+    msgs.map(async (msg) => {
+      const rawMsgPayload = {
+        rawMessage: msg.rawMessage,
+        content: msg.content,
+        url: msg.url,
+        discordId: msg.discordId,
+        discordName: msg.discordName,
+        ethAddress: msg.ethAddress,
+        msgId: msg.messageId,
+        contentTypes: msg.contentType,
+      };
 
-const createMessages = async (msgs: rawMessage[]) => {
-  for (let i = 0; i < msgs.length; i++) {
-    const msg = msgs[i];
-    const contentType = msg.contentType;
-    const discordId = msg.discordId;
+      const msgPayload = {
+        content: rawMsgPayload.content,
+        url: rawMsgPayload.url,
+        discordId: rawMsgPayload.discordId,
+        contentType: rawMsgPayload.contentTypes,
+        msgId: rawMsgPayload.msgId,
+      };
 
-    const rawMessage = await prisma.rawExpressMessage.create({
-      data: {
-        rawMessage: msg.rawMsg,
-        id: msg.msgId,
-        parsedUrl: msg.url,
-        parsedMessage: msg.content,
-        user: {
-          connectOrCreate: {
-            where: {
-              discordId: discordId,
-            },
-            create: {
-              name: msg.discordName,
-              expressCount: 0,
-              ethAddress: msg.ethAddress,
-              discordId: discordId,
+      const discordId = rawMsgPayload.discordId;
+
+      try {
+        await prisma.rawExpressMessage.create({
+          data: {
+            rawMessage: rawMsgPayload.rawMessage,
+            id: rawMsgPayload.msgId,
+            parsedUrl: rawMsgPayload.url,
+            parsedMessage: rawMsgPayload.content,
+            user: {
+              connectOrCreate: {
+                where: {
+                  discordId,
+                },
+                create: {
+                  name: rawMsgPayload.discordName,
+                  expressCount: 0,
+                  discordId,
+                  ethAddress: rawMsgPayload.ethAddress,
+                },
+              },
             },
           },
-        },
-      },
-    });
-
-    const message = await prisma.expressMessage.create({
-      data: {
-        expressMessage: msg.content,
-        expressUrl: msg.url,
-        // id: msgId,
-        contentCategory: {
-          connect: {
-            contentType,
+          include: {
+            user: true,
           },
-        },
-        user: {
-          connect: {
-            discordId: discordId,
-          },
-        },
-        rawMessage: {
-          connect: {
-            id: msg.msgId,
-          },
-        },
-      },
-      include: {
-        user: true,
-      },
-    });
+        });
+      } catch (error) {
+        try {
+          await prisma.rawExpressMessage.create({
+            data: {
+              rawMessage: rawMsgPayload.rawMessage,
+              id: rawMsgPayload.msgId,
+              parsedUrl: rawMsgPayload.url,
+              parsedMessage: rawMsgPayload.content,
+              user: {
+                connectOrCreate: {
+                  where: {
+                    discordId,
+                  },
+                  create: {
+                    name: rawMsgPayload.discordName,
+                    expressCount: 0,
+                    discordId,
+                    ethAddress: rawMsgPayload.ethAddress,
+                  },
+                },
+              },
+            },
+            include: {
+              user: true,
+            },
+          });
+        } catch (error) {
+          console.log(
+            // error,
+            rawMsgPayload.msgId,
+            rawMsgPayload.discordName,
+            discordId,
+            rawMsgPayload.discordId
+          );
+        }
+      }
 
-    await prisma.user.update({
-      where: {
-        discordId: discordId,
-      },
-      data: {
-        expressCount: {
-          increment: 1,
-        },
-      },
-    });
-
-    console.log(message);
-  }
+      try {
+        await addMsgApi(msgPayload);
+      } catch (error) {
+        console.log(error);
+      }
+    }),
+  ]);
 };
 
 const main = async () => {
@@ -716,17 +652,10 @@ const main = async () => {
     ...sbts.map(createOneSBTPromise),
     ...poaps.map(createOnePoapPromise),
     ...contentTypes.map(createOneContentTypePromise),
+    createMessages(rawMessages),
   ]);
   // const message = await createMessages(messages);
 };
-// const generateSign = generateSignature("1", "1");
-
-//   const dbSeeding = await Promise.all([nft, sbt, poap, gallery, content]);
-
-// generateSign,
-
-//   console.log(dbSeeding);
-// }
 
 main()
   .then(() => {

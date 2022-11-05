@@ -3,7 +3,7 @@ import { MERGEPARTY_NFT_MERKLEROOT, MERGEPARTY_NFT_BASEURI } from './constants';
 import fs from 'fs';
 import path from 'path';
 
-const deploy = async () => {
+const mainNetDeploy = async () => {
   const MergePartyNFTFactory = await hre.ethers.getContractFactory(
     'MergePartyNFT'
   );
@@ -12,30 +12,28 @@ const deploy = async () => {
   await MergePartyNFT.deployed();
 
   // initialize event
-  await MergePartyNFT.initializeEvent(
-    MERGEPARTY_NFT_MERKLEROOT,
-    MERGEPARTY_NFT_BASEURI
-  );
+  // await MergePartyNFT.initializeEvent(
+  //   MERGEPARTY_NFT_MERKLEROOT,
+  //   MERGEPARTY_NFT_BASEURI
+  // );
 
   const deployInfo = {
     deployedMergeNFT: MergePartyNFT.address,
-    merkleRoot: MERGEPARTY_NFT_MERKLEROOT,
-    baseURI: MERGEPARTY_NFT_BASEURI,
+    initializeEvent: {
+      merkleRoot: MERGEPARTY_NFT_MERKLEROOT,
+      baseURI: MERGEPARTY_NFT_BASEURI,
+    },
   };
 
   // save deployed info
   fs.writeFileSync(
-    path.join(__dirname, '../deployedContract/MergeContract.json'),
+    path.join(__dirname, '../deployedContract/MergeContract_mainnet.json'),
     JSON.stringify(deployInfo)
   );
 
-  console.log(`MergeNFT deployed: ${MergePartyNFT.address}
-  initialize event: 
-  { MerkleRoot: ${MERGEPARTY_NFT_MERKLEROOT},
-    BaseURI: ${MERGEPARTY_NFT_BASEURI}
-  }`);
+  console.log(`MergeNFT deployed: ${MergePartyNFT.address}`);
 };
 
 (async () => {
-  await deploy();
+  mainNetDeploy();
 })();

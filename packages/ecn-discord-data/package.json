@@ -1,0 +1,22 @@
+{
+  "name": "ecn-discord-data",
+  "version": "1.0.0",
+  "description": "grab and summary discord data",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "getFromMD": "node src/formatMD.js",
+    "format": "ts-node src/reformat.ts",
+    "check": "ts-node src/checkData.ts",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@moox/markdown-to-json": "^1.0.0",
+    "@types/node": "^18.11.8",
+    "axios": "^1.1.3",
+    "ecn-sbt-api": "link:../ecn-sbt-api",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}

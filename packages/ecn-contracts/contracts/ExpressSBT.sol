@@ -6,7 +6,6 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
 import './interfaces/IExpressSBT.sol';
-import 'hardhat/console.sol';
 
 contract ExpressSBT is EIP712, ERC721Enumerable, IExpressSBT, Ownable {
     using Counters for Counters.Counter;
@@ -41,7 +40,7 @@ contract ExpressSBT is EIP712, ERC721Enumerable, IExpressSBT, Ownable {
 
     constructor(address _approver, uint256[] memory _gradeLine)
         EIP712('ExpressSBT', '1')
-        ERC721('ExpressSBT', 'ESBT')
+        ERC721('ExpressSBT', 'ETHGifts')
     {
         _updateGradeLine(_gradeLine);
         approver = _approver;

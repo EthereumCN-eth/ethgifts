@@ -1,4 +1,4 @@
-import hre from 'hardhat';
+import hre, { network } from 'hardhat';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import fs from 'fs';
 import path from 'path';
@@ -23,13 +23,13 @@ let user1: SignerWithAddress;
 let user2: SignerWithAddress;
 let mergePartyNFT: MergePartyNFT;
 let merkleRoot: BytesLike;
-let baseURI: string;
+let messageBoard: string;
 let merkleTree: MerkleDistributorInfo;
 
 before(async () => {
   [admin, user1, user2] = await hre.ethers.getSigners();
 
-  baseURI = 'https://example.com';
+  messageBoard = 'https://example.com';
   merkleRoot =
     '0x50f7645587ebbddc9f7a33aaf2513ee8d6022b58cb7849c9637af75f4f0ffe7d';
 
@@ -52,12 +52,12 @@ before(async () => {
   await mergePartyNFT.deployed();
 
   // initialize event
-  await mergePartyNFT.connect(admin).initializeEvent(merkleRoot, baseURI);
+  await mergePartyNFT.connect(admin).initializeEvent(merkleRoot, messageBoard);
 });
 
 describe('mint merge party nft', () => {
   it('check initial setting', async () => {
-    expect(await mergePartyNFT.baseURI_()).to.be.equal(baseURI);
+    expect(await mergePartyNFT.messageBoard()).to.be.equal(messageBoard);
     expect(await mergePartyNFT.merkleRoot()).to.be.equal(merkleRoot);
   });
   it('mint nft with user1', async () => {
@@ -94,10 +94,13 @@ describe('mint merge party nft', () => {
   });
   it('all token id have the same baseUri', async () => {
     expect(await mergePartyNFT.tokenURI(BigNumber.from(0))).to.be.equal(
-      baseURI
+      messageBoard
     );
     expect(await mergePartyNFT.tokenURI(BigNumber.from(1))).to.be.equal(
-      baseURI
+      messageBoard
     );
+  });
+  it('can not call initializeEvent() again', async () => {
+    expect(mergePartyNFT.initializeEvent(merkleRoot, messageBoard)).to.reverted;
   });
 });
