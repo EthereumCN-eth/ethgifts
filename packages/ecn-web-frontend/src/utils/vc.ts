@@ -31,7 +31,19 @@ export const parseVCForPayload = (vcStr: string) => {
     const metadataURI = vc?.credentialSubject?.ethContractMessage?.metadataURI;
     const receiver = vc?.credentialSubject?.ethContractMessage?.receiver;
     const signature = vc?.credentialSubject?.ethContractMessageSignData;
-    if (expressAmount && metadataURI && receiver && signature) {
+    const chainId = vc?.credentialSubject?.ethContract?.chainId;
+    const name = vc?.credentialSubject?.ethContract?.name;
+    const verifyingContract =
+      vc?.credentialSubject?.ethContract?.verifyingContract;
+    const version = vc?.credentialSubject?.ethContract?.version;
+    if (
+      expressAmount &&
+      metadataURI &&
+      receiver &&
+      signature &&
+      chainId &&
+      verifyingContract
+    ) {
       return {
         success: true,
         data: {
@@ -39,6 +51,10 @@ export const parseVCForPayload = (vcStr: string) => {
           metadataURI,
           receiver,
           signature,
+          verifyingContract,
+          chainId,
+          name,
+          version,
         },
         error: null,
       };

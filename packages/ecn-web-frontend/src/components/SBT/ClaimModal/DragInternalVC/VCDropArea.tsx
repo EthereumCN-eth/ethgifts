@@ -4,8 +4,7 @@ import { useDrop } from "react-dnd";
 import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
-import type { ParseVCForPayloadDataType } from "@/utils/vc";
-import { parseVCForPayload, verifyVC } from "@/utils/vc";
+import { verifyVC } from "@/utils/vc";
 
 import { useClaimSBTFromVC } from "./hooks/useClaimSBTFromVC";
 import { useComputeDropAreaTransformValue } from "./hooks/useComputeDropAreaTransformValue";
@@ -29,10 +28,7 @@ export const VCDropArea = () => {
   const [bgOpacity, setBgOpacity] = useState(0.2);
   const [dropText, setDropText] = useState("Drag & Drop");
 
-  const [verifyPayload, setVerifyPayload] =
-    useState<ParseVCForPayloadDataType>(null);
-
-  useClaimSBTFromVC({ verifyPayload });
+  useClaimSBTFromVC();
 
   // console.log("left", left);
   const [{ isOver }, dropRef] = useDrop(
@@ -41,20 +37,9 @@ export const VCDropArea = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       drop: async (item, monitor) => {
         if (vcStr) {
-          setDrop(true, selectedIndex);
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const isVerifiedVC = await verifyVC(vcStr);
-          // eslint-disable-next-line no-console
-          console.log("isVerifiedVC", isVerifiedVC);
-          if (isVerifiedVC) {
-            const payload = parseVCForPayload(vcStr);
-            const { success, data } = payload;
-            if (success) {
-              setVerifyPayload(data);
-            }
-            // console.log("payload", payload);
-            // setTimeout(() => setDrop(false, selectedIndex), 1000);
-          }
+          setDrop(true, selectedIndex, isVerifiedVC);
         }
 
         // onDrop(monitor.getItemType());
@@ -87,6 +72,33 @@ export const VCDropArea = () => {
     dropped,
   });
 
+  const isSelectedClaimed = useInternalDragState((state) =>
+    state.computed.selectedClaimed(state)
+  );
+
+  if (isSelectedClaimed) {
+    return (
+      <Image
+        src={selectedArtwork}
+        w="calc(24vw - 2px)"
+        h="calc(24vw - 2px)"
+        border="none"
+        maxWidth="calc(460px - 2px)"
+        maxH="calc(460px - 2px)"
+        opacity={1}
+        p="1px"
+        borderRadius="16px"
+        zIndex={1}
+        textAlign="center"
+        // left={0}
+        // top={0}
+        // bottom={0}
+        // right={0}
+        // position="absolute"
+      />
+    );
+  }
+
   return (
     <Flex
       sx={{ ...droppedStyle }}
@@ -106,7 +118,7 @@ export const VCDropArea = () => {
       justify="center"
       position="relative"
       bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
-      transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
+      transition="transform 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
     >
       <Image
         src={selectedArtwork}

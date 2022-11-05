@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import create from "zustand";
 
@@ -19,18 +20,21 @@ interface InternalDragState {
   leftDisabled: boolean;
   rightDisabled: boolean;
   sbtReduxState: SBTState;
-  dropped: boolean[];
+  dropped: Array<{
+    drop: boolean;
+    verified: boolean;
+  }>;
   clickNext: () => void;
   clickPre: () => void;
   clickLevel: (index: number) => void;
-  setDrop: (drop: boolean, index: number) => void;
-  reset: () => void;
+  setDrop: (drop: boolean, index: number, verified: boolean) => void;
+  reset: (claimed?: boolean) => void;
 
   computed: typeof computed;
   claimed: boolean[];
   dropTargetX: number;
 
-  setClaimingHint: ({ claimingHint }: { claimingHint: string }) => void;
+  setClaimingHint: ({ claimingHint }: { claimingHint: ReactNode }) => void;
   claimingHint: ReactNode;
 }
 
@@ -49,6 +53,8 @@ const initState = {
 
 const computed = {
   // yes, just use a nested object, which can be easily used in `Object.assign`
+  selectedClaimed: (state: InternalDragState) =>
+    state.claimed[state.selectedIndex],
   selectedArtwork: (state: InternalDragState) =>
     state.sbtReduxState.artworks[state.selectedIndex],
   selectedRecord: (state: InternalDragState) =>
@@ -59,7 +65,7 @@ const computed = {
     )[0] || null,
   selectedSBTTitle: (state: InternalDragState) => state.sbtReduxState.sbtTitle,
   selectedDropped: (state: InternalDragState) =>
-    state.dropped[state.selectedIndex],
+    state.dropped[state.selectedIndex]?.drop || false,
   selectChainId: (state: InternalDragState) => state.sbtReduxState.chainId,
 };
 
@@ -78,7 +84,27 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
         dropTargetX: dropTargetXVal,
       };
     }),
-  reset: () => set(() => initState),
+  reset: (claimed) =>
+    set((state) => {
+      const { levelIndexs, selectedIndex } = state;
+      const dropped = levelIndexs.map(() => ({
+        drop: false,
+        verified: false,
+      }));
+      return {
+        dropped,
+        dropTargetX: 0,
+        claimingHint: (
+          <Text>
+            {claimed
+              ? `已申领 E群誌 SBT Lv${selectedIndex + 1} 。`
+              : `请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
+                  selectedIndex + 1
+                } 的申领。`}
+          </Text>
+        ),
+      };
+    }),
   syncClaimLevels: (claimedSbtIndexed) =>
     set((state) => {
       const { levelIndexs } = state;
@@ -92,7 +118,10 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
       const leftDisabled = selectedIndex === 0;
       const rightDisabled = levels.length - 1 === selectedIndex;
       const claimed = levels.map((ind) => claimedSbtIndexed.includes(ind));
-      const dropped = levels.map(() => false);
+      const dropped = levels.map(() => ({
+        drop: false,
+        verified: false,
+      }));
 
       return {
         levelIndexs: levels,
@@ -105,10 +134,13 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
         dropped,
       };
     }),
-  setDrop: (drop: boolean, index: number) =>
+  setDrop: (drop: boolean, index: number, verified: boolean) =>
     set((state) => {
       const cloneDropped = [...state.dropped];
-      cloneDropped[index] = drop;
+      cloneDropped[index] = {
+        drop,
+        verified,
+      };
       return {
         dropped: cloneDropped,
       };

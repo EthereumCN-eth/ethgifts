@@ -12,7 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import { publicProvider } from "wagmi/providers/public";
+// import { publicProvider } from "wagmi/providers/public";
 
 import defaultSEOConfig from "../../next-seo.config";
 import { apiQueryClient } from "../services/queryClient";
@@ -45,6 +45,10 @@ const { chains, provider } = configureChains(
             webSocket: NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
           };
         } else if (rpcchain.id === chain.goerli.id) {
+          // console.log(
+          //   NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS,
+          //   "NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS"
+          // );
           return {
             http: NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS,
             webSocket: NEXT_PUBLIC_GOERLI_ALCHEMY_WEBSOCKETS,
@@ -53,7 +57,7 @@ const { chains, provider } = configureChains(
         return null;
       },
     }),
-    publicProvider(),
+    // publicProvider(),
   ]
 );
 

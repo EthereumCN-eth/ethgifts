@@ -1,5 +1,4 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
 import { useInitInternalDragState } from "./hooks/useInitInternalDragState";
@@ -27,26 +26,16 @@ export const DragInternalVC = ({
   const claimText = isClaimed ? "已申领" : "未申领";
 
   const claimingHint = useInternalDragState((state) => state.claimingHint);
-  const setClaimingHint = useInternalDragState(
-    (state) => state.setClaimingHint
-  );
-  // const state = useInternalDragState((state) => state);
-  // console.log("state", state);
-
-  useEffect(() => {
-    setClaimingHint({
-      claimingHint: `请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
-        selectedIndex + 1
-      } 的申领。`,
-    });
-  }, [selectedIndex, setClaimingHint]);
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>
       <Flex w="full" h="45%" mt="56px">
         <LevelTabPanels />
       </Flex>
-      <Text
+      <Flex
+        direction="row"
+        align="center"
+        justify="center"
         fontSize="xl"
         my="36px"
         fontFamily="PingFang SC"
@@ -55,7 +44,7 @@ export const DragInternalVC = ({
         textAlign="center"
       >
         {claimingHint}
-      </Text>
+      </Flex>
       <HStack w="full" justify="center">
         <IconButton
           aria-label="left"

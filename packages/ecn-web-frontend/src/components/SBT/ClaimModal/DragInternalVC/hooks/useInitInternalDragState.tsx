@@ -1,8 +1,9 @@
+import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
-import { useReadClaimedLevel } from "../../../../../hooks/useReadClaimedLevel";
 import { useInternalDragState } from "../internalDragState";
+import { useReadClaimedLevel } from "@/hooks/useReadClaimedLevel";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
@@ -57,6 +58,31 @@ export const useInitInternalDragState = ({
 
   // const state = useInternalDragState((state) => state);
   // console.log("state", state);
+
+  const setClaimingHint = useInternalDragState(
+    (state) => state.setClaimingHint
+  );
+  const selectedIndex = useInternalDragState((state) => state.selectedIndex);
+  const isSelectedClaimed = useInternalDragState((state) =>
+    state.computed.selectedClaimed(state)
+  );
+  // const state = useInternalDragState((state) => state);
+  // console.log("state", state);
+
+  useEffect(() => {
+    const claimingHint = isSelectedClaimed ? (
+      <Text>{`已申领 E群誌 SBT Lv${selectedIndex + 1} 。`}</Text>
+    ) : (
+      <Text>
+        {`请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
+          selectedIndex + 1
+        } 的申领。`}
+      </Text>
+    );
+    setClaimingHint({
+      claimingHint,
+    });
+  }, [selectedIndex, setClaimingHint, isSelectedClaimed]);
 
   useEffect(() => {
     return () => {

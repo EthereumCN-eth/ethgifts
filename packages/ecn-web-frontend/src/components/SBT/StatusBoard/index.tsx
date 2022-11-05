@@ -28,14 +28,14 @@ StatusBoardPropstype) => {
     globalSelectors.selectAuthStatus(state, { address, chainId: chain?.id })
   );
   const { chainId } = useAppSelector(sbtSelectors.selectAll);
-  const { data: claimedSbtArrayByLevel } = useReadClaimedLevel({
+  const { data: claimedSbtArrayByLevel, isSuccess } = useReadClaimedLevel({
     chainId,
     connectedAddress: address,
     contractAddress,
   });
 
   // eslint-disable-next-line no-console
-  console.log("claimedSbtArrayByLevel", claimedSbtArrayByLevel);
+  console.log("claimedSbtArrayByLevel", claimedSbtArrayByLevel, isSuccess);
   if (authStatus !== "authenticated")
     return (
       <ConnectWalletBoard

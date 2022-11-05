@@ -7,7 +7,14 @@ export type VCType = {
       metadataURI?: string;
       receiver?: string;
     };
+    ethContract?: {
+      chainId?: number;
+      verifyingContract?: string;
+      name?: string;
+      version?: number;
+    };
   };
+
   issuer?: string;
   issuanceDate?: string;
   type?: string[];
