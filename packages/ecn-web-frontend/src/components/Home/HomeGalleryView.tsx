@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 
 import type { GalleryItemType } from "@/state/gallery/types";
 
@@ -29,7 +29,9 @@ export const HomeGalleryView = ({
       minH="500px"
       w="full"
       align="center"
+      position="relative"
     >
+      <Box position="absolute" top="-500px" id="ecn-gallery" />
       <Heading
         py="120px"
         fontFamily="PingFang SC"
@@ -37,7 +39,7 @@ export const HomeGalleryView = ({
         color="#EE862B"
         fontSize="2.75rem"
       >
-        EthGift Gallery
+        EthGifts Gallery
       </Heading>
       <Grid
         templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}

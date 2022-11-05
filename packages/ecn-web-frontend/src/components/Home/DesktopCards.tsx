@@ -18,42 +18,47 @@ const textAnimation = keyframes`
 `;
 const data = [
   {
-    text: "工作量凭证",
+    text: "工作量证明",
     imageSrc: "/powin.png",
     imgOutSrc: "/powout.png",
     descLines: [
-      "可查看领取进度；",
-      "贡献内容上链；",
-      "经验证铸造；",
-      "可下载对应的链下Verifiable Credential。",
+      "可量化贡献，随时查看领取进度",
+      "资讯贡献内容上链",
+      "经验证铸造或发行",
+      "等效链上链下凭证",
     ],
     bgColor: "rgba(236, 241, 254, 0.6)",
   },
   {
-    text: "技能凭证",
+    text: "技能证明",
     imageSrc: "/posin.png",
     imgOutSrc: "/posout.png",
     descLines: [
-      "翻译内容上链；",
-      "经认证铸造；",
-      "可下载对应的链下Verifiable Credential。",
+      "质量受认可发布",
+      "翻译内容上链",
+      "经验证铸造或发行",
+      "等效链上链下凭证",
     ],
     bgColor: "rgba(254, 249, 236, 0.6)",
   },
   {
-    text: "参与凭证",
-    imageSrc: "/popin.png",
-    imgOutSrc: "/popout.png",
-    descLines: ["具有不可转让性；", "展示你的社区活跃程度。"],
-    bgColor: "rgba(236, 254, 243, 0.6)",
+    text: "知识证明",
+    imageSrc: "/pomin.png",
+    imgOutSrc: "/pokout.png",
+    descLines: [
+      "质量受认可发布",
+      "原创内容上链",
+      "经验证铸造或发行",
+      "等效链上链下凭证",
+    ],
+    bgColor: "rgba(254, 236, 236, 0.6)",
   },
   {
-    text: "成员资格凭证",
-    imageSrc: "/pomin.png",
-    imgOutSrc: "/pomout.png",
-    descLines: ["每款新推出的NFT都将带上ECN的标识，以证明社区成员资格。"],
-
-    bgColor: "rgba(254, 236, 236, 0.6)",
+    text: "参与证明",
+    imageSrc: "/popin.png",
+    imgOutSrc: "/popout.png",
+    descLines: ["反映 NFT 所有者的志趣", "展示你的社区活跃程度"],
+    bgColor: "rgba(236, 254, 243, 0.6)",
   },
 ];
 
@@ -197,13 +202,18 @@ export const DesktopCards = ({
                     fontWeight={500}
                     // transition="all 3s cubic-bezier(0.77, 0, 0.175, 1)"
                     textAlign="center"
+                    lineHeight="150%"
                     fontSize={["xxs", "xs", "sm", "sm"]}
                     w="80%"
                     className="ecn-card-desc"
                     opacity={0}
                   >
                     {i.descLines.map((line) => {
-                      return <Text key={line}>{line}</Text>;
+                      return (
+                        <Text mb="5px" key={line}>
+                          {line}
+                        </Text>
+                      );
                     })}
                   </Box>
                   <Box

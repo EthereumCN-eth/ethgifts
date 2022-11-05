@@ -42,12 +42,13 @@ export const Footer = () => {
           color="#DDD9D7"
           maxW="690px"
         >
-          Ethgift 是展示、认证和申领 ECN 社区成员的参与和贡献的XXX。过去，ECN
-          曾举办过不少线下 meetup 和线上 AMA 活动，都有给积极参与者发放过 NFT 和
-          POAP，如今上线 ECN 的首款 SBT (Soul Bound
-          Token)，其不可转让性、XXX等将与社区贡献凭证的特性更加契合。随着社区活动的日渐丰富，ECN
-          将推出更多有利于社区建设的
-          SBT，让每个成员的不同类型参与和贡献都能得到恰当的认可和展示。
+          EthGifts 是 ECN 在举办社区活动或组织社区协作时发放的 Web3
+          数字凭证，这些 Web3 数字凭证的类型包括 NFT、SBT、POAP
+          和可验证凭证。EthGifts.com
+          是上述数字凭证进行认证、申领和铸造的平台。社区成员可以在上面查看、追踪他们的参与情况、铸造
+          NFT 和下载 VC。同时，EthGifts.com 还是展示 ECN
+          社区活动的平台，大家可以通过网站陈列的每个 NFT
+          了解相对应活动的详情，以及活动的最新动态。
         </Text>
         <Text
           mt="56px"
