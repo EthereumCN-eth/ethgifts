@@ -9,6 +9,7 @@ export const InternalDragPanel = () => {
   const isSelectedClaimed = useInternalDragState((state) =>
     state.computed.selectedClaimed(state)
   );
+
   return (
     <Flex w="100%" h="100%" align="center" justify="center" position="relative">
       <VCDraggable type="VC" isControlHidden />

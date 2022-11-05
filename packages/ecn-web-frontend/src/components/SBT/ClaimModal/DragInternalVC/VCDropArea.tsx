@@ -6,8 +6,7 @@ import { AiOutlineUpload } from "react-icons/ai";
 
 import { verifyVC } from "@/utils/vc";
 
-import { useClaimSBTFromVC } from "./hooks/useClaimSBTFromVC";
-import { useComputeDropAreaTransformValue } from "./hooks/useComputeDropAreaTransformValue";
+import { useComputeDropAreaTransformValue } from "./hooks/useComputeTransformValue";
 import { useInternalDragState } from "./internalDragState";
 import { VCDraggable } from "./VCDraggable";
 
@@ -27,8 +26,6 @@ export const VCDropArea = () => {
 
   const [bgOpacity, setBgOpacity] = useState(0.2);
   const [dropText, setDropText] = useState("Drag & Drop");
-
-  useClaimSBTFromVC();
 
   // console.log("left", left);
   const [{ isOver }, dropRef] = useDrop(
@@ -113,12 +110,13 @@ export const VCDropArea = () => {
       maxWidth="460px"
       maxH="460px"
       borderRadius="16px"
+      // zIndex={dropped ? 1000 : 0}
       // bgColor="transparent"
       border="1px dashed #FFFFFF"
       justify="center"
       position="relative"
       bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
-      transition="transform 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
+      transition="all 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
     >
       <Image
         src={selectedArtwork}

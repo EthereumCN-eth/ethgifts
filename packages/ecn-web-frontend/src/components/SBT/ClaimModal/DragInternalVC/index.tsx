@@ -1,6 +1,7 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
+import { useClaimSBTFromVC } from "./hooks/useClaimSBTFromVC";
 import { useInitInternalDragState } from "./hooks/useInitInternalDragState";
 import { useInternalDragState } from "./internalDragState";
 import { LevelTabList } from "./LevelTabList";
@@ -28,6 +29,8 @@ export const DragInternalVC = ({
   const claimText = isClaimed ? "已申领" : "未申领";
 
   const claimingHint = useInternalDragState((state) => state.claimingHint);
+
+  useClaimSBTFromVC();
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>

@@ -8,6 +8,7 @@ import { initialState as sbtInitalState } from "@/state/sbt";
 interface InternalDragState {
   levelIndexs: number[];
   setDropTargetX: (dropTargetXVal: number) => void;
+  setDragX: (dragXVal: number) => void;
   syncClaimLevels: (claimedSbtIndexed: number[]) => void;
   init: (
     levels: number[],
@@ -33,6 +34,7 @@ interface InternalDragState {
   computed: typeof computed;
   claimed: boolean[];
   dropTargetX: number;
+  dragX: number;
 
   setClaimingHint: ({ claimingHint }: { claimingHint: ReactNode }) => void;
   claimingHint: ReactNode;
@@ -48,6 +50,7 @@ const initState = {
   dropped: [],
   claimed: [],
   dropTargetX: 0,
+  dragX: 0,
   claimingHint: "",
 };
 
@@ -82,6 +85,12 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
     set(() => {
       return {
         dropTargetX: dropTargetXVal,
+      };
+    }),
+  setDragX: (dragX) =>
+    set(() => {
+      return {
+        dragX,
       };
     }),
   reset: (claimed) =>

@@ -1,6 +1,6 @@
 import { Button, Spinner, Text, VStack } from "@chakra-ui/react";
 import { constants } from "ethers";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -76,10 +76,8 @@ export function useClaimSBTFromVC() {
     });
   const payloadreceived = !!vcPayloadOrNull;
 
-  const triggered = useRef<boolean>(false);
   useEffect(() => {
-    if (dropped && !triggered.current) {
-      triggered.current = true;
+    if (dropped) {
       setClaimingHint({
         claimingHint: (
           <>

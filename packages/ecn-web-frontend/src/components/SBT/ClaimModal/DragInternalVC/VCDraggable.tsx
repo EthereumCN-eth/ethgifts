@@ -1,5 +1,6 @@
 import { Center } from "@chakra-ui/react";
 
+import { useComputeDragTransformValue } from "./hooks/useComputeTransformValue";
 import { useInternalDragState } from "./internalDragState";
 import { NoVcDragView } from "./NoVcDragView";
 import { SwitchNetworkOverlay } from "./SwitchNetworkOverlay";
@@ -14,7 +15,7 @@ const absoluteStyle = {
 };
 
 const hiddenStyleProps = {
-  visibility: "hidden",
+  // visibility: "hidden",
   opacity: 0,
 };
 
@@ -40,16 +41,35 @@ export const VCDraggable = ({
 
   const combinedStyle = { ...sxStyle, ...isHiddenProps };
 
+  const { droppedStyle, ref } = useComputeDragTransformValue({ dropped });
+
   if (!hasVc) {
     return (
-      <Center sx={combinedStyle}>
+      <Center
+        // transition="transform 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
+        sx={combinedStyle}
+        // style={droppedStyle}
+      >
         <NoVcDragView />
       </Center>
     );
   }
 
+  if (isAbsolute) {
+    return (
+      <Center sx={combinedStyle} position="relative">
+        <VCDraggableView type={type} record={record} />
+      </Center>
+    );
+  }
   return (
-    <Center sx={combinedStyle} position="relative">
+    <Center
+      ref={ref}
+      transition="transform 1s cubic-bezier(0.77, 0, 0.175, 1)"
+      sx={isHiddenProps}
+      style={droppedStyle}
+      zIndex={100}
+    >
       <VCDraggableView type={type} record={record} />
       <SwitchNetworkOverlay />
     </Center>
