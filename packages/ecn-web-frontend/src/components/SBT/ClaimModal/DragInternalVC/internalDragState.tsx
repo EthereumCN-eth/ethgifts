@@ -91,7 +91,12 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
         drop: false,
         verified: false,
       }));
+      const newClaimed = [...state.claimed];
+      if (claimed) {
+        newClaimed[selectedIndex] = true;
+      }
       return {
+        claimed: newClaimed,
         dropped,
         dropTargetX: 0,
         claimingHint: (

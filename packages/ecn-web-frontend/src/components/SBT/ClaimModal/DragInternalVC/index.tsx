@@ -20,9 +20,11 @@ export const DragInternalVC = ({
   const clickPre = useInternalDragState((state) => state.clickPre);
   const leftDisabled = useInternalDragState((state) => state.leftDisabled);
   const rightDisabled = useInternalDragState((state) => state.rightDisabled);
-  const claimedArray = useInternalDragState((state) => state.claimed);
 
-  const isClaimed = !!claimedArray[selectedIndex];
+  const isClaimed = useInternalDragState((state) =>
+    state.computed.selectedClaimed(state)
+  );
+
   const claimText = isClaimed ? "已申领" : "未申领";
 
   const claimingHint = useInternalDragState((state) => state.claimingHint);

@@ -397,9 +397,9 @@ const sbts: SBTCreateData[] = [
   {
     // contractAddress,
 
-    contractAddress: "0x2057aC52fe393a51b11aa39E064e1C230A450ed8",
+    contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
     //       name: "ExpressSBT",
-    countLevel: [2, 4, 6],
+    countLevel: [3, 6, 20],
     issuerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     galleryItemBase: {
       create: {
