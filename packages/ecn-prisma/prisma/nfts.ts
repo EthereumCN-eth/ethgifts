@@ -3,6 +3,157 @@ import { NFTCreateData } from "./seed";
 
 export const nfts: NFTCreateData[] = [
   {
+    contractAddress: "0x667b493492e1d613b7C0b3E33Eb2A15A59B9C50F",
+    symbol: "ETHGifts",
+    nftAppType: "DELIVERY",
+    nftDeliveryData: {
+      create: {
+        merkleUrl:
+          "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x3bc418e849fb00b3ba1c688b150aa5a4ef7492bc6106436f936e9eee4e57fc6e.json",
+        tokenType: "ERC721",
+        contractAddress: "0x667b493492e1d613b7C0b3E33Eb2A15A59B9C50F",
+      },
+    },
+    galleryItemBase: {
+      create: {
+        coverLink:
+          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+        imageLinks: [
+          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+        ],
+        chainId: 5,
+        name: "(testing)以太坊合并观看派对留言板",
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1663222616,
+        eventDuration: 7626505,
+        onShelf: true,
+        galleryItemType: "nft",
+        infoDetail: {
+          eventDescription: "",
+          title: "以太坊合并观看派对留言板",
+          subTitle: "Messages Board NFT",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2022 年 9 月 15 日，ECN、Ethplanet 与 Crypto Tech Night 在以太坊合并当天共同举办“一起来唠嗑 The Merge” 观看派对，现场连线多位嘉宾对合并、PoS 和 Staking 等话题进行讨论和分享，与现场观众互动，并转播以太坊基金会的直播现场，一起唠嗑，共同经历这个以太坊的历史时刻。",
+                "ECN 还为此次观看派对的参与者准备了 “The Merge 留言板 NFT” ，参与者通过在合约页面写入自己的关于以太坊合并的语句，即可铸造一个随机的 The Merge 贴图 NFT，现在，ECN 通过前端，把参与者的留言展示在画布上，形成一个数字留言板 NFT。大家快来找找画布上自己的留言吧！",
+              ],
+            },
+            {
+              heading: "活动花絮",
+              subHeading: "Highlights",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmV5fqKSvxmvavt6VNMy5Hy51EQLwwAczsHE3Y8w1MvAid",
+                  alt: "poster",
+                },
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmQXqeSj5DfMJLKA5ysnpEMAoyaLgwLyKUpBb8ZsFMGros",
+                  type: "Highlight1",
+                },
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/Qma5UpCATFi7B7u7NVPnQEJXSnHoFJLM1jkVdbfj6tNvpb",
+                  type: "Highlight2",
+                },
+              ],
+            },
+            {
+              heading: "直播回放 video",
+              subHeading: "Playback Video",
+              type: "video",
+              data: [
+                {
+                  src: `//player.bilibili.com/player.html?aid=303227716&bvid=BV1mP411H7wy&cid=838622911&page=1`,
+                  type: "iframe",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
+      },
+    },
+  },
+  {
+    contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+    symbol: "ETHGifts",
+    nftAppType: "DELIVERY",
+    nftDeliveryData: {
+      create: {
+        merkleUrl:
+          "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
+        tokenType: "ERC721",
+        contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+      },
+    },
+    galleryItemBase: {
+      create: {
+        coverLink:
+          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+        imageLinks: [
+          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+        ],
+
+        chainId: 10,
+        name: "以太坊合并观看派对留言板",
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1663222616,
+        eventDuration: 7626505,
+        onShelf: true,
+        galleryItemType: "nft",
+        infoDetail: {
+          eventDescription: "",
+          title: "以太坊合并观看派对留言板",
+          subTitle: "Messages Board NFT",
+          dataSection: [
+            {
+              heading: "活动详情",
+              subHeading: "Activities",
+              type: "html",
+              data: [
+                "在 2022 年 9 月 15 日，ECN、Ethplanet 与 Crypto Tech Night 在以太坊合并当天共同举办“一起来唠嗑 The Merge” 观看派对，现场连线多位嘉宾对合并、PoS 和 Staking 等话题进行讨论和分享，与现场观众互动，并转播以太坊基金会的直播现场，一起唠嗑，共同经历这个以太坊的历史时刻。",
+                "ECN 还为此次观看派对的参与者准备了 “The Merge 留言板 NFT” ，参与者通过在合约页面写入自己的关于以太坊合并的语句，即可铸造一个随机的 The Merge 贴图 NFT，现在，ECN 通过前端，把参与者的留言展示在画布上，形成一个数字留言板 NFT。大家快来找找画布上自己的留言吧！",
+              ],
+            },
+            {
+              heading: "活动花絮",
+              subHeading: "Highlights",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmV5fqKSvxmvavt6VNMy5Hy51EQLwwAczsHE3Y8w1MvAid",
+                  alt: "poster",
+                },
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmQXqeSj5DfMJLKA5ysnpEMAoyaLgwLyKUpBb8ZsFMGros",
+                  type: "Highlight1",
+                },
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/Qma5UpCATFi7B7u7NVPnQEJXSnHoFJLM1jkVdbfj6tNvpb",
+                  type: "Highlight2",
+                },
+              ],
+            },
+            {
+              heading: "直播回放 video",
+              subHeading: "Playback Video",
+              type: "video",
+              data: [
+                {
+                  src: `//player.bilibili.com/player.html?aid=303227716&bvid=BV1mP411H7wy&cid=838622911&page=1`,
+                  type: "iframe",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
+      },
+    },
+  },
+  {
     contractAddress: "0x0ceaea47985c4223e893599597494a35b9845b3d",
     // name: "EthTiger",
     symbol: "ETHGifts",

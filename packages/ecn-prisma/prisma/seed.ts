@@ -161,12 +161,20 @@ const createMessages = async (msgs: MD_DATA[]) => {
 };
 
 const main = async () => {
+  // await Promise.all([
+  //   ....map(createOneNFTPromise),
+
+  //   // createMessages(rawMessages),
+  // ]);
+
+  for (const nft of nfts) {
+    await createOneNFTPromise(nft);
+  }
+
   await Promise.all([
-    ...nfts.map(createOneNFTPromise),
     ...sbts.map(createOneSBTPromise),
     ...poaps.map(createOnePoapPromise),
     ...contentTypes.map(createOneContentTypePromise),
-    // createMessages(rawMessages),
   ]);
   // const message = await createMessages(messages);
 };
