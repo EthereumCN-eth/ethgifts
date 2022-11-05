@@ -17,9 +17,9 @@ export const nfts: NFTCreateData[] = [
     galleryItemBase: {
       create: {
         coverLink:
-          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+          "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
         imageLinks: [
-          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+          "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
         ],
         chainId: 5,
         name: "(testing)以太坊合并观看派对留言板",
@@ -92,9 +92,9 @@ export const nfts: NFTCreateData[] = [
     galleryItemBase: {
       create: {
         coverLink:
-          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+          "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
         imageLinks: [
-          "https://ethereumcn.mypinata.cloud/ipfs/QmbcmD88rVTZ2TGLestHQKw78s8RgPce6fDwMpbFMJSSqs",
+          "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
         ],
 
         chainId: 10,
