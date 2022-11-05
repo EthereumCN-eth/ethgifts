@@ -60,6 +60,12 @@ contract MergeParty is ERC721, Ownable {
         merkleRoot = _merkleRoot;
     }
 
+    function resetBaseUri(string memory _baseUri) external onlyOwner {
+        require(bytes(_baseUri).length != 0, 'invalid baseUri');
+
+        messageBoard = _baseUri;
+    }
+
     // This is a packed array of booleans.
     mapping(uint256 => uint256) private claimedBitMap;
 

@@ -12,13 +12,13 @@ contract ECNAnniversary_4 is ERC721, Ownable {
 
     bytes32 public merkleRoot;
     address public receiver;
-    string public baseURI_;
+    string public baseURI;
 
     constructor() ERC721('ECNAnniversary_4', 'ECNAnniversary_4') {}
 
     /** ========== view functions ========== */
     function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI_;
+        return baseURI;
     }
 
     function tokenURI(uint256 tokenId)
@@ -30,8 +30,8 @@ contract ECNAnniversary_4 is ERC721, Ownable {
     {
         _requireMinted(tokenId);
 
-        string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? baseURI : '';
+        string memory baseURI__ = _baseURI();
+        return bytes(baseURI__).length > 0 ? baseURI__ : '';
     }
 
     /** ========== admin functions ========== */
@@ -39,8 +39,14 @@ contract ECNAnniversary_4 is ERC721, Ownable {
         external
         onlyOwner
     {
-        baseURI_ = _baseUri;
+        baseURI = _baseUri;
         merkleRoot = _merkleRoot;
+    }
+
+    function resetBaseUri(string memory _baseUri) external onlyOwner {
+        require(bytes(_baseUri).length != 0, 'invalid baseUri');
+
+        baseURI = _baseUri;
     }
 
     // This is a packed array of booleans.
