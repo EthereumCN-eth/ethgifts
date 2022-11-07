@@ -1,49 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Flex, Text } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import { BigNumber } from "ethers";
-import { getAddress } from "ethers/lib/utils";
-import { useEffect, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { Button, Flex, IconButton, Text } from "@chakra-ui/react";
+import { useMemo, useState } from "react";
 
 import { useNFTRead } from "@/state/gallery/hooks";
 import type { NFTState } from "@/state/nft";
+import { useWhiteListAndClaim } from "@/state/nft/hooks";
 
-type FileJsonType = {
-  merkleRoot: string;
-  totalAmount: string;
-  claims: {
-    [address: string]:
-      | {
-          index: number;
-          Ids: number[];
-          proof: string[];
-        }
-      | undefined;
-  };
-};
-
-const fetchClaimForAddress = async ({
-  merkleUrl,
-  address,
-}: {
-  merkleUrl: string | undefined;
-  address: string | undefined;
-}) => {
-  try {
-    if (address && merkleUrl) {
-      const parsedAddress = getAddress(address);
-      const res = await fetch(merkleUrl);
-      const resjson: FileJsonType = await res.json();
-      const { claims } = resjson;
-      const hasWhiteListed = !!claims[parsedAddress];
-      return { hasWhiteListed, claim: claims[parsedAddress] };
-    }
-    return null;
-  } catch (e) {
-    throw Error(`Failed to get claim file of ${merkleUrl}`);
-  }
-};
+import { CommingSoonStatus } from "./CommingSoonStatus";
 
 export const AfterStatus = ({
   title,
@@ -69,38 +32,28 @@ export const AfterStatus = ({
     return undefined;
   }, [nftDeliveryData]);
 
-  const { address } = useAccount();
-  const {
-    data,
-    isLoading: isFetchClaimLoading,
-    isSuccess: isFetchClaimSuccess,
-  } = useQuery(
-    ["fetchClaimForAddress", address, merkleUrl],
-    () => fetchClaimForAddress({ address, merkleUrl }),
-    {
-      enabled: !!address && !!merkleUrl,
-    }
-  );
-
   const hasWhitelistFile = !!nftDeliveryData && !!merkleUrl;
 
-  const balanceOfNft = useMemo(() => {
-    if (nftAmount) return BigNumber.from(nftAmount).toNumber();
-    return -1;
-  }, [nftAmount]);
-
   const noClaimFile = !hasWhitelistFile;
-  const isLoading = isFetchClaimLoading || isNFTAmountLoading;
-  const toClaimButton =
-    hasWhitelistFile && data && data.hasWhiteListed && balanceOfNft === 0;
-  const hasClaimedButton =
-    hasWhitelistFile && data && data.hasWhiteListed && balanceOfNft > 0;
-  const noClaimPermission = hasWhitelistFile && data && !data.hasWhiteListed;
-  // console.log("noClaimFile", noClaimFile);
-  // console.log("isLoading", isLoading);
-  // console.log("toClaimButton", toClaimButton);
-  // console.log("hasClaimedButton", hasClaimedButton);
-  // console.log("noClaimPermission", noClaimPermission);
+
+  const { claimed, inWhiteList, claimedData, isLoading, isError } =
+    useWhiteListAndClaim({
+      contractReadObj,
+      merkleUrl,
+    });
+
+  // console.log("claimed", claimed);
+  // console.log("inWhiteList", inWhiteList);
+  // console.log("claimedData", claimedData);
+
+  if (noClaimFile) {
+    return (
+      <CommingSoonStatus
+        title={title}
+        // desc={infoDetail?.eventDescription}
+      />
+    );
+  }
 
   return (
     <>
@@ -123,12 +76,38 @@ export const AfterStatus = ({
           justify="space-between"
           wrap="wrap"
         >
-          {toClaimButton && (
+          {isError && (
+            <Button
+              // aria-label="loading"
+              isLoading
+              mx="auto"
+              my="1.5%"
+              variant="orangeBg"
+              mt="30px"
+              minW="93%"
+            >
+              加载失败
+            </Button>
+          )}
+          {!isError && isLoading && (
+            <IconButton
+              aria-label="loading"
+              isLoading
+              mx="auto"
+              my="1.5%"
+              variant="orangeBg"
+              mt="30px"
+              minW="93%"
+            >
+              {/* 申领 SBT */}
+            </IconButton>
+          )}
+          {!isError && !isLoading && !claimed && inWhiteList && (
             <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="93%">
               申领 SBT
             </Button>
           )}
-          {hasClaimedButton && (
+          {!isError && !isLoading && claimed && (
             <Button
               mx="auto"
               my="1.5%"
@@ -140,7 +119,7 @@ export const AfterStatus = ({
               已申领
             </Button>
           )}
-          {noClaimPermission && (
+          {!isError && !isLoading && !inWhiteList && (
             <Button
               mx="auto"
               disabled
@@ -149,7 +128,7 @@ export const AfterStatus = ({
               mt="30px"
               minW="93%"
             >
-              申领
+              申领结束
             </Button>
           )}
         </Flex>

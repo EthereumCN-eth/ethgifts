@@ -6,7 +6,6 @@ import type { NFTState } from "@/state/nft";
 import { useAppSelector } from "@/state/reduxHooks";
 
 import { AfterStatus } from "./AfterStatus";
-import { CommingSoonStatus } from "./CommingSoonStatus";
 import { DetailTagsView } from "./DetailTagsView";
 import { NFTConnectWalletBoard } from "./NFTConnectWalletBoard";
 
@@ -40,14 +39,21 @@ export const NFTStatusBoard = ({
       <>
         <DetailTagsView detailTags={detailTags} />
 
-        {loaded && status === "coming soon" && (
+        {/* {loaded && status === "coming soon" && (
           <CommingSoonStatus
+            title={title}
+            // desc={infoDetail?.eventDescription}
+          />
+        )} */}
+        {/* <OngoingStatus title={title} desc={infoDetail?.eventDescription} /> */}
+        {/* {loaded && (!status || status === "ongoing") && (
+          <AfterStatus
+            nftData={nftData}
             title={title}
             desc={infoDetail?.eventDescription}
           />
-        )}
-        {/* <OngoingStatus title={title} desc={infoDetail?.eventDescription} /> */}
-        {loaded && (!status || status === "ongoing") && (
+        )} */}
+        {loaded && (
           <AfterStatus
             nftData={nftData}
             title={title}

@@ -29,6 +29,13 @@ export const nfts: NFTCreateData[] = [
         onShelf: true,
         galleryItemType: "nft",
         infoDetail: {
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 9 月 15 日参与 ECN、Ethplanet 和 Crypto Tech Night 一起举办的“一起来唠嗑 The Merge"观看派对，并参与了 The Merge 留言板 NFT 的铸造。`,
+            hasClaimedText: `🍻🥳你在 2022 年 9 月 15 日参与 ECN、Ethplanet 和 Crypto Tech Night 一起举办的“一起来唠嗑 The Merge"观看派对，并参与了 The Merge 留言板 NFT 的铸造。`,
+            noClaimedText: `🙁 在 2022 年 9 月 15 日 ECN、Ethplanet 和 Crypto Tech Night 一起举办了“一起来唠嗑 The Merge"观看派对，你没有参与 The Merge 留言板 NFT 的铸造，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 在 2022 年 9 月 15 日 ECN、Ethplanet 和 Crypto Tech Night 一起举办了“一起来唠嗑 The Merge"观看派对，你没有参与 The Merge 留言板 NFT 的铸造，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
           eventDescription: "",
           title: "以太坊合并观看派对留言板",
           subTitle: "Messages Board NFT",
@@ -105,6 +112,13 @@ export const nfts: NFTCreateData[] = [
         onShelf: true,
         galleryItemType: "nft",
         infoDetail: {
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 9 月 15 日参与 ECN、Ethplanet 和 Crypto Tech Night 一起举办的“一起来唠嗑 The Merge"观看派对，并参与了 The Merge 留言板 NFT 的铸造。`,
+            hasClaimedText: `🍻🥳你在 2022 年 9 月 15 日参与 ECN、Ethplanet 和 Crypto Tech Night 一起举办的“一起来唠嗑 The Merge"观看派对，并参与了 The Merge 留言板 NFT 的铸造。`,
+            noClaimedText: `🙁 在 2022 年 9 月 15 日 ECN、Ethplanet 和 Crypto Tech Night 一起举办了“一起来唠嗑 The Merge"观看派对，你没有参与 The Merge 留言板 NFT 的铸造，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 在 2022 年 9 月 15 日 ECN、Ethplanet 和 Crypto Tech Night 一起举办了“一起来唠嗑 The Merge"观看派对，你没有参与 The Merge 留言板 NFT 的铸造，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
           eventDescription: "",
           title: "以太坊合并观看派对留言板",
           subTitle: "Messages Board NFT",
@@ -185,6 +199,13 @@ export const nfts: NFTCreateData[] = [
         ],
         mainViewType: "video",
         infoDetail: {
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 2 月参与了 ECN 举办的虎年以太坊社区新春活动，获得了此次 NFT 设计比赛第一名的作品`,
+            hasClaimedText: `🍻🥳你在 2022 年 2 月参与了 ECN 举办的虎年以太坊社区新春活动，获得了此次 NFT 设计比赛第一名的作品`,
+            noClaimedText: `🙁 你错过了2022 年 2 月虎年以太坊社区新春活动送出的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 你错过了2022 年 2 月虎年以太坊社区新春活动送出的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
           eventDescription: "hello ongoing event description",
           title: "2022年虎年新春",
           subTitle: "2022 Chinese New Year EthTiger",
@@ -260,7 +281,14 @@ export const nfts: NFTCreateData[] = [
         eventDuration: 3600,
         onShelf: true,
         infoDetail: {
-          eventDescription: "hello ongoing event description",
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 5 月参与了 ECN 举办的 The Merge & Weeth 系列活动的第一场：以太坊 PoS 之路，并在 AMA 环节对演讲者进行有效提问，赢得了这款 NFT♥️`,
+            hasClaimedText: `🍻🥳你在 2022 年 5 月参与了 ECN 举办的 The Merge & Weeth 系列活动的第一场：以太坊 PoS 之路，并在 AMA 环节对演讲者进行有效提问，赢得了这款 NFT♥️`,
+            noClaimedText: `🙁你错过了2022 年 5 月 The Merge & Weeth 系列活动第一场的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁你错过了2022 年 5 月 The Merge & Weeth 系列活动第一场的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
           title: "The Merge & Weeth 系列活动的第一场：以太坊 PoS 之路",
           subTitle: "The Merge and Weeth",
           dataSection: [
@@ -270,7 +298,7 @@ export const nfts: NFTCreateData[] = [
               type: "html",
               data: [
                 "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 <i>The Merge & Weeth</i> —— 以太坊合并与我们的距离的系列活动，在首场活动邀请了以太坊基金会研究员🥳 Hsiao-Wei Wang (合并熊猫 🐼 这个 meme 的创作者) 给大家带来“以太坊 PoS 之路”的主题分享。",
-                "在 AMA 环节，提前在我们 discrod 进行有效提问的朋友都有机会获得此款 NFT。",
+                "在 AMA 环节，提前在我们 discord 进行有效提问的朋友都有机会获得此款 NFT。",
               ],
             },
             {
@@ -310,7 +338,14 @@ export const nfts: NFTCreateData[] = [
         eventStartTime: 1653435346,
         eventDuration: 3600,
         infoDetail: {
-          eventDescription: "hello ongoing event description",
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 5 月参与了 ECN 举办的 The Merge & Weeth 系列活动的第二场：Rocket Pool 如何实现以太坊质押去中心化，并在 AMA 环节对演讲者进行有效提问，赢得了这款 NFT♥️`,
+            hasClaimedText: `🍻🥳你在 2022 年 5 月参与了 ECN 举办的 The Merge & Weeth 系列活动的第二场：Rocket Pool 如何实现以太坊质押去中心化，并在 AMA 环节对演讲者进行有效提问，赢得了这款 NFT♥️`,
+            noClaimedText: `🙁你错过了2022 年 5 月 The Merge & Weeth 系列活动第二场的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁你错过了2022 年 5 月 The Merge & Weeth 系列活动第二场的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
           title:
             "The Merge & Weeth 系列活动的第二场：Rocket Pool 如何实现以太坊质押去中心化",
           subTitle: "The Merge and Weeth",
@@ -321,7 +356,7 @@ export const nfts: NFTCreateData[] = [
               type: "html",
               data: [
                 "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 The Merge & Weeth —— 以太坊合并与我们的距离的系列活动，在第二场活动邀请了去中心化以太坊质押协议 Rocket Pool 的总经理 Darren Langerly 给大家带来“Rocket Pool 如何实现以太坊质押去中心化”的主题分享。",
-                "在 AMA 环节，提前在我们 discrod 进行有效提问的朋友都有机会获得此款 NFT。",
+                "在 AMA 环节，提前在我们 discord 进行有效提问的朋友都有机会获得此款 NFT。",
               ],
             },
             {
@@ -360,7 +395,14 @@ export const nfts: NFTCreateData[] = [
           "https://icloud.mypinata.cloud/ipfs/Qmana5KvWj2uqEvgZKrpcT4HJrcosWm575UXW3FTDaEtM2",
         ],
         infoDetail: {
-          eventDescription: "hello ongoing event description",
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2021 年 2 月 11 日~14 日参与了 ECN 在 Decentraland 举办的“2021牛年新春活动”并在答题挑战环节表现优秀，获得了限量版加密艺术品，感谢你的参与♥️`,
+            hasClaimedText: `🍻🥳你在 2021 年 2 月 11 日~14 日参与了 ECN 在 Decentraland 举办的“2021牛年新春活动”并在答题挑战环节表现优秀，获得了限量版加密艺术品，感谢你的参与♥️`,
+            noClaimedText: `🙁你错过了2021 年 2 月 11 日~14 日ECN 在 Decentraland 举办的“2021牛年新春活动”，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁你错过了2021 年 2 月 11 日~14 日ECN 在 Decentraland 举办的“2021牛年新春活动”，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
           title: "当以太坊遇见虚拟世界和非遗传统文化",
           subTitle: "2021 The Year of 0x",
           dataSection: [
@@ -412,7 +454,14 @@ export const nfts: NFTCreateData[] = [
         galleryItemType: "nft",
 
         infoDetail: {
-          eventDescription: "hello ongoing event description",
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2021 年 10 月参与了 ECN 携 togETHer 的社区小伙伴在上海举办的线下以太坊社区 Meetup，并在现场参与了generative NFT的 铸造 ♥️`,
+            hasClaimedText: `🍻🥳你在 2021 年 10 月参与了 ECN 携 togETHer 的社区小伙伴在上海举办的线下以太坊社区 Meetup，并在现场参与了generative NFT的 铸造 ♥️️`,
+            noClaimedText: `🙁你错过了2021 年 10 月ECN 携 togETHer 的社区小伙伴在上海举办的线下以太坊社区 Meetup，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁你错过了2021 年 10 月ECN 携 togETHer 的社区小伙伴在上海举办的线下以太坊社区 Meetup，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
           title: "2021 Shanghai Meetup",
           subTitle: "The Merge Panda",
           dataSection: [
@@ -470,7 +519,14 @@ export const nfts: NFTCreateData[] = [
         onShelf: true,
         galleryItemType: "nft",
         infoDetail: {
-          eventDescription: "hello ongoing event description",
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 9 月 27 日—10月16日参加了 imToken 与 ECN 合办的「Learn and Earn」第六期，主题为以太坊合并，答题得分达到 80 分以上，解锁了此期活动的 NFT`,
+            hasClaimedText: `🍻🥳你在 2022 年 9 月 27 日—10月16日参加了 imToken 与 ECN 合办的「Learn and Earn」第六期，主题为以太坊合并，答题得分达到 80 分以上，解锁了此期活动的 NFT️`,
+            noClaimedText: `🙁 在2022 年 9 月 27 日—10月16日 imToken 与 ECN 合办的「Learn and Earn」第六期——以太坊合并中，你未能解锁此期活动的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 在2022 年 9 月 27 日—10月16日 imToken 与 ECN 合办的「Learn and Earn」第六期——以太坊合并中，你未能解锁此期活动的 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
           title: "Learn and Earn with imToken",
           subTitle: "The Merge of Ethereum",
           dataSection: [

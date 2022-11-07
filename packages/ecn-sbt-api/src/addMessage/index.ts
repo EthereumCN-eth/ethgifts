@@ -99,8 +99,8 @@ export const setupAddMessageRoute = (
             Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
           >
         ) => {
-          const createdExpress: ExpressMessage = await prisma.expressMessage.create(
-            {
+          const createdExpress: ExpressMessage =
+            await prisma.expressMessage.create({
               data: {
                 expressMessage: content,
                 expressUrl: url,
@@ -121,8 +121,7 @@ export const setupAddMessageRoute = (
                   },
                 },
               },
-            }
-          );
+            });
 
           await prisma.user.update({
             where: {

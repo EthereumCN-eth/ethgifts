@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 export const CommingSoonStatus = ({
   title,
-  desc,
-}: {
+}: // desc,
+{
   title: string;
-  desc: string | undefined;
+  // desc: string | undefined;
 }) => {
   return (
     <>
@@ -20,7 +20,7 @@ export const CommingSoonStatus = ({
         letterSpacing="0.02em"
         mb="8.1%"
       >
-        活动还未开始。
+        申领还未开始。
       </Text>
       {/* <Flex  direction="row" align="center" justify="space-between" wrap="wrap">
         <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="93%">

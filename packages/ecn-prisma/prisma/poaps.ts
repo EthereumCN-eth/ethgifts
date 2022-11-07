@@ -19,7 +19,14 @@ export const poaps: PoapCreateData[] = [
         eventStartTime: 1652054748,
         eventDuration: 3600,
         infoDetail: {
-          eventDescription: "hello ongoing event description",
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 2 月 4 日农历新年参加了“新春 Vitalik 线上直播”活动，获得了此次活动的纪念 POAP`,
+            hasClaimedText: `🍻🥳你在 2022 年 2 月 4 日农历新年参加了“新春 Vitalik 线上直播”活动，获得了此次活动的纪念 POAP`,
+            noClaimedText: `🙁 你错过了2022 年 2 月 4 日“新春 Vitalik 线上直播”活动的 POAP，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 你错过了2022 年 2 月 4 日“新春 Vitalik 线上直播”活动的 POAP，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
           title: "The Merge & Weeth 系列活动课代表计划",
           subTitle: "Community Support Project",
           dataSection: [
@@ -69,6 +76,13 @@ export const poaps: PoapCreateData[] = [
         eventStartTime: 1643933148,
         eventDuration: 3600,
         infoDetail: {
+          deliveryText: {
+            beforeText: "申领还没开始",
+            toClaimText: `🍻🥳你在 2022 年 5 月参与了 ECN 举办的“The Merge & Weeth 合并主题系列直播活动”并主动担任活动“课代表”，获得了限量 POAP，感谢你的参与♥️`,
+            hasClaimedText: `🍻🥳你在 2022 年 5 月参与了 ECN 举办的“The Merge & Weeth 合并主题系列直播活动”并主动担任活动“课代表”，获得了限量 POAP，感谢你的参与♥️`,
+            noClaimedText: `🙁 你错过了2022 年 5 月“The Merge & Weeth 合并主题系列直播活动”的课代表 POAP ，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 你错过了2022 年 5 月“The Merge & Weeth 合并主题系列直播活动”的课代表 POAP ，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
           eventDescription: "hello ongoing event description",
           title: "2022 新春访谈&AMA with Vitalik",
           subTitle: "Chinese New Year with Vitalik",

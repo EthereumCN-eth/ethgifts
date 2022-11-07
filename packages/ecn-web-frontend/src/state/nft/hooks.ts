@@ -1,26 +1,88 @@
 import { useQuery } from "@tanstack/react-query";
+import { BigNumber } from "ethers";
+import { getAddress } from "ethers/lib/utils";
+import { useMemo } from "react";
 import type { useContractRead } from "wagmi";
+import { useAccount } from "wagmi";
 
 import { useNFTRead } from "@/state/gallery/hooks";
 
-const fetchClaimFile = async ({ merkleUrl }: { merkleUrl: string }) => {
-  const res = await fetch(merkleUrl);
-  if (!res.ok) {
-    throw new Error("Network response was not ok");
+export type FileJsonType = {
+  merkleRoot: string;
+  totalAmount: string;
+  claims: {
+    [address: string]:
+      | {
+          index: number;
+          Ids: number[];
+          proof: string[];
+        }
+      | undefined;
+  };
+};
+
+export const fetchClaimForAddress = async ({
+  merkleUrl,
+  address,
+}: {
+  merkleUrl: string | undefined;
+  address: string | undefined;
+}) => {
+  try {
+    if (address && merkleUrl) {
+      const parsedAddress = getAddress(address);
+      const res = await fetch(merkleUrl);
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const resjson: FileJsonType = await res.json();
+      const { claims } = resjson;
+      const hasWhiteListed = !!claims[parsedAddress];
+      return { hasWhiteListed, claim: claims[parsedAddress] };
+    }
+    return null;
+  } catch (e) {
+    throw Error(`Failed to get claim file of ${merkleUrl}`);
   }
-  return res.json();
 };
 
 export const useWhiteListAndClaim = ({
   contractReadObj,
   merkleUrl,
 }: {
-  merkleUrl: string;
+  merkleUrl: string | undefined;
   contractReadObj: Parameters<typeof useContractRead>[0];
 }) => {
-  useNFTRead(contractReadObj);
-  useQuery({
-    queryKey: ["merkleUrl", merkleUrl],
-    queryFn: () => fetchClaimFile({ merkleUrl }),
-  });
+  const { address } = useAccount();
+  const {
+    data: nftAmountData,
+    isLoading: nftReadLoading,
+    isError: nftReadIsError,
+    isSuccess: nftReadIsSuccess,
+  } = useNFTRead(contractReadObj);
+  const balanceOfNft = useMemo(() => {
+    if (nftAmountData) return BigNumber.from(nftAmountData).toNumber();
+    return -1;
+  }, [nftAmountData]);
+  const {
+    data,
+    isLoading: isFetchClaimLoading,
+    isSuccess: isFetchClaimSuccess,
+    isError: isFetchClaimError,
+  } = useQuery(
+    ["fetchClaimForAddress", address, merkleUrl],
+    () => fetchClaimForAddress({ address, merkleUrl }),
+    {
+      enabled: !!address && !!merkleUrl,
+    }
+  );
+
+  return {
+    isSuccess: nftReadIsSuccess && isFetchClaimSuccess,
+    isLoading: nftReadLoading || isFetchClaimLoading,
+    isError: nftReadIsError || isFetchClaimError,
+    claimed: balanceOfNft !== 0,
+    inWhiteList: data?.hasWhiteListed,
+    claimedData: data?.claim,
+  };
 };
