@@ -32,7 +32,8 @@ export const globalSlice = createSlice({
       if (!address || !chainId) return state;
       return {
         ...state,
-        [`${address.toLowerCase().trim()}-${chainId}`]: {
+        // [`${address.toLowerCase().trim()}-${chainId}`]: {
+        [`${address.toLowerCase().trim()}`]: {
           accessToken,
           auth_status,
         },
@@ -52,7 +53,8 @@ const selectAuthStatus = (
   }
 ) => {
   if (address && chainId) {
-    const obj = state.global[`${address.toLowerCase().trim()}-${chainId}`];
+    // const obj = state.global[`${address.toLowerCase().trim()}-${chainId}`];
+    const obj = state.global[`${address.toLowerCase().trim()}`];
     if (obj) {
       return obj.auth_status;
     }
@@ -70,7 +72,7 @@ const selectAccessToken = (
   }
 ) => {
   if (address && chainId) {
-    const obj = state.global[`${address.toLowerCase().trim()}-${chainId}`];
+    const obj = state.global[`${address.toLowerCase().trim()}`];
     if (obj) {
       return obj.accessToken;
     }
