@@ -6,7 +6,7 @@ import { getAddress } from "ethers/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
-import { useNFTAndSBTRead } from "@/state/gallery/hooks";
+import { useNFTRead } from "@/state/gallery/hooks";
 import type { NFTState } from "@/state/nft";
 
 type FileJsonType = {
@@ -60,7 +60,7 @@ export const AfterStatus = ({
     data: nftAmount,
     isSuccess: isNFTAmountSuccess,
     isLoading: isNFTAmountLoading,
-  } = useNFTAndSBTRead(contractReadObj);
+  } = useNFTRead(contractReadObj);
 
   const merkleUrl = useMemo(() => {
     if (nftDeliveryData) {
@@ -82,7 +82,7 @@ export const AfterStatus = ({
     }
   );
 
-  const hasWhitelistFile = !!nftDeliveryData;
+  const hasWhitelistFile = !!nftDeliveryData && !!merkleUrl;
 
   const balanceOfNft = useMemo(() => {
     if (nftAmount) return BigNumber.from(nftAmount).toNumber();
@@ -116,37 +116,44 @@ export const AfterStatus = ({
       >
         {desc}
       </Text>
-      <Flex direction="row" align="center" justify="space-between" wrap="wrap">
-        {toClaimButton && (
-          <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="93%">
-            申领 SBT
-          </Button>
-        )}
-        {hasClaimedButton && (
-          <Button
-            mx="auto"
-            my="1.5%"
-            disabled
-            variant="grayBg"
-            mt="30px"
-            minW="93%"
-          >
-            已申领
-          </Button>
-        )}
-        {noClaimPermission && (
-          <Button
-            mx="auto"
-            disabled
-            my="1.5%"
-            variant="grayBg"
-            mt="30px"
-            minW="93%"
-          >
-            申领
-          </Button>
-        )}
-      </Flex>
+      {hasWhitelistFile && (
+        <Flex
+          direction="row"
+          align="center"
+          justify="space-between"
+          wrap="wrap"
+        >
+          {toClaimButton && (
+            <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="93%">
+              申领 SBT
+            </Button>
+          )}
+          {hasClaimedButton && (
+            <Button
+              mx="auto"
+              my="1.5%"
+              disabled
+              variant="grayBg"
+              mt="30px"
+              minW="93%"
+            >
+              已申领
+            </Button>
+          )}
+          {noClaimPermission && (
+            <Button
+              mx="auto"
+              disabled
+              my="1.5%"
+              variant="grayBg"
+              mt="30px"
+              minW="93%"
+            >
+              申领
+            </Button>
+          )}
+        </Flex>
+      )}
     </>
   );
 };

@@ -43,7 +43,7 @@ const data = [
   },
   {
     text: "知识证明",
-    imageSrc: "/pomin.png",
+    imageSrc: "/pokin.png",
     imgOutSrc: "/pokout.png",
     descLines: [
       "质量受认可发布",

@@ -9,7 +9,6 @@ import { AfterStatus } from "./AfterStatus";
 import { CommingSoonStatus } from "./CommingSoonStatus";
 import { DetailTagsView } from "./DetailTagsView";
 import { NFTConnectWalletBoard } from "./NFTConnectWalletBoard";
-import { OngoingStatus } from "./OngoingStatus";
 
 export const NFTStatusBoard = ({
   nftData,
@@ -47,10 +46,8 @@ export const NFTStatusBoard = ({
             desc={infoDetail?.eventDescription}
           />
         )}
-        {loaded && status === "ongoing" && (
-          <OngoingStatus title={title} desc={infoDetail?.eventDescription} />
-        )}
-        {loaded && !status && (
+        {/* <OngoingStatus title={title} desc={infoDetail?.eventDescription} /> */}
+        {loaded && (!status || status === "ongoing") && (
           <AfterStatus
             nftData={nftData}
             title={title}

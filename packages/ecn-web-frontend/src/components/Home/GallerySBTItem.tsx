@@ -1,15 +1,22 @@
-import { useNFTAndSBTRead } from "@/state/gallery/hooks";
+import { useAccount } from "wagmi";
+
+import { useReadClaimedSelectedLevel } from "@/hooks/useReadClaimedLevel";
 import type { GallerySBTItemType } from "@/state/gallery/types";
 
 import { GalleryItem } from "./GalleryItem";
 
 export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
-  const { contractReadObj } = galleryItem;
+  const { id, typeName, currentIndex, contractAddress, chainId } = galleryItem;
+  const { address } = useAccount();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data } = useNFTAndSBTRead(contractReadObj);
-  // console.log("sbt data", data);
-  const { id, typeName, currentIndex } = galleryItem;
+  const isclaimed = useReadClaimedSelectedLevel({
+    chainId,
+    contractAddress,
+    connectedAddress: address,
+    currentLevelNumber: currentIndex + 1,
+  });
+  // console.log("sbt currentIndex, isclaimed", currentIndex, isclaimed);
   return (
     <GalleryItem
       linkTo={`/${typeName}/${id}/${currentIndex + 1}`}
