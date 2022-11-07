@@ -5,7 +5,7 @@ import path from 'path';
 
 const mainNetDeploy = async () => {
   const MergePartyNFTFactory = await hre.ethers.getContractFactory(
-    'MergePartyNFT'
+    'MergeParty'
   );
   const MergePartyNFT = await MergePartyNFTFactory.deploy();
 
@@ -27,7 +27,7 @@ const mainNetDeploy = async () => {
 
   // save deployed info
   fs.writeFileSync(
-    path.join(__dirname, '../deployedContract/MergeContract_mainnet.json'),
+    path.join(__dirname, '../deployedContract/MergeContract_optimism.json'),
     JSON.stringify(deployInfo)
   );
 

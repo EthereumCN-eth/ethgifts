@@ -2,7 +2,7 @@ import hre, { network } from 'hardhat';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import fs from 'fs';
 import path from 'path';
-import { MergePartyNFT } from '../typechain';
+import { MergeParty } from '../typechain';
 import { BigNumber, BytesLike } from 'ethers';
 import { expect } from 'chai';
 
@@ -21,15 +21,17 @@ interface MerkleDistributorInfo {
 let admin: SignerWithAddress;
 let user1: SignerWithAddress;
 let user2: SignerWithAddress;
-let mergePartyNFT: MergePartyNFT;
+let mergePartyNFT: MergeParty;
 let merkleRoot: BytesLike;
 let messageBoard: string;
+let messageBoard_fake: string;
 let merkleTree: MerkleDistributorInfo;
 
 before(async () => {
   [admin, user1, user2] = await hre.ethers.getSigners();
 
   messageBoard = 'https://example.com';
+  messageBoard_fake = 'https://fake.com';
   merkleRoot =
     '0x50f7645587ebbddc9f7a33aaf2513ee8d6022b58cb7849c9637af75f4f0ffe7d';
 
@@ -45,7 +47,7 @@ before(async () => {
 
   // contract deployment
   const mergePartyNFTFactory = await hre.ethers.getContractFactory(
-    'MergePartyNFT'
+    'MergeParty'
   );
   mergePartyNFT = await mergePartyNFTFactory.deploy();
 
@@ -102,5 +104,10 @@ describe('mint merge party nft', () => {
   });
   it('can not call initializeEvent() again', async () => {
     expect(mergePartyNFT.initializeEvent(merkleRoot, messageBoard)).to.reverted;
+  });
+  it('reset base uri', async () => {
+    await mergePartyNFT.resetBaseUri(messageBoard_fake);
+
+    expect(await mergePartyNFT.messageBoard()).to.be.equal(messageBoard_fake);
   });
 });
