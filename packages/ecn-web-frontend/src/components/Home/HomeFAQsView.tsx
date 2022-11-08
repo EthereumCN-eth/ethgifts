@@ -107,7 +107,7 @@ export const HomeFAQsView = () => {
     <Flex
       direction="column"
       mt="11.5rem"
-      mb="146px"
+      mb="-300px"
       // bg="#0C0601"
       color="#FFFFFF"
       // minH={"500px"}
