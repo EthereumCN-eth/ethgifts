@@ -24,6 +24,7 @@ export const AfterStatus = ({
     status,
     infoDetail,
     contractAddress,
+    chainId,
   } = nftData;
   // nft amount; have or not
   // const {
@@ -139,6 +140,7 @@ export const AfterStatus = ({
             <ClaimButton
               contractAddress={contractAddress}
               claimedData={claimedData}
+              chainId={chainId}
             />
           )}
           {!isError && !isLoading && claimed && (

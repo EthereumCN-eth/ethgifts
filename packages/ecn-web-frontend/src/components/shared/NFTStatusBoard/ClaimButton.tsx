@@ -4,7 +4,9 @@ import { useEffect } from "react";
 import {
   useAccount,
   useContractWrite,
-  usePrepareContractWrite,
+  useNetwork,
+  // usePrepareContractWrite,
+  useSwitchNetwork,
   useWaitForTransaction,
 } from "wagmi";
 
@@ -13,6 +15,7 @@ import MergePartyNFT from "@/abis/MergePartyNFT.json";
 export const ClaimButton = ({
   contractAddress,
   claimedData,
+  chainId,
 }: {
   claimedData:
     | {
@@ -22,42 +25,62 @@ export const ClaimButton = ({
       }
     | undefined;
   contractAddress: string;
+  chainId: number;
 }) => {
   const { address } = useAccount();
+  const { chain } = useNetwork();
+  const isOnNFTChain = chain?.id === chainId;
   const {
-    config,
-    error: prepareError,
-    // isError: isPrepareError,
-  } = usePrepareContractWrite({
-    addressOrName: contractAddress,
-    contractInterface: MergePartyNFT.abi,
-    functionName: "claim",
-    args: [
-      BigNumber.from(claimedData?.index ?? 0),
-      address,
-      claimedData?.proof,
-    ],
-    enabled: !!address && !!claimedData,
-  });
+    isLoading: isSwitchNetworkLoading,
+    // pendingChainId,
+    switchNetwork,
+  } = useSwitchNetwork();
+  const switchToNFTNetwork = () => {
+    switchNetwork?.(chainId);
+  };
+  // const {
+  //   config,
+  //   error: prepareError,
+  //   refetch,
+
+  //   isError: isPrepareError,
+  // } = usePrepareContractWrite({
+
+  // });
   const {
     data,
     write,
     error,
     isLoading: isWriteLoading,
     reset: writeReset,
-  } = useContractWrite(config);
+  } = useContractWrite({
+    addressOrName: contractAddress,
+    mode: "recklesslyUnprepared",
+    contractInterface: MergePartyNFT.abi,
+    functionName: "claim",
+    args: address &&
+      claimedData && [
+        BigNumber.from(claimedData?.index ?? 0),
+        address,
+        claimedData.proof as readonly `0x${string}`[],
+      ],
+    enabled: !!address && !!claimedData && isOnNFTChain,
+    cacheTime: 5000,
+    staleTime: 0,
+  });
 
   const { isLoading: isWaitLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
 
-  const isError = !!error || !!prepareError;
+  const isError = !!error;
   const isLoading = isWaitLoading || isWriteLoading;
   // console.log("claimedData", claimedData?.proof);
   // console.log("error", error);
-  // console.log("prepareError", prepareError);
+  // // console.log("prepareError", prepareError);
   // console.log("isError", isError);
   // console.log("isLoading", isLoading);
+  // console.log("isOnNFTChain", isOnNFTChain);
 
   // const [errorMsg, setErrorMsg] = useState("");
 
@@ -77,6 +100,27 @@ export const ClaimButton = ({
       clearTimeout(timer);
     };
   }, [error?.message, isError, writeReset]);
+
+  useEffect(() => {
+    if (writeReset) writeReset();
+  }, [address, writeReset, chain?.id]);
+
+  if (!isOnNFTChain) {
+    return (
+      <Button
+        isLoading={isSwitchNetworkLoading}
+        onClick={switchToNFTNetwork}
+        disabled={isSwitchNetworkLoading}
+        mx="auto"
+        my="1.5%"
+        variant="orangeBg"
+        mt="30px"
+        minW="93%"
+      >
+        申领 NFT
+      </Button>
+    );
+  }
   return (
     <Button
       isLoading={isLoading || isError}
@@ -93,7 +137,7 @@ export const ClaimButton = ({
       {!isError && !isLoading && !isSuccess && "申领 NFT"}
       {!isError && !isLoading && isSuccess && "已申领"}
       {isError &&
-        error?.message.startsWith("user rejected transaction") &&
+        // error?.message.startsWith("user rejected transaction") &&
         `加载错误`}
     </Button>
   );

@@ -16,6 +16,7 @@ export const constructContractReadObj = (
         contractInterface: erc1155ABI,
         functionName: "balanceOf",
         args: [address, item.tokenId],
+        enable: !!item && item.contractAddress,
       };
     }
     if (item.tokenType === "ERC721") {
@@ -25,6 +26,7 @@ export const constructContractReadObj = (
         contractInterface: erc721ABI,
         functionName: "balanceOf",
         args: [address],
+        enable: !!item && item.contractAddress,
       };
     }
   }
