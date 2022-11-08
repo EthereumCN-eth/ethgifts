@@ -56,10 +56,6 @@ export const GalleryItem = ({
             return (
               <TextTag
                 key={tagItem.label}
-                tagRestProps={{
-                  maxW: "8rem",
-                  h: "100%",
-                }}
                 variant={tagItem.variant}
                 text={tagItem.label}
               />
