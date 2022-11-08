@@ -1,3 +1,0 @@
-export const MERGEPARTY_NFT_MERKLEROOT =
-  process.env.MERGEPARTY_NFT_MERKLEROOT || "";
-export const MERGEPARTY_NFT_BASEURI = process.env.MERGEPARTY_NFT_BASEURI || "";

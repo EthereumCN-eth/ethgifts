@@ -12,16 +12,15 @@ contract MergeParty is ERC721, Ownable {
     Counters.Counter public counters;
 
     bytes32 public merkleRoot;
-    address public receiver;
     string public messageBoard;
-
-    // mainnet
-    address public constant MergeWatchParty =
-        0x333C0D9E898fa551D8f9D07f4cef095C6319d4a6;
 
     constructor() ERC721('MergeParty MessagesBoard', 'ETHGifts') {}
 
     /** ========== view functions ========== */
+    function totalSupply() public view returns (uint256) {
+        return counters.current();
+    }
+
     function _baseURI() internal view virtual override returns (string memory) {
         return messageBoard;
     }
@@ -37,11 +36,6 @@ contract MergeParty is ERC721, Ownable {
 
         string memory messageBoard_ = _baseURI();
         return bytes(messageBoard_).length > 0 ? messageBoard_ : '';
-    }
-
-    // where messages of message board are from
-    function urMessages(address account) public view returns (string memory) {
-        return IThe_Merge_Watch_Party(MergeWatchParty).userMessage(account);
     }
 
     /** ========== admin functions ========== */

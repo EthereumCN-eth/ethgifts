@@ -1,7 +1,5 @@
 import hre from 'hardhat';
-import { MERGEPARTY_NFT_MERKLEROOT, MERGEPARTY_NFT_BASEURI } from './constants';
-import fs from 'fs';
-import path from 'path';
+import { MergeParty_config } from './config';
 
 const mainNetDeploy = async () => {
   const MergePartyNFTFactory = await hre.ethers.getContractFactory(
@@ -13,23 +11,9 @@ const mainNetDeploy = async () => {
 
   // initialize event
   // await MergePartyNFT.initializeEvent(
-  //   MERGEPARTY_NFT_MERKLEROOT,
-  //   MERGEPARTY_NFT_BASEURI
+  //   MergeParty_config.optimism.merkleRoot,
+  //   MergeParty_config.optimism.baseUri
   // );
-
-  const deployInfo = {
-    deployedMergeNFT: MergePartyNFT.address,
-    initializeEvent: {
-      merkleRoot: MERGEPARTY_NFT_MERKLEROOT,
-      baseURI: MERGEPARTY_NFT_BASEURI,
-    },
-  };
-
-  // save deployed info
-  fs.writeFileSync(
-    path.join(__dirname, '../deployedContract/MergeContract_optimism.json'),
-    JSON.stringify(deployInfo)
-  );
 
   console.log(`MergeNFT deployed: ${MergePartyNFT.address}`);
 };
