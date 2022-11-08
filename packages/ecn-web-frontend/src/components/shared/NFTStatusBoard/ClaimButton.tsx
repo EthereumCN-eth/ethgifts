@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { BigNumber } from "ethers";
+import { useEffect } from "react";
 import {
   useAccount,
   useContractWrite,
@@ -38,18 +39,47 @@ export const ClaimButton = ({
     ],
     enabled: !!address && !!claimedData,
   });
-  const { data, write, error } = useContractWrite(config);
+  const {
+    data,
+    write,
+    error,
+    isLoading: isWriteLoading,
+    reset: writeReset,
+  } = useContractWrite(config);
 
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { isLoading: isWaitLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
-  // console.log("claimedData", claimedData?.proof);
-  // console.log("config", config);
 
   const isError = !!error || !!prepareError;
+  const isLoading = isWaitLoading || isWriteLoading;
+  // console.log("claimedData", claimedData?.proof);
+  // console.log("error", error);
+  // console.log("prepareError", prepareError);
+  // console.log("isError", isError);
+  // console.log("isLoading", isLoading);
+
+  // const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    // if (isError) {
+    //   if (error?.message.startsWith("user rejected transaction")) {
+    //     setErrorMsg("");
+    //   } else {
+    //     setErrorMsg("加载错误");
+    //   }
+    // }
+    const timer = setTimeout(() => {
+      writeReset();
+      // setErrorMsg("");
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [error?.message, isError, writeReset]);
   return (
     <Button
-      isLoading={isLoading}
+      isLoading={isLoading || isError}
       onClick={() => {
         write?.();
       }}
@@ -62,7 +92,9 @@ export const ClaimButton = ({
     >
       {!isError && !isLoading && !isSuccess && "申领 NFT"}
       {!isError && !isLoading && isSuccess && "已申领"}
-      {isError && `加载错误`}
+      {isError &&
+        error?.message.startsWith("user rejected transaction") &&
+        `加载错误`}
     </Button>
   );
 };

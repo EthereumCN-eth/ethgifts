@@ -3,7 +3,7 @@ import { NFTCreateData } from "./seed";
 
 export const nfts: NFTCreateData[] = [
   {
-    contractAddress: "0x667b493492e1d613b7C0b3E33Eb2A15A59B9C50F",
+    contractAddress: "0xbd9d3aCEae14Adf801E084A7EA27982E6F8935bC",
     symbol: "ETHGifts",
     nftAppType: "DELIVERY",
     nftDeliveryData: {
@@ -11,7 +11,7 @@ export const nfts: NFTCreateData[] = [
         merkleUrl:
           "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x3bc418e849fb00b3ba1c688b150aa5a4ef7492bc6106436f936e9eee4e57fc6e.json",
         tokenType: "ERC721",
-        contractAddress: "0x667b493492e1d613b7C0b3E33Eb2A15A59B9C50F",
+        contractAddress: "0xbd9d3aCEae14Adf801E084A7EA27982E6F8935bC",
       },
     },
     galleryItemBase: {
