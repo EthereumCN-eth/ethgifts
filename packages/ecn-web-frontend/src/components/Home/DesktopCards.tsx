@@ -23,7 +23,7 @@ const data = [
     imgOutSrc: "/powout.png",
     descLines: [
       "可量化贡献，随时查看领取进度",
-      "资讯贡献内容上链",
+      "资讯贡献内容上传至IPFS",
       "经验证铸造或发行",
       "等效链上链下凭证",
     ],
@@ -35,7 +35,7 @@ const data = [
     imgOutSrc: "/posout.png",
     descLines: [
       "质量受认可发布",
-      "翻译内容上链",
+      "翻译内容上传至IPFS",
       "经验证铸造或发行",
       "等效链上链下凭证",
     ],
@@ -47,7 +47,7 @@ const data = [
     imgOutSrc: "/pokout.png",
     descLines: [
       "质量受认可发布",
-      "原创内容上链",
+      "原创内容上传至IPFS",
       "经验证铸造或发行",
       "等效链上链下凭证",
     ],
