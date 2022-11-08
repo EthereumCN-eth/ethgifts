@@ -12,8 +12,6 @@ import type { GalleryServerItem } from "@/types/gallery.interface";
 import { constructContractReadObj } from "./constructContractReadObj";
 import { convertDateToYearMonthStr } from "./convertDateToYearMonthStr";
 
-const btnTxt = "查看SBT及相关活动";
-
 export const convertGalleryItem = (
   serverItems: GalleryServerItem[],
   address: string | undefined
@@ -73,6 +71,7 @@ export const convertGalleryItem = (
     // // const day = dateObj.getDate();
     // const month = dateObj.getMonth();
     // const year = dateObj.getFullYear();
+    const btnTxt = `查看${serverItem.typeName.toUpperCase()}及相关活动`;
 
     const baseProps: BaseItemType = {
       key: `${serverItem.typeName}_${name}`,
