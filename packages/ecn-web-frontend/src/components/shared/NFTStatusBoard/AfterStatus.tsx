@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Flex, IconButton, Text } from "@chakra-ui/react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
-import { useNFTRead } from "@/state/gallery/hooks";
 import type { NFTState } from "@/state/nft";
 import { useWhiteListAndClaim } from "@/state/nft/hooks";
 
+import { ClaimButton } from "./ClaimButton";
 import { CommingSoonStatus } from "./CommingSoonStatus";
+import { computeCondition, renderConditionText } from "./computeCondition";
 
 export const AfterStatus = ({
   title,
@@ -17,13 +18,19 @@ export const AfterStatus = ({
   desc: string | undefined;
   nftData: NFTState;
 }) => {
-  const { contractReadObj, nftDeliveryData } = nftData;
-  // nft amount; have or not
   const {
-    data: nftAmount,
-    isSuccess: isNFTAmountSuccess,
-    isLoading: isNFTAmountLoading,
-  } = useNFTRead(contractReadObj);
+    contractReadObj,
+    nftDeliveryData,
+    status,
+    infoDetail,
+    contractAddress,
+  } = nftData;
+  // nft amount; have or not
+  // const {
+  //   data: nftAmount,
+  //   isSuccess: isNFTAmountSuccess,
+  //   isLoading: isNFTAmountLoading,
+  // } = useNFTRead(contractReadObj);
 
   const merkleUrl = useMemo(() => {
     if (nftDeliveryData) {
@@ -42,16 +49,42 @@ export const AfterStatus = ({
       merkleUrl,
     });
 
-  // console.log("claimed", claimed);
+  const condition = useMemo(
+    () =>
+      computeCondition({
+        noClaimFile,
+        isError,
+        isLoading,
+        claimed,
+        inWhiteList,
+        ended: !status,
+      }),
+    [claimed, inWhiteList, isError, isLoading, noClaimFile, status]
+  );
+  const {
+    deliveryText,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  } = infoDetail!;
+  const conditionText = useMemo(
+    () => renderConditionText({ condition, deliveryText }),
+    [condition, deliveryText]
+  );
+
   // console.log("inWhiteList", inWhiteList);
   // console.log("claimedData", claimedData);
+  // console.log("claimed", claimed);
+  // console.log("isLoading", inWhiteList);
+  // console.log("isError", isError);
 
   if (noClaimFile) {
     return (
       <CommingSoonStatus
         title={title}
+
         // desc={infoDetail?.eventDescription}
-      />
+      >
+        {conditionText}
+      </CommingSoonStatus>
     );
   }
 
@@ -67,7 +100,7 @@ export const AfterStatus = ({
         letterSpacing="0.02em"
         mb="8.1%"
       >
-        {desc}
+        {conditionText}
       </Text>
       {hasWhitelistFile && (
         <Flex
@@ -76,13 +109,13 @@ export const AfterStatus = ({
           justify="space-between"
           wrap="wrap"
         >
-          {isError && (
+          {!!isError && (
             <Button
               // aria-label="loading"
-              isLoading
+              // isLoading
               mx="auto"
               my="1.5%"
-              variant="orangeBg"
+              variant="grayBg"
               mt="30px"
               minW="93%"
             >
@@ -92,7 +125,7 @@ export const AfterStatus = ({
           {!isError && isLoading && (
             <IconButton
               aria-label="loading"
-              isLoading
+              isLoading={isLoading}
               mx="auto"
               my="1.5%"
               variant="orangeBg"
@@ -103,9 +136,10 @@ export const AfterStatus = ({
             </IconButton>
           )}
           {!isError && !isLoading && !claimed && inWhiteList && (
-            <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="93%">
-              申领 SBT
-            </Button>
+            <ClaimButton
+              contractAddress={contractAddress}
+              claimedData={claimedData}
+            />
           )}
           {!isError && !isLoading && claimed && (
             <Button

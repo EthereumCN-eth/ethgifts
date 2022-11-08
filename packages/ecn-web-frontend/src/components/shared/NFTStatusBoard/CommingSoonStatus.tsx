@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Text } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 
 export const CommingSoonStatus = ({
   title,
+  // nftData,
+  children,
 }: // desc,
 {
   title: string;
+  children: ReactNode;
   // desc: string | undefined;
 }) => {
   return (
@@ -20,7 +24,7 @@ export const CommingSoonStatus = ({
         letterSpacing="0.02em"
         mb="8.1%"
       >
-        申领还未开始。
+        {children}
       </Text>
       {/* <Flex  direction="row" align="center" justify="space-between" wrap="wrap">
         <Button mx="auto" my="1.5%" variant="orangeBg" mt="30px" minW="93%">

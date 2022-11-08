@@ -7,7 +7,7 @@ const fAQData = [
   {
     question: "什么是 web3 数字凭证？EthGifts 使用了哪些 web3 数字凭证？？",
     answer: (
-      <Text textAlign="start">
+      <Text textAlign="start" as="span">
         {`凭证 (credential)
         是对一个人拥有特定属性、资格、能力或权利要求的验证。凭证在每个人的社会生活中发挥着举足轻重的作用，我们使用凭证来证明自己的身份、获得权限、展示声誉和社会地位等。Web3
         以区块链技术为基础，出现了区别于 Web2
@@ -29,7 +29,7 @@ const fAQData = [
   {
     question: "什么是SBT (Soul Bound Token)？",
     answer: (
-      <Text textAlign="start">
+      <Text textAlign="start" as="span">
         {`灵魂绑定通证 (Soulbound Token, SBT)
         是使用区块链技术代表一个人身份的不可转让的
         NFT。(NFT，即非同质化代币，是唯一的数字标识符，它不能被复制、替代或细分，记录在区块链上，用于证明真实性和所有权)
@@ -53,7 +53,7 @@ const fAQData = [
   {
     question: "什么是Verifiable Credential？",
     answer: (
-      <Text textAlign="start">
+      <Text textAlign="start" as="span">
         {`Verifiable Credential (可验证凭证，简称 VC)，是防篡改的 W3C
         标准凭证，可以通过密码学验证来实现自我主权身份，保护个人数据。它们可以代表任何物理世界对应的凭证，还可以代表物理世界以外的新型凭证。VC
         的文档格式通常为JSON，是具有语义和结构化的数据模型，其将凭证持有人置于身份生态系统的中心，让个人控制其身份属性。VC
@@ -77,7 +77,7 @@ const fAQData = [
   {
     question: "如何实现 SBT 与 VC 一一对应？",
     answer: (
-      <Text textAlign="start">
+      <Text textAlign="start" display="inline-block">
         {`为了满足社区成员对其数字凭证的不同需求 (隐私、是否支付
         gas、是否跨平台使用等)，ECN
         希望设计出链上链下具有等效性的数字凭证提供给用户。`}
@@ -90,6 +90,7 @@ const fAQData = [
         {`ECN
         团队构思出链下签名、链上验证的发行方法，实现 SBT 与 VC 的一一对应。`}
         <ChakraNextLink
+          display="inline"
           target="_blank"
           textDecoration="underline"
           href="https://docs.ethgifts.com/faq#4.-ru-he-shi-xian-sbt-yu-vc-yi-yi-dui-ying"

@@ -35,6 +35,13 @@ export type InfoVideoType = {
 };
 
 export type DetailInfoType = {
+  deliveryText: {
+    beforeText: string;
+    toClaimText: string;
+    hasClaimedText: string;
+    noClaimedText: string;
+    endedNoText: string;
+  };
   eventDescription: string;
   title: string;
   subTitle: string;

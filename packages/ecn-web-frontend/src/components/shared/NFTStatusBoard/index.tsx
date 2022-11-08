@@ -1,4 +1,3 @@
-import { Text } from "@chakra-ui/react";
 import { useAccount, useNetwork } from "wagmi";
 
 import { selectors as globalSelectors } from "@/state/global";
@@ -8,6 +7,7 @@ import { useAppSelector } from "@/state/reduxHooks";
 import { AfterStatus } from "./AfterStatus";
 import { DetailTagsView } from "./DetailTagsView";
 import { NFTConnectWalletBoard } from "./NFTConnectWalletBoard";
+import { PresentationNFT } from "./PresentationNFT";
 
 export const NFTStatusBoard = ({
   nftData,
@@ -27,8 +27,7 @@ export const NFTStatusBoard = ({
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { detailTags, title, nftDeliveryData, infoDetail, status, nftAppType } =
-    nftData;
+  const { detailTags, title, infoDetail, nftAppType } = nftData;
 
   // console.log("data", data);
   if (authStatus !== "authenticated")
@@ -64,21 +63,5 @@ export const NFTStatusBoard = ({
     );
   }
 
-  return (
-    <>
-      <DetailTagsView detailTags={detailTags} />
-      <Text my="8.1%" fontFamily="PingFang SC" color="white" fontSize="4xl">
-        {title}
-      </Text>
-      <Text
-        fontSize="md"
-        fontFamily="PingFang SC"
-        color="white"
-        letterSpacing="0.02em"
-        mb="8.1%"
-      >
-        {infoDetail?.eventDescription}
-      </Text>
-    </>
-  );
+  return <PresentationNFT title={title} nftData={nftData} />;
 };

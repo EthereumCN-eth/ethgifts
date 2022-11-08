@@ -28,13 +28,15 @@ import {
   NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY,
   NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS,
   NEXT_PUBLIC_GOERLI_ALCHEMY_WEBSOCKETS,
+  NEXT_PUBLIC_OPTIMISM_ALCHEMY_HTTPS,
+  NEXT_PUBLIC_OPTIMISM_ALCHEMY_WEBSOCKETS,
 } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
 import "@rainbow-me/rainbowkit/styles.css";
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.arbitrum, chain.goerli],
+  [chain.mainnet, chain.arbitrum, chain.optimism, chain.goerli],
   [
     alchemyProvider({ apiKey: NEXT_PUBLIC_MAIN_ALCHEMY_API_KEY }),
     jsonRpcProvider({
@@ -52,6 +54,11 @@ const { chains, provider } = configureChains(
           return {
             http: NEXT_PUBLIC_GOERLI_ALCHEMY_HTTPS,
             webSocket: NEXT_PUBLIC_GOERLI_ALCHEMY_WEBSOCKETS,
+          };
+        } else if (rpcchain.id === chain.optimism.id) {
+          return {
+            http: NEXT_PUBLIC_OPTIMISM_ALCHEMY_HTTPS,
+            webSocket: NEXT_PUBLIC_OPTIMISM_ALCHEMY_WEBSOCKETS,
           };
         }
         return null;

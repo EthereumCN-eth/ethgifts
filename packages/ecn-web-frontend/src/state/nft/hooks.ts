@@ -58,13 +58,17 @@ export const useWhiteListAndClaim = ({
     data: nftAmountData,
     isLoading: nftReadLoading,
     isError: nftReadIsError,
+    // error,
     isSuccess: nftReadIsSuccess,
   } = useNFTRead(contractReadObj);
+
+  // console.log("nftAmountData", nftAmountData);
   const balanceOfNft = useMemo(() => {
     if (nftAmountData) return BigNumber.from(nftAmountData).toNumber();
     return -1;
   }, [nftAmountData]);
   const {
+    // error: ferror,
     data,
     isLoading: isFetchClaimLoading,
     isSuccess: isFetchClaimSuccess,
@@ -76,13 +80,15 @@ export const useWhiteListAndClaim = ({
       enabled: !!address && !!merkleUrl,
     }
   );
+  // console.log("error", error);
+  // console.log("ferror", ferror);
 
   return {
     isSuccess: nftReadIsSuccess && isFetchClaimSuccess,
     isLoading: nftReadLoading || isFetchClaimLoading,
     isError: nftReadIsError || isFetchClaimError,
     claimed: balanceOfNft !== 0,
-    inWhiteList: data?.hasWhiteListed,
+    inWhiteList: !!data?.hasWhiteListed,
     claimedData: data?.claim,
   };
 };
