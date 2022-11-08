@@ -33,6 +33,8 @@ export const NFTStatusBoard = ({
   if (authStatus !== "authenticated")
     return <NFTConnectWalletBoard title={title} detailTags={detailTags} />;
 
+  if (!loaded) return null;
+
   if (nftAppType === "DELIVERY") {
     return (
       <>

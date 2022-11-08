@@ -12,6 +12,42 @@ import { darken } from "polished";
 import { AiFillHome } from "react-icons/ai";
 import { FaDiscord, FaTwitter } from "react-icons/fa";
 
+const footerLink = [
+  {
+    label: "home",
+    icon: <AiFillHome size="25px" color="#F4F4F4" />,
+    type: "icon",
+    onClick: () => {
+      window.open("https://www.ethereum.cn/", "_blank")?.focus();
+    },
+  },
+
+  {
+    label: "twitter",
+    icon: <FaTwitter size="25px" color="#F4F4F4" />,
+    type: "icon",
+    onClick: () => {
+      window.open("https://twitter.com/EthereumCN", "_blank")?.focus();
+    },
+  },
+  {
+    label: "discord",
+    icon: <FaDiscord size="25px" color="#F4F4F4" />,
+    type: "icon",
+    onClick: () => {
+      window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
+    },
+  },
+  {
+    label: "mirror",
+    type: "image",
+    src: "/mirror.png",
+    onClick: () => {
+      window.open("https://ecn.mirror.xyz/", "_blank")?.focus();
+    },
+  },
+];
+
 export const Footer = () => {
   return (
     <Center
@@ -71,6 +107,11 @@ export const Footer = () => {
           _active={{
             bg: darken(0.2, "#EE862B"),
           }}
+          onClick={() => {
+            window
+              .open("https://discord.com/invite/eJJRBqKd3d", "_blank")
+              ?.focus();
+          }}
           variant="outline"
           fontSize="sm"
           py="10px"
@@ -91,33 +132,37 @@ export const Footer = () => {
           align="center"
           justify="space-between"
         >
-          <IconButton
-            variant="unstyled"
-            aria-label="home"
-            icon={<AiFillHome size="25px" color="#F4F4F4" />}
-          />
-          <IconButton
-            variant="unstyled"
-            aria-label="home"
-            icon={<FaTwitter size="25px" color="#F4F4F4" />}
-          />{" "}
-          <IconButton
-            variant="unstyled"
-            aria-label="home"
-            icon={<FaDiscord size="25px" color="#F4F4F4" />}
-          />{" "}
-          <IconButton
-            variant="unstyled"
-            aria-label="home"
-            icon={
-              <Image
-                alt="mirror"
-                src="/mirror.png"
-                boxSize="25px"
-                fit="contain"
-              />
+          {footerLink.map((item) => {
+            if (item.type === "icon")
+              return (
+                <IconButton
+                  key={item.label}
+                  variant="unstyled"
+                  aria-label={item.label}
+                  icon={item.icon}
+                  onClick={item.onClick}
+                />
+              );
+            else if (item.type === "image") {
+              return (
+                <IconButton
+                  key={item.label}
+                  variant="unstyled"
+                  aria-label={item.label}
+                  onClick={item.onClick}
+                  icon={
+                    <Image
+                      alt={item.label}
+                      src={item.src}
+                      boxSize="25px"
+                      fit="contain"
+                    />
+                  }
+                />
+              );
             }
-          />
+            return null;
+          })}
         </HStack>
         <Text color="#F4F4F4" fontSize="1rem">
           Made with ❤️ by ECN team.

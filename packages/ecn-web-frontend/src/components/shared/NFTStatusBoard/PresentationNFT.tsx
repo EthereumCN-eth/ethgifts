@@ -31,10 +31,9 @@ export const PresentationNFT = ({
   }, [nftAmountData]);
   const hasNFT = balanceOfNft !== 0;
   // console.log("nftAmountData", nftAmountData);
-  const {
-    deliveryText: { hasClaimedText, noClaimedText },
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  } = infoDetail!;
+
+  const deliveryText = infoDetail?.deliveryText;
+  const { hasClaimedText = "", noClaimedText = "" } = deliveryText || {};
   return (
     <>
       <DetailTagsView detailTags={detailTags} />
