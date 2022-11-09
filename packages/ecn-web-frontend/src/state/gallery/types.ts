@@ -75,18 +75,21 @@ export type GallerySBTItemType = {
   currentLevel: number;
   currentIndex: number;
   contractReadObj: Parameters<typeof useContractRead>[0];
+  // static parsed obj; not working if switch network or account; legacy pitfall
   contractAddress: string;
   issuerAddress: string;
 } & BaseItemType;
 
 export type GalleryPoapItemType = {
   typeName: "poap";
+  // static parsed obj; not working if switch network or account; legacy pitfall
   contractReadObj: Parameters<typeof useContractRead>[0];
   eventId: number;
 } & BaseItemType;
 
 export type GalleryNFTItemType = {
   typeName: "nft";
+  // static parsed obj; not working if switch network or account;legacy pitfall
   contractAddress: string;
   nftAppType: "PERSENT" | "DELIVERY";
   nftDeliveryData: NFTDeliveryData | null;

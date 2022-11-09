@@ -30,6 +30,8 @@ import {
   NEXT_PUBLIC_GOERLI_ALCHEMY_WEBSOCKETS,
   NEXT_PUBLIC_OPTIMISM_ALCHEMY_HTTPS,
   NEXT_PUBLIC_OPTIMISM_ALCHEMY_WEBSOCKETS,
+  NEXT_PUBLIC_MAIN_ALCHEMY_HTTPS,
+  NEXT_PUBLIC_MAIN_ALCHEMY_WEBSOCKETS,
 } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
@@ -59,6 +61,11 @@ const { chains, provider } = configureChains(
           return {
             http: NEXT_PUBLIC_OPTIMISM_ALCHEMY_HTTPS,
             webSocket: NEXT_PUBLIC_OPTIMISM_ALCHEMY_WEBSOCKETS,
+          };
+        } else if (rpcchain.id === chain.mainnet.id) {
+          return {
+            http: NEXT_PUBLIC_MAIN_ALCHEMY_HTTPS,
+            webSocket: NEXT_PUBLIC_MAIN_ALCHEMY_WEBSOCKETS,
           };
         }
         return null;

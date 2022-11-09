@@ -80,6 +80,9 @@ export const useWhiteListAndClaim = ({
       enabled: !!address && !!merkleUrl,
     }
   );
+  // console.log("isFetchClaimLoading", isFetchClaimLoading);
+  // console.log("nftReadLoading", nftReadLoading);
+  // console.log("balanceOfNft", balanceOfNft);
   // console.log("error", error);
   // console.log("ferror", ferror);
 
@@ -87,7 +90,7 @@ export const useWhiteListAndClaim = ({
     isSuccess: nftReadIsSuccess && isFetchClaimSuccess,
     isLoading: nftReadLoading || isFetchClaimLoading,
     isError: nftReadIsError || isFetchClaimError,
-    claimed: balanceOfNft !== 0,
+    claimed: balanceOfNft > 0,
     inWhiteList: !!data?.hasWhiteListed,
     claimedData: data?.claim,
   };

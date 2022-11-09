@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import { useMemo } from "react";
+import { useNetwork, useSwitchNetwork } from "wagmi";
 
 import type { NFTState } from "@/state/nft";
 import { useWhiteListAndClaim } from "@/state/nft/hooks";
 
-import { ClaimButton } from "./ClaimButton";
 import { CommingSoonStatus } from "./CommingSoonStatus";
 import { computeCondition, renderConditionText } from "./computeCondition";
+import { SameChainButton } from "./SameChainButton";
 
 export const AfterStatus = ({
   title,
@@ -23,15 +24,9 @@ export const AfterStatus = ({
     nftDeliveryData,
     status,
     infoDetail,
-    contractAddress,
+    // contractAddress,
     chainId,
   } = nftData;
-  // nft amount; have or not
-  // const {
-  //   data: nftAmount,
-  //   isSuccess: isNFTAmountSuccess,
-  //   isLoading: isNFTAmountLoading,
-  // } = useNFTRead(contractReadObj);
 
   const merkleUrl = useMemo(() => {
     if (nftDeliveryData) {
@@ -70,12 +65,23 @@ export const AfterStatus = ({
     () => renderConditionText({ condition, deliveryText }),
     [condition, deliveryText]
   );
+  const { chain } = useNetwork();
+  const isOnNFTChain = chain?.id === chainId;
 
   // console.log("inWhiteList", inWhiteList);
   // console.log("claimedData", claimedData);
   // console.log("claimed", claimed);
   // console.log("isLoading", inWhiteList);
   // console.log("isError", isError);
+
+  const {
+    isLoading: isSwitchNetworkLoading,
+    // pendingChainId,
+    switchNetwork,
+  } = useSwitchNetwork();
+  const switchToNFTNetwork = () => {
+    switchNetwork?.(chainId);
+  };
 
   if (noClaimFile) {
     return (
@@ -110,62 +116,29 @@ export const AfterStatus = ({
           justify="space-between"
           wrap="wrap"
         >
-          {!!isError && (
+          {!isOnNFTChain && (
             <Button
-              // aria-label="loading"
-              // isLoading
-              mx="auto"
-              my="1.5%"
-              variant="grayBg"
-              mt="30px"
-              minW="93%"
-            >
-              加载失败
-            </Button>
-          )}
-          {!isError && isLoading && (
-            <IconButton
-              aria-label="loading"
-              isLoading={isLoading}
+              isLoading={isSwitchNetworkLoading}
+              onClick={switchToNFTNetwork}
+              disabled={isSwitchNetworkLoading}
               mx="auto"
               my="1.5%"
               variant="orangeBg"
               mt="30px"
               minW="93%"
             >
-              {/* 申领 SBT */}
-            </IconButton>
+              申领 NFT
+            </Button>
           )}
-          {!isError && !isLoading && !claimed && inWhiteList && (
-            <ClaimButton
-              contractAddress={contractAddress}
+          {isOnNFTChain && (
+            <SameChainButton
+              isError={isError}
+              isLoading={isLoading}
+              claimed={claimed}
+              inWhiteList={inWhiteList}
+              nftData={nftData}
               claimedData={claimedData}
-              chainId={chainId}
             />
-          )}
-          {!isError && !isLoading && claimed && (
-            <Button
-              mx="auto"
-              my="1.5%"
-              disabled
-              variant="grayBg"
-              mt="30px"
-              minW="93%"
-            >
-              已申领
-            </Button>
-          )}
-          {!isError && !isLoading && !inWhiteList && (
-            <Button
-              mx="auto"
-              disabled
-              my="1.5%"
-              variant="grayBg"
-              mt="30px"
-              minW="93%"
-            >
-              申领结束
-            </Button>
           )}
         </Flex>
       )}

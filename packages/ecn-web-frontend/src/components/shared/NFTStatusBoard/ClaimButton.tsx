@@ -6,7 +6,6 @@ import {
   useContractWrite,
   useNetwork,
   // usePrepareContractWrite,
-  useSwitchNetwork,
   useWaitForTransaction,
 } from "wagmi";
 
@@ -30,14 +29,7 @@ export const ClaimButton = ({
   const { address } = useAccount();
   const { chain } = useNetwork();
   const isOnNFTChain = chain?.id === chainId;
-  const {
-    isLoading: isSwitchNetworkLoading,
-    // pendingChainId,
-    switchNetwork,
-  } = useSwitchNetwork();
-  const switchToNFTNetwork = () => {
-    switchNetwork?.(chainId);
-  };
+
   // const {
   //   config,
   //   error: prepareError,
@@ -80,7 +72,6 @@ export const ClaimButton = ({
   // // console.log("prepareError", prepareError);
   // console.log("isError", isError);
   // console.log("isLoading", isLoading);
-  // console.log("isOnNFTChain", isOnNFTChain);
 
   // const [errorMsg, setErrorMsg] = useState("");
 
@@ -105,22 +96,6 @@ export const ClaimButton = ({
     if (writeReset) writeReset();
   }, [address, writeReset, chain?.id]);
 
-  if (!isOnNFTChain) {
-    return (
-      <Button
-        isLoading={isSwitchNetworkLoading}
-        onClick={switchToNFTNetwork}
-        disabled={isSwitchNetworkLoading}
-        mx="auto"
-        my="1.5%"
-        variant="orangeBg"
-        mt="30px"
-        minW="93%"
-      >
-        申领 NFT
-      </Button>
-    );
-  }
   return (
     <Button
       isLoading={isLoading || isError}
