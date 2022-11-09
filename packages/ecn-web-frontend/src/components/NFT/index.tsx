@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import Script from "next/script";
 import { useEffect, useState } from "react";
 import { useAccount, useNetwork } from "wagmi";
 
@@ -84,6 +85,20 @@ export const NFT = () => {
               videoUrl={nftData?.videoLinks?.[0]}
               // numNumber={numNumber}
             />
+          )}
+          {nftData?.mainViewType === "wordart" && (
+            <>
+              <Script src={nftData?.infoDetail?.wordArt?.script} async defer />
+              <div
+                style={{
+                  transform: "scale(0.8)",
+                  height: "100%",
+                  width: "100%",
+                }}
+                data-wordart-src={nftData?.infoDetail?.wordArt?.src}
+                data-wordart-show-attribution
+              />
+            </>
           )}
         </Flex>
         <Flex

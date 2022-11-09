@@ -5,7 +5,7 @@ CREATE TYPE "TokenType" AS ENUM ('ERC721', 'ERC1155');
 CREATE TYPE "GalleryItemType" AS ENUM ('poap', 'nft', 'sbt');
 
 -- CreateEnum
-CREATE TYPE "MainViewType" AS ENUM ('image', 'video');
+CREATE TYPE "MainViewType" AS ENUM ('image', 'video', 'wordart');
 
 -- CreateEnum
 CREATE TYPE "NFTAppType" AS ENUM ('PERSENT', 'DELIVERY');

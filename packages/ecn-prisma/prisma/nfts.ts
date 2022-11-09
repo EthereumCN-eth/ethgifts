@@ -16,6 +16,7 @@ export const nfts: NFTCreateData[] = [
     },
     galleryItemBase: {
       create: {
+        mainViewType: "wordart",
         coverLink:
           "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
         imageLinks: [
@@ -29,6 +30,10 @@ export const nfts: NFTCreateData[] = [
         onShelf: true,
         galleryItemType: "nft",
         infoDetail: {
+          wordArt: {
+            script: "https://cdn.wordart.com/wordart.min.js",
+            src: "https://cdn.wordart.com/json/580hkxfeofo6",
+          },
           deliveryText: {
             beforeText: "申领还没开始",
             toClaimText: `🍻🥳你在 2022 年 9 月 15 日参与 ECN、Ethplanet 和 Crypto Tech Night 一起举办的“一起来唠嗑 The Merge"观看派对，并参与了 The Merge 留言板 NFT 的铸造。`,
@@ -96,8 +101,10 @@ export const nfts: NFTCreateData[] = [
         contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
       },
     },
+
     galleryItemBase: {
       create: {
+        mainViewType: "wordart",
         coverLink:
           "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
         imageLinks: [
@@ -112,6 +119,10 @@ export const nfts: NFTCreateData[] = [
         onShelf: true,
         galleryItemType: "nft",
         infoDetail: {
+          wordArt: {
+            script: "https://cdn.wordart.com/wordart.min.js",
+            src: "https://cdn.wordart.com/json/580hkxfeofo6",
+          },
           deliveryText: {
             beforeText: "申领还没开始",
             toClaimText: `🍻🥳你在 2022 年 9 月 15 日参与 ECN、Ethplanet 和 Crypto Tech Night 一起举办的“一起来唠嗑 The Merge"观看派对，并参与了 The Merge 留言板 NFT 的铸造。`,

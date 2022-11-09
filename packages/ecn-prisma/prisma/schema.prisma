@@ -97,6 +97,7 @@ enum GalleryItemType {
 enum MainViewType {
   image
   video
+  wordart
 }
 
 model GalleryItemBase {

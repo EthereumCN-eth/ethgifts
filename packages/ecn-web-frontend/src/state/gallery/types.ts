@@ -35,6 +35,11 @@ export type InfoVideoType = {
 };
 
 export type DetailInfoType = {
+  // wordart
+  wordArt?: {
+    script: string;
+    src: string;
+  };
   deliveryText: {
     beforeText: string;
     toClaimText: string;
