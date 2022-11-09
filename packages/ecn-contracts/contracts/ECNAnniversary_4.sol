@@ -7,11 +7,8 @@ import '@openzeppelin/contracts/utils/Counters.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
 contract ECNAnniversary_4 is ERC721, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter public counters;
-
     bytes32 public merkleRoot;
-    address public receiver;
+
     string public baseURI;
 
     constructor() ERC721('ECNAnniversary_4', 'ECNAnniversary_4') {}
@@ -86,9 +83,8 @@ contract ECNAnniversary_4 is ERC721, Ownable {
         // Mark it claimed and send the merge party nft.
         _setClaimed(index);
 
-        // counting
-        uint256 tokenId = counters.current();
-        counters.increment();
+        // use index as tokenId
+        uint256 tokenId = index;
 
         // mint
         _safeMint(account, tokenId);

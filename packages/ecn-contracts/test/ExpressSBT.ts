@@ -51,9 +51,25 @@ beforeEach('initialize contracts', async () => {
   domain.verifyingContract = ESBT.address;
 });
 
-// todo: 1. if account's express counters reach out a higher level, but only minted the lower level SBT, check if the func can mint all level SBT
-// todo: 2. mint level 1,2,3 to account
-// todo: 3. keep 3 level signature and mint it at the same time
+const mintSBT = async (account: SignerWithAddress, expressAmount: number) => {
+  // fill out the message of typedData
+  message.receiver = account.address;
+  message.metadataURI = 'https://example';
+  message.expressAmount = expressAmount;
+
+  // generate signature
+  let signature = await approver._signTypedData(domain, types, message);
+
+  // mint SBT
+  await expect(
+    ESBT.mintExpress(
+      message.receiver,
+      message.metadataURI,
+      message.expressAmount,
+      signature
+    )
+  ).to.emit(ESBT, 'ESBTMinted');
+};
 
 describe('initial check', () => {
   it('check initial setting', async () => {
@@ -61,25 +77,9 @@ describe('initial check', () => {
   });
 });
 
-describe('simple mint 3 level SBT', () => {
+describe('simply mint 3 level SBT', async () => {
   it('check status after mint', async () => {
-    // fill out the message of typedData
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example';
-    message.expressAmount = 20;
-
-    // generate signature
-    let signature = await approver._signTypedData(domain, types, message);
-
-    // mint SBT
-    await expect(
-      ESBT.mintExpress(
-        message.receiver,
-        message.metadataURI,
-        message.expressAmount,
-        signature
-      )
-    ).to.emit(ESBT, 'ESBTMinted');
+    await mintSBT(user1, 20);
 
     // balance = 1
     expect(await ESBT.balanceOf(user1.address)).to.equal(1);
@@ -97,31 +97,11 @@ describe('simple mint 3 level SBT', () => {
   });
 
   it('mint: mint all levels in order', async () => {
-    // fill out the message of typedData
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 20;
+    // mint level 1
+    await mintSBT(user1, 20);
 
-    // mint the level 1
-    let signature1 = await approver._signTypedData(domain, types, message);
-
-    // mint SBT
-    await ESBT.mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature1
-    );
-
-    // mint the level 2
-    message.expressAmount = 100;
-    let signature2 = await approver._signTypedData(domain, types, message);
-    await ESBT.mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature2
-    );
+    // mint level 2
+    await mintSBT(user1, 100);
 
     expect(await ESBT.balanceOf(user1.address)).to.equal(2);
 
@@ -129,14 +109,7 @@ describe('simple mint 3 level SBT', () => {
     expect(levels.toString()).to.equal('1,2');
 
     // mint the level 3
-    message.expressAmount = 300;
-    let signature3 = await approver._signTypedData(domain, types, message);
-    await ESBT.mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature3
-    );
+    await mintSBT(user1, 300);
 
     expect(await ESBT.balanceOf(user1.address)).to.equal(3);
 
@@ -146,124 +119,41 @@ describe('simple mint 3 level SBT', () => {
 
   it('mint: mint level 3, and then mint level 2, at last mint level 1', async () => {
     // fill level 3
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 300;
-
-    let signature3 = await approver._signTypedData(domain, types, message);
-    await ESBT.mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature3
-    );
-
+    await mintSBT(user1, 300);
     expect(await ESBT.tokenLevel(BigNumber.from(0))).to.equal(3);
 
     // mint level 2
-    message.expressAmount = 100;
-    let signature2 = await approver._signTypedData(domain, types, message);
-    await ESBT.mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature2
-    );
-
+    await mintSBT(user1, 100);
     expect(await ESBT.tokenLevel(BigNumber.from(1))).to.equal(2);
 
     // mint level 1
-    message.expressAmount = 20;
-    let signature1 = await approver._signTypedData(domain, types, message);
-    await ESBT.mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature1
-    );
-
+    await mintSBT(user1, 20);
     expect(await ESBT.tokenLevel(BigNumber.from(2))).to.equal(1);
   });
 
   it('mint: mint arbitrary level SBT after another account mint', async () => {
     // mint level 3 with user1
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 300;
-
-    let signature3 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature3
-    );
-
+    await mintSBT(user1, 300);
     expect(await ESBT.tokenLevel(BigNumber.from(0))).to.equal(3);
 
     // mint level 2 with user2
-    message.receiver = user2.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 100;
-
-    let signature2 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user2).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature2
-    );
-
+    await mintSBT(user2, 100);
     expect(await ESBT.tokenLevel(BigNumber.from(1))).to.equal(2);
 
     // mint level 1 with user1
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 20;
-
-    let signature1 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature1
-    );
-
+    await mintSBT(user1, 20);
     expect(await ESBT.tokenLevel(BigNumber.from(2))).to.equal(1);
   });
+
   it('mint: mint level 1, level 3, and then mint level 2 with level 2 signature', async () => {
     // mint level 1
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 20;
-
-    let signature1 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature1
-    );
+    await mintSBT(user1, 20);
 
     // mint level 3
-    message.expressAmount = 300;
-    let signature3 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature3
-    );
+    await mintSBT(user1, 300);
 
     // mint level 2
-    message.expressAmount = 100;
-    let signature2 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature2
-    );
+    await mintSBT(user1, 100);
 
     expect(await ESBT.tokenLevel(BigNumber.from(2))).to.equal(2);
     expect(await ESBT.totalSupply()).to.equal(3);
@@ -324,27 +214,10 @@ describe('simple mint 3 level SBT', () => {
 
   it('revert: mint level 1, 3, then mint level 3 again', async () => {
     // mint level 1
-    message.receiver = user1.address;
-    message.metadataURI = 'https://example.com';
-    message.expressAmount = 20;
-
-    let signature1 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature1
-    );
+    await mintSBT(user1, 20);
 
     // mint level 3
-    message.expressAmount = 300;
-    let signature3 = await approver._signTypedData(domain, types, message);
-    await ESBT.connect(user1).mintExpress(
-      message.receiver,
-      message.metadataURI,
-      message.expressAmount,
-      signature3
-    );
+    await mintSBT(user1, 300);
 
     // mint level 3 agian will revert
     message.expressAmount = 300;
@@ -381,7 +254,7 @@ describe('admin functions', () => {
     );
 
     expect(await ESBT.balanceOf(user1.address)).to.equal(1);
-    await ESBT.mintedLevels(user1.address).then((levels) => {
+    ESBT.mintedLevels(user1.address).then((levels) => {
       expect(levels.toString()).to.equal('4');
     });
   });
