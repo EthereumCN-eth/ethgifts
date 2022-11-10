@@ -14,12 +14,12 @@ export const useNFTRead = (
 ) => {
   const { chain } = useNetwork();
 
-  const { addressOrName, contractInterface, functionName, chainId, args } =
+  const { addressOrName, contractInterface, functionName, args } =
     contractReadObj;
   const { address } = useAccount();
   const [, ...restArgs] = args;
   const fixedArgs = [address, ...restArgs];
-  const isOnSameChain = chain?.id === chainId;
+  // const isOnSameChain = chain?.id === chainId;
   // console.log("chainId", chainId);
   // console.log("chain?.id", chain?.id);
 
@@ -37,7 +37,7 @@ export const useNFTRead = (
     chainId: chain?.id,
     args: fixedArgs,
     functionName,
-    enabled: isOnSameChain,
+    enabled: !!address,
   });
 
   // const result = useQuery(["useNFTRead", chainId, addressOrName, address], {

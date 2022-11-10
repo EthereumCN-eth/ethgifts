@@ -1,9 +1,7 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
-import { BigNumber } from "ethers";
-import { useMemo } from "react";
 
-import { useNFTRead } from "@/state/gallery/hooks";
 import type { NFTState } from "@/state/nft";
+import { useHasNFT } from "@/state/nft/hooks";
 
 import { DetailTagsView } from "./DetailTagsView";
 
@@ -18,20 +16,9 @@ export const PresentationNFT = ({
   // desc: string | undefined;
 }) => {
   const { contractReadObj, infoDetail, detailTags } = nftData;
-  const {
-    data: nftAmountData,
-    // isLoading: nftReadLoading,
-    // isError: nftReadIsError,
-    isSuccess: nftReadIsSuccess,
-  } = useNFTRead(contractReadObj);
-
-  const balanceOfNft = useMemo(() => {
-    if (nftAmountData) return BigNumber.from(nftAmountData).toNumber();
-    return -1;
-  }, [nftAmountData]);
-  const hasNFT = balanceOfNft !== 0;
-  // console.log("nftAmountData", nftAmountData);
-
+  const hasNFT = useHasNFT({
+    contractReadObj,
+  });
   const deliveryText = infoDetail?.deliveryText;
   const { hasClaimedText = "", noClaimedText = "" } = deliveryText || {};
   return (
@@ -47,7 +34,7 @@ export const PresentationNFT = ({
         letterSpacing="0.02em"
         mb="8.1%"
       >
-        {nftReadIsSuccess && hasNFT ? hasClaimedText : noClaimedText}
+        {hasNFT ? hasClaimedText : noClaimedText}
       </Text>
       <Flex direction="row" align="center" justify="space-between" wrap="wrap">
         <Button
