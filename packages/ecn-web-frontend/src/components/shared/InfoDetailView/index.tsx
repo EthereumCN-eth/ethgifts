@@ -18,7 +18,7 @@ export const InfoDetailView = ({
       <Flex
         w="100%"
         minH="900px"
-        bgColor="white"
+        bgColor="rgba(255, 255, 255, 0.8)"
         pt="100px"
         px="23%"
         direction="column"
@@ -29,7 +29,7 @@ export const InfoDetailView = ({
     <Flex
       w="100%"
       minH="900px"
-      bgColor="white"
+      bgColor="rgba(255, 255, 255, 0.8)"
       pt="100px"
       px="23%"
       direction="column"

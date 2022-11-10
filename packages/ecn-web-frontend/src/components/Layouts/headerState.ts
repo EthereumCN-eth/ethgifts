@@ -13,12 +13,14 @@ interface HeaderState {
 
 const whiteObj = {
   headerValues: {
-    basebgColor: "white",
-    textColor: "black",
+    basebgColor: "transparent",
+    // eslint-disable-next-line sonarjs/no-duplicate-string
+    textColor: "rgba(0, 0, 0, 0.8)",
   },
   rainbowTheme: lightTheme({
-    accentColor: "white",
-    accentColorForeground: "black",
+    accentColor: "rgba(255, 255, 255, 0.8)",
+    // eslint-disable-next-line sonarjs/no-duplicate-string
+    accentColorForeground: "rgba(0, 0, 0, 0.8)",
     borderRadius: "large",
     fontStack: "system",
   }),
@@ -26,11 +28,11 @@ const whiteObj = {
 
 const darkObj = {
   headerValues: {
-    basebgColor: "black",
+    basebgColor: "rgba(0, 0, 0, 0.8)",
     textColor: "white",
   },
   rainbowTheme: darkTheme({
-    accentColor: "black",
+    accentColor: "rgba(0, 0, 0, 0.8)",
     accentColorForeground: "white",
     borderRadius: "large",
     fontStack: "system",
@@ -38,23 +40,9 @@ const darkObj = {
 };
 
 export const useHeaderStore = create<HeaderState>(
-  combine(
-    {
-      headerValues: {
-        basebgColor: "white",
-        textColor: "black",
-      },
-      rainbowTheme: lightTheme({
-        accentColor: "white",
-        accentColorForeground: "black",
-        borderRadius: "large",
-        fontStack: "system",
-      }),
-    },
-    (set) => ({
-      // increase: (by: number) => set((state) => ({ bears: state.bears + by })),
-      setTheme: (theme: "black" | "white") =>
-        set(() => (theme === "white" ? whiteObj : darkObj)),
-    })
-  )
+  combine(whiteObj, (set) => ({
+    // increase: (by: number) => set((state) => ({ bears: state.bears + by })),
+    setTheme: (theme: "black" | "white") =>
+      set(() => (theme === "white" ? whiteObj : darkObj)),
+  }))
 );

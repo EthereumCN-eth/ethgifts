@@ -70,7 +70,7 @@ const Title = ({
 };
 
 export const SBTDesc = () => (
-  <Flex direction="column" w="56%" minH="600px" p="6%">
+  <Flex direction="column" w="56%" minH="600px" p="6%" bgColor="#FAFAFA">
     {/*  */}
     <Title leftText="E群誌？" rightText="01 What’s E-Journal?" />
     <Box>

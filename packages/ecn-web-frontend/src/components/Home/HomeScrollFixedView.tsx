@@ -27,6 +27,7 @@ export const HomeScrollFixedView = () => {
   return (
     <>
       <div
+        // className="page-bg-opacity"
         // ref={containerRef}
         css={css`
           height: ${HEIGHT_WHOLE};
@@ -38,6 +39,7 @@ export const HomeScrollFixedView = () => {
           align-items: center;
           overflow: hidden;
           position: absolute;
+
           /* top: 0; */
 
           z-index: 50;
@@ -60,7 +62,7 @@ export const HomeScrollFixedView = () => {
               justify="center"
               minH="68vh"
               w="full"
-              overflow="hidden"
+              overflow="visible"
               // background="rgba(255, 255, 255, 0.8)"
               // backdropFilter="blur(150px)"
               // bg="green"
@@ -75,7 +77,7 @@ export const HomeScrollFixedView = () => {
                   transform: ${`translateY(${0}vh)  scale(${
                     4.2 * progressRef.current + 1
                   })`};
-                  opacity: ${scrollOpacityRef.current};
+                  opacity: ${scrollOpacityRef.current - 0.15};
                   /* border: ${1 + 1 * progressRef.current}px solid black; */
                   display: flex;
                   justify-content: center;

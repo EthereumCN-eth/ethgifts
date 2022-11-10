@@ -106,7 +106,7 @@ const Header = () => {
                     display="block"
                     href={item.href}
                     fontFamily="PingFang SC"
-                    color="#000000"
+                    color={textColor}
                     target={item.isBlank ? "_blank" : "_self"}
                   >
                     {item.label}

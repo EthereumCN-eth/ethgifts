@@ -56,7 +56,7 @@ export const POAP = () => {
   }, [address, appDispatch, id, router, accessToken, chain?.id, num]);
 
   return (
-    <Flex w="100%" minH="100vh" direction="column" bg="black">
+    <Flex w="100%" minH="100vh" direction="column">
       <Flex
         direction="row"
         px="10%"
@@ -64,6 +64,7 @@ export const POAP = () => {
         pt={20}
         h="85vh"
         // bg="blue.200"
+        bgColor="rgba(0, 0, 0, 0.8)"
         position="relative"
       >
         <Flex w="50%" direction="column" h="95%" align="center">

@@ -10,7 +10,7 @@ export const Progress: ComponentStyleConfig = {
         transition: "width 1s  cubic-bezier(0.77, 0, 0.175, 1)",
       },
       track: {
-        bgColor: "rgba(0, 0, 0, 0.8)",
+        bgColor: "transparent",
         borderRadius: "13px",
         border: "1px solid #FFFFFF",
         h: "13px",

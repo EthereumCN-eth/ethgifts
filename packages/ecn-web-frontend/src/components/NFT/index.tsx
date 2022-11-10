@@ -59,7 +59,7 @@ export const NFT = () => {
   }, [address, appDispatch, id, router, accessToken, chain?.id, num]);
 
   return (
-    <Flex w="100%" minH="100vh" direction="column" bg="black">
+    <Flex w="100%" minH="100vh" direction="column">
       <Flex
         direction="row"
         px="10%"
@@ -68,6 +68,7 @@ export const NFT = () => {
         h="85vh"
         // bg="blue.200"
         position="relative"
+        bgColor="rgba(0, 0, 0, 0.8)"
       >
         <Flex w="50%" direction="column" h="95%" align="center">
           {nftData?.mainViewType === "image" && (

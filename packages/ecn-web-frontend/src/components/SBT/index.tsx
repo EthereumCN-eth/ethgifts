@@ -106,7 +106,7 @@ export const SBT = () => {
 
   return (
     <>
-      <Flex w="100%" minH="100vh" direction="column" bg="black">
+      <Flex w="100%" direction="column">
         <Flex
           direction="row"
           px="10%"
@@ -114,6 +114,7 @@ export const SBT = () => {
           pt={20}
           h="85vh"
           // bg="blue.200"
+          bg="rgba(0, 0, 0, 0.8)"
           position="relative"
         >
           <Flex w="50%" direction="column" h="95%" align="center">
@@ -159,6 +160,7 @@ export const SBT = () => {
             right={0}
             h={10}
             w="200px"
+            // bg="rgba(0, 0, 0, 0.8)"
           >
             click
           </Center>

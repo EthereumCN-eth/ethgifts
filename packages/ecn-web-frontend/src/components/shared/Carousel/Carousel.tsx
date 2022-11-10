@@ -58,7 +58,6 @@ export const Carousel = ({
       align="center"
       w="100%"
       h="100%"
-      bg="rgba(0, 0, 0, 0.8)"
       position="relative"
       sx={{
         perspective: "100vw",

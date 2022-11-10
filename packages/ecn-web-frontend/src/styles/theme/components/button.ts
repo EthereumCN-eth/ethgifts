@@ -57,7 +57,7 @@ export const Button: ComponentStyleConfig = {
     },
     whiteOutline: {
       borderRadius: "8px",
-      bgColor: "black",
+      // bgColor: "black",
       border: " 1px solid #FFFFFF",
       color: "#FFFFFF",
       _hover: {

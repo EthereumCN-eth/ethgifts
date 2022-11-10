@@ -109,6 +109,7 @@ export const HomeFAQsView = () => {
       mt="11.5rem"
       mb="-300px"
       // bg="#0C0601"
+
       color="#FFFFFF"
       // minH={"500px"}
       w="full"
