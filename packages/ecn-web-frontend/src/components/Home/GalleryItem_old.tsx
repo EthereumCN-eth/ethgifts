@@ -1,4 +1,5 @@
 import {
+  Button,
   Center,
   Flex,
   HStack,
@@ -7,8 +8,10 @@ import {
   LinkOverlay,
   Skeleton,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 import { TextTag } from "../shared/TextTag";
 import type { GalleryItemType } from "@/state/gallery/types";
@@ -19,25 +22,30 @@ export const GalleryItem = ({
   imgAlt,
   title,
   desc,
+  btnTxt,
   linkTo,
+  status,
 }: GalleryItemType & {
   linkTo: string;
 }) => {
-  // const isOngoing = status === "ongoing";
-  // const router = useRouter();
+  const isOngoing = status === "ongoing";
+  const router = useRouter();
   return (
     <LinkBox key={title}>
       <Flex
-        w="370px"
-        maxW="70vw"
-        minH="530px"
+        w={["50vw", "40vw", "22vw"]}
+        minH={[
+          `${(50 / 498) * 660}vw`,
+          `${(40 / 498) * 660}vw`,
+          `${(22 / 498) * 660}vw`,
+        ]}
         direction="column"
         align="flex-start"
         // bg="red"
         pt="20px"
-        px="15px"
-        borderRadius="8px"
-        background="rgba(255, 255, 255, 0.1)"
+        px="10px"
+        pb="26px"
+        // background="rgba(255, 255, 255, 0.01)"
         _hover={{
           boxShadow: "0px 6px 6px rgba(0, 0, 0, 0.25)",
         }}
@@ -54,14 +62,13 @@ export const GalleryItem = ({
             );
           })}
         </HStack>
-        <Center w="full" h="340px" mt="20px" mb="10px">
+        <Center width="100%" h="360px" my="10px">
           <Image
             // loading="lazy"
-            maxW="70vw"
             loading="lazy"
             fit="contain"
-            h="100%"
-            w="100%"
+            h="full"
+            w="72%"
             src={imgSrc}
             alt={imgAlt}
             fallbackStrategy="beforeLoadOrError"
@@ -76,12 +83,18 @@ export const GalleryItem = ({
           />
         </Center>
 
-        <Center w="full">
+        <VStack
+          width="full"
+          // flexBasis={126}
+          // flex={"1 0 126"}
+          minH="65px"
+          align="center"
+          justify="center"
+          mt="10px"
+        >
           <NextLink href={linkTo} passHref>
             <LinkOverlay>
               <Text
-                display="block"
-                mt="38px"
                 color="#FFFFFF"
                 textAlign="center"
                 fontWeight={600}
@@ -93,10 +106,7 @@ export const GalleryItem = ({
               </Text>
             </LinkOverlay>
           </NextLink>
-        </Center>
-        <Center w="full">
           <Text
-            display="block"
             mt="8px"
             color="#DDD9D7"
             fontWeight={500}
@@ -106,6 +116,36 @@ export const GalleryItem = ({
           >
             {desc}
           </Text>
+        </VStack>
+
+        <Center
+          width="full"
+          minH="40px"
+          mt="24px"
+          // flex={"1 0 43"}
+        >
+          <Button
+            borderRadius="8px"
+            variant="outline"
+            fontSize="sm"
+            bgColor={isOngoing ? "#FFFFFF" : "transparent"}
+            color={isOngoing ? "#000000" : "white"}
+            _hover={{
+              color: "#000",
+              bg: "#F2F2F2",
+            }}
+            _active={{
+              color: "#000",
+              bg: "gray.300",
+            }}
+            minW="48%"
+            display={["none", "none", "none", "none", "block"]}
+            onClick={() => {
+              router.push(linkTo);
+            }}
+          >
+            {btnTxt}
+          </Button>
         </Center>
       </Flex>
     </LinkBox>

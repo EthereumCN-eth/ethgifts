@@ -33,7 +33,8 @@ export const HomeGalleryView = ({
     >
       <Box position="absolute" top="-500px" id="ecn-gallery" />
       <Heading
-        py="120px"
+        pt="100px"
+        pb="76px"
         fontFamily="PingFang SC"
         fontWeight={600}
         color="#EE862B"
@@ -42,10 +43,16 @@ export const HomeGalleryView = ({
         EthGifts Gallery
       </Heading>
       <Grid
-        templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
-        // rowGap="6.5vw"
-        px="10%"
-        // columnGap="5.6vw"
+        templateColumns={[
+          "repeat(1, 1fr)",
+          "repeat(1, 1fr)",
+          "repeat(2, 1fr)",
+          "repeat(2, 1fr)",
+          "repeat(3, 1fr)",
+        ]}
+        rowGap="20px"
+        // px="10%"
+        columnGap="20px"
         pb="6.5vw"
       >
         {loading &&
