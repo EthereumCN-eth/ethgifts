@@ -18,9 +18,9 @@ export const nfts: NFTCreateData[] = [
       create: {
         mainViewType: "wordart",
         coverLink:
-          "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
+          "https://ethereumcn.mypinata.cloud/ipfs/QmTJjWzUkJLZm1vyQTLe6n6EJf7TUiKsUnuyko1KVkuAGu",
         imageLinks: [
-          "https://ethereumcn.mypinata.cloud/ipfs/Qmb3Mt3Mcc3SySAbaJxQFj73NUZbAV4K5nNbMrxFC8U2Y4",
+          "https://ethereumcn.mypinata.cloud/ipfs/QmTJjWzUkJLZm1vyQTLe6n6EJf7TUiKsUnuyko1KVkuAGu",
         ],
         chainId: 5,
         name: "(testing)以太坊合并观看派对留言板",
