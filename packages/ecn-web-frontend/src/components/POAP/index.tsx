@@ -85,7 +85,7 @@ export const POAP = () => {
           justify="center"
           pl="11%"
         >
-          <PoapStatusBoard poapData={poapData} loaded={!!poapData?.loaded} />
+          {!!poapData?.loaded && <PoapStatusBoard poapData={poapData} />}
         </Flex>
       </Flex>
       <InfoDetailView

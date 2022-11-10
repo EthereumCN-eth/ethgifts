@@ -117,10 +117,26 @@ export const ecnApiClient = {
   >({
     path: "/sbt/address/id",
   }),
-  getAllPoapEventByAddress: async ({ address }: { address: string }) => {
+  getAllPoapEventByAddress: async ({
+    address,
+  }: {
+    address: string | undefined;
+  }) => {
     try {
+      if (!address)
+        return {
+          success: false,
+          data: null,
+        };
       const res = await fetch(`https://api.poap.tech/actions/scan/${address}`);
       const events: { event: { id: number } }[] = await res.json();
+
+      if (!res.ok) {
+        return {
+          success: false,
+          data: null,
+        };
+      }
       return {
         success: true,
         data: events.map((e) => e?.event?.id),

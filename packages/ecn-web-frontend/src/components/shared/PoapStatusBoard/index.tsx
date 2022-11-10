@@ -1,18 +1,18 @@
-import { Text } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
 import { useAccount, useNetwork } from "wagmi";
 
 import { DetailTagsView } from "../NFTStatusBoard/DetailTagsView";
 import { NFTConnectWalletBoard } from "../NFTStatusBoard/NFTConnectWalletBoard";
 import { selectors as globalSelectors } from "@/state/global";
 import type { PoapState } from "@/state/poap";
+import { useHasPoapEvent } from "@/state/poap/hooks";
 import { useAppSelector } from "@/state/reduxHooks";
 
 export const PoapStatusBoard = ({
   poapData,
-  loaded,
-}: {
+}: // loaded,
+{
   poapData: PoapState;
-  loaded: boolean;
 }) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -20,13 +20,16 @@ export const PoapStatusBoard = ({
     globalSelectors.selectAuthStatus(state, { address, chainId: chain?.id })
   );
 
-  if (!poapData || !loaded) {
-    return null;
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { detailTags, title, infoDetail, status } = poapData;
+  const { detailTags, title, infoDetail, status, eventId } = poapData;
 
+  const { hasPoap } = useHasPoapEvent({
+    eventId,
+    address,
+  });
+  // console.log("hasPoap", hasPoap);
+  const ownedText = infoDetail?.deliveryText.hasClaimedText ?? "";
+  const notOwnText = infoDetail?.deliveryText.noClaimedText ?? "";
   // console.log("data", data);
   if (authStatus !== "authenticated")
     return <NFTConnectWalletBoard title={title} detailTags={detailTags} />;
@@ -44,8 +47,20 @@ export const PoapStatusBoard = ({
         letterSpacing="0.02em"
         mb="8.1%"
       >
-        {infoDetail?.eventDescription}
+        {hasPoap ? ownedText : notOwnText}
       </Text>
+      <Button
+        // isLoading={isSwitchNetworkLoading}
+        // onClick={switchToNFTNetwork}
+        disabled
+        mx="auto"
+        my="1.5%"
+        variant="orangeBg"
+        mt="30px"
+        minW="93%"
+      >
+        {hasPoap ? "已申领" : "未申领/没有资格申领"}
+      </Button>
     </>
   );
 };
