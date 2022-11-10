@@ -20,7 +20,7 @@ export const SunBlurBg = () => (
       // transform="translate(-50%, -50%)"
       w={`${Math.min(window.innerHeight, window.innerWidth) * 0.6}px`}
       h={`${Math.min(window.innerHeight, window.innerWidth) * 0.6}px`}
-      zIndex={1000}
+      // zIndex={1000}
       bg="#EF862A"
     />
   </Center>

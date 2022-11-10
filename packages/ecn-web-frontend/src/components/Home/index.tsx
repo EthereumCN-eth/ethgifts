@@ -41,7 +41,7 @@ export const Home: NextPage = () => {
     <div
       css={css`
         width: 100%;
-        min-height: 250vh;
+        /* min-height: 250vh; */
         position: relative;
         /* background-color: "white"; */
       `}
@@ -53,18 +53,30 @@ export const Home: NextPage = () => {
           transform: translateY(
             ${scrollY > FIXED_SCROLL_PARAM ? -window.innerHeight / 2 : 0}px
           );
+          z-index: 500;
+
           transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1);
         `}
-        opacity={scrollY > FIXED_SCROLL_PARAM ? 1 : 0}
-        // transform={scrollY > FIXED_SCROLL_PARAM ? 0 : 0}
-        // scrollY > FIXED_SCROLL_PARAM ? `${fixedTopRef.current - 120}px` :
+        mb={`${-window.innerHeight / 2}px`}
       >
-        <HomeGalleryView
-          items={items}
-          shellNumber={shellNumber}
-          loading={loading}
-        />
-        <HomeFAQsView />
+        <Box
+          // css={css`
+          //   transform: translateY(
+          //     ${scrollY > FIXED_SCROLL_PARAM ? -window.innerHeight / 2 : 0}px
+          //   );
+          //   transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+          // `}
+          opacity={scrollY > FIXED_SCROLL_PARAM ? 1 : 0}
+          // transform={scrollY > FIXED_SCROLL_PARAM ? 0 : 0}
+          // scrollY > FIXED_SCROLL_PARAM ? `${fixedTopRef.current - 120}px` :
+        >
+          <HomeGalleryView
+            items={items}
+            shellNumber={shellNumber}
+            loading={loading}
+          />
+          <HomeFAQsView />
+        </Box>
       </Box>
     </div>
   );

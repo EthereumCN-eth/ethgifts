@@ -1,3 +1,4 @@
+import type { Theme } from "@rainbow-me/rainbowkit";
 import { darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import create from "zustand";
 import { combine } from "zustand/middleware";
@@ -7,36 +8,49 @@ interface HeaderState {
     basebgColor: string;
     textColor: string;
   };
-  rainbowTheme: ReturnType<typeof lightTheme>;
+  rainbowTheme: Theme;
   setTheme: (theme: "black" | "white") => void;
 }
 
-const whiteObj = {
+const lightThemeObj = lightTheme({
+  accentColor: "rgba(255, 255, 255, 0.8)",
+  // eslint-disable-next-line sonarjs/no-duplicate-string
+  accentColorForeground: "rgba(0, 0, 0, 0.8)",
+  borderRadius: "large",
+  fontStack: "system",
+});
+const whiteObj: Omit<HeaderState, "setTheme"> = {
   headerValues: {
     basebgColor: "transparent",
     // eslint-disable-next-line sonarjs/no-duplicate-string
     textColor: "rgba(0, 0, 0, 0.8)",
   },
-  rainbowTheme: lightTheme({
-    accentColor: "rgba(255, 255, 255, 0.8)",
-    // eslint-disable-next-line sonarjs/no-duplicate-string
-    accentColorForeground: "rgba(0, 0, 0, 0.8)",
-    borderRadius: "large",
-    fontStack: "system",
-  }),
+  rainbowTheme: {
+    ...lightThemeObj,
+    colors: {
+      ...lightThemeObj.colors,
+      connectButtonBackground: "transparent",
+    },
+  },
 };
-
-const darkObj = {
+const darkThemeObj = darkTheme({
+  accentColor: "transparent",
+  accentColorForeground: "white",
+  borderRadius: "large",
+  fontStack: "system",
+});
+const darkObj: Omit<HeaderState, "setTheme"> = {
   headerValues: {
     basebgColor: "rgba(0, 0, 0, 0.8)",
     textColor: "white",
   },
-  rainbowTheme: darkTheme({
-    accentColor: "rgba(0, 0, 0, 0.8)",
-    accentColorForeground: "white",
-    borderRadius: "large",
-    fontStack: "system",
-  }),
+  rainbowTheme: {
+    ...darkThemeObj,
+    colors: {
+      ...darkThemeObj.colors,
+      connectButtonBackground: "transparent",
+    },
+  },
 };
 
 export const useHeaderStore = create<HeaderState>(

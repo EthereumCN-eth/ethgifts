@@ -42,7 +42,7 @@ export const HomeScrollFixedView = () => {
 
           /* top: 0; */
 
-          z-index: 50;
+          /* z-index: 50; */
         `}
       >
         {scrollOpacityRef.current > 0 && (
@@ -158,7 +158,7 @@ export const HomeScrollFixedView = () => {
       </div>
 
       {/* <Box ></Box> */}
-      <Box pt={HEIGHT_WHOLE} />
+      <Box pt={HEIGHT_WHOLE} zIndex={40} />
     </>
   );
 };

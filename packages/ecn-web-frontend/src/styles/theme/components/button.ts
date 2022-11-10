@@ -40,7 +40,7 @@ export const Button: ComponentStyleConfig = {
     },
     orangeOutline: {
       borderRadius: "8px",
-      bgColor: "black",
+      // bgColor: "rgba(0,0,0,0.8)",
       border: " 1px solid #EE862B",
       color: "#EE862B",
       _hover: {

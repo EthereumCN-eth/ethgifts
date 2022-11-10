@@ -107,7 +107,7 @@ export const HomeFAQsView = () => {
     <Flex
       direction="column"
       mt="11.5rem"
-      mb="-300px"
+      mb="148px"
       // bg="#0C0601"
 
       color="#FFFFFF"
@@ -118,7 +118,7 @@ export const HomeFAQsView = () => {
     >
       <Heading
         color="#010215"
-        fontFamily="PingFang SC"
+        fontFamily="Noto Sans"
         fontWeight={600}
         fontSize="2.75rem"
         mb="2.75rem"
