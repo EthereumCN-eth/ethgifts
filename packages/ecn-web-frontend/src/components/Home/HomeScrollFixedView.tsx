@@ -12,7 +12,7 @@ const circleLen = () => {
   return `${Math.min(window.innerHeight * 0.65, len)}px`;
 };
 
-const HEIGHT_WHOLE = "200vh";
+const HEIGHT_WHOLE = "330vh";
 
 export const HomeScrollFixedView = () => {
   const {

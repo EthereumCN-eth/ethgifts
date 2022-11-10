@@ -15,7 +15,7 @@ export const useScrollAnimate = () => {
 
   const fixedTopRef = useRef(0);
 
-  const FIXED_SCROLL_PARAM = useMemo(() => window.innerHeight * 1, []);
+  const FIXED_SCROLL_PARAM = useMemo(() => window.innerHeight * 2, []);
 
   const debFindScrollFixedY = useMemo(() => {
     return throttledScrollFixedY(FIXED_SCROLL_PARAM);
