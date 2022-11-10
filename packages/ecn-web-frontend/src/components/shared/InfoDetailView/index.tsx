@@ -56,9 +56,9 @@ export const InfoDetailView = ({
       </Text>
       {detailInfoOfNFT.dataSection.map((dataItem, index) => {
         return (
-          <Flex direction="row" key={dataItem.heading} mb="64px">
+          <Flex w="full" direction="row" key={dataItem.heading} mb="64px">
             {/*  */}
-            <Box>
+            <Box w="13%">
               <Text
                 fontSize="20px"
                 fontWeight="600"
