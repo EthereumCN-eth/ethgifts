@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BigNumber } from "ethers";
 import { getAddress } from "ethers/lib/utils";
 import { useMemo } from "react";
-import type { useContractRead } from "wagmi";
-import { useAccount } from "wagmi";
+import { useContractRead, useAccount } from "wagmi";
 
 import { useNFTRead } from "@/state/gallery/hooks";
 
@@ -93,5 +92,51 @@ export const useWhiteListAndClaim = ({
     claimed: balanceOfNft > 0,
     inWhiteList: !!data?.hasWhiteListed,
     claimedData: data?.claim,
+  };
+};
+
+export const useHasNFT = ({
+  contractReadObj,
+}: {
+  contractReadObj: Parameters<typeof useContractRead>[0];
+}) => {
+  // const { address } = useAccount();
+
+  const { addressOrName, contractInterface, functionName, chainId, args } =
+    contractReadObj;
+  const { address } = useAccount();
+  const [, ...restArgs] = args;
+  const fixedArgs = [address, ...restArgs];
+
+  const {
+    data: nftAmountData,
+    // isLoading: nftReadLoading,
+    // isError: nftReadIsError,
+    // // error,
+    isSuccess: nftReadIsSuccess,
+  } = useContractRead({
+    addressOrName,
+    contractInterface,
+    chainId,
+    args: fixedArgs,
+    functionName,
+    // enabled: isOnSameChain,
+  });
+
+  // console.log("nftAmountData", nftAmountData);
+  const hasNFT = useMemo(() => {
+    if (nftReadIsSuccess && !!nftAmountData)
+      return BigNumber.from(nftAmountData).toNumber() > 0;
+    return false;
+  }, [nftAmountData, nftReadIsSuccess]);
+
+  // console.log(
+  //   "contract",
+  //   // BigNumber.from(nftAmountData).toNumber(),
+  //   nftAmountData,
+  //   `hasNFT ${hasNFT}`
+  // );
+  return {
+    hasNFT,
   };
 };

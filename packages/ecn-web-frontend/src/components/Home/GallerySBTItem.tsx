@@ -19,6 +19,7 @@ export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
   // console.log("sbt currentIndex, isclaimed", currentIndex, isclaimed);
   return (
     <GalleryItem
+      isOwnIt={isclaimed}
       linkTo={`/${typeName}/${id}/${currentIndex + 1}`}
       {...galleryItem}
     />

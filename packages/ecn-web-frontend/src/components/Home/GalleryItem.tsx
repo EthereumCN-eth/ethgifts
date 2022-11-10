@@ -13,6 +13,8 @@ import NextLink from "next/link";
 import { TextTag } from "../shared/TextTag";
 import type { GalleryItemType } from "@/state/gallery/types";
 
+import { GalleryOwnerShipStamp } from "./GalleryOwnerShipStamp";
+
 export const GalleryItem = ({
   homeTags,
   imgSrc,
@@ -20,8 +22,10 @@ export const GalleryItem = ({
   title,
   desc,
   linkTo,
+  isOwnIt = false,
 }: GalleryItemType & {
   linkTo: string;
+  isOwnIt?: boolean;
 }) => {
   // const isOngoing = status === "ongoing";
   // const router = useRouter();
@@ -54,7 +58,7 @@ export const GalleryItem = ({
             );
           })}
         </HStack>
-        <Center w="full" h="340px" mt="20px" mb="10px">
+        <Center w="full" h="340px" mt="20px" mb="10px" position="relative">
           <Image
             // loading="lazy"
             maxW="70vw"
@@ -74,6 +78,7 @@ export const GalleryItem = ({
               />
             }
           />
+          {isOwnIt && <GalleryOwnerShipStamp />}
         </Center>
 
         <Center w="full">
