@@ -99,7 +99,12 @@ CREATE TABLE "GalleryItemBase" (
 CREATE TABLE "SBTContractType" (
     "id" SERIAL NOT NULL,
     "contractAddress" TEXT NOT NULL,
+    "contractName" TEXT NOT NULL,
+    "version" TEXT NOT NULL,
+    "chainId" INTEGER NOT NULL,
     "galleryItemBaseId" INTEGER NOT NULL,
+    "metaDataName" TEXT NOT NULL,
+    "metaDataDescription" TEXT NOT NULL,
     "issuerAddress" TEXT NOT NULL,
     "countLevel" INTEGER[],
 

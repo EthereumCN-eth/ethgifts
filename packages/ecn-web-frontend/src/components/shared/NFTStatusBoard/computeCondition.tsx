@@ -46,9 +46,12 @@ export const computeCondition = ({
   inWhiteList: boolean;
   ended: boolean;
 }) => {
+  // console.log("isErr", isError);
+  // console.log("isLoading", isLoading);
+  // console.log("noClaimFile", noClaimFile);
+  if (noClaimFile) return "before";
   if (isError) return "error";
   if (!isError && isLoading) return "loading";
-  if (noClaimFile) return "before";
   if (claimed) return "claimed";
 
   //! isError && !isLoading && !claimed
