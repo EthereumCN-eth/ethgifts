@@ -16,6 +16,9 @@ const withPWA = require("next-pwa")({
 module.exports = withPWA({
   swcMinify: true,
   reactStrictMode: true,
+  experimental: {
+    scrollRestoration: true,
+  },
   webpack: function (
     config,
     { buildId, dev, isServer, defaultLoaders, webpack }

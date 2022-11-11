@@ -1,6 +1,6 @@
 import { Box, HStack, keyframes, Center, Flex } from "@chakra-ui/react";
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { TOTAL_H } from "./constants";
 import { data } from "./data";
@@ -19,6 +19,18 @@ export const DesktopCards = ({
   hBarOpacity: number;
   vBarOpacity: number;
 }) => {
+  const [opacityBlocked, setOpacitBlocked] = useState(true);
+  const vOpacityRef = useRef(0);
+  const hOpacityRef = useRef(0);
+  hOpacityRef.current = opacityBlocked ? 0 : hBarOpacity;
+  vOpacityRef.current = opacityBlocked ? 0 : vBarOpacity;
+
+  useEffect(() => {
+    const c = setTimeout(() => {
+      setOpacitBlocked(false);
+    }, 1500);
+    return () => clearTimeout(c);
+  }, []);
   const [isOnHover, setIsOnHover] = useState(false);
   return (
     <>
@@ -27,7 +39,7 @@ export const DesktopCards = ({
         w="100vw"
         minH="1px"
         css={css`
-          opacity: ${hBarOpacity};
+          opacity: ${hOpacityRef.current};
         `}
         position="relative"
         alignItems="center"
@@ -36,7 +48,7 @@ export const DesktopCards = ({
       <Center
         css={css`
           width: 100%;
-          opacity: ${vBarOpacity};
+          opacity: ${vOpacityRef.current};
           background: rgba(255, 255, 255);
           filter: drop-shadow(18px 25px 15px rgba(0, 0, 0, 0.25));
         `}
@@ -128,7 +140,7 @@ export const DesktopCards = ({
         w="120vw"
         minH="1px"
         css={css`
-          opacity: ${hBarOpacity};
+          opacity: ${hOpacityRef.current};
         `}
       />
     </>

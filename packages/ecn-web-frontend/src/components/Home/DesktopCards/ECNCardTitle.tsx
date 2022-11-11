@@ -27,7 +27,7 @@ export const ECNCardTitle = ({
       position="absolute"
       flex="0 0 auto"
       top={`calc(${ICON_TOP_MARGIN} - ${ICON_TOP_HOVER_MARGIN_OFFSET} + ${cardIconHeight}px + ${expandVal} + ${
-        68 * 0.05
+        68 * 0.1
       }vh)`}
       fontSize={["sm", "md", "xl", "xl"]}
       color="#010215"
