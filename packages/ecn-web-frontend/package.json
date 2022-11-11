@@ -53,6 +53,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-medium-image-zoom": "^5.1.2",
     "react-player": "2.10.1",
     "react-redux": "^8.0.2",
     "react-use": "^17.4.0",

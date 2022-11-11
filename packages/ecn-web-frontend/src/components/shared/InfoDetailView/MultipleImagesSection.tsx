@@ -2,6 +2,8 @@ import { Box, Flex, IconButton, Image } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
+import { ZoomImageWrapper } from "../ZoomImageWrapper";
+
 import type { InfoImageType } from "./types";
 
 // type ArrElement<ArrType extends readonly unknown[]> =
@@ -112,13 +114,15 @@ export const MultipleImagesSection = ({
   //   console.log("isLeftDisabled", isLeftDisabled);
   return (
     <Box w="39.4vw">
-      <Image
-        w="36vw"
-        h="400px"
-        objectFit="contain"
-        src={dataItem.data[clickedInd].src}
-        alt={dataItem.data[clickedInd].alt}
-      />
+      <ZoomImageWrapper>
+        <Image
+          w="36vw"
+          h="400px"
+          objectFit="contain"
+          src={dataItem.data[clickedInd].src}
+          alt={dataItem.data[clickedInd].alt}
+        />
+      </ZoomImageWrapper>
       <Flex
         direction="row"
         align="center"

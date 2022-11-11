@@ -1,9 +1,11 @@
-import { Box, Divider, Flex, IconButton } from "@chakra-ui/react";
+import { Button, Divider, Flex, IconButton } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
 import { BothSideImage } from "./BothSideImage";
 import { useRouteByIndex } from "./helpers";
+import { SelectedZoomPatchedImage } from "./SelectedZoomPatchedImage";
+import { useZoomImageState } from "./useZoomImageState";
 
 const RADIUS = 23;
 
@@ -52,6 +54,11 @@ export const Carousel = ({
     return false;
   }, [artworks.length, loaded]);
   // console.log("isMultiple", isMultiple);
+
+  const { handleZoomChange, height, imgRef, width, isZoomed } =
+    useZoomImageState();
+
+  if (!loaded) return null;
   return (
     <Flex
       justify="center"
@@ -65,8 +72,17 @@ export const Carousel = ({
       }}
     >
       {/*  */}
-      <Box
+      <SelectedZoomPatchedImage
+        width={width}
+        height={height}
+        isZoomed={isZoomed}
+        handleZoomChange={handleZoomChange}
+        img={artworks[selectedIndex]}
+      />
+      <Button
+        variant="unstyled"
         position="absolute"
+        onClick={() => handleZoomChange(true)}
         sx={{
           // eslint-disable-next-line sonarjs/no-duplicate-string
           transformStyle: "preserve-3d",
@@ -84,6 +100,7 @@ export const Carousel = ({
 
           return (
             <BothSideImage
+              ref={ind === selectedIndex ? imgRef : undefined}
               key={img}
               eachDeg={eachDeg}
               myIndex={ind}
@@ -93,7 +110,7 @@ export const Carousel = ({
             />
           );
         })}
-      </Box>
+      </Button>
       {isMultiple && (
         <Flex
           h="10%"

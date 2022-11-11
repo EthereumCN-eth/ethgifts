@@ -36,6 +36,7 @@ import {
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 
 import "@rainbow-me/rainbowkit/styles.css";
+import "@/components/shared/ZoomImageWrapper/styles.css";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.arbitrum, chain.optimism, chain.goerli],
