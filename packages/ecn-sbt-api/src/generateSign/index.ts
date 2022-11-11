@@ -11,7 +11,8 @@ const setupBull = () => {
   signatureGenerationQueue.process(async (job: Job) => {
     const signStatus = await generateSignature(
       job.data.discordId,
-      job.data.expressId
+      job.data.expressId,
+      job.data.sbtContractTypeId
     );
 
     // return signStatus;
@@ -33,7 +34,7 @@ const setupBull = () => {
     };
   });
 
-  signatureGenerationQueue.on("failed", function(job, err) {
+  signatureGenerationQueue.on("failed", function (job, err) {
     // A job failed with reason `err`!
     console.log("failed:", err);
     return;
@@ -54,7 +55,8 @@ setupBull();
 
 const addToSignatureGenerationQueue = async (
   discordId: string,
-  expressId: string
+  expressId: string,
+  sbtContractTypeId: number
 ) => {
   if (!signatureGenerationQueue) return;
   const option = {
@@ -66,6 +68,7 @@ const addToSignatureGenerationQueue = async (
     {
       discordId,
       expressId,
+      sbtContractTypeId,
     },
     option
   );

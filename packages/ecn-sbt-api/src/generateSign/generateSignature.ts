@@ -4,19 +4,16 @@ import { storeMetaData } from "./generateMetaData";
 import * as config from "./config";
 // import { signTicket } from "ecn-eip712vc";
 import { APPROVER_PRIVATE_KEY } from "./constants";
-
-type TypeContributions = {
-  [index: string]: {
-    expressId: string;
-    content: string;
-    contentURI: string;
-    verifiedDate: string;
-  };
-};
+import {
+  EIP712DOMAIN,
+  TypeContributions,
+  SBTCONTRACT_DATA_CACHE,
+} from "./types";
 
 export const generateSignature = async (
   discordId: string,
-  expressId: string
+  expressId: string,
+  sbtContractTypeId: number
 ) => {
   try {
     // const signStatus = await prisma.$transaction(async (prisma) => {
@@ -55,8 +52,15 @@ export const generateSignature = async (
       {}
     );
 
+    const sbtContractDataCache = await getSBTContractDataCache(
+      sbtContractTypeId
+    );
+
     // generate metadata URI
     const metaDataStatus = await storeMetaData(
+      sbtContractDataCache.metaDataName,
+      sbtContractDataCache.metaDataDescription,
+      sbtContractDataCache.issuer,
       user.ethAddress,
       contributions,
       expresses.length
@@ -77,7 +81,8 @@ export const generateSignature = async (
     const metadataURI = metaDataStatus.data;
     const expressAmount = expresses.length;
     const receiver = user.ethAddress;
-    const { domain, message } = config.generateTicketData({
+    const EIP712domain: EIP712DOMAIN = sbtContractDataCache.EIP712Domain;
+    const { message } = config.generateTicketData(EIP712domain, {
       messageData: {
         expressAmount,
         metadataURI,
@@ -90,7 +95,7 @@ export const generateSignature = async (
       issuer_privatekey: APPROVER_PRIVATE_KEY,
       issuer_publickey: config.APPROVER_PUBLIC_KEY,
       recipient_ethAddr: receiver,
-      ethContractData: domain,
+      ethContractData: EIP712domain,
       ethContractMessage: message,
     });
 
@@ -144,5 +149,42 @@ export const generateSignature = async (
     // return signStatus;
   } catch (err) {
     throw err;
+  }
+};
+
+let SBTContractDataCache = new Map();
+
+const getSBTContractDataCache = async (
+  sbtContractTypeId: number
+): Promise<SBTCONTRACT_DATA_CACHE> => {
+  if (SBTContractDataCache.has(sbtContractTypeId)) {
+    return SBTContractDataCache.get(sbtContractTypeId);
+  } else {
+    const sbtContract = await prisma.sBTContractType.findUnique({
+      where: {
+        id: sbtContractTypeId,
+      },
+    });
+
+    if (sbtContract !== null) {
+      const EIP712Domain = {
+        name: sbtContract.contractName,
+        version: sbtContract.version,
+        chainId: sbtContract.chainId,
+        verifyingContract: sbtContract.contractAddress,
+      };
+
+      const sbtContractDataCache: SBTCONTRACT_DATA_CACHE = {
+        metaDataName: sbtContract.metaDataName,
+        metaDataDescription: sbtContract.metaDataDescription,
+        issuer: sbtContract.issuerAddress,
+        EIP712Domain: EIP712Domain,
+      };
+
+      SBTContractDataCache.set(sbtContractTypeId, sbtContractDataCache);
+      return sbtContractDataCache;
+    } else {
+      throw new Error("fail to get domain");
+    }
   }
 };

@@ -125,11 +125,16 @@ model GalleryItemBase {
 }
 
 model SBTContractType {
-  id                Int             @id @default(autoincrement())
-  contractAddress   String
-  galleryItemBase   GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
-  galleryItemBaseId Int             @unique
-  issuerAddress     String
+  id                  Int             @id @default(autoincrement())
+  contractAddress     String
+  contractName        String
+  version             String
+  chainId             Int
+  galleryItemBase     GalleryItemBase @relation(fields: [galleryItemBaseId], references: [id])
+  galleryItemBaseId   Int             @unique
+  metaDataName        String
+  metaDataDescription String
+  issuerAddress       String
 
   countLevel Int[]
 

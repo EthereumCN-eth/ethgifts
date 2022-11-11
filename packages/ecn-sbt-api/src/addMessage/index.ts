@@ -12,6 +12,7 @@ import {
 import { validateRawMsg } from "./DTORawMsg";
 import { addToSignatureGenerationQueue } from "../generateSign";
 // import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
+import { DB_CONTRACT_TYPE_ID } from "../generateSign/constants";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -141,7 +142,16 @@ export const setupAddMessageRoute = (
       // const st = await sign(discordId, msgId);
       // console.log("st:", st);
 
-      await addToSignatureGenerationQueue(discordId, msgId);
+      const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
+      if (typeof sbtContractTypeId === "number") {
+        await addToSignatureGenerationQueue(
+          discordId,
+          msgId,
+          sbtContractTypeId
+        );
+      } else {
+        new Error("sbt contract type id not set");
+      }
 
       //
       return res.status(200).send({ success: true, data: createdExpress });

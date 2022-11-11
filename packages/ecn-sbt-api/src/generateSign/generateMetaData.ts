@@ -1,11 +1,14 @@
 import Arweave from "arweave";
-import * as config from "./config";
 import { ARWEAVE_KEY, PINATA_API_KEY, PINATA_API_SECRET } from "./constants";
 import { bundleAndSignData, createData } from "arbundles";
 import { ArweaveSigner } from "arbundles/src/signing";
 import pinataSDK from "@pinata/sdk";
+import { METADATA } from "./types";
 
 const generateMetaData = (
+  metedataName: string,
+  metaDataDescription: string,
+  issuer: string,
   contributor: string,
   contributions: {
     [index: string]: {
@@ -16,11 +19,11 @@ const generateMetaData = (
     };
   },
   expressAmount: number
-): config.METADATA => {
-  const metaData: config.METADATA = {
-    name: config.defaultSetting.SBTname,
-    description: config.defaultSetting.SBTDescription,
-    issuer: config.APPROVER_ADDRESS,
+): METADATA => {
+  const metaData: METADATA = {
+    name: metedataName,
+    description: metaDataDescription,
+    issuer: issuer,
     expressAmount: expressAmount,
     subject: contributor,
     contributions: contributions,
@@ -30,6 +33,9 @@ const generateMetaData = (
 };
 
 export const storeMetaData = async (
+  metedataName: string,
+  metaDataDescription: string,
+  issuer: string,
   subject: string,
   contributions: {
     [index: string]: {
@@ -42,12 +48,17 @@ export const storeMetaData = async (
   expressAmount: number
 ) => {
   // generate metadata
-  const metadata = generateMetaData(subject, contributions, expressAmount);
+  const metadata = generateMetaData(
+    metedataName,
+    metaDataDescription,
+    issuer,
+    subject,
+    contributions,
+    expressAmount
+  );
 
   try {
-    const metadataURI = matchSBTLevel(expressAmount)
-      ? await storeMetaDataWithArweave(metadata)
-      : await storeMetaDataWithIPFS(metadata);
+    const metadataURI = await storeMetaDataWithIPFS(metadata);
 
     return {
       success: true,
@@ -63,7 +74,7 @@ export const storeMetaData = async (
   }
 };
 
-const storeMetaDataWithIPFS = async (metadata: config.METADATA) => {
+const storeMetaDataWithIPFS = async (metadata: METADATA) => {
   const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
 
   const options = {
@@ -79,7 +90,7 @@ const storeMetaDataWithIPFS = async (metadata: config.METADATA) => {
   }
 };
 
-const storeMetaDataWithArweave = async (metadata: config.METADATA) => {
+const storeMetaDataWithArweave = async (metadata: METADATA) => {
   const arweave = Arweave.init({
     host: "arweave.net",
     port: 443,
@@ -119,14 +130,14 @@ const storeMetaDataWithArweave = async (metadata: config.METADATA) => {
   }
 };
 
-const matchSBTLevel = (expressAmount: Number) => {
-  let sbtLevels = config.defaultSetting.SBTLevels;
+// const matchSBTLevel = (expressAmount: Number) => {
+//   let sbtLevels = config.defaultSetting.SBTLevels;
 
-  for (let i = 0; i < sbtLevels.length; i++) {
-    if (expressAmount === sbtLevels[i]) {
-      return true;
-    }
-  }
+//   for (let i = 0; i < sbtLevels.length; i++) {
+//     if (expressAmount === sbtLevels[i]) {
+//       return true;
+//     }
+//   }
 
-  return false;
-};
+//   return false;
+// };

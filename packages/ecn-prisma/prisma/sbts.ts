@@ -2,10 +2,13 @@ import { SBTCreateData } from "./seed";
 
 export const sbts: SBTCreateData[] = [
   {
-    // contractAddress,
     contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
-    //       name: "ExpressSBT",
+    contractName: "ExpressSBT",
+    version: "1",
+    chainId: 5,
     countLevel: [3, 6, 20],
+    metaDataName: "ExpressSBT",
+    metaDataDescription: "just a goerli test sbt",
     issuerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     galleryItemBase: {
       create: {
