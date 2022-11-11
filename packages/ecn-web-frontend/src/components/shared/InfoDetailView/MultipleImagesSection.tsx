@@ -158,7 +158,7 @@ export const MultipleImagesSection = ({
                 variant="unstyled"
                 w="100px"
                 h="135px"
-                transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
+                transition="all 1s cubic-bezier(0.77, 0, 0.175, 1), left 0.3s linear"
                 left={`${(index - selectedInd) * 112}px`}
                 mr="12px"
                 aria-label={item.alt}
@@ -166,11 +166,15 @@ export const MultipleImagesSection = ({
                 borderRadius={0}
                 icon={
                   <Image
+                    _hover={{
+                      opacity: 0.85,
+                    }}
                     src={item.src}
                     py="16px"
                     w="100px"
                     h="135px"
                     objectFit="cover"
+                    opacity={index === clickedInd ? 1 : 0.4}
                   />
                 }
               />
