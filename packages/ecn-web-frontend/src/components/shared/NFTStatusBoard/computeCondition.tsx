@@ -64,13 +64,6 @@ export const computeCondition = ({
 
 export const useConditionText = ({ nftData }: { nftData: NFTState }) => {
   const { contractReadObj, nftDeliveryData, status, infoDetail } = nftData;
-  // nft amount; have or not
-  // const {
-  //   data: nftAmount,
-  //   isSuccess: isNFTAmountSuccess,
-  //   isLoading: isNFTAmountLoading,
-  // } = useNFTRead(contractReadObj);
-
   const merkleUrl = useMemo(() => {
     if (nftDeliveryData) {
       return nftDeliveryData.merkleUrl;

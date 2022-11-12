@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, IconButton, Text } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { useNetwork, useSwitchNetwork } from "wagmi";
 
@@ -116,7 +116,45 @@ export const AfterStatus = ({
           justify="space-between"
           wrap="wrap"
         >
-          {!isOnNFTChain && (
+          {!!isError && (
+            <Button
+              // aria-label="loading"
+              // isLoading
+              mx="auto"
+              my="1.5%"
+              variant="grayBg"
+              mt="30px"
+              minW="93%"
+            >
+              加载失败
+            </Button>
+          )}
+          {!isError && isLoading && (
+            <IconButton
+              aria-label="loading"
+              isLoading={isLoading}
+              mx="auto"
+              my="1.5%"
+              variant="orangeBg"
+              mt="30px"
+              minW="93%"
+            >
+              {/* 申领 SBT */}
+            </IconButton>
+          )}
+          {!isError && !isLoading && claimed && (
+            <Button
+              mx="auto"
+              my="1.5%"
+              disabled
+              variant="grayBg"
+              mt="30px"
+              minW="93%"
+            >
+              已申领
+            </Button>
+          )}
+          {!isError && !isLoading && !claimed && !isOnNFTChain && (
             <Button
               isLoading={isSwitchNetworkLoading}
               onClick={switchToNFTNetwork}

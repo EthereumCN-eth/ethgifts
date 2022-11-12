@@ -4,8 +4,6 @@ import { getAddress } from "ethers/lib/utils";
 import { useMemo } from "react";
 import { useContractRead, useAccount } from "wagmi";
 
-import { useNFTRead } from "@/state/gallery/hooks";
-
 export type FileJsonType = {
   merkleRoot: string;
   totalAmount: string;
@@ -17,6 +15,55 @@ export type FileJsonType = {
           proof: string[];
         }
       | undefined;
+  };
+};
+
+export const useHasNFT = ({
+  contractReadObj,
+}: {
+  contractReadObj: Parameters<typeof useContractRead>[0];
+}) => {
+  // const { address } = useAccount();
+
+  const { addressOrName, contractInterface, functionName, chainId, args } =
+    contractReadObj;
+  const { address } = useAccount();
+  const [, ...restArgs] = args;
+  const fixedArgs = [address, ...restArgs];
+
+  const {
+    data: nftAmountData,
+    isLoading: nftReadLoading,
+    isError: nftReadIsError,
+    // // error,
+    isSuccess: nftReadIsSuccess,
+  } = useContractRead({
+    addressOrName,
+    contractInterface,
+    chainId,
+    args: fixedArgs,
+    functionName,
+    // enabled: isOnSameChain,
+  });
+
+  // console.log("nftAmountData", nftAmountData);
+  const hasNFT = useMemo(() => {
+    if (nftReadIsSuccess && !!nftAmountData)
+      return BigNumber.from(nftAmountData).toNumber() > 0;
+    return false;
+  }, [nftAmountData, nftReadIsSuccess]);
+
+  // console.log(
+  //   "contract",
+  //   // BigNumber.from(nftAmountData).toNumber(),
+  //   nftAmountData,
+  //   `hasNFT ${hasNFT}`
+  // );
+  return {
+    hasNFT,
+    nftReadLoading,
+    nftReadIsError,
+    nftReadIsSuccess,
   };
 };
 
@@ -54,18 +101,13 @@ export const useWhiteListAndClaim = ({
 }) => {
   const { address } = useAccount();
   const {
-    data: nftAmountData,
-    isLoading: nftReadLoading,
-    isError: nftReadIsError,
+    hasNFT,
+    nftReadLoading,
+    nftReadIsError,
     // error,
-    isSuccess: nftReadIsSuccess,
-  } = useNFTRead(contractReadObj);
+    nftReadIsSuccess,
+  } = useHasNFT({ contractReadObj });
 
-  // console.log("nftAmountData", nftAmountData);
-  const balanceOfNft = useMemo(() => {
-    if (nftAmountData) return BigNumber.from(nftAmountData).toNumber();
-    return -1;
-  }, [nftAmountData]);
   const {
     // error: ferror,
     data,
@@ -79,6 +121,10 @@ export const useWhiteListAndClaim = ({
       enabled: !!address && !!merkleUrl,
     }
   );
+  const computedClaimLoading =
+    !!address && !!merkleUrl ? isFetchClaimLoading : false;
+  const computedClaimSuccess =
+    !!address && !!merkleUrl ? isFetchClaimSuccess : true;
   // console.log("isFetchClaimLoading", isFetchClaimLoading);
   // console.log("nftReadLoading", nftReadLoading);
   // console.log("balanceOfNft", balanceOfNft);
@@ -86,57 +132,11 @@ export const useWhiteListAndClaim = ({
   // console.log("ferror", ferror);
 
   return {
-    isSuccess: nftReadIsSuccess && isFetchClaimSuccess,
-    isLoading: nftReadLoading || isFetchClaimLoading,
+    isSuccess: nftReadIsSuccess && computedClaimSuccess,
+    isLoading: nftReadLoading || computedClaimLoading,
     isError: nftReadIsError || isFetchClaimError,
-    claimed: balanceOfNft > 0,
+    claimed: hasNFT,
     inWhiteList: !!data?.hasWhiteListed,
     claimedData: data?.claim,
-  };
-};
-
-export const useHasNFT = ({
-  contractReadObj,
-}: {
-  contractReadObj: Parameters<typeof useContractRead>[0];
-}) => {
-  // const { address } = useAccount();
-
-  const { addressOrName, contractInterface, functionName, chainId, args } =
-    contractReadObj;
-  const { address } = useAccount();
-  const [, ...restArgs] = args;
-  const fixedArgs = [address, ...restArgs];
-
-  const {
-    data: nftAmountData,
-    // isLoading: nftReadLoading,
-    // isError: nftReadIsError,
-    // // error,
-    isSuccess: nftReadIsSuccess,
-  } = useContractRead({
-    addressOrName,
-    contractInterface,
-    chainId,
-    args: fixedArgs,
-    functionName,
-    // enabled: isOnSameChain,
-  });
-
-  // console.log("nftAmountData", nftAmountData);
-  const hasNFT = useMemo(() => {
-    if (nftReadIsSuccess && !!nftAmountData)
-      return BigNumber.from(nftAmountData).toNumber() > 0;
-    return false;
-  }, [nftAmountData, nftReadIsSuccess]);
-
-  // console.log(
-  //   "contract",
-  //   // BigNumber.from(nftAmountData).toNumber(),
-  //   nftAmountData,
-  //   `hasNFT ${hasNFT}`
-  // );
-  return {
-    hasNFT,
   };
 };

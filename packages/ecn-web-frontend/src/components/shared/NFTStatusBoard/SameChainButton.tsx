@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 import type { NFTState } from "@/state/nft";
 
@@ -28,32 +28,6 @@ export const SameChainButton = ({
   const { contractAddress, chainId } = nftData;
   return (
     <>
-      {!!isError && (
-        <Button
-          // aria-label="loading"
-          // isLoading
-          mx="auto"
-          my="1.5%"
-          variant="grayBg"
-          mt="30px"
-          minW="93%"
-        >
-          加载失败
-        </Button>
-      )}
-      {!isError && isLoading && (
-        <IconButton
-          aria-label="loading"
-          isLoading={isLoading}
-          mx="auto"
-          my="1.5%"
-          variant="orangeBg"
-          mt="30px"
-          minW="93%"
-        >
-          {/* 申领 SBT */}
-        </IconButton>
-      )}
       {!isError && !isLoading && !claimed && inWhiteList && (
         <ClaimButton
           contractAddress={contractAddress}
@@ -61,18 +35,7 @@ export const SameChainButton = ({
           chainId={chainId}
         />
       )}
-      {!isError && !isLoading && claimed && (
-        <Button
-          mx="auto"
-          my="1.5%"
-          disabled
-          variant="grayBg"
-          mt="30px"
-          minW="93%"
-        >
-          已申领
-        </Button>
-      )}
+
       {!isError && !isLoading && !inWhiteList && (
         <Button
           mx="auto"
