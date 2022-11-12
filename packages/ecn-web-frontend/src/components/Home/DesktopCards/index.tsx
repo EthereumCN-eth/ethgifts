@@ -108,7 +108,7 @@ export const DesktopCards = ({
                 "& .ecn-card-desc": {
                   visibility: "visible",
                   opacity: 1,
-                  animation: `${textAnimation} 1.5s cubic-bezier(0.77, 0, 0.175, 1)`,
+                  animation: `${textAnimation} 2s cubic-bezier(0.77, 0, 0.175, 1)`,
                   transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
                 },
               },

@@ -16,9 +16,10 @@ export const PresentationNFT = ({
   // desc: string | undefined;
 }) => {
   const { contractReadObj, infoDetail, detailTags } = nftData;
-  const hasNFT = useHasNFT({
+  const { hasNFT } = useHasNFT({
     contractReadObj,
   });
+  // console.log("hasNFT", hasNFT);
   const deliveryText = infoDetail?.deliveryText;
   const { hasClaimedText = "", noClaimedText = "" } = deliveryText || {};
   return (
