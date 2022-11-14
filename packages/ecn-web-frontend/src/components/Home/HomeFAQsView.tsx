@@ -123,7 +123,7 @@ export const HomeFAQsView = () => {
         fontSize="2.75rem"
         mb="2.75rem"
       >
-        FAQs
+        FAQ
       </Heading>
 
       <Accordion
