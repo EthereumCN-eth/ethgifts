@@ -3,7 +3,7 @@ import { REDIS } from "./constants";
 import { generateSignature } from "./generateSignature";
 
 const signatureGenerationQueue =
-  process.env.ARWEAVE_SIGN === "true" && new Bull("sign", REDIS);
+  process.env.BULLQUEUE_SIGN === "true" && new Bull("sign", REDIS);
 
 const setupBull = () => {
   if (!signatureGenerationQueue) return;
