@@ -3,15 +3,14 @@ pragma solidity ^0.8.13;
 
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
-import '@openzeppelin/contracts/utils/Counters.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-contract ECNAnniversary_4 is ERC721, Ownable {
+contract ECN4Anniversary is ERC721, Ownable {
     bytes32 public merkleRoot;
 
     string public baseURI;
 
-    constructor() ERC721('ECNAnniversary_4', 'ECNAnniversary_4') {}
+    constructor() ERC721('ECN4Anniversary', 'ECN4Anniversary') {}
 
     /** ========== view functions ========== */
     function _baseURI() internal view virtual override returns (string memory) {
