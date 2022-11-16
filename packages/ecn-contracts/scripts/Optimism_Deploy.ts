@@ -24,7 +24,7 @@ export const ExpressSBT_optimism = async (
 
 export const ECNAnniversary_4_optimism = async () => {
   const Anniversary4Factory = await hre.ethers.getContractFactory(
-    'ECNAnniversary_4'
+    'ECN4Anniversary'
   );
   const Anniversary = await Anniversary4Factory.deploy();
 

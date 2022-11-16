@@ -40,7 +40,7 @@ export const Anniversary_init = async (
       throw new Error('argus not set');
     }
 
-    const AnniFactory = await hre.ethers.getContractFactory('ECNAnniversary4');
+    const AnniFactory = await hre.ethers.getContractFactory('ECN4Anniversary');
     await AnniFactory.attach(anni4_address).initializeEvent(
       Anni4_merkleRoot,
       Anni4_baseUri
