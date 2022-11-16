@@ -1,18 +1,29 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, keyframes, Text } from "@chakra-ui/react";
+import { css } from "@emotion/react";
 import type { UseMeasureRef } from "react-use/lib/useMeasure";
 
 import { ICON_TOP_MARGIN, ICON_TOP_HOVER_MARGIN_OFFSET } from "./constants";
 import type { IconDataType } from "./types";
 
+const textAnimation = keyframes`
+  0%   {opacity:0}
+  /* 50%  {opacity:0} */
+  100% {opacity:1}
+`;
+
 export const ECNCardMiddleDesc = ({
   item,
   cardIconHeight,
   boxRef,
+  isCurrentOnHover,
 }: {
   item: IconDataType;
   cardIconHeight: number;
-  boxRef: UseMeasureRef<HTMLParagraphElement>;
+  boxRef: UseMeasureRef<HTMLDivElement>;
+  isCurrentOnHover: boolean;
 }) => {
+  // console.log(item.text, "isCurrentOnHover", isCurrentOnHover);
+  // console.log("isOuterOnHover", isOuterOnHover);
   return (
     <Box
       ref={boxRef}
@@ -22,14 +33,19 @@ export const ECNCardMiddleDesc = ({
         68 * 0.02
       }vh)`}
       fontWeight={500}
-      visibility="hidden"
       // transition="all 3s cubic-bezier(0.77, 0, 0.175, 1)"
       textAlign="center"
       lineHeight="150%"
       fontSize={["xxs", "xs", "sm", "sm"]}
       w="90%"
-      className="ecn-card-desc"
       opacity={0}
+      css={css`
+        ${isCurrentOnHover &&
+        css`
+          animation: 0.5s cubic-bezier(0.77, 0, 0.175, 1) 1s ${textAnimation}
+            both;
+        `}
+      `}
     >
       {item.descLines.map((line) => {
         return (
