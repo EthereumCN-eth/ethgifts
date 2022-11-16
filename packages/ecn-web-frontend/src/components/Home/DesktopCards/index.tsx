@@ -1,16 +1,10 @@
-import { Box, HStack, keyframes, Center, Flex } from "@chakra-ui/react";
+import { Box, HStack, Center, Flex } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 
 import { TOTAL_H } from "./constants";
 import { data } from "./data";
 import { OneCard } from "./OneCard";
-
-const textAnimation = keyframes`
-  0%   {opacity:0}
-  50%  {opacity:0}
-  100% {opacity:1}
-`;
 
 export const DesktopCards = ({
   hBarOpacity,
@@ -20,6 +14,7 @@ export const DesktopCards = ({
   vBarOpacity: number;
 }) => {
   const [opacityBlocked, setOpacitBlocked] = useState(true);
+  const [isBiggerH, setBiggerH] = useState(false);
   const vOpacityRef = useRef(0);
   const hOpacityRef = useRef(0);
   hOpacityRef.current = opacityBlocked ? 0 : hBarOpacity;
@@ -65,67 +60,22 @@ export const DesktopCards = ({
             w="full"
             // px={}
             minH={`${TOTAL_H}vh`}
+            h={isBiggerH ? "90vh" : "68vh"}
             align="center"
             justify="space-between"
             gap={0}
-            sx={{
-              "& .ecn-card-title": {
-                transform: `rotateZ(${isOnHover ? "90deg" : "0deg"})`,
-                // eslint-disable-next-line sonarjs/no-duplicate-string
-                transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
-              },
-              "& .ecn-card-title-char": {
-                display: "inline-block",
-                /* display: ${isOnHover ? "block" : "inline"}; */
-                transform: `rotateZ(${isOnHover ? "-90deg" : "0deg"})`,
-                transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
-                letterSpacing: isOnHover ? "0.3em" : "0",
-              },
+            onMouseOver={() => {
+              setIsOnHover(true);
             }}
-            _hover={{
-              "& > div": {
-                w: "25%",
-
-                transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
-              },
-
-              "& > div:hover": {
-                w: "65%",
-                "& .ecn-icon": {
-                  // top: "3%",
-                },
-
-                "& .ecn-card-title": {
-                  transform: `rotateZ(${"0deg"})`,
-                  // top: "81.4%",
-
-                  transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
-                },
-                "& .ecn-card-title-char": {
-                  transform: `rotateZ(${"0deg"})`,
-                  transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
-                },
-                "& .ecn-card-desc": {
-                  visibility: "visible",
-                  opacity: 1,
-                  animation: `${textAnimation} 2s cubic-bezier(0.77, 0, 0.175, 1)`,
-                  transition: "all 1s cubic-bezier(0.77, 0, 0.175, 1)",
-                },
-              },
-              "& > div:not(:hover)": {
-                w: isOnHover ? "11.666%" : "25%",
-                "& .ecn-in-icon-shell": {
-                  // top: "14.4%",
-                  opacity: 0,
-                },
-              },
+            onMouseOut={() => {
+              setIsOnHover(false);
             }}
           >
             {data.map((i, index) => {
               return (
                 <OneCard
+                  setBiggerH={setBiggerH}
                   isOuterOnHover={isOnHover}
-                  setOuterIsOnHover={setIsOnHover}
                   key={i.text}
                   item={i}
                   index={index}

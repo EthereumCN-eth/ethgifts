@@ -1,5 +1,5 @@
 import { VStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { useMeasure } from "react-use";
 
@@ -13,68 +13,89 @@ export const OneCard = ({
   item,
   index,
   isOuterOnHover,
-  setOuterIsOnHover,
+  setBiggerH,
 }: {
   item: IconDataType;
   index: number;
   isOuterOnHover: boolean;
-  setOuterIsOnHover: Dispatch<SetStateAction<boolean>>;
+  setBiggerH: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [cardIconRef, { height: cardIconHeight }] =
     useMeasure<HTMLDivElement>();
   const [middleBoxRef, { height: middleBoxHeight }] =
     useMeasure<HTMLDivElement>();
+  const [titleRef, { height: titleHeight }] = useMeasure<HTMLDivElement>();
   // const [titleRef, { height: titleHeight }] = useMeasure<HTMLDivElement>();
   const [isCurrentOnHover, setIsCurrentOnHover] = useState(false);
   // const iconTopM = `calc(${TOTAL_H}vh - ${
   //   cardIconHeight + middleBoxHeight + titleHeight
   // }px)`;
   // console.log("iconTopM", iconTopM);
+  const isSetRef = useRef(false);
+  useEffect(() => {
+    const itemHeight =
+      0.68 * 0.37 * window.innerHeight +
+      middleBoxHeight +
+      titleHeight +
+      cardIconHeight;
+    if (!isSetRef.current && itemHeight > window.innerHeight * 0.8) {
+      setBiggerH(true);
+      isSetRef.current = false;
+    }
+  }, [cardIconHeight, middleBoxHeight, setBiggerH, titleHeight]);
+
   // console.log("middleBoxHeight", middleBoxHeight);
   // console.log("titleHeight", titleHeight);
   // console.log("cardIconHeight", cardIconHeight);
+
   return (
     <VStack
       onMouseOver={() => {
-        setOuterIsOnHover(true);
+        // setOuterIsOnHover(true);
         setIsCurrentOnHover(true);
       }}
       onMouseOut={() => {
-        setOuterIsOnHover(false);
+        // setOuterIsOnHover(false);
         setIsCurrentOnHover(false);
       }}
       key={item.text}
       m={0}
       bg={isOuterOnHover ? item.bgColor : "white"}
       // bg={i.bgColor}
-      w="20vw"
+      // w="20vw"
+      // eslint-disable-next-line no-nested-ternary
+      w={isCurrentOnHover ? `65%` : isOuterOnHover ? "11.6666%" : "25%"}
       // pt={`${iconTopM}px`}
       minH="68vh"
+      h="full"
       borderLeft="#E1E1E1 solid 1px"
       borderRight={index === data.length - 1 ? "#E1E1E1 solid 1px" : "none"}
       align="center"
       position="relative"
       transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
+      justify="center"
     >
       <ECNIcons
+        isOuterOnHover={isOuterOnHover}
         cardIconHeight={cardIconHeight}
         cardIconRef={cardIconRef}
         item={item}
         isCurrentOnHover={isCurrentOnHover}
       />
+      <ECNCardMiddleDesc
+        isCurrentOnHover={isCurrentOnHover}
+        cardIconHeight={cardIconHeight}
+        boxRef={middleBoxRef}
+        item={item}
+      />
 
       <ECNCardTitle
-        // titleRef={titleRef}
+        titleRef={titleRef}
+        isOuterOnHover={isOuterOnHover}
         item={item}
         isCurrentOnHover={isCurrentOnHover}
         cardIconHeight={cardIconHeight}
         toExpandTopVal={middleBoxHeight}
-      />
-
-      <ECNCardMiddleDesc
-        cardIconHeight={cardIconHeight}
-        boxRef={middleBoxRef}
-        item={item}
       />
     </VStack>
   );
