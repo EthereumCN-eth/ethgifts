@@ -9,14 +9,17 @@
     "boot": "lerna bootstrap",
     "discord-bot": "lerna run --scope=ecn-discord-bot start --stream",
     "prisma-gen": "lerna run --scope=ecn-sbt-api prisma-generate --stream && lerna run --scope=ecn-web-api prisma-generate --stream",
-    "env-gen": "[[ -f ./node_modules/.bin/lerna-env-generate ]] && ./node_modules/.bin/lerna-env-generate",
-    "postinstall": "[[ -f ./node_modules/.bin/lerna-env-generate ]] && ./node_modules/.bin/lerna-env-generate"
+    "env-gen": "node node_modules/lerna-env-generate/dist/index.mjs",
+    "postinstall": "yarn env-gen"
   },
   "devDependencies": {
-    "lerna": "^4.0.0",
-    "lerna-env-generate": "./scripts/lerna-env-generate"
+    "lerna": "^4.0.0"
   },
   "dependencies": {
+    "lerna-env-generate": "./scripts/lerna-env-generate",
     "yup": "^0.32.11"
+  },
+  "resolutions": {
+    "postinstall-postinstall": "./scripts/postinstall-postinstall"
   }
 }
