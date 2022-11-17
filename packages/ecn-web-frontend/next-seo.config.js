@@ -2,8 +2,8 @@
 const defaultSEOConfig = {
   title: "ETHGifts",
   titleTemplate: "%s",
-  defaultTitle: "nextarter-chakra",
-  description: "Next.js + chakra-ui + TypeScript template",
+  defaultTitle: "ETHGifts",
+  description: "ETHGifts",
   canonical: "https://www.ethgifts.com",
   openGraph: {
     url: "https://www.ethgifts.com",
