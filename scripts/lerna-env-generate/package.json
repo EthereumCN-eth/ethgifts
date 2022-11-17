@@ -17,6 +17,8 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
+    "prepare": "npm run build",
+    "dev": "tsup src/index.ts --watch --format cjs,esm",
     "build-fast": "tsup src/index.ts --format cjs,esm",
     "build": "pnpm run build-fast -- --dts-resolve",
     "test": "vitest run",
@@ -30,5 +32,8 @@
     "tsup": "6.0.1",
     "typescript": "4.5.4",
     "vitest": "0.12.6"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
   }
 }

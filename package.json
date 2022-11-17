@@ -11,10 +11,10 @@
     "prisma-gen": "lerna run --scope=ecn-sbt-api prisma-generate --stream && lerna run --scope=ecn-web-api prisma-generate --stream"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "lerna-env-generate": "./scripts/lerna-env-generate"
   },
   "dependencies": {
-    "lerna-env-generate": "./scripts/lerna-env-generate",
     "yup": "^0.32.11"
   }
 }
