@@ -11,7 +11,7 @@ export function ChakraNextLink({
   ...props
 }: ChakraLinkAndNextProps) {
   return (
-    <NextLink href={href} passHref>
+    <NextLink href={href} passHref scroll={false}>
       <Link {...props}>{children}</Link>
     </NextLink>
   );

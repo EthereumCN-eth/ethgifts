@@ -3,13 +3,14 @@ import {
   HStack,
   IconButton,
   Image,
-  Link,
   ListItem,
   UnorderedList,
   // useDisclosure,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useRouter } from "next/router";
+
+import { ChakraNextLink } from "../ChakraNextLink";
 
 import { useHeaderStore } from "./headerState";
 // import "@rainbow-me/rainbowkit/styles.css";
@@ -99,7 +100,7 @@ const Header = () => {
             {navItems.map((item) => {
               return (
                 <ListItem mr="44px" key={item.label} display="inline-block">
-                  <Link
+                  <ChakraNextLink
                     maxW={64}
                     fontSize="sm"
                     lineHeight={4}
@@ -110,7 +111,7 @@ const Header = () => {
                     target={item.isBlank ? "_blank" : "_self"}
                   >
                     {item.label}
-                  </Link>
+                  </ChakraNextLink>
                 </ListItem>
               );
             })}
