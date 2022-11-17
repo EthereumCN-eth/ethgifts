@@ -35,8 +35,8 @@ export const LiveAnimate = () => {
   return (
     <div
       css={css`
-        width: 18px;
-        height: 18px;
+        width: 10px;
+        height: 10px;
         position: relative;
         background: transparent;
       `}
@@ -57,8 +57,8 @@ export const LiveAnimate = () => {
       <div
         css={css`
           position: absolute;
-          width: 7.2px;
-          height: 7.2px;
+          width: 5px;
+          height: 5px;
           background-color: #ee862b;
           border-radius: 50%;
           top: 50%;
