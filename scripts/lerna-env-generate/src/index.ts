@@ -4,6 +4,7 @@ import { collectRootEnvRecord } from "./collectRootEnvRecord"
 import { computeOutputEnv } from "./computeOutputEnv"
 import { parsePackages } from "./parsePackages"
 import { writeEnvFile } from "./utils"
+import chalk from "chalk"
 
 const run = async () => {
   try {
@@ -22,7 +23,11 @@ const run = async () => {
             })
             return computedEnvObj
           }
-          return null
+          return {
+            envFileName: rootEnvFileName,
+            envObj: null,
+            hasAllKeys: null,
+          }
         })
         return {
           packageName,
@@ -35,27 +40,34 @@ const run = async () => {
 
     computedPackageEnvArray.forEach((packageObj) => {
       const { packageName, packageRoot } = packageObj
+      console.log(`For package(${chalk.blue(packageName)}):`)
       packageObj.computedEnvArray.forEach((item) => {
-        if (!item) {
-          console.log(`no env.example for package(${packageName})`)
+        if (!item.envObj) {
+          console.log(
+            chalk.red(
+              `${item.envFileName}: no env.example for package(${packageName})`,
+            ),
+          )
+          return
         }
-        if (item) {
-          const { envFileName, envObj, hasAllKeys } = item
+        const { envFileName, envObj, hasAllKeys } = item
 
-          if (hasAllKeys) {
-            writeEnvFile({
-              packageRoot,
-              packageName,
-              envFileName,
-              envObj,
-            })
-          } else {
-            console.log(
-              `env keys(under root ${envFileName}) are not complete for package(${packageName}); no auto env generation for package(${packageName})`,
-            )
-          }
+        if (hasAllKeys) {
+          writeEnvFile({
+            packageRoot,
+            packageName,
+            envFileName,
+            envObj,
+          })
+        } else {
+          console.log(
+            chalk.yellow(
+              `${item.envFileName}: env keys(under root ${envFileName}) are not complete for package(${packageName})`,
+            ),
+          )
         }
       })
+      console.log(`\n`)
     })
     // console.log(computedPackageEnvArray)
   } catch (error) {

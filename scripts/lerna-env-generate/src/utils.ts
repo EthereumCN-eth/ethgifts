@@ -1,3 +1,4 @@
+import chalk from "chalk"
 import dotenv, { DotenvParseOutput } from "dotenv"
 import { readFileSync } from "fs"
 import { writeFileSync } from "fs"
@@ -37,5 +38,9 @@ export const writeEnvFile = ({
 }) => {
   const toPath = join(packageRoot, envFileName)
   writeFileSync(toPath, stringifyToEnvFile(envObj))
-  console.log(`written ${envFileName}  to package(${packageName}) root`)
+  console.log(
+    chalk.green(
+      `${envFileName}: written ${envFileName}  to package(${packageName}) root`,
+    ),
+  )
 }
