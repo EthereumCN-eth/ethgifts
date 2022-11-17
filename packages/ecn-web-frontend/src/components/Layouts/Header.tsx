@@ -117,7 +117,7 @@ const Header = () => {
             })}
           </UnorderedList>
           <ConnectButton
-            chainStatus="none"
+            chainStatus="full"
             accountStatus="address"
             showBalance={false}
           />
