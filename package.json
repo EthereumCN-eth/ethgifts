@@ -9,7 +9,7 @@
     "boot": "lerna bootstrap",
     "discord-bot": "lerna run --scope=ecn-discord-bot start --stream",
     "prisma-gen": "lerna run --scope=ecn-sbt-api prisma-generate --stream && lerna run --scope=ecn-web-api prisma-generate --stream",
-    "env-gen": "./node_modules/.bin/lerna-env-generate",
+    "env-gen": "[[ -f ./node_modules/.bin/lerna-env-generate ]] && ./node_modules/.bin/lerna-env-generate",
     "postinstall": "yarn env-gen"
   },
   "devDependencies": {
