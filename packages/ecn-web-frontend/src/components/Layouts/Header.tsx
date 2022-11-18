@@ -61,9 +61,9 @@ const Header = () => {
           }}
           icon={
             <Image
-              src="/giftslog.png"
-              h="50px"
-              w="10vw"
+              src="/ethgifts-logo.svg"
+              h={["40px", "40px", "60px", `${(3.5 / 81) * 70}vw`]}
+              w={["35px", "35px", "52px", "3.5vw"]}
               fit="contain"
               alt="ethgifts-logo"
             />
