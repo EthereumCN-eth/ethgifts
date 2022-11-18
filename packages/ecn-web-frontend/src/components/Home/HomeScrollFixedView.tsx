@@ -103,27 +103,35 @@ export const HomeScrollFixedView = () => {
               `}
             >
               <Image
-                src="/giftslog.png"
-                alt="ethgifts-logo"
+                src="/ethgifts-img.svg"
+                alt="ethgifts-welcome"
                 objectFit="contain"
-                w={`${(circleLen() * 86 * 2) / 690}px`}
-                h={`${(circleLen() * 30 * 2) / 690}px`}
-                mb={`${(circleLen() * 37) / 690}px`}
+                w={`${(circleLen() * 260) / 690}px`}
+                h={`${(circleLen() * 165) / 690}px`}
+                mb={`${(circleLen() * 10) / 690}px`}
+              />
+              <Image
+                src="/ethgifts-title.png"
+                alt="ethgifts-title"
+                objectFit="contain"
+                w={`${(circleLen() * 213) / 690}px`}
+                h={`${(circleLen() * 71) / 690}px`}
+                mb={`${(circleLen() * 11) / 690}px`}
               />
 
-              <Text
+              {/* <Text
                 css={css`
-                  font-family: "PingFang SC";
+                  font-family: "Megrim";
                   font-style: normal;
-                  font-weight: 400;
+                  font-weight: bold;
                   font-size: calc(${circleLen()}px * 44 / 690 * 1.1);
                   color: rgba(15, 7, 1, 0.6);
                   font-weight: 600;
                 `}
-                mb={`${(circleLen() * 5) / 690}px`}
+                mb={`${(circleLen() * 21) / 690}px`}
               >
                 ETHGifts
-              </Text>
+              </Text> */}
               <Text
                 css={css`
                   font-family: "PingFang SC";
@@ -136,7 +144,7 @@ export const HomeScrollFixedView = () => {
                   margin-top: 15px;
                   width: 70%;
                   letter-spacing: 0.01em;
-                  color: rgba(15, 7, 1, 0.6);
+                  color: rgba(15, 7, 1, 0.8);
                 `}
               >
                 把你在ECN的社区参与编码为 web3 的数字凭证

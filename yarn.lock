@@ -2680,6 +2680,16 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
+"@fontsource/megrim@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/megrim/-/megrim-4.5.11.tgz#3cff9ec5495eec2b0ace4949e66cb52359a76ac8"
+  integrity sha512-Gchjz8pb/sBWUcyzOhsIRBpa1OiinPUJ1nz9HD4yYGmeVKqXd1VsyskS7HL7d/LqP7uTdaO8kykg+2wceuIsOg==
+
+"@fontsource/noto-sans@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans/-/noto-sans-4.5.11.tgz#9074486d876577f3688f884c7ad6196d6dbea27e"
+  integrity sha512-lBX7FCjIjSrQ+iMuXUuO+mbjbnUsJyZANg/04PgkeeAYe+cwnX81ibbgrAk1F56M6/btIrWQoDjxsK6Sz8KoVQ==
+
 "@fontsource/red-rose@^4.5.9":
   version "4.5.9"
   resolved "https://registry.yarnpkg.com/@fontsource/red-rose/-/red-rose-4.5.9.tgz#4f8cab8e0811b72f755c868e2f79775753baf0cd"
@@ -20262,8 +20272,10 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-postinstall-postinstall@./scripts/postinstall-postinstall, postinstall-postinstall@^2.1.0:
-  version "2.0.0"
+postinstall-postinstall@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/postinstall-postinstall/-/postinstall-postinstall-2.1.0.tgz#4f7f77441ef539d1512c40bd04c71b06a4704ca3"
+  integrity sha512-7hQX6ZlZXIoRiWNrbMQaLzUUfH+sSx39u8EJ9HYuDc1kLo9IXKWjM5RSquZN1ad5GnH8CGFM78fsAAQi3OKEEQ==
 
 preact@10.4.1:
   version "10.4.1"
