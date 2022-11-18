@@ -28,6 +28,8 @@
     "@ethersproject/constants": "^5.7.0",
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
+    "@fontsource/megrim": "^4.5.11",
+    "@fontsource/noto-sans": "^4.5.11",
     "@fontsource/red-rose": "^4.5.9",
     "@prisma/client": "^4.2.1",
     "@rainbow-me/rainbowkit": "^0.5.1",

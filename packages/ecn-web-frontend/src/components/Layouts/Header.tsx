@@ -94,7 +94,7 @@ const Header = () => {
             alignItems="center"
             color={textColor}
             fontFamily="PingFang SC"
-            fontWeight={400}
+            fontWeight={500}
             display={{ base: "none", md: "flex" }}
           >
             {navItems.map((item) => {
@@ -116,11 +116,22 @@ const Header = () => {
               );
             })}
           </UnorderedList>
-          <ConnectButton
-            chainStatus="full"
-            accountStatus="address"
-            showBalance={false}
-          />
+          <Box
+            sx={{
+              "&& div button": {
+                fontWeight: 500,
+              },
+              // "&& div": {
+              //   fontWeight: 500,
+              // },
+            }}
+          >
+            <ConnectButton
+              chainStatus="full"
+              accountStatus="address"
+              showBalance={false}
+            />
+          </Box>
         </HStack>
       </HStack>
     </Box>

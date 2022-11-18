@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { DesktopCards } from "./DesktopCards";
@@ -6,10 +6,11 @@ import { useScrollAnimate } from "./useScrollAnimate";
 
 const circleLen = () => {
   // eslint-disable-next-line no-nested-ternary
-  if (window.innerWidth * 0.33 > 740 && window.innerWidth * 0.33 < 690)
-    return "33vw";
-  const len = window.innerHeight > 690 && window.innerWidth > 690 ? 550 : 300;
-  return `${Math.min(window.innerHeight * 0.65, len)}px`;
+  // if (window.innerWidth * 0.33 > 740 && window.innerWidth * 0.33 < 690)
+  //   return "33vw";
+  // const len = window.innerHeight > 690 && window.innerWidth > 690 ? 550 : 300;
+  // return `${Math.min(window.innerHeight * 0.65, len)}px`;
+  return Math.min(window.innerHeight * 0.618, window.innerWidth * 0.618);
 };
 
 const HEIGHT_WHOLE = "330vh";
@@ -69,9 +70,9 @@ export const HomeScrollFixedView = () => {
             >
               <div
                 css={css`
-                  width: calc(${circleLen()} * 1);
+                  width: calc(${circleLen()}px);
 
-                  height: calc(${circleLen()} * 1);
+                  height: calc(${circleLen()}px);
                   background: white;
                   border-radius: 50%;
                   transform: ${`translateY(${0}vh)  scale(${
@@ -89,47 +90,66 @@ export const HomeScrollFixedView = () => {
               />
             </Flex>
 
-            <div
+            <Flex
+              align="center"
+              justify="center"
               css={css`
                 position: fixed;
                 /* transform: ${`translateY(-1vw) `}; */
                 opacity: ${scrollOpacityRef.current};
-                display: flex;
                 flex-direction: column;
-                align-items: center;
+
                 z-index: 20;
               `}
             >
-              <p
+              <Image
+                src="/ethgifts-img.svg"
+                alt="ethgifts-welcome"
+                objectFit="contain"
+                w={`${(circleLen() * 260) / 690}px`}
+                h={`${(circleLen() * 165) / 690}px`}
+                mb={`${(circleLen() * 10) / 690}px`}
+              />
+              <Image
+                src="/ethgifts-title.png"
+                alt="ethgifts-title"
+                objectFit="contain"
+                w={`${(circleLen() * 213) / 690}px`}
+                h={`${(circleLen() * 71) / 690}px`}
+                mb={`${(circleLen() * 11) / 690}px`}
+              />
+
+              {/* <Text
                 css={css`
-                  font-family: "PingFang SC";
+                  font-family: "Megrim";
                   font-style: normal;
-                  font-weight: 400;
-                  font-size: calc(${circleLen()} / 12);
+                  font-weight: bold;
+                  font-size: calc(${circleLen()}px * 44 / 690 * 1.1);
                   color: rgba(15, 7, 1, 0.6);
                   font-weight: 600;
                 `}
+                mb={`${(circleLen() * 21) / 690}px`}
               >
                 ETHGifts
-              </p>
-              <p
+              </Text> */}
+              <Text
                 css={css`
                   font-family: "PingFang SC";
                   font-style: normal;
-                  width: calc(${circleLen()} * 0.68);
+                  width: calc(${circleLen()}px * 0.68);
                   font-weight: 600;
-                  font-size: calc(${circleLen()} / 34);
+                  font-size: calc(${circleLen()}px * 14 / 690 * 1.1);
                   text-align: center;
                   line-height: 1.7;
                   margin-top: 15px;
                   width: 70%;
                   letter-spacing: 0.01em;
-                  color: rgba(15, 7, 1, 0.6);
+                  color: rgba(15, 7, 1, 0.8);
                 `}
               >
                 把你在ECN的社区参与编码为 web3 的数字凭证
-              </p>
-            </div>
+              </Text>
+            </Flex>
           </VStack>
         )}
         <Flex
