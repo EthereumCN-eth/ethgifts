@@ -35,7 +35,7 @@ export const HomeGalleryView = ({
       <Heading
         pt="100px"
         pb="76px"
-        fontFamily="PingFang SC"
+        fontFamily="Noto Sans"
         fontWeight={600}
         color="#EE862B"
         fontSize="2.75rem"

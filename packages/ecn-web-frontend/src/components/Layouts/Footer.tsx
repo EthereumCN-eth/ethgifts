@@ -68,7 +68,13 @@ export const Footer = () => {
         // bgColor="background: rgba(12, 6, 1, 0.8)"
         align="center"
       >
-        <Heading color="#EE862B" mb="56px" fontWeight={400} fontSize="2.75rem">
+        <Heading
+          color="#EE862B"
+          fontFamily="Noto Sans"
+          mb="56px"
+          fontWeight={600}
+          fontSize="2.75rem"
+        >
           ETH Gifts
         </Heading>
         <Text
