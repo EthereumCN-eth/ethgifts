@@ -43,15 +43,15 @@ export const nfts: NFTCreateData[] = [
           },
           eventDescription: "",
           title: "以太坊合并观看派对留言板",
-          subTitle: "Messages Board NFT",
+          subTitle: "Message Board NFT",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "在 2022 年 9 月 15 日，ECN、Ethplanet 与 Crypto Tech Night 在以太坊合并当天共同举办“一起来唠嗑 The Merge” 观看派对，现场连线多位嘉宾对合并、PoS 和 Staking 等话题进行讨论和分享，与现场观众互动，并转播以太坊基金会的直播现场，一起唠嗑，共同经历这个以太坊的历史时刻。",
-                "ECN 还为此次观看派对的参与者准备了 “The Merge 留言板 NFT” ，参与者通过在合约页面写入自己的关于以太坊合并的语句，即可铸造一个随机的 The Merge 贴图 NFT，现在，ECN 通过前端，把参与者的留言展示在画布上，形成一个数字留言板 NFT。大家快来找找画布上自己的留言吧！",
+                "ECN 为此次观看派对的参与者准备了 “The Merge 留言板 NFT” 。参与者通过在 etherscan 的合约写入自己关于以太坊合并感想的语句完成交互，即可铸造一个随机的 The Merge 贴图 NFT。ECN 把所有这些留言都收集起来，生成熊猫形状的留言板，并制作成 NFT。在 The Merge Watch Party 上有留言的朋友都有资格铸造这个新 NFT 哦！",
               ],
             },
             {
@@ -74,8 +74,8 @@ export const nfts: NFTCreateData[] = [
               ],
             },
             {
-              heading: "直播回放 video",
-              subHeading: "Playback Video",
+              heading: "直播回放",
+              subHeading: "Playback",
               type: "video",
               data: [
                 {
@@ -133,15 +133,15 @@ export const nfts: NFTCreateData[] = [
           },
           eventDescription: "",
           title: "以太坊合并观看派对留言板",
-          subTitle: "Messages Board NFT",
+          subTitle: "Message Board NFT",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "在 2022 年 9 月 15 日，ECN、Ethplanet 与 Crypto Tech Night 在以太坊合并当天共同举办“一起来唠嗑 The Merge” 观看派对，现场连线多位嘉宾对合并、PoS 和 Staking 等话题进行讨论和分享，与现场观众互动，并转播以太坊基金会的直播现场，一起唠嗑，共同经历这个以太坊的历史时刻。",
-                "ECN 还为此次观看派对的参与者准备了 “The Merge 留言板 NFT” ，参与者通过在合约页面写入自己的关于以太坊合并的语句，即可铸造一个随机的 The Merge 贴图 NFT，现在，ECN 通过前端，把参与者的留言展示在画布上，形成一个数字留言板 NFT。大家快来找找画布上自己的留言吧！",
+                "ECN 为此次观看派对的参与者准备了 “The Merge 留言板 NFT” 。参与者通过在 etherscan 的合约写入自己关于以太坊合并感想的语句完成交互，即可铸造一个随机的 The Merge 贴图 NFT。ECN 把所有这些留言都收集起来，生成熊猫形状的留言板，并制作成 NFT。在 The Merge Watch Party 上有留言的朋友都有资格铸造这个新 NFT 哦！",
               ],
             },
             {
@@ -164,8 +164,8 @@ export const nfts: NFTCreateData[] = [
               ],
             },
             {
-              heading: "直播回放 video",
-              subHeading: "Playback Video",
+              heading: "直播回放",
+              subHeading: "Playback",
               type: "video",
               data: [
                 {
@@ -223,8 +223,8 @@ export const nfts: NFTCreateData[] = [
           subTitle: "2022 Chinese New Year EthTiger",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "2022 年的虎年新春，ECN 组织举办了以太坊社区新春系列活动：<li>We create ——虎年 NFT Bounty 计划，在社区发起以春节、虎年和以太坊为主题的 NFT 设计比赛</li><li>We vote —— NFT 设计比赛的优胜作品由社区投票选出</li><li>We learn and have fun —— ECN 邀请了 Vitalik 来中文社区举行线上访谈和 AMA，与大家互动</li>",
@@ -305,8 +305,8 @@ export const nfts: NFTCreateData[] = [
           subTitle: "The Merge and Weeth",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 <i>The Merge & Weeth</i> —— 以太坊合并与我们的距离的系列活动，在首场活动邀请了以太坊基金会研究员🥳 Hsiao-Wei Wang (合并熊猫 🐼 这个 meme 的创作者) 给大家带来“以太坊 PoS 之路”的主题分享。",
@@ -314,8 +314,8 @@ export const nfts: NFTCreateData[] = [
               ],
             },
             {
-              heading: "直播回放 video",
-              subHeading: "Playback Video",
+              heading: "直播回放",
+              subHeading: "Playback",
               type: "video",
               data: [
                 {
@@ -360,11 +360,11 @@ export const nfts: NFTCreateData[] = [
           eventDescription: "",
           title:
             "The Merge & Weeth 系列活动的第二场：Rocket Pool 如何实现以太坊质押去中心化",
-          subTitle: "The Merge and Weeth",
+          subTitle: "Decentralize staking with Rocket Pool",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 举办主题为 The Merge & Weeth —— 以太坊合并与我们的距离的系列活动，在第二场活动邀请了去中心化以太坊质押协议 Rocket Pool 的总经理 Darren Langerly 给大家带来“Rocket Pool 如何实现以太坊质押去中心化”的主题分享。",
@@ -372,8 +372,8 @@ export const nfts: NFTCreateData[] = [
               ],
             },
             {
-              heading: "直播回放 video",
-              subHeading: "Playback Video",
+              heading: "直播回放",
+              subHeading: "Playback",
               type: "video",
               data: [
                 {
@@ -419,8 +419,8 @@ export const nfts: NFTCreateData[] = [
           subTitle: "2021 The Year of 0x",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introductions",
               type: "html",
               data: [
                 "2021 年 2 月 11 日~14 日，ECN 在 Decentraland 的龙城举行了牛年新春活动，主题为“当以太坊遇见虚拟世界和非遗传统文化”。此次活动内容丰富，奖品特别。ECN 邀请了 AI 和区块链艺术家宋婷 (Twitter@song11ting) 制作此次活动的奖品，包括 Non Fungible Indigo 系列的0号作品和1号作品，以及以以太坊为主题的扎染和蜡染作品，其中的创作理念是，“扎染”是中国非物质文化遗产，古称扎缬、绞缬、夹缬和染缬。“扎”的过程如同创建私钥，“染”的过程如同基于私钥创建公钥。艺术家宋婷也想以区块链技术守护古典技艺瑰宝、传递可持续发展理念。",
@@ -428,7 +428,7 @@ export const nfts: NFTCreateData[] = [
             },
             {
               heading: "NFT制作花絮",
-              subHeading: "Showcase",
+              subHeading: "Highlights",
               type: "image",
               data: [
                 {
@@ -478,8 +478,8 @@ export const nfts: NFTCreateData[] = [
           subTitle: "The Merge Panda",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "在 2021 年 10 月 26 日，ECN 携 togETHer 的社区伙伴 (ETHPlanet/DAOSquare/原语里弄/Hiblock/Rebase/BTCU) 在上海举办了以太坊社区 Meetup，现场气氛活跃，干货满满，对多个主题进行了讨论，包括 EIP-1559、以太坊2.0、MEV、DAO、区块链安全等。",
@@ -543,8 +543,8 @@ export const nfts: NFTCreateData[] = [
           subTitle: "The Merge of Ethereum",
           dataSection: [
             {
-              heading: "活动详情",
-              subHeading: "Activities",
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "ECN 有幸受邀与 imToken 联合举办此次以太坊合并主题活动。<br>学习以太坊合并知识并完成答题，即可赢取 imToken 以太坊升级系列 NFT 和 5000 USDC。<br>以太坊已于 2022 年 9 月 15 日完成期待已久的合并，从 PoW 共识机制顺利升级至 PoS。",
@@ -560,6 +560,74 @@ export const nfts: NFTCreateData[] = [
                 {
                   src: "https://ethereumcn.mypinata.cloud/ipfs/Qmakhp7gnHcVq8Fi13ZkGPPN4ckcY7iDmzVA4bpUnJuXLw",
                   alt: "poster",
+                },
+              ],
+            },
+          ],
+        } as Prisma.InputJsonValue,
+      },
+    },
+  },
+  {
+    contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+    symbol: "ETHGifts",
+    nftAppType: "DELIVERY",
+    nftDeliveryData: {
+      create: {
+        merkleUrl:
+          // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
+          "",
+        tokenType: "ERC721",
+        contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+      },
+    },
+
+    galleryItemBase: {
+      create: {
+        coverLink:
+          "https://ethereumcn.mypinata.cloud/ipfs/QmZKvPE9MTQAPhGDPvRaYZU2YUY1VTsjaNkz2VUzcTHULi",
+        imageLinks: [
+          "https://ethereumcn.mypinata.cloud/ipfs/QmZKvPE9MTQAPhGDPvRaYZU2YUY1VTsjaNkz2VUzcTHULi",
+        ],
+
+        chainId: 10,
+        name: "ECN's 4th Anniversary NFT",
+        tags: ["NFT", "参与证明"],
+        eventStartTime: 1663222616,
+        eventDuration: 7626505,
+        onShelf: true,
+        galleryItemType: "nft",
+        infoDetail: {
+          deliveryText: {
+            beforeText: "申领还没开始。",
+            toClaimText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
+            hasClaimedText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
+            noClaimedText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+            endedNoText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+          },
+          eventDescription: "",
+          title: "ECN 四周年活动",
+          subTitle: "#ECN4thAnniversary #MyMomentWithECN",
+          dataSection: [
+            {
+              heading: "活动介绍",
+              subHeading: "Event Introduction",
+              type: "html",
+              data: [
+                "从 2018 年 10 月翻译的第一篇文章《激进 x 变革：当 Vitalik 遇上 Weyl》开始，ECN 已经在不知不觉中走过了四年的时间。",
+                "在这四年里，我们从提供以太坊相关的文章翻译、资讯传递和教育资源整合这些基础性工作开始，逐步聚集了渐成规模的以太坊中文社区，我们在 ECN 管理的社区内举办线上分享和 AMA，进而联合其他以太坊中文社区共同举办线上线下活动，到今年在社区的响应下开始了一系列的社区协作和志愿者计划，并在以太坊合并这一历史时刻邀请了各大社区一起参与一场与中文社区共历的观看派对。我们一步步从 Ethereum-CN (以太坊中文) 转向了 Ethereum Community Network (以太坊社区网络) ，而我们的愿景始终是推动以太坊区块链成为下一代社会基础设施。",
+                "在这四年里，我们都构建了什么？请看我们的导航页 http://ecn.co/",
+                "四年，是总结过去走过的路的一个很好的时间点。ECN 希望通过四周年活动的契机，听听社区对 ECN 四年工作的反馈。于是，我们发起了 #ECN四周年 #我与ECN的瞬间的主题活动，邀请大家在推特或邮件和 discord 给 ECN 分享印象深刻的时刻。参加了此次主题活动的朋友都可以获得 ECN 四周年纪念 NFT。<a href='https://ecn.mirror.xyz/C5-jYyB2wUlUBQ3o8kMnqfxvXt2W9LCPlzE1K_u4Z2A'>详情</a>",
+              ],
+            },
+            {
+              heading: "活动花絮",
+              subHeading: "Highlights",
+              type: "image",
+              data: [
+                {
+                  src: "https://ethereumcn.mypinata.cloud/ipfs/QmV6SMetHnKkNPHEcL59mwtGEGGVqfjE63KznRQZj4rZjo",
+                  alt: "first tweet",
                 },
               ],
             },
