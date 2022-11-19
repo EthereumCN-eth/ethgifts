@@ -5,131 +5,79 @@ import { FAQItem } from "../shared/FAQItem";
 
 const fAQData = [
   {
-    question: "什么是 web3 数字凭证？EthGifts 使用了哪些 web3 数字凭证？？",
+    question: "Ethgifts 使用了哪些 Web3 数字凭证？",
     answer: (
-      <Text
-        textAlign="start"
-        as="span"
-        sx={{
-          textIndent: "2em",
-        }}
-      >
-        {`凭证 (credential)
-        是对一个人拥有特定属性、资格、能力或权利要求的验证。凭证在每个人的社会生活中发挥着举足轻重的作用，我们使用凭证来证明自己的身份、获得权限、展示声誉和社会地位等。Web3
-        以区块链技术为基础，出现了区别于 Web2
-        时代的凭证范式——使用密码学签名、携带任意信息的防篡改数据对象、每个实例都是唯一的、围绕数据对象本身的来源提供保证、由受信任的机构发行或铸造、但不为任何中心化机构或平台所有。`}
-        <Text
-        // sx={{
-        //   textIndent: "0em",
-        // }}
-        >
-          EthGifts 使用的 web3 数字凭证类型包括 NFT、SBT、POAP 和 Verifiable{" "}
-          <ChakraNextLink
-            target="_blank"
-            textDecoration="underline"
-            href="https://docs.ethgifts.com/faq#1.-shen-me-shi-web3-shu-zi-ping-zheng-ethgifts-shi-yong-le-na-xie-web3-shu-zi-ping-zheng"
-          >
-            更多↗
-          </ChakraNextLink>
-        </Text>
+      <Text textAlign="start" as="span" sx={{}}>
+        Web3 以区块链技术为基础，出现了区别于 Web2
+        时代的凭证范式——使用密码学签名、携带任意信息的防篡改数据对象、每个实例都是唯一的、围绕数据对象本身的来源提供保证、由受信任的机构发行或铸造、但不为任何中心化机构或平台所有。
+        <br />
+        EthGifts 使用的 web3 数字凭证类型包括 NFT、SBT、POAP 和 Verifiable
+        Credential (可验证数字凭证){" "}
       </Text>
     ),
   },
 
   {
-    question: "什么是SBT (Soul Bound Token)？",
+    question: "不同类型的数字凭证有什么区别？",
     answer: (
-      <Text
-        textAlign="start"
-        as="span"
-        sx={{
-          textIndent: "2em",
-        }}
-      >
-        {`灵魂绑定通证 (Soulbound Token, SBT)
-        是使用区块链技术代表一个人身份的不可转让的
-        NFT。(NFT，即非同质化代币，是唯一的数字标识符，它不能被复制、替代或细分，记录在区块链上，用于证明真实性和所有权)
-        它可以代表一个人的工作记录、教育资格、证书、成员身份、活动参与、艺术品的哈希值等，旨在呈现人在区块链上丰富的社会属性，激活区块链上
-        DeFi 以外的创新，并解决女巫攻击等问题。它们绑定在被称为“灵魂 (soul)
-        ”的区块链账户或钱包里。`}
+      <Text textAlign="start" as="span" sx={{}}>
+        在凭证的属性上，SBT 与 POAP 都属于
+        NFT，三者都是链上公开可验证的数字凭证，区别在于 SBT 具有不可转让性，使得
+        token 与账户实现绑定，凸显账户的社会属性；POAP 则必须经 POAP
+        平台铸造，包含活动相关的图片、描述和时间。VC
+        默认情况下存储在链下，不依赖于特定平台或区块链，当其 id 使用基于区块链的
+        did 时，VC 的真实性也能实现在去信任的情况下得到验证。
         <br />
-        {`在具体实现上，目前还没有社区广泛认可的规范，在
-        EthGifts 上发行的 SBT
-        具有三个基本特性：不可转发、所有数据公开可查和通过签名验证铸造。`}
+        EthGifts 结合社区参与和贡献的特点对这些 Web3
+        数字凭证进行选择和使用。一般情况下，NFT 和 POAP 用于认证和纪念社区成员在
+        ECN 所举办的活动的出席和参与情况；SBT 用于认证社区成员的贡献
+        (目前包括资讯、翻译和原创文章）；而 VC 则作为链上凭证 SBT 或 NFT
+        的补充，为成员提供具有隐私属性、无需消耗 gas 的链下凭证选项。
+      </Text>
+    ),
+  },
+  {
+    question: "我要怎么获得这些数字凭证？",
+    answer: (
+      <Text textAlign="start" as="span" sx={{}}>
+        在内容贡献方面的 SBT，ECN 长期欢迎志愿者的加入，资讯类的贡献请进入 ECN
+        discord 的
         <ChakraNextLink
+          display="inline"
           target="_blank"
           textDecoration="underline"
-          href="https://docs.ethgifts.com/faq#2.-shen-me-shi-sbt"
+          href="https://discord.com/invite/eJJRBqKd3d"
         >
-          更多↗
+          #🔥｜e群誌-ejournal频道
         </ChakraNextLink>
+        参与资讯分享；翻译和原创内容的投稿可通过各种社交媒体与 ECN 取得联系 (dm
+        is open)。而在活动参与方面的 NFT 或 POAP，请关注 EthGifts 上的活动预告和
+        <ChakraNextLink
+          display="inline"
+          target="_blank"
+          textDecoration="underline"
+          href="https://twitter.com/EthereumCN"
+        >
+          {" "}
+          ECN 的推特
+        </ChakraNextLink>
+        。<Text />
       </Text>
     ),
   },
   {
-    question: "什么是Verifiable Credential？",
+    question: "这些数字凭证可以在其他平台展示吗？",
     answer: (
-      <Text
-        textAlign="start"
-        as="span"
-        sx={{
-          textIndent: "2em",
-        }}
-      >
-        {`Verifiable Credential (可验证凭证，简称 VC)，是防篡改的 W3C
-        标准凭证，可以通过密码学验证来实现自我主权身份，保护个人数据。它们可以代表任何物理世界对应的凭证，还可以代表物理世界以外的新型凭证。VC
-        的文档格式通常为JSON，是具有语义和结构化的数据模型，其将凭证持有人置于身份生态系统的中心，让个人控制其身份属性。VC
-        区别于 NFT 和 SBT 的一个重要特点是，VC
-        默认情况下是存储在链下的，这就允许用户根据需要有选择地只与互联网上的相关方分享凭证数据，赋予了用户对个人数据的自主权和隐私权。`}
-        <Text>
-          {`EthGifts
-        发行的 VC
-        都基于以太坊，即使用以太坊区块链这一分布式账本作为去中心化数据登记中心，任何人都可以对
-        VC 上的密码学签名进行验证。`}
-          <ChakraNextLink
-            target="_blank"
-            textDecoration="underline"
-            href="https://docs.ethgifts.com/faq#3.-shen-me-shi-verifiable-credential"
-          >
-            更多↗
-          </ChakraNextLink>
-        </Text>
-      </Text>
-    ),
-  },
-  {
-    question: "如何实现 SBT 与 VC 一一对应？",
-    answer: (
-      <Text
-        textAlign="start"
-        display="inline-block"
-        sx={{
-          textIndent: "2em",
-        }}
-      >
-        {`为了满足社区成员对其数字凭证的不同需求 (隐私、是否支付
-        gas、是否跨平台使用等)，ECN
-        希望设计出链上链下具有等效性的数字凭证提供给用户。`}
-
-        <Text>
-          {`由于 VC
-        的标识符兼容以太坊账户，即以太坊的公钥
-        (公钥密码学在区块链网络中被用来验证用户身份和证明数字资产的所有权)，也就是说，VC
-        的签名验证可以在以太坊上进行。`}
-        </Text>
-
-        <Text>
-          {`ECN
-        团队构思出链下签名、链上验证的发行方法，实现 SBT 与 VC 的一一对应。`}
-          <ChakraNextLink
-            display="inline"
-            target="_blank"
-            textDecoration="underline"
-            href="https://docs.ethgifts.com/faq#4.-ru-he-shi-xian-sbt-yu-vc-yi-yi-dui-ying"
-          >
-            更多↗
-          </ChakraNextLink>
-        </Text>
+      <Text textAlign="start" display="inline-block" sx={{}}>
+        NFT、POAP 和 SBT 均链上可查，而具体而言，参与证明属性的 NFT
+        都可以直接在各大兼容 EVM 的平台上(opensea, looksRare等)显示，而 POAP
+        可以直接在 POAP 的平台上展示，其他 Web3 社交应用或平台也可通过 POAP
+        提供的API 进行展示。
+        <br />
+        继承了NFT ERC721协议的 SBT 虽然同样具有基本的
+        NFT属性，可以在NFT的平台上被自动识别和展示，包括 SBT
+        的名字，描述和属性等。但由于 SBT 本身的不可转让性，使得 SBT
+        即使能够出现在NFT平台上，却无法使用部分交易平台的功能，比如转售和拍卖。
       </Text>
     ),
   },
