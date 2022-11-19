@@ -21,24 +21,17 @@ export const MergeParty_goerli = async (
   }`);
 };
 
-export const ECNAnniversary_4_goerli = async (
-  Anni4_merkleRoot: string,
-  Anni4_baseUri: string
-) => {
+export const ECNAnniversary_4_goerli = async (Anni4_baseUri: string) => {
   const Anniversary4Factory = await hre.ethers.getContractFactory(
-    'ECN4Anniversary'
+    'ECN4thAnniversary'
   );
-  const Anniversary = await Anniversary4Factory.deploy();
+  const Anniversary = await Anniversary4Factory.deploy(Anni4_baseUri);
 
   await Anniversary.deployed();
   console.log('4 Anniversary address: ', Anniversary.address);
 
-  // initialize event
-  await Anniversary.initializeEvent(Anni4_merkleRoot, Anni4_baseUri);
   console.log(`initialize event:
-  { MerkleRoot: ${Anni4_merkleRoot},
-    BaseURI: ${Anni4_baseUri}
-  }`);
+  { BaseURI: ${Anni4_baseUri}}`);
 };
 
 export const ExpressSBT_goerli = async (

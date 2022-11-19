@@ -1,13 +1,34 @@
 import * as config from './config';
-import { contract_goerli_deploy } from './index';
+import hre from 'hardhat';
+import {
+  ECNAnniversary_4_optimism,
+  MergeParty_optimism,
+} from './Optimism_Deploy';
+import { Anniversary_init, MergeParty_init } from './Optimism_init';
 
 (async () => {
-  contract_goerli_deploy(
-    config.MergeParty_config.goerli.merkleRoot,
-    config.MergeParty_config.goerli.baseUri,
-    config.ECNAnniversary_4_config.goerli.merkleRoot,
-    config.ECNAnniversary_4_config.goerli.baseUri,
-    config.ExpressSBT_config.goerli.Approver,
-    config.ExpressSBT_config.goerli.sbt_levels
+  // contract_goerli_deploy(
+  //   config.MergeParty_config.goerli.merkleRoot,
+  //   config.MergeParty_config.goerli.baseUri,
+  //   config.ECNAnniversary_4_config.goerli.baseUri,
+  //   config.ExpressSBT_config.goerli.Approver,
+  //   config.ExpressSBT_config.goerli.sbt_levels
+  // );
+
+  const [deployer] = await hre.ethers.getSigners();
+  console.log('deployer: ', deployer.address);
+  const anniversary_address = await ECNAnniversary_4_optimism(
+    config.ECNAnniversary_4_config.optimism.baseUri
+  );
+  await Anniversary_init(
+    anniversary_address,
+    config.ECNAnniversary_4_config.optimism.receivers
+  );
+
+  const mergePary_address = await MergeParty_optimism();
+  await MergeParty_init(
+    mergePary_address,
+    config.MergeParty_config.optimism.merkleRoot,
+    config.MergeParty_config.optimism.baseUri
   );
 })();

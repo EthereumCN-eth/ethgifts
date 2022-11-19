@@ -16,22 +16,22 @@ import { MergeParty_init, Anniversary_init } from './Optimism_init';
 export const contract_goerli_deploy = async (
   merge_mekleRoot: string,
   merge_baseUri: string,
-  anni4_merkleRoot: string,
   anni4_baseUri: string,
   approver: string,
   sbt_levels: BigNumber[]
 ) => {
   await MergeParty_goerli(merge_mekleRoot, merge_baseUri);
-  await ECNAnniversary_4_goerli(anni4_merkleRoot, anni4_baseUri);
+  await ECNAnniversary_4_goerli(anni4_baseUri);
   await ExpressSBT_goerli(approver, sbt_levels);
 };
 
 export const contract_optimism_deploy = async (
   approver: string,
-  sbt_levels: BigNumber[]
+  sbt_levels: BigNumber[],
+  ecn_4th_baseUri: string
 ) => {
   await MergeParty_optimism();
-  await ECNAnniversary_4_optimism();
+  await ECNAnniversary_4_optimism(ecn_4th_baseUri);
   await ExpressSBT_optimism(approver, sbt_levels);
 };
 
@@ -40,9 +40,8 @@ export const contract_optimism_init = async (
   anni4_address: string,
   merge_mekleRoot: string,
   merge_baseUri: string,
-  anni4_merkleRoot: string,
-  anni4_baseUri: string
+  anniver_receivers: string[]
 ) => {
   await MergeParty_init(mergeParty_address, merge_mekleRoot, merge_baseUri);
-  await Anniversary_init(anni4_address, anni4_merkleRoot, anni4_baseUri);
+  await Anniversary_init(anni4_address, anniver_receivers);
 };

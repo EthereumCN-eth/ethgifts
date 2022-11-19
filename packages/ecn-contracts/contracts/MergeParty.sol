@@ -16,13 +16,14 @@ contract MergeParty is ERC721, Ownable {
 
     constructor() ERC721('MergeParty MessagesBoard', 'ETHGifts') {}
 
+    /** ========== override ========== */
+    function _baseURI() internal view virtual override returns (string memory) {
+        return messageBoard;
+    }
+
     /** ========== view functions ========== */
     function totalSupply() public view returns (uint256) {
         return counters.current();
-    }
-
-    function _baseURI() internal view virtual override returns (string memory) {
-        return messageBoard;
     }
 
     function tokenURI(uint256 tokenId)
