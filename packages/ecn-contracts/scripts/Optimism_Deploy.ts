@@ -9,6 +9,7 @@ export const MergeParty_optimism = async () => {
 
   await MergePartyNFT.deployed();
   console.log(`MergeNFT deployed: ${MergePartyNFT.address}`);
+  return MergePartyNFT.address;
 };
 
 export const ExpressSBT_optimism = async (
@@ -20,14 +21,16 @@ export const ExpressSBT_optimism = async (
 
   await ESBT.deployed();
   console.log('ESBT address: ', ESBT.address);
+  return ESBT.address;
 };
 
-export const ECNAnniversary_4_optimism = async () => {
+export const ECNAnniversary_4_optimism = async (baseUri: string) => {
   const Anniversary4Factory = await hre.ethers.getContractFactory(
-    'ECN4Anniversary'
+    'ECN4thAnniversary'
   );
-  const Anniversary = await Anniversary4Factory.deploy();
+  const Anniversary = await Anniversary4Factory.deploy(baseUri);
 
   await Anniversary.deployed();
   console.log('Anniversary 4 address: ', Anniversary.address);
+  return Anniversary.address;
 };

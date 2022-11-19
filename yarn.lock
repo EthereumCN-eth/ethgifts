@@ -17248,12 +17248,17 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
+<<<<<<< HEAD
+lerna-env-generate@../lerna-env-generate:
+  version "0.0.1"
+=======
 lerna-env-generate@./scripts/lerna-env-generate:
   version "0.0.1"
   dependencies:
     chalk "^5.1.2"
     dotenv "^16.0.3"
     tsup "6.0.1"
+>>>>>>> e6d04373d2563384fdd72b251d24407d6f82a294
 
 lerna@^4.0.0:
   version "4.0.0"

@@ -32,24 +32,22 @@ export const MergeParty_init = async (
 
 export const Anniversary_init = async (
   anni4_address: string,
-  Anni4_merkleRoot: string,
-  Anni4_baseUri: string
+  Anni4_receivers: string[]
 ) => {
   try {
-    if (Anni4_merkleRoot === '' || Anni4_baseUri === '') {
+    if (Anni4_receivers.length === 0) {
       throw new Error('argus not set');
     }
 
-    const AnniFactory = await hre.ethers.getContractFactory('ECN4Anniversary');
-    await AnniFactory.attach(anni4_address).initializeEvent(
-      Anni4_merkleRoot,
-      Anni4_baseUri
+    const AnniFactory = await hre.ethers.getContractFactory(
+      'ECN4thAnniversary'
     );
+    await AnniFactory.attach(anni4_address).sendMany(Anni4_receivers);
+    console.log('sent address: ', Anni4_receivers);
     return {
       success: true,
       data: {
-        merkleRoot: Anni4_merkleRoot,
-        BaseUri: Anni4_baseUri,
+        receivers: Anni4_receivers,
       },
     };
   } catch (error) {
