@@ -94,12 +94,12 @@ export const poaps: PoapCreateData[] = [
               type: "html",
               data: [
                 "2022 年 2 月 4 日大年初四，ECN 邀请了以太坊联合创始人 Vitalik Buterin 来中文社区过年，通过线上访谈和 AMA 的形式与大家互动，主题聚焦以太坊过去一年的发展以及对新岁的展望。活动期间，Vitalik 向以太坊中文社区拜年，并对以太坊未来一年的发展致以祝福。",
-                "活动除了在 Bilibili (以太坊中国) 上直播，还在 Decentraland 的Dragon City上同步直播，把中国农历新年的庆祝氛围带到了虚拟世界。",
+                "活动除了在 Bilibili (以太坊中国) 上直播，还在 Decentraland 的 Dragon City上同步直播，把中国农历新年的庆祝氛围带到了虚拟世界。",
               ],
             },
             {
               heading: "活动花絮",
-              subHeading: "highlights",
+              subHeading: "Highlights",
               type: "image",
               data: [
                 {
