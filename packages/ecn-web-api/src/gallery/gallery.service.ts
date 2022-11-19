@@ -157,9 +157,9 @@ export class GalleryService {
             endTime: eventDuration + eventStartTime,
             startTime: eventStartTime,
             status:
-              eventStartTime > Date.now()
+              eventStartTime > Date.now() / 1000
                 ? 'coming soon'
-                : Date.now() > eventStartTime + eventDuration
+                : Date.now() / 1000 > eventStartTime + eventDuration
                 ? null
                 : 'ongoing',
           };
@@ -167,7 +167,8 @@ export class GalleryService {
           timeProps = {
             endTime: Infinity,
             startTime: eventStartTime,
-            status: eventStartTime > Date.now() ? 'coming soon' : 'ongoing',
+            status:
+              eventStartTime > Date.now() / 1000 ? 'coming soon' : 'ongoing',
           };
         } else if (!eventStartTime && !eventDuration) {
           timeProps = {
