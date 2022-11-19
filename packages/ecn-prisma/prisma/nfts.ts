@@ -528,7 +528,6 @@ export const nfts: NFTCreateData[] = [
               data: [
                 "从 2018 年 10 月翻译的第一篇文章《激进 x 变革：当 Vitalik 遇上 Weyl》开始，ECN 已经在不知不觉中走过了四年的时间。",
                 "在这四年里，我们从提供以太坊相关的文章翻译、资讯传递和教育资源整合这些基础性工作开始，逐步聚集了渐成规模的以太坊中文社区，我们在 ECN 管理的社区内举办线上分享和 AMA，进而联合其他以太坊中文社区共同举办线上线下活动，到今年在社区的响应下开始了一系列的社区协作和志愿者计划，并在以太坊合并这一历史时刻邀请了各大社区一起参与一场与中文社区共历的观看派对。我们一步步从 Ethereum-CN (以太坊中文) 转向了 Ethereum Community Network (以太坊社区网络) ，而我们的愿景始终是推动以太坊区块链成为下一代社会基础设施。",
-                "在这四年里，我们都构建了什么？请看我们的导航页 http://ecn.co/",
                 "四年，是总结过去走过的路的一个很好的时间点。ECN 希望通过四周年活动的契机，听听社区对 ECN 四年工作的反馈。于是，我们发起了 #ECN四周年 #我与ECN的瞬间的主题活动，邀请大家在推特或邮件和 discord 给 ECN 分享印象深刻的时刻。参加了此次主题活动的朋友都可以获得 ECN 四周年纪念 NFT。<a  style='text-decoration: underline;' target='_blank' href='https://ecn.mirror.xyz/C5-jYyB2wUlUBQ3o8kMnqfxvXt2W9LCPlzE1K_u4Z2A'>详情</a>",
               ],
             },
