@@ -11,8 +11,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-// import { publicProvider } from "wagmi/providers/public";
 
+// import { publicProvider } from "wagmi/providers/public";
 import { apiQueryClient } from "../services/queryClient";
 import store, { persistor } from "../state/store";
 // import NoSSRWrapper from "src/state/NoSSRWrapper";
@@ -22,6 +22,7 @@ import "@fontsource/red-rose";
 import "@fontsource/megrim";
 import "@fontsource/noto-sans/600.css";
 import { useHeaderStore } from "@/components/Layouts/headerState";
+import { NextSeoData } from "@/components/NextSeoDefault";
 import {
   NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,
   NEXT_PUBLIC_ARBIT_ALCHEMY_WEBSOCKETS,
@@ -34,7 +35,6 @@ import {
   NEXT_PUBLIC_MAIN_ALCHEMY_WEBSOCKETS,
 } from "@/constants";
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
-
 import "@rainbow-me/rainbowkit/styles.css";
 import "@/components/shared/ZoomImageWrapper/styles.css";
 
@@ -122,7 +122,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
                   />
                 </Head>
-
+                <NextSeoData />
                 <AddressOrNetworkChange />
                 <QueryClientProvider client={apiQueryClient}>
                   <Component {...pageProps} />
