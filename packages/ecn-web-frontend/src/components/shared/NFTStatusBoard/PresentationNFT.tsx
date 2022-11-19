@@ -46,7 +46,7 @@ export const PresentationNFT = ({
           mt="30px"
           minW="93%"
         >
-          申领
+          {hasNFT ? "已申领" : "申领"}
         </Button>
       </Flex>
     </>

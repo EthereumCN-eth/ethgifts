@@ -55,7 +55,7 @@ export const PoapStatusBoard = ({
         disabled
         mx="auto"
         my="1.5%"
-        variant="orangeBg"
+        variant={hasPoap ? "orangeBg" : "grayBg"}
         mt="30px"
         minW="93%"
       >
