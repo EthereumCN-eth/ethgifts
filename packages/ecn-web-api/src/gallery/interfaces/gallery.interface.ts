@@ -8,7 +8,8 @@ export type EventItem = {
 
 export const STATUS_COMP_VAL = {
   ongoing: 2,
-  'comming soon': 1,
+  'coming soon': 1,
+  null: 0
 };
 
 export type BaseItem = {

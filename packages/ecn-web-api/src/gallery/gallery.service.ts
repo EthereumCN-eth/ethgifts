@@ -212,7 +212,7 @@ export class GalleryService {
 
     const sortedItems = galleryItems.sort((x, y) => {
       const statusCompVal =
-        STATUS_COMP_VAL[y.status] - STATUS_COMP_VAL[y.status];
+        STATUS_COMP_VAL[String(y.status)] - STATUS_COMP_VAL[String(x.status)];
       if (statusCompVal !== 0) return statusCompVal;
       return y.startTime - x.startTime;
     });
