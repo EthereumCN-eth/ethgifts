@@ -5,14 +5,14 @@ import { FAQItem } from "../shared/FAQItem";
 
 const fAQData = [
   {
-    question: "Ethgifts 使用了哪些 Web3 数字凭证？",
+    question: "EthGifts 使用了哪些 Web3 数字凭证？",
     answer: (
       <Text textAlign="start" as="span" sx={{}}>
         Web3 以区块链技术为基础，出现了区别于 Web2
         时代的凭证范式——使用密码学签名、携带任意信息的防篡改数据对象、每个实例都是唯一的、围绕数据对象本身的来源提供保证、由受信任的机构发行或铸造、但不为任何中心化机构或平台所有。
         <br />
-        EthGifts 使用的 web3 数字凭证类型包括 NFT、SBT、POAP 和 Verifiable
-        Credential (可验证数字凭证){" "}
+        EthGifts 使用的 Web3 数字凭证类型包括 NFT、SBT、POAP 和 Verifiable
+        Credential (可验证数字凭证)。{" "}
       </Text>
     ),
   },
@@ -25,8 +25,8 @@ const fAQData = [
         NFT，三者都是链上公开可验证的数字凭证，区别在于 SBT 具有不可转让性，使得
         token 与账户实现绑定，凸显账户的社会属性；POAP 则必须经 POAP
         平台铸造，包含活动相关的图片、描述和时间。VC
-        默认情况下存储在链下，不依赖于特定平台或区块链，当其 id 使用基于区块链的
-        did 时，VC 的真实性也能实现在去信任的情况下得到验证。
+        默认情况下存储在链下，不依赖于特定平台或区块链，当其 ID 使用基于区块链的
+        DID 时，VC 的真实性也能实现在去信任的情况下得到验证。
         <br />
         EthGifts 结合社区参与和贡献的特点对这些 Web3
         数字凭证进行选择和使用。一般情况下，NFT 和 POAP 用于认证和纪念社区成员在
@@ -70,14 +70,14 @@ const fAQData = [
     answer: (
       <Text textAlign="start" display="inline-block" sx={{}}>
         NFT、POAP 和 SBT 均链上可查，而具体而言，参与证明属性的 NFT
-        都可以直接在各大兼容 EVM 的平台上(opensea, looksRare等)显示，而 POAP
+        都可以直接在各大兼容 EVM 的平台上 (OpenSea, LooksRare 等)显示，而 POAP
         可以直接在 POAP 的平台上展示，其他 Web3 社交应用或平台也可通过 POAP
-        提供的API 进行展示。
+        提供的 API 进行展示。
         <br />
-        继承了NFT ERC721协议的 SBT 虽然同样具有基本的
-        NFT属性，可以在NFT的平台上被自动识别和展示，包括 SBT
-        的名字，描述和属性等。但由于 SBT 本身的不可转让性，使得 SBT
-        即使能够出现在NFT平台上，却无法使用部分交易平台的功能，比如转售和拍卖。
+        继承了 NFT ERC721 协议的 SBT 虽然同样具有基本的 NFT 属性，可以在 NFT
+        的平台上被自动识别和展示，包括 SBT 的名字，描述和属性等。但由于 SBT
+        本身的不可转让性，使得 SBT 即使能够出现在 NFT
+        平台上，却无法使用部分交易平台的功能，比如转售和拍卖。
       </Text>
     ),
   },

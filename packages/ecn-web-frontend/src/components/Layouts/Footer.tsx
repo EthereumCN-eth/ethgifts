@@ -75,7 +75,7 @@ export const Footer = () => {
           fontWeight={600}
           fontSize="2.75rem"
         >
-          ETH Gifts
+          ETHGifts
         </Heading>
         <Text
           fontFamily="PingFang SC"
