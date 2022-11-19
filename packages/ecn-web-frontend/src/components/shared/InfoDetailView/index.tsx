@@ -56,10 +56,17 @@ export const InfoDetailView = ({
       </Text>
       {detailInfoOfNFT.dataSection.map((dataItem, index) => {
         return (
-          <Flex w="full" direction="row" key={dataItem.heading} mb="64px">
+          <Flex
+            w="full"
+            justify="start"
+            direction="row"
+            key={dataItem.heading}
+            mb="64px"
+          >
             {/*  */}
-            <Box w="13%">
+            <Box w="7.9vw">
               <Text
+                w="7.9vw"
                 fontSize="20px"
                 fontWeight="600"
                 fontFamily="PingFang SC"
@@ -68,6 +75,7 @@ export const InfoDetailView = ({
                 {dataItem.heading}
               </Text>
               <Text
+                w="7.9vw"
                 fontSize="md"
                 fontWeight="600"
                 fontFamily="PingFang SC"
@@ -81,7 +89,13 @@ export const InfoDetailView = ({
             <Box height="60px" ml="3.75vw" mr="0.625vw">
               <Divider orientation="vertical" />
             </Box>
-            <Text color="#B9B9B9" fontSize="sm" fontWeight={500} mr="4.114vw">
+            <Text
+              w="5vw"
+              color="#B9B9B9"
+              fontSize="sm"
+              fontWeight={500}
+              mr="4.114vw"
+            >
               {`0${index + 1}`}
             </Text>
 

@@ -15,7 +15,7 @@ export const SingleImageSection = ({
   loaded: boolean;
 }) => {
   return (
-    <Box w="39.4vw">
+    <Box maxW="39.4vw">
       <ZoomImageWrapper>
         <Image
           w="36vw"

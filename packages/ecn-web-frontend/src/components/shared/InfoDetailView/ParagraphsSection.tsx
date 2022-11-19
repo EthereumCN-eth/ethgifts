@@ -11,7 +11,7 @@ export const ParagraphsSection = ({
   dataItem: InfoHTMLType;
   loaded: boolean;
 }) => (
-  <Box w="39.4vw">
+  <Box maxW="39.4vw">
     {dataItem.data.map((para) => {
       return (
         <Text

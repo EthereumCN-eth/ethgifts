@@ -113,7 +113,7 @@ export const MultipleImagesSection = ({
   // console.log("isRightDisabled", isRightDisabled);
   //   console.log("isLeftDisabled", isLeftDisabled);
   return (
-    <Box w="39.4vw">
+    <Box maxW="39.4vw">
       <ZoomImageWrapper>
         <Image
           w="36vw"
@@ -128,6 +128,7 @@ export const MultipleImagesSection = ({
         align="center"
         mt="12px"
         w="39.4vw"
+        maxW="39.4vw"
         h="136px"
         // p={0}
         bgColor="rgba(255, 255, 255, 0.4)"
