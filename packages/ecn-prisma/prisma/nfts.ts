@@ -474,7 +474,7 @@ export const nfts: NFTCreateData[] = [
   {
     contractAddress: "0xF6a3D16492F3DeC9A287bE5c0c1c74875978b7EA",
     symbol: "ETHGifts",
-    nftAppType: "DELIVERY",
+    nftAppType: "PERSENT",
     nftDeliveryData: {
       create: {
         merkleUrl:
