@@ -45,7 +45,7 @@ export const SameChainButton = ({
           mt="30px"
           minW="93%"
         >
-          申领结束
+          申领
         </Button>
       )}
     </>
