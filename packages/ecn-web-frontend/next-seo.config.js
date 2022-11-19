@@ -9,18 +9,21 @@ const defaultSEOConfig = {
     url: "https://www.ethgifts.com",
     title: "ETHGifts",
     description: "ETHGifts",
-    // images: [
-    //   {
-    //     url: "https://og-image.sznm.dev/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250",
-    //     alt: "nextarter-chakra.sznm.dev og-image",
-    //   },
-    // ],
+    images: [
+      {
+        url: "https://ethereumcn.mypinata.cloud/ipfs/Qmbnr9qdUna5DbuXFSbcx82nFWgd9FKHHdHx2RZ4B7B1gb",
+        alt: "EthGifts",
+      },
+    ],
     site_name: "ETHGifts",
   },
-  // twitter: {
-  //   handle: "@sozonome",
-  //   cardType: "summary_large_image",
-  // },
+  twitter: {
+    handle: "@EthereumCN",
+    cardType: "summary_large_image",
+  },
 };
+
+
+export const seoKeywords = 'Ethereum, SBT, Soul Bound Token, NFT, VC, Verifibale Credential, POAP, Credential, Digital Credentials, Web3, Decentralized Society, Self Sovereign Identity, Decentralized Identifier, DID, NON Fungible Token, ECN, EthereumCN, Ethereum Community Network, On Chain Credential'
 
 export default defaultSEOConfig;

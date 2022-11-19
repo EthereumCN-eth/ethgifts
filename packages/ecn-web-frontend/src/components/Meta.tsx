@@ -1,3 +1,5 @@
+import { seoKeywords } from "next-seo.config";
+
 const APP_NAME = "ETHGifts";
 
 const Meta = () => {
@@ -10,6 +12,7 @@ const Meta = () => {
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="theme-color" content="#FFFFFF" />
+      <meta name="keywords" content={seoKeywords} />
 
       <link rel="shortcut icon" href="/ethgifts-logo.svg" />
 
