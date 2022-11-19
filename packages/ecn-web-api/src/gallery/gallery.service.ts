@@ -8,6 +8,7 @@ import {
   NFTItem,
   PoapItem,
   EventItem,
+  STATUS_COMP_VAL,
 } from './interfaces/gallery.interface';
 import { GalleryItemBase, NFT, Poap, SBTContractType } from '@prisma/client';
 // import { NFT, Poap, SBTContractType } from '@prisma/client';
@@ -210,6 +211,9 @@ export class GalleryService {
     );
 
     const sortedItems = galleryItems.sort((x, y) => {
+      const statusCompVal =
+        STATUS_COMP_VAL[y.status] - STATUS_COMP_VAL[y.status];
+      if (statusCompVal !== 0) return statusCompVal;
       return y.startTime - x.startTime;
     });
 

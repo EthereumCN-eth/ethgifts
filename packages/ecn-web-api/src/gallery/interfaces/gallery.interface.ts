@@ -6,6 +6,11 @@ export type EventItem = {
   status: 'coming soon' | 'ongoing' | null;
 };
 
+export const STATUS_COMP_VAL = {
+  ongoing: 2,
+  'comming soon': 1,
+};
+
 export type BaseItem = {
   itemText: string[] | null;
   coverLink: string;
