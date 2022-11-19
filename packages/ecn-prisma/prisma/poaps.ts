@@ -15,7 +15,7 @@ export const poaps: PoapCreateData[] = [
         chainId: 100,
         galleryItemType: "poap",
         onShelf: true,
-        tags: ["POAP", "贡献证明"],
+        tags: ["POAP", "参与证明"],
         eventStartTime: 1652054748,
         eventDuration: 3600,
         infoDetail: {
@@ -32,7 +32,7 @@ export const poaps: PoapCreateData[] = [
           dataSection: [
             {
               heading: "活动详情",
-              subHeading: "Activities",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "在 2022 年 5 月，在以太坊合并将至未至之际，ECN 联合区块律动、链捕手、巴比特 和 DeFi 之道，举办主题为 The Merge & Weeth —— 以太坊合并与我们的距离的活动，邀请了以太坊基金会研究员🥳 Hsiao-Wei Wang (合并熊猫 🐼 这个 meme 的创作者)以及去中心化质押服务提供商🤟 Rocket Pool 的总经理 Darren Langerly 给大家带来主题分享+AMA，解答大家关于合并与 Staking 尽可能多的疑问。 ",
@@ -90,7 +90,7 @@ export const poaps: PoapCreateData[] = [
           dataSection: [
             {
               heading: "活动详情",
-              subHeading: "Activities",
+              subHeading: "Event Introduction",
               type: "html",
               data: [
                 "2022 年 2 月 4 日大年初四，ECN 邀请了以太坊联合创始人 Vitalik Buterin 来中文社区过年，通过线上访谈和 AMA 的形式与大家互动，主题聚焦以太坊过去一年的发展以及对新岁的展望。活动期间，Vitalik 向以太坊中文社区拜年，并对以太坊未来一年的发展致以祝福。",
@@ -109,8 +109,8 @@ export const poaps: PoapCreateData[] = [
               ],
             },
             {
-              heading: "直播回放 video",
-              subHeading: "Playback Video",
+              heading: "直播回放",
+              subHeading: "Playback",
               type: "video",
               data: [
                 {
