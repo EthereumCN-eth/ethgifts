@@ -45,7 +45,7 @@ export const MergeParty_config = {
   optimism: {
     contract_address: process.env.MergePary_Contract_Address || '',
     merkleRoot:
-      '0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474',
+      '0x5f40845f3514d446160913b22173f956cdeee6a15d241dc0c26f3d5709e54c00',
     baseUri: 'ipfs://QmUa6v7eRcT3ni7Swm2hcxXqnGy59Pijv5aLoQcJFUZ3a7',
   },
 };

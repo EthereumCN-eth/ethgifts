@@ -15,15 +15,15 @@ import { Anniversary_init, MergeParty_init } from './Optimism_init';
   //   config.ExpressSBT_config.goerli.sbt_levels
   // );
 
-  const [deployer] = await hre.ethers.getSigners();
-  console.log('deployer: ', deployer.address);
-  const anniversary_address = await ECNAnniversary_4_optimism(
-    config.ECNAnniversary_4_config.optimism.baseUri
-  );
-  await Anniversary_init(
-    anniversary_address,
-    config.ECNAnniversary_4_config.optimism.receivers
-  );
+  // const [deployer] = await hre.ethers.getSigners();
+  // console.log('deployer: ', deployer.address);
+  // const anniversary_address = await ECNAnniversary_4_optimism(
+  //   config.ECNAnniversary_4_config.optimism.baseUri
+  // );
+  // await Anniversary_init(
+  //   anniversary_address,
+  //   config.ECNAnniversary_4_config.optimism.receivers
+  // );
 
   const mergePary_address = await MergeParty_optimism();
   await MergeParty_init(

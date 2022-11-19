@@ -55,10 +55,14 @@ contract MergeParty is ERC721, Ownable {
         merkleRoot = _merkleRoot;
     }
 
-    function resetBaseUri(string memory _baseUri) external onlyOwner {
+    function reNew(string memory _baseUri, bytes32 _merkleRoot)
+        external
+        onlyOwner
+    {
         require(bytes(_baseUri).length != 0, 'invalid baseUri');
 
         messageBoard = _baseUri;
+        merkleRoot = _merkleRoot;
     }
 
     // This is a packed array of booleans.
