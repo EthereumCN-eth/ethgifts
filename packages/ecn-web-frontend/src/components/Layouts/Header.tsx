@@ -3,13 +3,14 @@ import {
   HStack,
   IconButton,
   Image,
-  Link,
   ListItem,
   UnorderedList,
   // useDisclosure,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useRouter } from "next/router";
+
+import { ChakraNextLink } from "../ChakraNextLink";
 
 import { useHeaderStore } from "./headerState";
 // import "@rainbow-me/rainbowkit/styles.css";
@@ -60,9 +61,9 @@ const Header = () => {
           }}
           icon={
             <Image
-              src="/giftslog.png"
-              h="50px"
-              w="10vw"
+              src="/ethgifts-logo.svg"
+              h={["40px", "40px", "60px", `${(3.5 / 81) * 70}vw`]}
+              w={["35px", "35px", "52px", "3.5vw"]}
               fit="contain"
               alt="ethgifts-logo"
             />
@@ -93,13 +94,13 @@ const Header = () => {
             alignItems="center"
             color={textColor}
             fontFamily="PingFang SC"
-            fontWeight={400}
+            fontWeight={500}
             display={{ base: "none", md: "flex" }}
           >
             {navItems.map((item) => {
               return (
                 <ListItem mr="44px" key={item.label} display="inline-block">
-                  <Link
+                  <ChakraNextLink
                     maxW={64}
                     fontSize="sm"
                     lineHeight={4}
@@ -110,16 +111,27 @@ const Header = () => {
                     target={item.isBlank ? "_blank" : "_self"}
                   >
                     {item.label}
-                  </Link>
+                  </ChakraNextLink>
                 </ListItem>
               );
             })}
           </UnorderedList>
-          <ConnectButton
-            chainStatus="none"
-            accountStatus="address"
-            showBalance={false}
-          />
+          <Box
+            sx={{
+              "&& div button": {
+                fontWeight: 500,
+              },
+              // "&& div": {
+              //   fontWeight: 500,
+              // },
+            }}
+          >
+            <ConnectButton
+              chainStatus="full"
+              accountStatus="address"
+              showBalance={false}
+            />
+          </Box>
         </HStack>
       </HStack>
     </Box>

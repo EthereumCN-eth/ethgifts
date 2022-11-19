@@ -11,7 +11,7 @@ const Meta = () => {
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="theme-color" content="#FFFFFF" />
 
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/ethgifts-logo.svg" />
 
       <link rel="manifest" href="/manifest.json" />
     </>

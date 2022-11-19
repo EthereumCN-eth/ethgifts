@@ -1,0 +1,42 @@
+{
+  "name": "lerna-env-generate",
+  "version": "0.0.1",
+  "description": "generate .env for packages in monorepo",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepare": "yarn run build",
+    "dev": "tsup src/index.ts --watch --format cjs,esm",
+    "build-fast": "tsup src/index.ts --format cjs,esm",
+    "build": "yarn run build-fast -- --dts-resolve",
+    "test": "vitest run",
+    "install": "[ ! -f ./dist ] && yarn run build-fast",
+    "prepublishOnly": "yarn run build"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@egoist/prettier-config": "1.0.0",
+    "@types/node": "^18.11.9",
+    "prettier": "2.5.1",
+    
+    "typescript": "4.5.4",
+    "vitest": "0.12.6"
+  },
+  "dependencies": {
+    "tsup": "6.0.1",
+    "chalk": "^5.1.2",
+    "dotenv": "^16.0.3"
+  }
+}

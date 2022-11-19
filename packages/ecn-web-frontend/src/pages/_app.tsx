@@ -21,6 +21,8 @@ import store, { persistor } from "../state/store";
 import { AddressOrNetworkChange } from "@/components/AddressOrNetworkChange";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
+import "@fontsource/megrim";
+import "@fontsource/noto-sans/600.css";
 import { useHeaderStore } from "@/components/Layouts/headerState";
 import {
   NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,

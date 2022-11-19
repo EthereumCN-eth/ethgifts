@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Center,
   Flex,
@@ -10,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { darken } from "polished";
 import { AiFillHome } from "react-icons/ai";
-import { FaDiscord, FaTwitter } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 
 const footerLink = [
   {
@@ -30,14 +31,14 @@ const footerLink = [
       window.open("https://twitter.com/EthereumCN", "_blank")?.focus();
     },
   },
-  {
-    label: "discord",
-    icon: <FaDiscord size="25px" color="#F4F4F4" />,
-    type: "icon",
-    onClick: () => {
-      window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
-    },
-  },
+  // {
+  //   label: "discord",
+  //   icon: <FaDiscord size="25px" color="#F4F4F4" />,
+  //   type: "icon",
+  //   onClick: () => {
+  //     window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
+  //   },
+  // },
   {
     label: "mirror",
     type: "image",
@@ -67,7 +68,13 @@ export const Footer = () => {
         // bgColor="background: rgba(12, 6, 1, 0.8)"
         align="center"
       >
-        <Heading color="#EE862B" mb="56px" fontWeight={400} fontSize="2.75rem">
+        <Heading
+          color="#EE862B"
+          fontFamily="Noto Sans"
+          mb="56px"
+          fontWeight={600}
+          fontSize="2.75rem"
+        >
           ETH Gifts
         </Heading>
         <Text
@@ -86,19 +93,20 @@ export const Footer = () => {
           社区活动的平台，大家可以通过网站陈列的每个 NFT
           了解相对应活动的详情，以及活动的最新动态。
         </Text>
-        <Text
+        {/* <Text
           mt="56px"
-          mb="12px"
+          mb="30px"
           fontSize="xs"
           fontWeight="400"
           fontFamily="PingFang SC"
           color="#EE862B"
         >
           点击加入成为ECN社区成员！
-        </Text>
-        <Text mb="24px" fontSize="2.25rem">
+        </Text> */}
+        <Box mt="50px" />
+        {/* <Text mb="24px" fontSize="2.25rem">
           👇
-        </Text>
+        </Text> */}
         <Button
           color="#fff"
           _hover={{

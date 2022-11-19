@@ -13,6 +13,7 @@ const whiteBgProps = {
   container: {
     color: "black",
     borderRadius: "4px",
+    border: "white solid 1px",
     backgroundColor: "white",
     px: "10px",
     py: "6px",
