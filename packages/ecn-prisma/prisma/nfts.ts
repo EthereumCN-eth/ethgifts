@@ -3,7 +3,7 @@ import { NFTCreateData } from "./seed";
 
 export const nfts: NFTCreateData[] = [
   {
-    contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+    contractAddress: "0x1d1A8D6eF0826320bD3f3df34f942dA4298c3F46",
     symbol: "ETHGifts",
     nftAppType: "DELIVERY",
     nftDeliveryData: {
@@ -12,7 +12,7 @@ export const nfts: NFTCreateData[] = [
           // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
           "",
         tokenType: "ERC721",
-        contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+        contractAddress: "0x1d1A8D6eF0826320bD3f3df34f942dA4298c3F46",
       },
     },
     galleryItemBase: {
@@ -481,7 +481,7 @@ export const nfts: NFTCreateData[] = [
     },
   },
   {
-    contractAddress: "0x0000000000000000000000000000000000000000",
+    contractAddress: "0xF6a3D16492F3DeC9A287bE5c0c1c74875978b7EA",
     symbol: "ETHGifts",
     nftAppType: "DELIVERY",
     nftDeliveryData: {
@@ -490,7 +490,7 @@ export const nfts: NFTCreateData[] = [
           // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
           "",
         tokenType: "ERC721",
-        contractAddress: "0x0000000000000000000000000000000000000000",
+        contractAddress: "0xF6a3D16492F3DeC9A287bE5c0c1c74875978b7EA",
       },
     },
 
