@@ -24,7 +24,7 @@ export const nfts: NFTCreateData[] = [
         ],
 
         chainId: 10,
-        name: "以太坊合并观看派对留言板",
+        name: "MergeParty MessagesBoard",
         tags: ["NFT", "参与证明"],
         eventStartTime: 1663222616,
         eventDuration: 7626505,
