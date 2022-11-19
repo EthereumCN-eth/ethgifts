@@ -138,7 +138,7 @@ export const HomeScrollFixedView = () => {
                   font-style: normal;
                   width: calc(${circleLen()}px * 0.68);
                   font-weight: 600;
-                  font-size: calc(${circleLen()}px * 14 / 690 * 1.1);
+                  font-size: calc(${circleLen()}px * 14 / 690 * 1.3);
                   text-align: center;
                   line-height: 1.7;
                   margin-top: 15px;
