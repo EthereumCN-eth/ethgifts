@@ -12,7 +12,7 @@
 //     images: [
 //       {
 //         url: "https://ethereumcn.mypinata.cloud/ipfs/Qmbnr9qdUna5DbuXFSbcx82nFWgd9FKHHdHx2RZ4B7B1gb",
-//         alt: "EthGifts",
+//         alt: "ETHGifts",
 //       },
 //     ],
 //     site_name: "ETHGifts",

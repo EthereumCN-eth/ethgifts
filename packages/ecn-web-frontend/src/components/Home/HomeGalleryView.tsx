@@ -40,7 +40,7 @@ export const HomeGalleryView = ({
         color="#EE862B"
         fontSize="2.75rem"
       >
-        EthGifts Gallery
+        ETHGifts Gallery
       </Heading>
       <Grid
         templateColumns={[

@@ -16,7 +16,7 @@ import { useHeaderStore } from "./headerState";
 // import "@rainbow-me/rainbowkit/styles.css";
 
 const navItems = [
-  { label: "EthGifts Gallery", href: "/#ecn-gallery", isBlank: false },
+  { label: "ETHGifts Gallery", href: "/#ecn-gallery", isBlank: false },
   // { label: "数字凭证", href: "#" },
   { label: "文档↗", href: "https://docs.ethgifts.com/", isBlank: true },
   // { label: "我的文档", href: "#" },
@@ -73,7 +73,7 @@ const Header = () => {
         />
 
         {/* <Text fontSize="56px" fontWeight={400} fontFamily="Red Rose">
-          EthGifts
+          ETHGifts
         </Text> */}
 
         <HStack
