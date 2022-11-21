@@ -13,12 +13,12 @@ import createSagaMiddleware from "redux-saga";
 import { reducer } from "./reducer";
 import sagas from "./rootSagas";
 
-const PERSISTED_KEYS: string[] = ["persistDummy", "global"];
+const PERSISTED_KEYS: string[] = ["global"];
 
 const persistConfig = {
   key: "root",
   whitelist: PERSISTED_KEYS,
-  version: 0,
+  version: 1,
   storage,
 };
 
