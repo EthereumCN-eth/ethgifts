@@ -20,6 +20,9 @@ export interface GlobalState {
   };
 }
 
+// control storage version
+const GLOBAL_PERSIST_VERSION = 0;
+
 const initialState: GlobalState = {};
 
 export const globalSlice = createSlice({
@@ -33,7 +36,7 @@ export const globalSlice = createSlice({
       return {
         ...state,
         // [`${address.toLowerCase().trim()}-${chainId}`]: {
-        [`${address.toLowerCase().trim()}`]: {
+        [`${GLOBAL_PERSIST_VERSION}-${address.toLowerCase().trim()}`]: {
           accessToken,
           auth_status,
         },
@@ -54,7 +57,8 @@ const selectAuthStatus = (
 ) => {
   if (address && chainId) {
     // const obj = state.global[`${address.toLowerCase().trim()}-${chainId}`];
-    const obj = state.global[`${address.toLowerCase().trim()}`];
+    const obj =
+      state.global[`${GLOBAL_PERSIST_VERSION}-${address.toLowerCase().trim()}`];
     if (obj) {
       return obj.auth_status;
     }
