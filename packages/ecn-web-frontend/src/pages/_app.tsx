@@ -5,7 +5,6 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
@@ -110,29 +109,25 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }: AppProps) {
   const rainbowTheme = useHeaderStore((state) => state.rainbowTheme);
   return (
-    <ReduxProvider store={store}>
-      <WagmiConfig client={wagmiClient}>
-        <PersistGate persistor={persistor}>
-          <ECNRainbowKitAuthenticationProvider>
-            <RainbowKitProvider chains={chains} theme={rainbowTheme}>
-              <Chakra>
-                <Head>
-                  <meta
-                    name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-                  />
-                </Head>
-                <NextSeoData />
-                <AddressOrNetworkChange />
-                <QueryClientProvider client={apiQueryClient}>
-                  <Component {...pageProps} />
-                </QueryClientProvider>
-              </Chakra>
-            </RainbowKitProvider>
-          </ECNRainbowKitAuthenticationProvider>
-        </PersistGate>
-      </WagmiConfig>
-    </ReduxProvider>
+    <>
+      <NextSeoData />
+      <ReduxProvider store={store}>
+        <WagmiConfig client={wagmiClient}>
+          <PersistGate persistor={persistor}>
+            <ECNRainbowKitAuthenticationProvider>
+              <RainbowKitProvider chains={chains} theme={rainbowTheme}>
+                <Chakra>
+                  <AddressOrNetworkChange />
+                  <QueryClientProvider client={apiQueryClient}>
+                    <Component {...pageProps} />
+                  </QueryClientProvider>
+                </Chakra>
+              </RainbowKitProvider>
+            </ECNRainbowKitAuthenticationProvider>
+          </PersistGate>
+        </WagmiConfig>
+      </ReduxProvider>
+    </>
   );
 }
 

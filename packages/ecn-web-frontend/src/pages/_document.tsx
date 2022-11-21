@@ -21,6 +21,7 @@ class MyDocument extends Document {
           />
           <Meta />
         </Head>
+        {/* <NextSeoData /> */}
         <body>
           <ColorModeScript
             initialColorMode={customTheme.config?.initialColorMode}

@@ -13,6 +13,10 @@ const Meta = () => {
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="theme-color" content="#FFFFFF" />
       <meta name="keywords" content={seoKeywords} />
+      <meta
+        name="viewport"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+      />
 
       <link rel="shortcut icon" href="/ethgifts-logo.svg" />
 
