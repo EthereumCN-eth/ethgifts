@@ -1,0 +1,86 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-thisisecndbpassword}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+    
+  nginx:
+    restart: always
+    image: nginx
+    container_name: api_nginx
+    ports:
+      - '80:80'
+      - '443:443'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - web-root:/var/www/certbot
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
+      - ./nginx/default.prod.conf:/etc/nginx/conf.d/default.prod.conf.template
+    environment:
+      DOMAIN: ${DOMAIN}
+      WEB_API_PORT: ${WEB_API_PORT}
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/default.prod.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/certbot
+    depends_on:
+      - nginx
+    # command: certonly --webroot --webroot-path=/var/www/certbot --email email --agree-tos --no-eff-email --staging -d   -d 
+    #    command: certonly --webroot --webroot-path=/var/www/certbot --email ${CERT_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${DOMAIN}
+
+  web_api:
+    build:
+        dockerfile: Dockerfile.web-api.prod
+        context: ./
+    container_name: web_api
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules 
+      - /app/packages/ecn-discord-bot/node_modules
+      - /app/packages/ecn-eip712vc/node_modules
+      - /app/packages/ecn-prisma/node_modules
+      - /app/packages/ecn-sbt-api/node_modules
+      - /app/packages/ecn-sbt-contract/node_modules
+      - /app/packages/ecn-web-api/node_modules
+      - /app/packages/ecn-web-frontend/node_modules
+    command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && ./node_modules/.bin/pm2-runtime start ./dist/main.js"
+
+  redis:
+    image: redis
+    container_name: tutorial_redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes: 
+      - redisdata:/data
+    ports:
+      - 6379:6379
+    command: --slave-read-only no
+
+volumes:
+  redisdata:
+  web-root:
+  certbot-etc:
+  certbot-var:
+  dhparam:
+  # pgadmin:
