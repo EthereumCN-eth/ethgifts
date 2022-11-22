@@ -4,6 +4,7 @@ import type { DocumentContext } from "next/document";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import Meta from "@/components/Meta";
+import { GoogleAnalyticsScript } from "@/services/googleAnalytics/GoogleAnalyticsScript";
 import customTheme from "@/styles/theme";
 
 class MyDocument extends Document {
@@ -20,6 +21,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <Meta />
+          <GoogleAnalyticsScript />
         </Head>
         {/* <NextSeoData /> */}
         <body>

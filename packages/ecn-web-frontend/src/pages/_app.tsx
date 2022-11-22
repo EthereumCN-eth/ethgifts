@@ -36,6 +36,7 @@ import {
 import { ECNRainbowKitAuthenticationProvider } from "@/services/auth";
 import "@rainbow-me/rainbowkit/styles.css";
 import "@/components/shared/ZoomImageWrapper/styles.css";
+import { useGoogleAnalyticsPageViewTrack } from "@/services/googleAnalytics/hooks";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.arbitrum, chain.optimism, chain.goerli],
@@ -108,6 +109,7 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   const rainbowTheme = useHeaderStore((state) => state.rainbowTheme);
+  useGoogleAnalyticsPageViewTrack();
   return (
     <>
       <NextSeoData />
