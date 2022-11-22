@@ -196,3 +196,4 @@ dist
 package-lock.json
 packages/ecn-web-api/prisma/*.crt
 .env.development
+.env.production
