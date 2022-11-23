@@ -71,7 +71,7 @@ services:
       - /app/packages/ecn-web-api/node_modules
       - /app/packages/ecn-web-frontend/node_modules
       - /app/packages/ecn-redis-bullboard/node_modules
-    command: /bin/bash -c "cd /app/packages/ecn-redis-bullboard/  && ./node_modules/.bin/pm2-runtime start ./index.js"
+    command: /bin/bash -c "cd /app/packages/ecn-redis-bullboard/  &&  node ./index.js"
 
   redis:
     image: redis
