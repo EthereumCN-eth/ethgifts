@@ -1,0 +1,25 @@
+{
+  "name": "ecn-redis-bullboard",
+  "version": "1.0.0",
+  "description": "redis job bullboard for signing express signature",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kent426",
+  "license": "ISC",
+  "dependencies": {
+    "@bull-board/express": "^4.6.4",
+    "body-parser": "^1.20.1",
+    "bull": "^4.10.1",
+    "connect-ensure-login": "^0.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pm2": "^5.2.2"
+  }
+}

@@ -172,7 +172,7 @@ const main = async () => {
   }
 
   await Promise.all([
-    // ...sbts.map(createOneSBTPromise),
+    ...sbts.map(createOneSBTPromise),
     ...poaps.map(createOnePoapPromise),
     ...contentTypes.map(createOneContentTypePromise),
   ]);
