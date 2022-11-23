@@ -59,6 +59,11 @@ services:
         context: ./
     container_name: redis_bullboard
     restart: unless-stopped
+    environment:
+      REDIS_BULLBOARD_PORT: ${REDIS_BULLBOARD_PORT}
+      REDIS_BULL_NGINX_PATH: ${REDIS_BULL_NGINX_PATH}
+      REDIS_BULLBOARD_USERNAME: ${REDIS_BULLBOARD_USERNAME}
+      REDIS_BULLBOARD_PASSWORD: ${REDIS_BULLBOARD_PASSWORD}
     volumes:
       - .:/app
       - /app/node_modules 
