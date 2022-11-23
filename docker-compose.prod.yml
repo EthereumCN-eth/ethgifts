@@ -55,7 +55,7 @@ services:
 
   redis_bullboard:
     build:
-        dockerfile: Dockerfile.redis_bullboard.prod
+        dockerfile: Dockerfile.redis-bullboard.prod
         context: ./
     container_name: redis_bullboard
     restart: unless-stopped
