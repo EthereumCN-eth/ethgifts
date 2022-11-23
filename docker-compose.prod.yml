@@ -19,6 +19,8 @@ services:
     environment:
       DOMAIN: ${DOMAIN}
       WEB_API_PORT: ${WEB_API_PORT}
+      REDIS_BULLBOARD_PORT: ${REDIS_BULLBOARD_PORT}
+      REDIS_BULL_NGINX_PATH: ${REDIS_BULL_NGINX_PATH}
     command: /bin/bash -c "envsubst < /etc/nginx/conf.d/default.prod.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
   certbot:

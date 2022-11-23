@@ -78,7 +78,7 @@
     <form
       class="login-form"
       method="post"
-      action="<%= process.env.REDIS_BULLBOARD_BASE_PATH%>/login"
+      action="<%= process.env.REDIS_BULL_NGINX_PATH%>/<%= process.env.REDIS_BULLBOARD_BASE_PATH%>/login"
     >
       <input type="text" name="username" placeholder="Username" />
       <input type="password" name="password" placeholder="Password" />
