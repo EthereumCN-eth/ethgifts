@@ -1,20 +1,19 @@
-require('dotenv').config()
-const { createBullBoard } = require('@bull-board/api');
-const { BullAdapter } = require('@bull-board/api/bullAdapter');
-const { ExpressAdapter } = require('@bull-board/express');
-const Queue = require('bull');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const { ensureLoggedIn } = require('connect-ensure-login');
-const express = require('express');
+require("dotenv").config();
+const { createBullBoard } = require("@bull-board/api");
+const { BullAdapter } = require("@bull-board/api/bullAdapter");
+const { ExpressAdapter } = require("@bull-board/express");
+const Queue = require("bull");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const { ensureLoggedIn } = require("connect-ensure-login");
+const express = require("express");
 
-
-const REDIS_BULLBOARD_BASE_PATH = process.env.REDIS_BULLBOARD_BASE_PATH
-const REDIS_BULLBOARD_PORT = process.env.REDIS_BULLBOARD_PORT
-const REDIS_BULLBOARD_USERNAME = process.env.REDIS_BULLBOARD_USERNAME
-const REDIS_BULLBOARD_PASSWORD = process.env.REDIS_BULLBOARD_PASSWORD
+const REDIS_BULLBOARD_BASE_PATH = process.env.REDIS_BULLBOARD_BASE_PATH;
+const REDIS_BULLBOARD_PORT = process.env.REDIS_BULLBOARD_PORT;
+const REDIS_BULLBOARD_USERNAME = process.env.REDIS_BULLBOARD_USERNAME;
+const REDIS_BULLBOARD_PASSWORD = process.env.REDIS_BULLBOARD_PASSWORD;
 // Configure the local strategy for use by Passport.
 //
 // The local strategy require a `verify` function which receives the credentials
@@ -23,7 +22,10 @@ const REDIS_BULLBOARD_PASSWORD = process.env.REDIS_BULLBOARD_PASSWORD
 // will be set at `req.user` in route handlers after authentication.
 passport.use(
   new LocalStrategy(function (username, password, cb) {
-    if (username === REDIS_BULLBOARD_USERNAME && password === REDIS_BULLBOARD_PASSWORD) {
+    if (
+      username === REDIS_BULLBOARD_USERNAME &&
+      password === REDIS_BULLBOARD_PASSWORD
+    ) {
       return cb(null, { user: REDIS_BULLBOARD_USERNAME });
     }
     return cb(null, false);
@@ -54,11 +56,8 @@ const sleep = (t) => new Promise((resolve) => setTimeout(resolve, t * 1000));
 //   // tls: false,
 // };
 
-
-
-
 const run = async () => {
-  const signBullMq = new Queue('sign');
+  const signBullMq = new Queue("sign");
 
   const serverAdapter = new ExpressAdapter();
   serverAdapter.setBasePath(REDIS_BULLBOARD_BASE_PATH);
@@ -68,15 +67,19 @@ const run = async () => {
     serverAdapter,
   });
 
-
-
-
   const app = express();
   // Configure view engine to render EJS templates.
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+  app.set("views", __dirname + "/views");
+  app.set("view engine", "ejs");
 
-  app.use(session({ secret: 'cb3354001ae8e5df3b6e3dff72d9c965ac4f61812a0f7868857698183b36398d', saveUninitialized: true, resave: true }));
+  app.use(
+    session({
+      secret:
+        "cb3354001ae8e5df3b6e3dff72d9c965ac4f61812a0f7868857698183b36398d",
+      saveUninitialized: true,
+      resave: true,
+    })
+  );
   app.use(bodyParser.urlencoded({ extended: false }));
 
   // Initialize Passport and restore authentication state, if any, from the session.
@@ -84,12 +87,14 @@ const run = async () => {
   app.use(passport.session({}));
 
   app.get(`${REDIS_BULLBOARD_BASE_PATH}/login`, (req, res) => {
-    res.render('login', { invalid: req.query.invalid === 'true' });
+    res.render("login", { invalid: req.query.invalid === "true" });
   });
 
   app.post(
     `${REDIS_BULLBOARD_BASE_PATH}/login`,
-    passport.authenticate('local', { failureRedirect: `${REDIS_BULLBOARD_BASE_PATH}/login?invalid=true` }),
+    passport.authenticate("local", {
+      failureRedirect: `${REDIS_BULLBOARD_BASE_PATH}/login?invalid=true`,
+    }),
     (req, res) => {
       res.redirect(`${REDIS_BULLBOARD_BASE_PATH}`);
     }
@@ -109,12 +114,18 @@ const run = async () => {
   //   });
   // });
 
-  app.use(`${REDIS_BULLBOARD_BASE_PATH}`, ensureLoggedIn({ redirectTo: `${REDIS_BULLBOARD_BASE_PATH}/login` }), serverAdapter.getRouter());
+  app.use(
+    `${REDIS_BULLBOARD_BASE_PATH}`,
+    ensureLoggedIn({ redirectTo: `${REDIS_BULLBOARD_BASE_PATH}/login` }),
+    serverAdapter.getRouter()
+  );
 
   app.listen(REDIS_BULLBOARD_PORT, () => {
     console.log(`Running on ${REDIS_BULLBOARD_PORT}...`);
-    console.log(`For the UI, open http://localhost:${REDIS_BULLBOARD_PORT}${REDIS_BULLBOARD_BASE_PATH}`);
-    console.log('Make sure Redis is running on port 6379 by default');
+    console.log(
+      `For the UI, open http://localhost:${REDIS_BULLBOARD_PORT}${REDIS_BULLBOARD_BASE_PATH}`
+    );
+    console.log("Make sure Redis is running on port 6379 by default");
     // console.log('To populate the queue, run:');
     // console.log('  curl http://localhost:3000/add?title=Example');
     // console.log('To populate the queue with custom options (opts), run:');
