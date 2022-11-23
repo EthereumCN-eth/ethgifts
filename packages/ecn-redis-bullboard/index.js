@@ -9,6 +9,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { ensureLoggedIn } = require("connect-ensure-login");
 const express = require("express");
+var morgan = require("morgan");
 
 const REDIS_BULLBOARD_BASE_PATH = process.env.REDIS_BULLBOARD_BASE_PATH;
 const REDIS_BULLBOARD_PORT = process.env.REDIS_BULLBOARD_PORT;
@@ -71,6 +72,8 @@ const run = async () => {
   // Configure view engine to render EJS templates.
   app.set("views", __dirname + "/views");
   app.set("view engine", "ejs");
+
+  app.use(morgan("combined"));
 
   app.use(
     session({
