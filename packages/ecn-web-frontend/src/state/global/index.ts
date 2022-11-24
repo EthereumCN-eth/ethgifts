@@ -76,7 +76,8 @@ const selectAccessToken = (
   }
 ) => {
   if (address && chainId) {
-    const obj = state.global[`${address.toLowerCase().trim()}`];
+    const obj =
+      state.global[`${GLOBAL_PERSIST_VERSION}-${address.toLowerCase().trim()}`];
     if (obj) {
       return obj.accessToken;
     }
