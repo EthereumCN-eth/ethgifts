@@ -151,3 +151,23 @@ export const addMsgApi = async (msgPayload: {
     };
   }
 };
+
+export const deleteMsg = async (msgPayload: {
+  discordId: string;
+  msgId: string;
+}) => {
+  try {
+    const resluts = await axios.post<{
+      success: boolean;
+    }>("http://localhost:3010/msg/deleteMessage", msgPayload);
+    console.log("delete message: ", msgPayload.msgId);
+    return {
+      success: resluts.data.success,
+    };
+  } catch (error) {
+    console.log("delete message error: ", error);
+    return {
+      success: false,
+    };
+  }
+};
