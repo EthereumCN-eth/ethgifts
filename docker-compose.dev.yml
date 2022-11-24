@@ -56,6 +56,7 @@ services:
         context: ./
     container_name: web_api
     restart: unless-stopped
+    network_mode: host
     volumes:
       - .:/app
       - /app/node_modules 
@@ -82,6 +83,7 @@ services:
       REDIS_BULLBOARD_USERNAME: ${REDIS_BULLBOARD_USERNAME}
       REDIS_BULLBOARD_PASSWORD: ${REDIS_BULLBOARD_PASSWORD}
       REDIS_HOST: ${REDIS_HOST}
+    network_mode: host
     volumes:
       - .:/app
       - /app/node_modules 
