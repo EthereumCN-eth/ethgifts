@@ -66,6 +66,7 @@ services:
       REDIS_BULL_NGINX_PATH: ${REDIS_BULL_NGINX_PATH}
       REDIS_BULLBOARD_USERNAME: ${REDIS_BULLBOARD_USERNAME}
       REDIS_BULLBOARD_PASSWORD: ${REDIS_BULLBOARD_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
     volumes:
       - .:/app
       - /app/node_modules 

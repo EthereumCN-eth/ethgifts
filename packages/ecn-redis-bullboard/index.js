@@ -15,6 +15,7 @@ const REDIS_BULLBOARD_BASE_PATH = process.env.REDIS_BULLBOARD_BASE_PATH;
 const REDIS_BULLBOARD_PORT = process.env.REDIS_BULLBOARD_PORT;
 const REDIS_BULLBOARD_USERNAME = process.env.REDIS_BULLBOARD_USERNAME;
 const REDIS_BULLBOARD_PASSWORD = process.env.REDIS_BULLBOARD_PASSWORD;
+const REDIS_HOST = process.env.REDIS_HOST
 // Configure the local strategy for use by Passport.
 //
 // The local strategy require a `verify` function which receives the credentials
@@ -50,15 +51,17 @@ passport.deserializeUser((user, cb) => {
 
 const sleep = (t) => new Promise((resolve) => setTimeout(resolve, t * 1000));
 
-// const redisOptions = {
-//   port: 6379,
-//   host: 'localhost',
-//   password: '',
-//   // tls: false,
-// };
+const redisOptions = {
+  port: 6379,
+  host: REDIS_HOST,
+  password: '',
+  // tls: false,
+};
 
 const run = async () => {
-  const signBullMq = new Queue("sign");
+  const signBullMq = new Queue("sign", {
+    redis: redisOptions
+  });
 
   const serverAdapter = new ExpressAdapter();
   serverAdapter.setBasePath(REDIS_BULLBOARD_BASE_PATH);
