@@ -62,7 +62,7 @@ const addToSignatureGenerationQueue = async (
   const option = {
     attempts: 1000,
     backoff: 20000,
-    removeOnComplete: true,
+    // removeOnComplete: true,
   };
   await signatureGenerationQueue.add(
     {
