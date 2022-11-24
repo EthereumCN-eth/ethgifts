@@ -47,26 +47,6 @@ services:
     #command: certonly --webroot --webroot-path=/var/www/certbot --email ${CERT_EMAIL} --agree-tos --no-eff-email --force-renewal --staging -d ${DOMAIN}
     # command: certonly --webroot --webroot-path=/var/www/certbot --email email --agree-tos --no-eff-email --force-renewal -d example.com www.example.com
 
-  web_api:
-    build:
-        dockerfile: Dockerfile.web-api.prod
-        context: ./
-    container_name: web_api
-    restart: unless-stopped
-    volumes:
-      - .:/app
-      - /app/node_modules 
-      - /app/packages/ecn-discord-bot/node_modules
-      - /app/packages/ecn-discord-data/node_modules
-      - /app/packages/ecn-eip712vc/node_modules
-      - /app/packages/ecn-prisma/node_modules
-      - /app/packages/ecn-sbt-api/node_modules
-      - /app/packages/ecn-sbt-contract/node_modules
-      - /app/packages/ecn-web-api/node_modules
-      - /app/packages/ecn-web-frontend/node_modules
-      - /app/packages/ecn-redis-bullboard/node_modules
-    command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && ./node_modules/.bin/pm2-runtime start ./dist/main.js"
-
   redis_bullboard:
     build:
         dockerfile: Dockerfile.redis-bullboard.prod
@@ -81,17 +61,17 @@ services:
       REDIS_HOST: ${REDIS_HOST}
     volumes:
       - .:/app
-      - /app/node_modules 
-      - /app/packages/ecn-discord-bot/node_modules
-      - /app/packages/ecn-discord-data/node_modules
-      - /app/packages/ecn-eip712vc/node_modules
-      - /app/packages/ecn-prisma/node_modules
-      - /app/packages/ecn-sbt-api/node_modules
-      - /app/packages/ecn-sbt-contract/node_modules
-      - /app/packages/ecn-web-api/node_modules
-      - /app/packages/ecn-web-frontend/node_modules
-      - /app/packages/ecn-redis-bullboard/node_modules
-    command: /bin/bash -c "cd /app/packages/ecn-redis-bullboard/  &&  node ./index.js"
+      # - /app/node_modules 
+      # - /app/packages/ecn-discord-bot/node_modules
+      # - /app/packages/ecn-discord-data/node_modules
+      # - /app/packages/ecn-eip712vc/node_modules
+      # - /app/packages/ecn-prisma/node_modules
+      # - /app/packages/ecn-sbt-api/node_modules
+      # - /app/packages/ecn-sbt-contract/node_modules
+      # - /app/packages/ecn-web-api/node_modules
+      # - /app/packages/ecn-web-frontend/node_modules
+      # - /app/packages/ecn-redis-bullboard/node_modules
+    command: /bin/bash -c "cd /app/packages/ecn-redis-bullboard/  &&  pm2-runtime ./index.js"
     
 
   redis:
