@@ -77,8 +77,7 @@ export type GallerySBTItemType = {
   typeName: "sbt";
   SBTLevel: number[];
   artworks: string[];
-  currentLevel: number;
-  currentIndex: number;
+
   contractReadObj: Parameters<typeof useContractRead>[0];
   // static parsed obj; not working if switch network or account; legacy pitfall
   contractAddress: string;

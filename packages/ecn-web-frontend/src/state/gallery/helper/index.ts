@@ -122,8 +122,7 @@ export const convertGalleryItem = (
     const {
       SBTLevel,
       artworks,
-      currentLevel,
-      currentIndex,
+
       contractAddress,
       issuerAddress,
     } = serverItem;
@@ -133,8 +132,7 @@ export const convertGalleryItem = (
       SBTLevel,
       artworks,
       typeName: "sbt",
-      currentLevel,
-      currentIndex,
+
       contractAddress,
       issuerAddress,
     };
