@@ -161,17 +161,17 @@ export const setupAddMessageRoute = (
     }
   });
 
-  app.post("/rawMsg/findRawMessage", async (req, res) => {
-    const { msgId } = req.body;
-    try {
-      const rawMsg = await prisma.rawExpressMessage.findUnique({
-        where: {
-          id: msgId,
-        },
-      });
-      return res.status(200).send({ success: true, data: rawMsg });
-    } catch (error) {
-      return res.status(500).send({ success: false, error });
-    }
-  });
+  // app.post("/rawMsg/findRawMessage", async (req, res) => {
+  //   const { msgId } = req.body;
+  //   try {
+  //     const rawMsg = await prisma.rawExpressMessage.findUnique({
+  //       where: {
+  //         id: msgId,
+  //       },
+  //     });
+  //     return res.status(200).send({ success: true, data: rawMsg });
+  //   } catch (error) {
+  //     return res.status(500).send({ success: false, error });
+  //   }
+  // });
 };

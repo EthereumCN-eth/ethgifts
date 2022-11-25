@@ -152,10 +152,7 @@ export const addMsgApi = async (msgPayload: {
   }
 };
 
-export const deleteMsg = async (msgPayload: {
-  discordId: string;
-  msgId: string;
-}) => {
+export const deleteMsg = async (msgPayload: { msgId: string }) => {
   try {
     const resluts = await axios.post<{
       success: boolean;
