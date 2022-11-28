@@ -41,8 +41,10 @@ export const ProgressBar = ({
         <Box
           position="absolute"
           bottom="calc(100% + 5px)"
-          left={`calc(${expressProgress}% + 10px)`}
-          transform="translateY(-4px) translateX(calc(-50% - 6px))"
+          left={`calc(${
+            expressProgress === 0 ? "0" : `${expressProgress}% - 7.5px`
+          })`}
+          transform="translateY(-4px) translateX(calc(-50%))"
           transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
         >
           <BsFillCaretDownFill color="#FFFFFF" size="17px" />
@@ -52,12 +54,15 @@ export const ProgressBar = ({
       <Text
         position="absolute"
         bottom="calc(100% + 23px)"
-        left={`calc(${expressProgress}% + 10px)`}
+        left={`calc(${
+          expressProgress === 0 ? "0" : `${expressProgress}% - 7.5px`
+        })`}
+        // left={`calc(${expressProgress}% - 7.5px)`}
+        transform="translateY(-4px) translateX(calc(-50%))"
         // left={`${selectedLevelProgressVal}%`}
         color="#FFFFFF"
         // fontSize="xs"
         fontSize={["6px", "6px", "6px", "xs"]}
-        transform="translateY(-4px) translateX(calc(-50% - 6px))"
         transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
       >
         {`你在这里(${currentCount})`}
@@ -113,7 +118,7 @@ export const ProgressBar = ({
             // left={`${v}%`}
             h="4px"
             w="4px"
-            bgColor={levels[index] <= currentCount ? "white" : "grey"}
+            bgColor={levels[index] <= currentCount ? "#757575" : "grey"}
             borderRadius="50%"
             transition="1000ms linear"
           />
