@@ -5,9 +5,11 @@ import { AiFillFile } from "react-icons/ai";
 export const JSONBottomLabel = ({
   hasVcJson,
   stackProps,
+  iconSize = "12px",
 }: {
   hasVcJson: boolean;
   stackProps?: StackProps;
+  iconSize?: string;
 }) => {
   return (
     <>
@@ -19,11 +21,12 @@ export const JSONBottomLabel = ({
         // mt="5px"
         h="25px"
         width="full"
+        fontSize="sm"
         bgColor={hasVcJson ? "#EE862B" : "#757575"} // borderBottomRadius="16px"
         {...stackProps}
       >
-        <AiFillFile size="12px" color="#fff" />
-        <Text fontSize="sm" color="#fff" fontWeight={500}>
+        <AiFillFile size={iconSize} color="#fff" />
+        <Text color="#fff" fontWeight={500}>
           JSON
         </Text>
       </HStack>
