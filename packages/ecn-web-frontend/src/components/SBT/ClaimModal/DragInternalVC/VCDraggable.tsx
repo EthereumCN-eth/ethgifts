@@ -3,7 +3,6 @@ import { Center } from "@chakra-ui/react";
 import { useComputeDragTransformValue } from "./hooks/useComputeTransformValue";
 import { useInternalDragState } from "./internalDragState";
 import { NoVcDragView } from "./NoVcDragView";
-import { SwitchNetworkOverlay } from "./SwitchNetworkOverlay";
 import { VCDraggableView } from "./VCDraggableView";
 
 const absoluteStyle = {
@@ -71,7 +70,6 @@ export const VCDraggable = ({
       zIndex={100}
     >
       <VCDraggableView type={type} record={record} />
-      <SwitchNetworkOverlay />
     </Center>
   );
 };

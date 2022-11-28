@@ -86,7 +86,7 @@ StatusBoardPropstype) => {
         align="center"
         justify="center"
       >
-        <ClaimButton selectedIndex={selectedIndex} />
+        <ClaimButton selectedIndex={selectedIndex} chainId={chainId} />
         <Box boxSize="6%" />
         <VCDownloadButton
           expressCount={expressCount}
