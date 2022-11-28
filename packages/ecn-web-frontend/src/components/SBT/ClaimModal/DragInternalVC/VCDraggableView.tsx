@@ -5,6 +5,7 @@ import type { DragSourceMonitor } from "react-dnd";
 import { JSONBottomLabel } from "../../JSONBottomLabel";
 import { VCCheckListCard } from "../../VCCheckListCard";
 import type { VCCheckItemType } from "../../VCCheckListCard";
+import { responsive } from "../utils";
 import type { SBTState } from "@/state/sbt";
 import type { VCType } from "@/state/sbt/types";
 import { shortenName } from "@/utils/shortenName";
@@ -57,12 +58,12 @@ export const VCDraggableView = ({
     <VStack
       ref={dragRef}
       bgColor="#FAFAFA"
-      borderRadius="16px"
-      w="20vw"
-      h="20vw"
-      p="20px"
-      maxWidth="400px"
-      maxH="400px"
+      borderRadius={responsive.respH(16)}
+      w={responsive.respW(424)}
+      h={responsive.respH(353)}
+      p={responsive.respW(20)}
+      // maxWidth="400px"
+      // maxH="400px"
       cursor="grab"
       opacity={isDragging ? "0.3" : "1"}
       sx={{

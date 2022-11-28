@@ -1,6 +1,8 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
+import { responsive } from "../utils";
+
 import { useClaimSBTFromVC } from "./hooks/useClaimSBTFromVC";
 import { useInitInternalDragState } from "./hooks/useInitInternalDragState";
 import { useInternalDragState } from "./internalDragState";
@@ -34,7 +36,11 @@ export const DragInternalVC = ({
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>
-      <Flex w="full" h="45%" mt="56px">
+      <Flex
+        w="full"
+        h={responsive.respHStr(56 + 496)}
+        mt={responsive.respHStr(56)}
+      >
         <LevelTabPanels />
       </Flex>
       <Flex

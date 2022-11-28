@@ -15,6 +15,7 @@ import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
 import { DragInternalVC } from "./DragInternalVC";
+import { responsive } from "./utils";
 
 export const ClaimModal = ({
   isOpen,
@@ -37,7 +38,7 @@ export const ClaimModal = ({
       onClose={onClose}
       // finalFocusRef={btnRef}
       isOpen={isOpen}
-      scrollBehavior="inside"
+      // scrollBehavior="inside"
       closeOnOverlayClick={false}
     >
       <ModalOverlay
@@ -45,21 +46,28 @@ export const ClaimModal = ({
       // backdropFilter="blur(30px)"
       />
       <ModalContent
-        maxWidth="69vw"
-        width="1300px"
-        // h="74vh"
+        maxWidth={responsive.respW(1338)}
+        width={responsive.respW(1338)}
+        h={responsive.respHStr(850)}
         fontFamily="PingFang SC"
         position="relative"
-        borderRadius="24px"
+        borderRadius={responsive.respHStr(24)}
         border="rgba(255, 255, 255, 0.4) 1px solid"
         boxShadow="2px 2px 4px rgba(0, 0, 0, 0.25)"
       >
         <ModalCloseButton
           color="white"
           position="absolute"
-          transform="translateY(-2px)"
+          right={responsive.respWStr(34)}
+          top={responsive.respHStr(20 - 7.5)}
+          boxSize={responsive.respHStr(15)}
         />
-        <ModalBody p={0} m={0} width="100%" borderRadius="24px">
+        <ModalBody
+          p={0}
+          m={0}
+          width="100%"
+          borderTopRadius={responsive.respHStr(24)}
+        >
           <Tabs w="100%" variant="enclosed">
             <TabList
               border="none"
@@ -67,30 +75,40 @@ export const ClaimModal = ({
               display="flex"
               justifyContent="center"
               bgColor="#4F4C49"
-              borderTopRadius="24px"
-              h="45px"
+              borderTopRadius={responsive.respHStr(24)}
+              h={responsive.respHStr(40)}
+              lineHeight={responsive.respHStr(40)}
               fontSize="sm"
               fontWeight={500}
+              p={0}
+              m={0}
             >
               <Tab
-                mt="2px"
-                borderTopRadius="24px"
+                mt={responsive.respHStr(2)}
+                borderTopRadius={responsive.respHStr(24)}
+                fontSize={responsive.respHStr(14)}
                 _selected={{
                   bgColor: "#06070D",
                 }}
+                verticalAlign="middle"
                 bgColor="#726C66"
                 minW="29%"
+                p={0}
+                m={0}
               >
                 使用对应VC申领SBT
               </Tab>
               <Tab
-                mt="2px"
-                borderTopRadius="24px"
+                mt={responsive.respHStr(2)}
+                borderTopRadius={responsive.respHStr(24)}
+                fontSize={responsive.respHStr(14)}
                 _selected={{
                   bgColor: "#06070D",
                 }}
                 bgColor="#726C66"
                 minW="14.9%"
+                p={0}
+                m={0}
               >
                 使用VC验证工具
               </Tab>
@@ -98,8 +116,8 @@ export const ClaimModal = ({
             <TabPanels
               bgColor="#06070D"
               w="100%"
-              minH="calc(74vh - 24px)"
-              borderBottomRadius="24px"
+              h={responsive.respHStr(850 - 40)}
+              borderBottomRadius={responsive.respHStr(24)}
             >
               <TabPanel>
                 <DragInternalVC viewingSelectedIndex={viewingSelectedIndex} />
