@@ -55,7 +55,8 @@ export const ProgressBar = ({
         left={`calc(${expressProgress}% + 10px)`}
         // left={`${selectedLevelProgressVal}%`}
         color="#FFFFFF"
-        fontSize="xs"
+        // fontSize="xs"
+        fontSize={["6px", "6px", "6px", "xs"]}
         transform="translateY(-4px) translateX(calc(-50% - 6px))"
         transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
       >
