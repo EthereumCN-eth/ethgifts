@@ -48,12 +48,14 @@ export const ClaimModal = ({
       <ModalContent
         maxWidth={responsive.respW(1338)}
         width={responsive.respW(1338)}
-        h={responsive.respHStr(850)}
+        // h={responsive.respHStr(850)}
         fontFamily="PingFang SC"
         position="relative"
         borderRadius={responsive.respHStr(24)}
         border="rgba(255, 255, 255, 0.4) 1px solid"
         boxShadow="2px 2px 4px rgba(0, 0, 0, 0.25)"
+        // p={0}
+        // m={0}
       >
         <ModalCloseButton
           color="white"
@@ -66,9 +68,16 @@ export const ClaimModal = ({
           p={0}
           m={0}
           width="100%"
+          // h={responsive.respHStr(850)}
           borderTopRadius={responsive.respHStr(24)}
         >
-          <Tabs w="100%" variant="enclosed">
+          <Tabs
+            p={0}
+            m={0}
+            width="100%"
+            h={responsive.respHStr(850)}
+            variant="enclosed"
+          >
             <TabList
               border="none"
               color="#DDD9D7"
@@ -93,8 +102,9 @@ export const ClaimModal = ({
                 verticalAlign="middle"
                 bgColor="#726C66"
                 minW="29%"
-                p={0}
+                py={0}
                 m={0}
+                px={responsive.respWStr(48)}
               >
                 使用对应VC申领SBT
               </Tab>
@@ -107,22 +117,35 @@ export const ClaimModal = ({
                 }}
                 bgColor="#726C66"
                 minW="14.9%"
-                p={0}
+                py={0}
                 m={0}
+                px={responsive.respWStr(48)}
               >
                 使用VC验证工具
               </Tab>
             </TabList>
             <TabPanels
+              p={0}
+              m={0}
               bgColor="#06070D"
               w="100%"
               h={responsive.respHStr(850 - 40)}
               borderBottomRadius={responsive.respHStr(24)}
             >
-              <TabPanel>
+              <TabPanel
+                p={0}
+                m={0}
+                h={responsive.respHStr(850 - 40)}
+                borderBottomRadius={responsive.respHStr(24)}
+              >
                 <DragInternalVC viewingSelectedIndex={viewingSelectedIndex} />
               </TabPanel>
-              <TabPanel>
+              <TabPanel
+                p={0}
+                m={0}
+                h={responsive.respHStr(850 - 40)}
+                borderBottomRadius={responsive.respHStr(24)}
+              >
                 <p>two!</p>
               </TabPanel>
             </TabPanels>
