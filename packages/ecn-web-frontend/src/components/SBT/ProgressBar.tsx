@@ -70,9 +70,9 @@ export const ProgressBar = ({
               position="absolute"
               left={`${progressValues[index]}%`}
               // bottom="-200%"
-              fontSize="xs"
+              fontSize={["6px", "6px", "6px", "xs"]}
               display="block"
-              transform="translateX(-50%) translateY(100%)"
+              transform="translateX(calc(-50% - 6px)) translateY(20px)"
               // transform="translateX(-50%) translateY(-70px)"
               key={level}
               color={index === selectedIndex ? "white" : "#757575"}
@@ -80,6 +80,7 @@ export const ProgressBar = ({
               transition="opacity 1s cubic-bezier(0.77, 0, 0.175, 1)"
             >
               {`Lv${index + 1} (${level})`}
+              {/* {`(${level})`} */}
             </Text>
           );
         })}

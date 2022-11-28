@@ -1,4 +1,4 @@
-import { Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { useAccount, useNetwork } from "wagmi";
 
 import { useReadClaimedLevel } from "../../../hooks/useReadClaimedLevel";
@@ -46,7 +46,7 @@ StatusBoardPropstype) => {
     );
   return (
     <>
-      <HStack gap={3} wrap="wrap">
+      <HStack gap={3} wrap="wrap" align={["center", "center", "flex-start"]}>
         {detailTags.map((tag) => {
           return (
             <TextTag key={tag.label} text={tag.label} variant={tag.variant} />
@@ -54,7 +54,14 @@ StatusBoardPropstype) => {
         })}
       </HStack>
       {itemTexts && (
-        <Text my="8.1%" fontFamily="PingFang SC" color="white" fontSize="4xl">
+        <Text
+          w="full"
+          my="8.1%"
+          fontFamily="PingFang SC"
+          color="white"
+          fontSize="4xl"
+          textAlign={["center", "center", "left"]}
+        >
           {itemTexts[selectedIndex]}
         </Text>
       )}
@@ -64,6 +71,7 @@ StatusBoardPropstype) => {
         color="white"
         letterSpacing="0.02em"
         mb="8.1%"
+        textAlign={["center", "center", "left"]}
       >
         {StatusText({
           index: selectedIndex,
@@ -73,8 +81,13 @@ StatusBoardPropstype) => {
           sbtLevel,
         })}
       </Text>
-      <Flex direction="row" align="center" justify="space-between" wrap="wrap">
+      <Flex
+        direction={["column", "column", "column", "column", "row"]}
+        align="center"
+        justify="center"
+      >
         <ClaimButton selectedIndex={selectedIndex} />
+        <Box boxSize="6%" />
         <VCDownloadButton
           expressCount={expressCount}
           itemTexts={itemTexts}

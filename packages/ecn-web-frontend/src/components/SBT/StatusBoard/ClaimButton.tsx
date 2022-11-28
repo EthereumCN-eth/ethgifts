@@ -8,11 +8,11 @@ export const ClaimButton = ({ selectedIndex }: { selectedIndex: number }) => {
     <>
       <Button
         onClick={onOpen}
-        mx="auto"
+        mx="0"
         my="1.5%"
         variant="orangeBg"
         mt="30px"
-        minW="47%"
+        minW={["100%", "100%", "100%", "100%", "47%"]}
       >
         申领 SBT
       </Button>

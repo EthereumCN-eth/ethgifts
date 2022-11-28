@@ -24,10 +24,10 @@ export const VCDownloadButton = ({
     <>
       <Button
         my="1.5%"
-        mx="auto"
+        mx="0"
         variant="whiteOutline"
         colorScheme="whiteOutline"
-        minW="47%"
+        minW={["100%", "100%", "100%", "100%", "47%"]}
         mt="30px"
         leftIcon={<AiOutlineDownload color="white" />}
         disabled={isDisabled || !hasVc}
