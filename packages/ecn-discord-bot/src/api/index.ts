@@ -168,3 +168,24 @@ export const deleteMsg = async (msgPayload: { msgId: string }) => {
     };
   }
 };
+
+export const findMessage = async (msgPayload: { msgId: string }) => {
+  try {
+    const results = await axios.post<{
+      success: boolean;
+      data?: ExpressMessage;
+      error: string | null;
+    }>("http://localhost:3010/msg/findMessage", msgPayload);
+    // console.log("find message: ", msgPayload.msgId);
+    return {
+      success: results.data.success,
+      data: results.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: "error",
+      data: null,
+    };
+  }
+};

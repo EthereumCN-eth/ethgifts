@@ -22,7 +22,7 @@ export const setupQueryMsgRoute = (
       return res.status(500).send({ success: false, error });
     }
   });
-  app.post("./msg/findMessage", async (req, res) => {
+  app.post("/msg/findMessage", async (req, res) => {
     const { msgId } = req.body;
     try {
       const msg = await prisma.expressMessage.findUnique({
