@@ -19,9 +19,10 @@ const dmBtnToAdminVerify = async (
 ) => {
   if (isFirstVerifyReaction(reaction)) {
     const msgId = reaction.message.id;
-    const { success } = await findMessage({ msgId });
+    const { data } = await findMessage({ msgId });
+    console.log(data);
 
-    if (success) {
+    if (data?.success && data.data != null) {
       console.log("do not verify the duplicate message please");
       await user.send({
         content: `${reaction.message.content}\n msgId: ${reaction.message.id} is a duplicate message`,

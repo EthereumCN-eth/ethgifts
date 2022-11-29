@@ -30,9 +30,9 @@ export const setupQueryMsgRoute = (
           id: msgId,
         },
       });
-      return res.status(200).send({ success: true, data: msg });
+      return res.status(200).send({ success: true, data: msg, error: null });
     } catch (error) {
-      return res.status(500).send({ success: false, error });
+      return res.status(500).send({ success: false, data: null, error });
     }
   });
 };

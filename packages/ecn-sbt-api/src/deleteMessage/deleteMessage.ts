@@ -9,11 +9,6 @@ export const deleteMessage = async (msgId: string) => {
         },
 
         include: {
-          contentCategory: {
-            select: {
-              contentType: true,
-            },
-          },
           user: {
             select: {
               discordId: true,

@@ -176,7 +176,7 @@ export const findMessage = async (msgPayload: { msgId: string }) => {
       data?: ExpressMessage;
       error: string | null;
     }>("http://localhost:3010/msg/findMessage", msgPayload);
-    // console.log("find message: ", msgPayload.msgId);
+
     return {
       success: results.data.success,
       data: results.data,
@@ -184,7 +184,6 @@ export const findMessage = async (msgPayload: { msgId: string }) => {
   } catch (error) {
     return {
       success: false,
-      error: "error",
       data: null,
     };
   }
