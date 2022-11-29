@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
+import { responsive } from "../utils";
 import { verifyVC } from "@/utils/vc";
 
 import { useComputeDropAreaTransformValue } from "./hooks/useComputeTransformValue";
@@ -77,14 +78,14 @@ export const VCDropArea = () => {
     return (
       <Image
         src={selectedArtwork}
-        w="calc(24vw - 2px)"
-        h="calc(24vw - 2px)"
+        w={responsive.respWStr(496)}
+        h={responsive.respWStr(496)}
         border="none"
         maxWidth="calc(460px - 2px)"
         maxH="calc(460px - 2px)"
         opacity={1}
         p="1px"
-        borderRadius="16px"
+        borderRadius={responsive.respWStr(16)}
         zIndex={1}
         textAlign="center"
         // left={0}
@@ -105,8 +106,8 @@ export const VCDropArea = () => {
         dropRef(ref);
         moveRef.current = ref;
       }}
-      w="24vw"
-      h="24vw"
+      w={responsive.respWStr(496)}
+      h={responsive.respWStr(496)}
       maxWidth="460px"
       maxH="460px"
       borderRadius="16px"
@@ -121,8 +122,8 @@ export const VCDropArea = () => {
       <Image
         src={selectedArtwork}
         position="absolute"
-        w="calc(24vw - 2px)"
-        h="calc(24vw - 2px)"
+        w={`calc(${responsive.respWStr(496)} - 2px)`}
+        h={`calc(${responsive.respWStr(496)} - 2px)`}
         border="none"
         maxWidth="calc(460px - 2px)"
         maxH="calc(460px - 2px)"
@@ -132,7 +133,7 @@ export const VCDropArea = () => {
         bottom={0}
         right={0}
         p="1px"
-        borderRadius="16px"
+        borderRadius={responsive.respWStr(16)}
         zIndex={1}
         textAlign="center"
       />
@@ -142,7 +143,7 @@ export const VCDropArea = () => {
         <Box h="2%" />
         <Text
           color="#FFFFFF"
-          fontSize={["sm", "sm", "md", "lg", "xl"]}
+          fontSize={responsive.respWStr(20)}
           fontWeight={600}
           textAlign="center"
         >
@@ -153,7 +154,7 @@ export const VCDropArea = () => {
           textAlign="center"
           w="70%"
           color="#FFFFFF"
-          fontSize={["xs", "xs", "xs", "xs", "sm"]}
+          fontSize={responsive.respWStr(14)}
         >
           拖入证明你具有 E群誌 SBT 所有权的VC，以激活对应SBT的申领。
         </Text>

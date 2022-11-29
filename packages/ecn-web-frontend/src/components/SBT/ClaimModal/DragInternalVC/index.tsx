@@ -1,6 +1,8 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
+import { responsive } from "../utils";
+
 import { useClaimSBTFromVC } from "./hooks/useClaimSBTFromVC";
 import { useInitInternalDragState } from "./hooks/useInitInternalDragState";
 import { useInternalDragState } from "./internalDragState";
@@ -34,14 +36,18 @@ export const DragInternalVC = ({
 
   return (
     <Tabs w="full" h="100%" index={selectedIndex} onChange={clickLevel}>
-      <Flex w="full" h="45%" mt="56px">
+      <Flex
+        w="full"
+        h={responsive.respHStr(56 + 496)}
+        pt={responsive.respHStr(56)}
+      >
         <LevelTabPanels />
       </Flex>
       <Flex
         direction="row"
         align="center"
         justify="center"
-        fontSize="xl"
+        fontSize={responsive.respWStr(20)}
         my="36px"
         fontFamily="PingFang SC"
         fontWeight={400}
@@ -58,24 +64,31 @@ export const DragInternalVC = ({
           display="flex"
           alignItems="center"
           justifyContent="center"
-          w="25px"
-          h="25px"
+          w={responsive.respW(25)}
+          h={responsive.respW(25)}
           variant="unstyled"
-          icon={<AiOutlineLeftCircle size="25px" />}
+          minW="18px"
+          minH="18px"
+          icon={<AiOutlineLeftCircle size={responsive.respW(25)} />}
           color="#FFFFFF"
         />
         <Flex
           direction="row"
-          minW="291px"
-          px="20px"
-          h="44px"
+          minW={responsive.respW(291)}
+          px={responsive.respW(20)}
+          h={responsive.respH(44)}
           bgColor="#FAFAFA"
-          borderRadius="62px"
+          borderRadius={responsive.respH(62)}
           align="center"
           justify="center"
         >
           {/*  */}
-          <Text fontSize="sm" textAlign="center" color="#757575" mr="6px">
+          <Text
+            fontSize={responsive.respWStr(14)}
+            textAlign="center"
+            color="#757575"
+            mr="6px"
+          >
             申领 E群誌SBT
           </Text>
           <LevelTabList />
@@ -87,20 +100,22 @@ export const DragInternalVC = ({
           display="flex"
           alignItems="center"
           justifyContent="center"
-          w="25px"
-          h="25px"
+          w={responsive.respW(25)}
+          h={responsive.respW(25)}
+          minW="18px"
+          minH="18px"
           variant="unstyled"
-          icon={<AiOutlineRightCircle size="25px" />}
+          icon={<AiOutlineRightCircle size={responsive.respW(25)} />}
           color="#FFFFFF"
         />
       </HStack>
       <Text
         textAlign="center"
         color="#FFFFFF"
-        fontSize="sm"
+        fontSize={responsive.respWStr(14)}
         fontWeight={500}
-        mt="24px"
-        mb="56px"
+        mt={responsive.respH(24)}
+        mb={responsive.respH(56)}
       >
         {`SBT申领状态：${claimText}`}
       </Text>

@@ -3,13 +3,14 @@ import { useDrag } from "react-dnd";
 import type { DragSourceMonitor } from "react-dnd";
 
 import { JSONBottomLabel } from "../../JSONBottomLabel";
-import { VCCheckListCard } from "../../VCCheckListCard";
 import type { VCCheckItemType } from "../../VCCheckListCard";
+import { responsive } from "../utils";
 import type { SBTState } from "@/state/sbt";
 import type { VCType } from "@/state/sbt/types";
 import { shortenName } from "@/utils/shortenName";
 
 import { useInternalDragState } from "./internalDragState";
+import { VCDragCheckListCard } from "./VCDragCheckListCard";
 
 export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
 
@@ -57,17 +58,17 @@ export const VCDraggableView = ({
     <VStack
       ref={dragRef}
       bgColor="#FAFAFA"
-      borderRadius="16px"
-      w="20vw"
-      h="20vw"
-      p="20px"
-      maxWidth="400px"
-      maxH="400px"
+      borderRadius={responsive.respW(16)}
+      w={responsive.respW(424)}
+      h={responsive.respW(333)}
+      p={responsive.respW(20)}
+      // maxWidth="400px"
+      // maxH="400px"
       cursor="grab"
       opacity={isDragging ? "0.3" : "1"}
       sx={{
         "&::before, &::after": {
-          borderRadius: "16px",
+          borderRadius: responsive.respW(16),
         },
         transform: "translate(0, 0)",
       }}
@@ -75,15 +76,15 @@ export const VCDraggableView = ({
     >
       <VStack
         w="100%"
-        h="16vw"
-        maxH="318px"
+        h={responsive.respW(265)}
+        // maxH="318px"
         bgColor="#DDD9D7"
         borderRadius="8px"
         position="relative"
         justify="space-evenly"
-        px="20px"
-        pt="30px"
-        pb="50px"
+        px={responsive.respWStr(20)}
+        pt={responsive.respWStr(20)}
+        // pb="50px"
       >
         {(
           [
@@ -111,21 +112,24 @@ export const VCDraggableView = ({
             },
           ] as Array<VCCheckItemType>
         ).map((item) => {
-          return <VCCheckListCard key={item.leftText} item={item} />;
+          return <VCDragCheckListCard key={item.leftText} item={item} />;
         })}
 
         <JSONBottomLabel
           hasVcJson
+          iconSize={responsive.respWStr(12)}
           stackProps={{
-            borderBottomRadius: "8px",
+            borderBottomRadius: responsive.respW(8),
+            h: responsive.respW(25),
+            fontSize: responsive.respWStr(14),
           }}
         />
       </VStack>
       <Center flex="1">
         <Image
           src="/holdicon.svg"
-          w="31px"
-          h={["5px", "5px", "5px", "5px", "12px"]}
+          w={responsive.respW(31.5)}
+          h={responsive.respW(12.6)}
           objectFit="contain"
         />
       </Center>
