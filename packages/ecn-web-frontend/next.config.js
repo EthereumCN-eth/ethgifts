@@ -42,6 +42,8 @@ module.exports = withPWA({
               if (isServer) {
                 const from = join(compiler.options.output.path, "../static");
                 const to = join(compiler.options.output.path, "static");
+                // console.log("from", from);
+                // console.log("to", to);
 
                 try {
                   await access(from);
