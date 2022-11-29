@@ -62,6 +62,13 @@ export const VCDraggableView = ({
       w={responsive.respW(424)}
       h={responsive.respW(333)}
       p={responsive.respW(20)}
+      // p={["10px", "12px", "15px", "20px"]}
+      // p={[
+      //   responsive.respWStr(10),
+      //   responsive.respWStr(12),
+      //   responsive.respWStr(15),
+      //   responsive.respWStr(20),
+      // ]}
       // maxWidth="400px"
       // maxH="400px"
       cursor="grab"
