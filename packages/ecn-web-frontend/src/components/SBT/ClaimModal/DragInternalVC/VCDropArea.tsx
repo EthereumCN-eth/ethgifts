@@ -5,7 +5,7 @@ import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
 import { responsive } from "../utils";
-import { verifyVC } from "@/utils/vc";
+// import { verifyVC } from "@/utils/vc";
 
 import { useComputeDropAreaTransformValue } from "./hooks/useComputeTransformValue";
 import { useInternalDragState } from "./internalDragState";
@@ -36,8 +36,8 @@ export const VCDropArea = () => {
       drop: async (item, monitor) => {
         if (vcStr) {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const isVerifiedVC = await verifyVC(vcStr);
-          setDrop(true, selectedIndex, isVerifiedVC);
+          // const isVerifiedVC = await verifyVC(vcStr);
+          setDrop(true, selectedIndex, false);
         }
 
         // onDrop(monitor.getItemType());

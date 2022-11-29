@@ -1,4 +1,4 @@
-import { Button, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { constants } from "ethers";
 import { useEffect, useMemo } from "react";
 import {
@@ -8,10 +8,30 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
+import { responsive } from "../../utils";
 import { useInternalDragState } from "../internalDragState";
+import { ProcessingSpinner } from "../ProcessingSpinner";
 import SBT1 from "@/abis/SBT1.json";
 import type { ParseVCForPayloadDataType } from "@/utils/vc";
 import { parseVCForPayload } from "@/utils/vc";
+
+const hintText = {
+  processing: ({ selectedIndex }: { selectedIndex: number }) => (
+    <>
+      <Text color="#EE862B">{`claim processing Lv${selectedIndex + 1}`}</Text>
+      {/* <Spinner ml="5px" size="sm" color="white" /> */}
+      <Box w="10px" />
+      <ProcessingSpinner size={responsive.respWStr(25)} color="white" />
+    </>
+  ),
+  cancelling: ({ selectedIndex }: { selectedIndex: number }) => (
+    <>
+      <Text color="#EE862B">{`claim cancelling Lv${selectedIndex + 1}`}</Text>
+      <Box w="10px" />
+      <ProcessingSpinner size={responsive.respWStr(25)} color="white" />
+    </>
+  ),
+};
 
 const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
   const {
@@ -44,6 +64,7 @@ const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
     // overrides: {
     //   gasLimit: 50000,
     // },
+
     signer,
   });
   return useContractWrite(config);
@@ -66,7 +87,13 @@ export function useClaimSBTFromVC() {
     if (signedVC) return parseVCForPayload(signedVC || "{}").data;
     return null;
   }, [signedVC]);
-  const { data, write, isError, error } = useCLaimSBT({
+  const {
+    data,
+    write,
+    isError,
+    error,
+    reset: resetClaim,
+  } = useCLaimSBT({
     payload: vcPayloadOrNull,
   });
 
@@ -79,47 +106,64 @@ export function useClaimSBTFromVC() {
   useEffect(() => {
     if (dropped) {
       setClaimingHint({
-        claimingHint: (
-          <>
-            <Text color="#EE862B">{`请在钱包确认领取 Lv${
-              selectedIndex + 1
-            } E群誌 SBT`}</Text>
-            <Spinner ml="5px" size="sm" color="white" />
-          </>
-        ),
+        claimingHint: hintText.processing({ selectedIndex }),
       });
-      write?.();
+      // to verify
+      // const isVerifiedVC = await verifyVC(vcStr);
+      const tr = setTimeout(() => {
+        write?.();
+      }, 4000);
+      return () => {
+        clearTimeout(tr);
+      };
     }
+    return () => {};
   }, [payloadreceived, setClaimingHint, write, dropped, selectedIndex]);
 
   useEffect(() => {
     if (error?.message?.startsWith("user rejected transaction")) {
+      // setClaimingHint({
+      //   claimingHint: (
+      //     <VStack>
+      //       <Text color="#A34829">钱包交互被取消</Text>
+      //       <Button variant="orangeOutline" onClick={() => reset(false)}>
+      //         重置交互
+      //       </Button>
+      //     </VStack>
+      //   ),
+      // });
+
       setClaimingHint({
-        claimingHint: (
-          <VStack>
-            <Text color="#A34829">钱包交互被取消</Text>
-            <Button variant="orangeOutline" onClick={() => reset(false)}>
-              重置交互
-            </Button>
-          </VStack>
-        ),
+        claimingHint: hintText.cancelling({ selectedIndex }),
       });
+
+      const t = setTimeout(() => {
+        reset(false);
+        resetClaim();
+      }, 1000);
+      return () => {
+        clearTimeout(t);
+      };
     }
-  }, [error?.message, isError, reset, setClaimingHint]);
+    return () => {};
+  }, [
+    error?.message,
+    isError,
+    reset,
+    resetClaim,
+    selectedIndex,
+    setClaimingHint,
+  ]);
 
   useEffect(() => {
     if (isTxSuccess) {
       reset(true);
     } else if (isTxLoading) {
       setClaimingHint({
-        claimingHint: (
-          <VStack>
-            <Text color="#A34829">链上处理中...</Text>
-          </VStack>
-        ),
+        claimingHint: hintText.processing({ selectedIndex }),
       });
     }
-  }, [isTxLoading, isTxSuccess, reset, setClaimingHint]);
+  }, [isTxLoading, isTxSuccess, reset, selectedIndex, setClaimingHint]);
 
   // console.log("write", write);
   // console.log("isError", isError, error?.message, error?.cause);
