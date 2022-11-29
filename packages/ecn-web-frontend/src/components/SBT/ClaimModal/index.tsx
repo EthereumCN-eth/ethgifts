@@ -42,8 +42,8 @@ export const ClaimModal = ({
       closeOnOverlayClick={false}
     >
       <ModalOverlay
-      // bgColor="rgba(255, 255, 255, 0.4)"
-      // backdropFilter="blur(30px)"
+        // bgColor="rgba(255, 255, 255, 0.4)"
+        backdropFilter="blur(5px)"
       />
       <ModalContent
         maxWidth={responsive.respW(1338)}
@@ -51,8 +51,10 @@ export const ClaimModal = ({
         // h={responsive.respHStr(850)}
         fontFamily="PingFang SC"
         position="relative"
+        border="none"
+        bgColor="transparent"
         borderRadius={responsive.respHStr(24)}
-        border="rgba(255, 255, 255, 0.4) 1px solid"
+        // border="rgba(255, 255, 255, 0.4) 1px solid"
         boxShadow="2px 2px 4px rgba(0, 0, 0, 0.25)"
         // p={0}
         // m={0}
@@ -68,6 +70,7 @@ export const ClaimModal = ({
           p={0}
           m={0}
           width="100%"
+          border="none"
           // h={responsive.respHStr(850)}
           borderTopRadius={responsive.respHStr(24)}
         >
