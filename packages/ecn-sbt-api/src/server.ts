@@ -5,7 +5,7 @@ import morgan from "morgan";
 import { setupAddMessageRoute } from "./addMessage";
 import { setupUpdateMsgRoute } from "./updateMessage";
 import { setupDeleteMsgRoute } from "./deleteMessage";
-import { setupQueryMsgRoute } from "./queryMessage";
+import { setupQueryRoute } from "./query";
 import { setupUserRoute } from "./user";
 
 export const prisma = new PrismaClient();
@@ -19,6 +19,6 @@ setupAddMessageRoute(app, prisma);
 setupUserRoute(app, prisma);
 setupUpdateMsgRoute(app, prisma);
 setupDeleteMsgRoute(app, prisma);
-setupQueryMsgRoute(app, prisma);
+setupQueryRoute(app, prisma);
 
 export { app };

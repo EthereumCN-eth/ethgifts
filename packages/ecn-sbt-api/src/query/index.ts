@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 
-export const setupQueryMsgRoute = (
+export const setupQueryRoute = (
   app: Express,
   prisma: PrismaClient<
     Prisma.PrismaClientOptions,
@@ -31,6 +31,21 @@ export const setupQueryMsgRoute = (
         },
       });
       return res.status(200).send({ success: true, data: msg, error: null });
+    } catch (error) {
+      return res.status(500).send({ success: false, data: null, error });
+    }
+  });
+  app.get("/contentType", async (req, res) => {
+    try {
+      const content = await prisma.contentCategory.findMany({
+        select: {
+          contentType: true,
+          ExpressMessages: true,
+        },
+      });
+      return res
+        .status(200)
+        .send({ success: true, data: content, error: null });
     } catch (error) {
       return res.status(500).send({ success: false, data: null, error });
     }
