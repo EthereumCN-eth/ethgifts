@@ -4,6 +4,7 @@ import { useComputeDragTransformValue } from "./hooks/useComputeTransformValue";
 import { useInternalDragState } from "./internalDragState";
 import { NoVcDragView } from "./NoVcDragView";
 import { VCDraggableView } from "./VCDraggableView";
+import { VCStepProgressView } from "./VCStepProgressView";
 
 const absoluteStyle = {
   position: "absolute",
@@ -36,7 +37,8 @@ export const VCDraggable = ({
 
   const hasVc = !!record;
   const sxStyle = isAbsolute ? absoluteStyle : {};
-  const isHiddenProps = isControlHidden && dropped ? hiddenStyleProps : {};
+  const isToHide = isControlHidden && dropped;
+  const isHiddenProps = isToHide ? hiddenStyleProps : {};
 
   const combinedStyle = { ...sxStyle, ...isHiddenProps };
 
@@ -58,6 +60,7 @@ export const VCDraggable = ({
     return (
       <Center sx={combinedStyle} position="relative">
         <VCDraggableView type={type} record={record} />
+        <VCStepProgressView />
       </Center>
     );
   }
@@ -67,9 +70,10 @@ export const VCDraggable = ({
       transition="transform 1s cubic-bezier(0.77, 0, 0.175, 1)"
       sx={isHiddenProps}
       style={droppedStyle}
-      zIndex={100}
+      zIndex={isToHide ? -1 : 100}
     >
       <VCDraggableView type={type} record={record} />
+      {/* <VCStepProgressView /> */}
     </Center>
   );
 };

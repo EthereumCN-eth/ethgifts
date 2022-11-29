@@ -5,6 +5,7 @@ import type { DropTargetMonitor } from "react-dnd";
 import { AiOutlineUpload } from "react-icons/ai";
 
 import { responsive } from "../utils";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { verifyVC } from "@/utils/vc";
 
 import { useComputeDropAreaTransformValue } from "./hooks/useComputeTransformValue";
