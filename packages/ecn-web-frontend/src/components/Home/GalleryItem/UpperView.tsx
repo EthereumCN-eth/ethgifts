@@ -22,7 +22,7 @@ export const UpperView = ({
     >
       {/*  */}
       <NextLink href={linkTo} passHref>
-        <LinkOverlay>
+        <LinkOverlay zIndex={100}>
           <Text
             w="240px"
             display="block"
@@ -37,7 +37,7 @@ export const UpperView = ({
         </LinkOverlay>
       </NextLink>
       <Box
-        zIndex={-1}
+        // zIndex={-1}
         px="16px"
         py="6px"
         w="68px"

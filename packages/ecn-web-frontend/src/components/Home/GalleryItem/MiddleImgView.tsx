@@ -1,6 +1,6 @@
 import { Center, Image, Skeleton } from "@chakra-ui/react";
 
-import { GalleryOwnerShipStamp } from "../GalleryOwnerShipStamp";
+import { GalleryOwnerShipStamp } from "./GalleryOwnerShipStamp";
 
 export const MiddleImgView = ({
   imgAlt,
@@ -12,7 +12,7 @@ export const MiddleImgView = ({
   isOwnIt: boolean;
 }) => {
   return (
-    <Center w="330px" h="280px">
+    <Center w="330px" h="280px" position="relative">
       <Image
         // loading="lazy"
         maxW="70vw"
