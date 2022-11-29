@@ -1,4 +1,3 @@
-import { updateMsgContentType } from "./queue";
 import { Express } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 
@@ -14,10 +13,57 @@ export const setupUpdateMsgRoute = (
     const { msgId, contentType } = req.body;
 
     try {
-      await updateMsgContentType(msgId, contentType);
-      console.log(`update is successfuly: ${msgId} => ${contentType}`);
+      await prisma.$transaction(async () => {
+        const findMessage = await prisma.expressMessage.findUnique({
+          where: {
+            id: msgId,
+          },
 
-      return res.status(200).send({ success: true, data: contentType });
+          include: {
+            contentCategory: {
+              select: {
+                contentType: true,
+              },
+            },
+            user: {
+              select: {
+                discordId: true,
+              },
+            },
+          },
+        });
+
+        if (!findMessage) {
+          console.log("no match message");
+          return new Error("no match message");
+        }
+
+        if (contentType != undefined) {
+          const existedContentType = await prisma.contentCategory.findUnique({
+            where: {
+              contentType: contentType,
+            },
+          });
+          if (!existedContentType) {
+            await prisma.contentCategory.create({
+              data: {
+                contentType: contentType,
+              },
+            });
+          }
+          await prisma.expressMessage.update({
+            where: {
+              id: msgId,
+            },
+            data: {
+              contentType: contentType,
+            },
+          });
+        }
+      });
+      return res
+        .status(200)
+        .send({ success: true, data: `updated contentType: ${contentType}` });
     } catch (error) {
       return res.status(200).send({ success: false, data: null });
     }

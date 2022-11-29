@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["interactiveTransactions"]
+  previewFeatures = ["interactiveTransactions", "referentialIntegrity"]
 }
 
 datasource db {
@@ -25,7 +25,7 @@ model RawExpressMessage {
 }
 
 model ExpressMessage {
-  rawMessage RawExpressMessage @relation(fields: [id], references: [id])
+  rawMessage RawExpressMessage @relation(fields: [id], references: [id], onDelete: Cascade)
   id         String            @id
 
   expressUrl         String
@@ -61,14 +61,14 @@ model SBTSignatureRecord {
   user   User   @relation(fields: [userId], references: [discordId])
   userId String
 
-  expressMessage ExpressMessage @relation(fields: [id], references: [id])
+  expressMessage ExpressMessage @relation(fields: [id], references: [id], onDelete: Cascade)
   id             String         @id @unique
 
   sbtContractType   SBTContractType @relation(fields: [sbtContractTypeId], references: [id])
   sbtContractTypeId Int
   signedVC          String
 
-  signaturePayload   SignaturePayload @relation(fields: [signaturePayloadId], references: [id])
+  signaturePayload   SignaturePayload @relation(fields: [signaturePayloadId], references: [id], onDelete: Cascade)
   signaturePayloadId String           @unique
   signatureData      String
 }
@@ -84,7 +84,7 @@ model SignaturePayload {
   receiverETHAddress String
   expressCount       Int
   sBTSignatureRecord SBTSignatureRecord?
-  expressMessage     ExpressMessage      @relation(fields: [id], references: [id])
+  expressMessage     ExpressMessage      @relation(fields: [id], references: [id], onDelete: Cascade)
   id                 String              @id @unique
 }
 
