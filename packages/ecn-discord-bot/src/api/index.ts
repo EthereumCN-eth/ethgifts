@@ -151,3 +151,40 @@ export const addMsgApi = async (msgPayload: {
     };
   }
 };
+
+export const deleteMsg = async (msgPayload: { msgId: string }) => {
+  try {
+    const resluts = await axios.post<{
+      success: boolean;
+    }>("http://localhost:3010/msg/deleteMessage", msgPayload);
+    console.log("delete message: ", msgPayload.msgId);
+    return {
+      success: resluts.data.success,
+    };
+  } catch (error) {
+    console.log("delete message error: ", error);
+    return {
+      success: false,
+    };
+  }
+};
+
+export const findMessage = async (msgPayload: { msgId: string }) => {
+  try {
+    const results = await axios.post<{
+      success: boolean;
+      data?: ExpressMessage;
+      error: string | null;
+    }>("http://localhost:3010/msg/findMessage", msgPayload);
+
+    return {
+      success: results.data.success,
+      data: results.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
+};

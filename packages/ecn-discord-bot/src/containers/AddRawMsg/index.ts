@@ -1,6 +1,6 @@
 import {
   APIActionRowComponent,
-  APIMessageActionRowComponent
+  APIMessageActionRowComponent,
 } from "discord-api-types/v9";
 import {
   Client,
@@ -8,7 +8,7 @@ import {
   MessageActionRow,
   MessageActionRowComponent,
   MessageActionRowComponentResolvable,
-  TextChannel
+  TextChannel,
 } from "discord.js";
 import { addRawMsgApi } from "../../api";
 import { CHANNEL_ID, lastest_no_address_discordId } from "../../constants";
@@ -32,7 +32,7 @@ export const AddRawMsg = async (
       rawMessage: msg.content,
       discordId: msg.author.id,
       discordName: msg.author.username,
-      msgId: msg.id
+      msgId: msg.id,
     };
     try {
       const { success, data } = await addRawMsgApi(msgPayload);
@@ -42,7 +42,7 @@ export const AddRawMsg = async (
           lastest_no_address_discordId.set("latest", data.user.discordId);
           await (client.channels.cache.get(CHANNEL_ID) as TextChannel).send({
             content: trans.AddRawMsg.address_prompt,
-            components: [btn]
+            components: [btn],
           });
         }
       }
