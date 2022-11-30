@@ -51,12 +51,15 @@ const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
   return useContractWrite(config);
 };
 
-export function useClaimSBTFromVC() {
+export function useClaimSBTFromVC({
+  enabled,
+}: // time,
+{
+  enabled: boolean;
+  // time: number;
+}) {
   const record = useInternalDragState((state) =>
     state.computed.selectedRecord(state)
-  );
-  const dropped = useInternalDragState((state) =>
-    state.computed.selectedDropped(state)
   );
   const reset = useInternalDragState((state) => state.reset);
   const selectedIndex = useInternalDragState((state) => state.selectedIndex);
@@ -71,33 +74,47 @@ export function useClaimSBTFromVC() {
     isError,
     error,
     reset: resetClaim,
+    // isSuccess: isWriteSuccess,
+    // isLoading: isWriteLoading,
+    status: isWriteStatus,
   } = useCLaimSBT({
     payload: vcPayloadOrNull,
   });
 
-  const { isLoading: isTxLoading, isSuccess: isTxSuccess } =
-    useWaitForTransaction({
-      hash: data?.hash,
-    });
+  const {
+    isLoading: isTxLoading,
+    isSuccess: isTxSuccess,
+    // isError: isTxError,
+    status,
+  } = useWaitForTransaction({
+    hash: data?.hash,
+  });
   const payloadreceived = !!vcPayloadOrNull;
 
   const { setClaimingCancelling, setClaimingProcessing } =
     useClaimingHintSetter();
 
   useEffect(() => {
-    if (dropped) {
+    if (enabled) {
       setClaimingProcessing();
       // to verify
       // const isVerifiedVC = await verifyVC(vcStr);
-      // const tr = setTimeout(() => {
-      //   write?.();
-      // }, 4000);
-      // return () => {
-      //   clearTimeout(tr);
-      // };
+      const tr = setTimeout(() => {
+        write?.();
+      });
+      return () => {
+        clearTimeout(tr);
+      };
     }
     return () => {};
-  }, [payloadreceived, write, dropped, setClaimingProcessing, selectedIndex]);
+  }, [
+    payloadreceived,
+    write,
+    setClaimingProcessing,
+    selectedIndex,
+    enabled,
+    // time,
+  ]);
 
   useEffect(() => {
     if (error?.message?.startsWith("user rejected transaction")) {
@@ -117,7 +134,7 @@ export function useClaimSBTFromVC() {
       const t = setTimeout(() => {
         reset(false);
         resetClaim();
-      }, 1000);
+      }, 2500);
       return () => {
         clearTimeout(t);
       };
@@ -139,6 +156,11 @@ export function useClaimSBTFromVC() {
       setClaimingProcessing();
     }
   }, [isTxLoading, isTxSuccess, reset, selectedIndex, setClaimingProcessing]);
+
+  return {
+    isWriteStatus,
+    isTxStatus: status,
+  };
 
   // console.log("write", write);
   // console.log("isError", isError, error?.message, error?.cause);

@@ -32,12 +32,20 @@ interface InternalDragState {
   reset: (claimed?: boolean) => void;
 
   computed: typeof computed;
+
   claimed: boolean[];
   dropTargetX: number;
   dragX: number;
 
   setClaimingHint: ({ claimingHint }: { claimingHint: ReactNode }) => void;
   claimingHint: ReactNode;
+  verifyChecks: {
+    verifyVC: boolean;
+    verifySign: boolean;
+    confirmClaimed: boolean;
+    confirmMined: boolean;
+  };
+  setVerifyChecks: (checks: Partial<InternalDragState["verifyChecks"]>) => void;
 }
 
 const initState = {
@@ -52,6 +60,12 @@ const initState = {
   dropTargetX: 0,
   dragX: 0,
   claimingHint: "",
+  verifyChecks: {
+    verifyVC: false,
+    verifySign: false,
+    confirmClaimed: false,
+    confirmMined: false,
+  },
 };
 
 const computed = {
@@ -75,6 +89,15 @@ const computed = {
 export const useInternalDragState = create<InternalDragState>()((set) => ({
   ...initState,
   computed,
+  setVerifyChecks: (cks) =>
+    set(({ verifyChecks }) => {
+      return {
+        verifyChecks: {
+          ...verifyChecks,
+          ...cks,
+        },
+      };
+    }),
   setClaimingHint: ({ claimingHint }) =>
     set(() => {
       return {
