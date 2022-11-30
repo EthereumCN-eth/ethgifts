@@ -1,8 +1,4 @@
 import { Poap, PrismaClient } from "@prisma/client";
-import { MD_DATA, COLLECTOR } from "./types";
-import { addMsgApi, userHasAddressApi } from "../apis/sbt-api";
-import fs from "fs";
-import path from "path";
 import { nfts } from "./nfts";
 import { sbts } from "./sbts";
 import { poaps } from "./poaps";
@@ -57,108 +53,6 @@ const contentTypes: ContentTypeCreateData[] = [
     contentType: "uncategorized",
   },
 ];
-
-const rawMessages: MD_DATA[] = JSON.parse(
-  fs.readFileSync(
-    path.join(__dirname, "../originalData/discordData.json"),
-    "utf-8"
-  )
-);
-
-const createMessages = async (msgs: MD_DATA[]) => {
-  await Promise.all([
-    msgs.map(async (msg) => {
-      const rawMsgPayload = {
-        rawMessage: msg.rawMessage,
-        content: msg.content,
-        url: msg.url,
-        discordId: msg.discordId,
-        discordName: msg.discordName,
-        ethAddress: msg.ethAddress,
-        msgId: msg.messageId,
-        contentTypes: msg.contentType,
-      };
-
-      const msgPayload = {
-        content: rawMsgPayload.content,
-        url: rawMsgPayload.url,
-        discordId: rawMsgPayload.discordId,
-        contentType: rawMsgPayload.contentTypes,
-        msgId: rawMsgPayload.msgId,
-      };
-
-      const discordId = rawMsgPayload.discordId;
-
-      try {
-        await prisma.rawExpressMessage.create({
-          data: {
-            rawMessage: rawMsgPayload.rawMessage,
-            id: rawMsgPayload.msgId,
-            parsedUrl: rawMsgPayload.url,
-            parsedMessage: rawMsgPayload.content,
-            user: {
-              connectOrCreate: {
-                where: {
-                  discordId,
-                },
-                create: {
-                  name: rawMsgPayload.discordName,
-                  expressCount: 0,
-                  discordId,
-                  ethAddress: rawMsgPayload.ethAddress,
-                },
-              },
-            },
-          },
-          include: {
-            user: true,
-          },
-        });
-      } catch (error) {
-        try {
-          await prisma.rawExpressMessage.create({
-            data: {
-              rawMessage: rawMsgPayload.rawMessage,
-              id: rawMsgPayload.msgId,
-              parsedUrl: rawMsgPayload.url,
-              parsedMessage: rawMsgPayload.content,
-              user: {
-                connectOrCreate: {
-                  where: {
-                    discordId,
-                  },
-                  create: {
-                    name: rawMsgPayload.discordName,
-                    expressCount: 0,
-                    discordId,
-                    ethAddress: rawMsgPayload.ethAddress,
-                  },
-                },
-              },
-            },
-            include: {
-              user: true,
-            },
-          });
-        } catch (error) {
-          console.log(
-            // error,
-            rawMsgPayload.msgId,
-            rawMsgPayload.discordName,
-            discordId,
-            rawMsgPayload.discordId
-          );
-        }
-      }
-
-      try {
-        await addMsgApi(msgPayload);
-      } catch (error) {
-        console.log(error);
-      }
-    }),
-  ]);
-};
 
 const main = async () => {
   // await Promise.all([

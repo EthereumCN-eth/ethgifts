@@ -1,9 +1,6 @@
 import fs from "fs";
 import path from "path";
 import { MD_DATA, COLLECTOR } from "./types";
-import { User, PrismaClient, Prisma } from "@prisma/client";
-import { updateAddressApi } from "./apis/addMsgs";
-const prisma = new PrismaClient();
 
 const getCollectors = (): COLLECTOR => {
   return JSON.parse(
@@ -23,28 +20,7 @@ const getContents = (): MD_DATA[] => {
   );
 };
 
-const updateUserAddress = async (collectors: COLLECTOR) => {
-  await Promise.all([
-    Object.keys(collectors).map(async (collector) => {
-      const collectorPayload = {
-        ethAddress: collectors[collector].ethAddress,
-        discordId: collectors[collector].discordId,
-        discordName: collector,
-      };
-
-      try {
-        await updateAddressApi(collectorPayload);
-        console.log(
-          `address of ${collectorPayload.discordName} has been updated`
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    }),
-  ]);
-};
-
-const reformatContents = async () => {
+const reformatContents = () => {
   const collectors: COLLECTOR = getCollectors();
   const contents: MD_DATA[] = getContents();
 
@@ -63,12 +39,48 @@ const reformatContents = async () => {
     };
   });
 
-  updateUserAddress(collectors);
-
   fs.writeFileSync(
     path.join(__dirname, "./discordData.json"),
     JSON.stringify(newContents, null, 2)
   );
 };
 
-reformatContents();
+const retrieveContent = () => {
+  const formattedData: MD_DATA[] = JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "../originalData/discordData.json"),
+      "utf-8"
+    )
+  );
+
+  let collectors: COLLECTOR = {};
+
+  const content = formattedData.map((item) => {
+    collectors[item.discordName] = {
+      discordId: item.discordId,
+      ethAddress: item.ethAddress,
+    };
+    return {
+      title: item.content,
+      mdDate: item.mdDate,
+      messageId: item.messageId,
+      rawMessage: item.rawMessage,
+      content: item.content,
+      url: item.url,
+      contentType: item.contentType,
+      discordName: item.discordName,
+    };
+  });
+
+  fs.writeFileSync(
+    path.join(__dirname, "../originalData/contents.json"),
+    JSON.stringify(content)
+  );
+
+  fs.writeFileSync(
+    path.join(__dirname, "../originalData/collectors.json"),
+    JSON.stringify(collectors)
+  );
+};
+
+retrieveContent();

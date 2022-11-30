@@ -88,7 +88,7 @@ export const updateAddressApi = async ({
     // console.log("res:", results.data);
     return {
       success: results.data.success,
-      data: results.data,
+      data: results.data.data,
     };
   } catch (e) {
     // console.log("addRawMessage error:", e);
@@ -111,7 +111,7 @@ export const findRawMsg = async ({ msgId }: { msgId: string }) => {
     // console.log("res:", results.status);
     return {
       success: results.data.success,
-      data: results.data,
+      data: results.data.data,
     };
   } catch (e) {
     // console.log("addRawMessage error:", e);
