@@ -56,8 +56,8 @@ export const useInitInternalDragState = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [init, loaded, isSuccess, viewingSelectedIndex]);
 
-  // const state = useInternalDragState((state) => state);
-  // console.log("state", state);
+  // const zuststate = useInternalDragState((state) => state);
+  // console.log("zuststate", zuststate);
 
   const setClaimingHint = useInternalDragState(
     (state) => state.setClaimingHint

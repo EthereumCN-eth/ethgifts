@@ -1,12 +1,11 @@
-import { Divider, HStack, Text, VStack } from "@chakra-ui/react";
+import { Divider, HStack, keyframes, Text, VStack } from "@chakra-ui/react";
 import {
   AiFillCheckCircle,
   AiFillExclamationCircle,
-  AiFillQuestionCircle,
+  AiFillPauseCircle,
 } from "react-icons/ai";
 
 import { responsive } from "../utils";
-import MotionBox from "@/components/motion/Box";
 
 import { useInternalDragState } from "./internalDragState";
 import { ProcessingSpinner } from "./ProcessingSpinner";
@@ -29,7 +28,7 @@ const StepLine = ({
           <AiFillCheckCircle color="green" size={responsive.respWStr(20)} />
         )}
         {statusIcon === "await" && (
-          <AiFillQuestionCircle color="black" size={responsive.respWStr(20)} />
+          <AiFillPauseCircle color="black" size={responsive.respWStr(20)} />
         )}
 
         {statusIcon === "loading" && <ProcessingSpinner />}
@@ -38,44 +37,52 @@ const StepLine = ({
     </VStack>
   );
 };
+
+const fadein = keyframes`
+  0% {
+    opacity: 0;
+  }
+  /* 50% {
+    opacity: 0;
+  } */
+  100% {
+    opacity: 1;
+  }
+`;
 export const VCStepProgressView = () => {
   const selectedIndex = useInternalDragState((state) => state.selectedIndex);
+  const dropped = useInternalDragState((state) =>
+    state.computed.selectedDropped(state)
+  );
   return (
-    <MotionBox
-      // visibility={hidden ? "hidden" : "visible"}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{
-        duration: 1,
-      }}
+    <VStack
+      // opacity={dropped ? 1 : 0}
+      animation={dropped ? `1s ease-in  ${fadein}` : ""}
+      // transition="all 1.8s cubic-bezier(0.77, 0, 0.175, 1)"
+      position="absolute"
+      top="50%"
+      left="50%"
+      bgColor="#FAFAFA"
+      borderRadius={responsive.respW(16)}
+      w={responsive.respW(424)}
+      h={responsive.respW(333)}
+      p={responsive.respW(20)}
+      zIndex={20}
+      transform="translate(-50%, -50%)"
     >
-      <VStack
-        position="absolute"
-        top="50%"
-        left="50%"
-        bgColor="#FAFAFA"
-        borderRadius={responsive.respW(16)}
-        w={responsive.respW(424)}
-        h={responsive.respW(333)}
-        p={responsive.respW(20)}
-        zIndex={20}
-        transform="translate(-50%, -50%)"
-      >
-        <Text
-          color="black"
-          fontWeight={500}
-          fontSize={responsive.respWStr(20)}
-        >{`Claiming SBT ${selectedIndex + 1} `}</Text>
+      <Text
+        color="black"
+        fontWeight={500}
+        fontSize={responsive.respWStr(20)}
+      >{`Claiming SBT ${selectedIndex + 1} `}</Text>
 
-        <VStack w="full" flex={1} justify="center">
-          <StepLine text="Verifying VC Signature" statusIcon="loading" />
-          <StepLine text="Verifying Contract Signature" statusIcon="await" />
-          <StepLine text="Await wallet Confirmation" statusIcon="success" />
-          <StepLine text="Claim Status" statusIcon="fail" />
-        </VStack>
-        {/*  */}
+      <VStack w="full" flex={1} justify="center">
+        <StepLine text="Verifying VC Signature" statusIcon="loading" />
+        <StepLine text="Verifying Contract Signature" statusIcon="await" />
+        <StepLine text="Await wallet Confirmation" statusIcon="success" />
+        <StepLine text="Claim Status" statusIcon="fail" />
       </VStack>
-    </MotionBox>
+      {/*  */}
+    </VStack>
   );
 };

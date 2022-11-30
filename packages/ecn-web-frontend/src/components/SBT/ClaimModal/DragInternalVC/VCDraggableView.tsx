@@ -62,6 +62,7 @@ export const VCDraggableView = ({
       w={responsive.respW(424)}
       h={responsive.respW(333)}
       p={responsive.respW(20)}
+      className="ecn-vc-draggble"
       // p={["10px", "12px", "15px", "20px"]}
       // p={[
       //   responsive.respWStr(10),

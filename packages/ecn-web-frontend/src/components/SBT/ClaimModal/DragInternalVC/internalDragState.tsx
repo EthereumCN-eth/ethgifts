@@ -23,12 +23,12 @@ interface InternalDragState {
   sbtReduxState: SBTState;
   dropped: Array<{
     drop: boolean;
-    verified: boolean;
+    // verified: boolean;
   }>;
   clickNext: () => void;
   clickPre: () => void;
   clickLevel: (index: number) => void;
-  setDrop: (drop: boolean, index: number, verified: boolean) => void;
+  setDrop: (drop: boolean, index: number) => void;
   reset: (claimed?: boolean) => void;
 
   computed: typeof computed;
@@ -148,12 +148,11 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
         dropped,
       };
     }),
-  setDrop: (drop: boolean, index: number, verified: boolean) =>
+  setDrop: (drop: boolean, index: number) =>
     set((state) => {
       const cloneDropped = [...state.dropped];
       cloneDropped[index] = {
         drop,
-        verified,
       };
       return {
         dropped: cloneDropped,
