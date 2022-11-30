@@ -26,7 +26,8 @@ export const GalleryItem = ({
     <LinkBox key={title}>
       <Flex
         w="370px"
-        maxW="70vw"
+        // maxW="70vw"
+        transform={["scale(0.9)", "scale(1)"]}
         h="550px"
         direction="column"
         align="flex-start"
