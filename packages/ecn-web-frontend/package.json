@@ -102,7 +102,8 @@
   },
   "workspaces": {
     "nohoist": [
-      "@jambit/eslint-plugin-typed-redux-saga"
+      "@jambit/eslint-plugin-typed-redux-saga",
+      "ecn-eip712vc"
     ]
   }
 }
