@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { useInternalDragState } from "../internalDragState";
+import { useInternalDragState } from "../DragInternalVC/internalDragState";
 import { useRect } from "@/hooks/useRect";
 
 export const useComputeDropAreaTransformValue = ({

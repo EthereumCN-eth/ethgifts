@@ -1,9 +1,9 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
+import { useInitInternalDragState } from "../hooks/useInitInternalDragState";
 import { responsive } from "../utils";
 
-import { useInitInternalDragState } from "./hooks/useInitInternalDragState";
 import { useInternalDragState } from "./internalDragState";
 import { LevelTabList } from "./LevelTabList";
 import { LevelTabPanels } from "./LevelTabPanels";

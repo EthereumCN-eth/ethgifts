@@ -1,8 +1,8 @@
 import { Box, Text } from "@chakra-ui/react";
 import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
 
-import { responsive } from "../../utils";
-import { ProcessingSpinner } from "../ProcessingSpinner";
+import { ProcessingSpinner } from "../DragInternalVC/ProcessingSpinner";
+import { responsive } from "../utils";
 
 export const hintText = {
   processing: ({ selectedIndex }: { selectedIndex: number }) => (

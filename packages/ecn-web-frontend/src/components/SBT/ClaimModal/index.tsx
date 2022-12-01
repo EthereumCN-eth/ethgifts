@@ -14,6 +14,7 @@ import {
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
+import { DragExternalVC } from "./DragExternalVC";
 import { DragInternalVC } from "./DragInternalVC";
 import { responsive } from "./utils";
 
@@ -149,7 +150,7 @@ export const ClaimModal = ({
                 h={responsive.respHStr(850 - 40)}
                 borderBottomRadius={responsive.respHStr(24)}
               >
-                <p>two!</p>
+                <DragExternalVC />
               </TabPanel>
             </TabPanels>
           </Tabs>

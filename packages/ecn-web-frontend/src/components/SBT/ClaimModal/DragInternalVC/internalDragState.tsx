@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
 import create from "zustand";
 
+import { hintText } from "../hooks/hintText";
 import type { SBTState } from "@/state/sbt";
 import { initialState as sbtInitalState } from "@/state/sbt";
-
-import { hintText } from "./hooks/hintText";
 
 interface InternalDragState {
   levelIndexs: number[];

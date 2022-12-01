@@ -7,7 +7,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-import { useInternalDragState } from "../internalDragState";
+import { useInternalDragState } from "../DragInternalVC/internalDragState";
 import SBT1 from "@/abis/SBT1.json";
 import type { ParseVCForPayloadDataType } from "@/utils/vc";
 import { parseVCForPayload } from "@/utils/vc";

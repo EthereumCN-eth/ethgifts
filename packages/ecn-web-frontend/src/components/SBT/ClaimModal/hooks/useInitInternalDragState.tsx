@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
-import { useInternalDragState } from "../internalDragState";
+import { useInternalDragState } from "../DragInternalVC/internalDragState";
 import { useReadClaimedLevel } from "@/hooks/useReadClaimedLevel";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";

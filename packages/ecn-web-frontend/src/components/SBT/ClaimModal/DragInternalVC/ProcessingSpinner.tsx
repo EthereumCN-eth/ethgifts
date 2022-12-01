@@ -2,9 +2,8 @@ import { Box, keyframes } from "@chakra-ui/react";
 import type { IconBaseProps } from "react-icons";
 import { AiOutlineReload } from "react-icons/ai";
 
+import { calcLen } from "../hooks/calcLen";
 import { responsive } from "../utils";
-
-import { calcLen } from "./hooks/calcLen";
 
 const rotate = keyframes`
   0% {

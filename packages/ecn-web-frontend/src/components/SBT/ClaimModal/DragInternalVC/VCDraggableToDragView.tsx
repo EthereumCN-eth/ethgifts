@@ -1,6 +1,7 @@
 import { Center } from "@chakra-ui/react";
 
-import { useComputeDragTransformValue } from "./hooks/useComputeTransformValue";
+import { useComputeDragTransformValue } from "../hooks/useComputeTransformValue";
+
 import { useInternalDragState } from "./internalDragState";
 import { NoVcDragView } from "./NoVcDragView";
 import { VCDraggableView } from "./VCDraggableView";
