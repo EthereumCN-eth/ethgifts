@@ -14,15 +14,19 @@ const main = async () => {
 
   const formattedData: MD_DATA[] = JSON.parse(
     fs.readFileSync(
-      path.join(__dirname, "../originalData/contents.json"),
+      path.join(__dirname, "../discordData/contents.json"),
       "utf-8"
     )
   );
 
-  await updateCollector(collectors);
-  const saveRaw = await addRawMessages(collectors, formattedData);
-  if (saveRaw) {
-    await addMessage(collectors, formattedData);
+  const updateCollectorResult = await updateCollector(collectors);
+  if (updateCollectorResult.success) {
+    const saveRaw = await addRawMessages(collectors, formattedData);
+
+    console.log(saveRaw.success);
+    if (saveRaw.success) {
+      await addMessage(collectors, formattedData);
+    }
   }
 };
 
