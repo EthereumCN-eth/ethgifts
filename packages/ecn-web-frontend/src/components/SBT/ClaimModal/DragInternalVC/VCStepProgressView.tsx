@@ -12,10 +12,10 @@ import {
   AiFillPauseCircle,
 } from "react-icons/ai";
 
+import { calcLen } from "../hooks/calcLen";
+import { useDropToClaim } from "../hooks/useDropToClaim";
 import { responsive } from "../utils";
 
-import { calcLen } from "./hooks/calcLen";
-import { useDropToClaim } from "./hooks/useDropToClaim";
 import { useInternalDragState } from "./internalDragState";
 import { ProcessingSpinner } from "./ProcessingSpinner";
 

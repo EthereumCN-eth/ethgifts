@@ -1,5 +1,6 @@
 import { Flex, Tab, TabList } from "@chakra-ui/react";
 
+import { calcLen } from "../hooks/calcLen";
 import { responsive } from "../utils";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
@@ -35,7 +36,7 @@ export const LevelTabList = () => {
               cursor="pointer"
               bgColor="transparent"
               key={value}
-              fontSize={responsive.respWStr(14)}
+              fontSize={`${calcLen(responsive.respW(14))}px`}
               color="#FFFFFF"
               _selected={{
                 bgColor: "#EE862B",

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 
-import { useInternalDragState } from "../internalDragState";
+import { useInternalDragState } from "../DragInternalVC/internalDragState";
 
 import { hintText } from "./hintText";
 

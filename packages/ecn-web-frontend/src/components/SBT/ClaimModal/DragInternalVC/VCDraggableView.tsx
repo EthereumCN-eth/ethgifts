@@ -4,12 +4,12 @@ import type { DragSourceMonitor } from "react-dnd";
 
 import { JSONBottomLabel } from "../../JSONBottomLabel";
 import type { VCCheckItemType } from "../../VCCheckListCard";
+import { calcLen } from "../hooks/calcLen";
 import { responsive } from "../utils";
 import type { SBTState } from "@/state/sbt";
 import type { VCType } from "@/state/sbt/types";
 import { shortenName } from "@/utils/shortenName";
 
-import { calcLen } from "./hooks/calcLen";
 import { useInternalDragState } from "./internalDragState";
 import { VCDragCheckListCard } from "./VCDragCheckListCard";
 

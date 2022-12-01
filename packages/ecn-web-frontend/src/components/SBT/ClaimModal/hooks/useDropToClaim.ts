@@ -2,7 +2,7 @@ import { constants } from "ethers";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useContractRead } from "wagmi";
 
-import { useInternalDragState } from "../internalDragState";
+import { useInternalDragState } from "../DragInternalVC/internalDragState";
 import SBT1 from "@/abis/SBT1.json";
 import { parseVCForPayload, verifyVC, verifyVCTicket } from "@/utils/vc";
 
