@@ -19,7 +19,8 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "dev": "yarn build && node dist/index.js"
+    "dev": "yarn build && node dist/index.js",
+    "postinstall": "yarn build"
   },
   "peerDependencies": {},
   "husky": {
