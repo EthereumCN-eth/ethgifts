@@ -10,7 +10,7 @@ export const addRawMessages = async (
       ...msgs.map(async (msg) => {
         const rawMsgPayload = {
           rawMessage: msg.rawMessage,
-          discordId: collectors[msg.discordName].discordId,
+          discordId: msg.discordId,
           discordName: msg.discordName,
           msgId: msg.messageId,
         };
@@ -24,8 +24,13 @@ export const addRawMessages = async (
               data: `former data of ${msg.messageId} has been saved`,
               error: null,
             };
+          } else {
+            throw new Error(
+              `fail to add message ${msg.messageId} of discordId: ${msg.discordId}`
+            );
           }
         } catch (error) {
+          console.log(error);
           return {
             success: false,
             data: null,
@@ -40,6 +45,7 @@ export const addRawMessages = async (
       error: null,
     };
   } catch (error) {
+    console.log(`fail to add all rawMessage, and the error is: ${error}`);
     return {
       success: false,
       error: error,
