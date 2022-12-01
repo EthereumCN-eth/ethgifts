@@ -5,7 +5,7 @@
   "author": "ECN",
   "scripts": {
     "patch-next": "patch-package && yarn prisma-generate",
-    "postinstall": "patch-package && yarn prisma-generate",
+    "postinstall": "patch-package && yarn prisma-generate && cd  node_modules/ecn-eip712vc && yarn build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
