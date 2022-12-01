@@ -1,6 +1,7 @@
 import { Flex, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
+import { calcLen } from "../hooks/calcLen";
 import { useInitInternalDragState } from "../hooks/useInitInternalDragState";
 import { responsive } from "../utils";
 
@@ -44,7 +45,7 @@ export const DragInternalVC = ({
         direction="row"
         align="center"
         justify="center"
-        fontSize={responsive.respWStr(20)}
+        fontSize={`${calcLen(responsive.respW(20))}px`}
         my={responsive.respHStr(36)}
         fontFamily="PingFang SC"
         fontWeight={400}
@@ -81,7 +82,7 @@ export const DragInternalVC = ({
         >
           {/*  */}
           <Text
-            fontSize={responsive.respWStr(14)}
+            fontSize={`${calcLen(responsive.respW(14))}px`}
             textAlign="center"
             color="#757575"
             mr="6px"
@@ -109,7 +110,7 @@ export const DragInternalVC = ({
       <Text
         textAlign="center"
         color="#FFFFFF"
-        fontSize={responsive.respWStr(14)}
+        fontSize={`${calcLen(responsive.respW(14))}px`}
         fontWeight={500}
         mt={responsive.respH(24)}
         mb={responsive.respH(56)}
