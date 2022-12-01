@@ -1,4 +1,11 @@
-import { Divider, HStack, keyframes, Text, VStack } from "@chakra-ui/react";
+import {
+  Center,
+  Divider,
+  HStack,
+  keyframes,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import {
   AiFillCheckCircle,
   AiFillExclamationCircle,
@@ -50,14 +57,14 @@ const fadein = keyframes`
     opacity: 1;
   }
 `;
-export const VCStepProgressView = () => {
+export const VCStepProgressView = ({ index }: { index: number }) => {
   const selectedIndex = useInternalDragState((state) => state.selectedIndex);
   const dropped = useInternalDragState((state) =>
     state.computed.selectedDropped(state)
   );
 
   const { isSignRightStatus, isTxStatus, isVCRightStatus, isWriteStatus } =
-    useDropToClaim();
+    useDropToClaim({ index });
   return (
     <VStack
       opacity={dropped ? 1 : 0}
@@ -67,20 +74,21 @@ export const VCStepProgressView = () => {
       top="50%"
       left="50%"
       bgColor="#FAFAFA"
-      borderRadius={responsive.respW(16)}
-      w={responsive.respW(424)}
-      h={responsive.respW(333)}
-      p={responsive.respW(20)}
+      borderRadius={responsive.respWStr(16)}
+      w={responsive.respWStr(424)}
+      h={responsive.respWStr(333)}
+      p={responsive.respWStr(20)}
       zIndex={20}
       transform="translate(-50%, -50%)"
     >
-      <Text
-        color="black"
-        fontWeight={500}
-        fontSize={responsive.respWStr(20)}
-      >{`Claiming SBT ${selectedIndex + 1} `}</Text>
-
-      <VStack w="full" flex={1} justify="center">
+      <Center flex={2} minH="20%">
+        <Text
+          color="black"
+          fontWeight={500}
+          fontSize={responsive.respWStr(20)}
+        >{`Claiming SBT ${selectedIndex + 1} `}</Text>
+      </Center>
+      <VStack w="full" flex={8} justify="center">
         <StepLine text="Verifying VC Signature" statusIcon={isVCRightStatus} />
         <StepLine
           text="Verifying Contract Signature"

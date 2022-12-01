@@ -53,9 +53,11 @@ const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
 
 export function useClaimSBTFromVC({
   enabled,
+  index,
 }: // time,
 {
   enabled: boolean;
+  index: number;
   // time: number;
 }) {
   const record = useInternalDragState((state) =>
@@ -95,13 +97,15 @@ export function useClaimSBTFromVC({
     useClaimingHintSetter();
 
   useEffect(() => {
-    if (enabled) {
+    // console.log("selectedIndex", selectedIndex);
+    // console.log("index", index);
+    if (enabled && payloadreceived && !!write && selectedIndex === index) {
       setClaimingProcessing();
       // to verify
       // const isVerifiedVC = await verifyVC(vcStr);
       const tr = setTimeout(() => {
         write?.();
-      });
+      }, 1000);
       return () => {
         clearTimeout(tr);
       };
@@ -113,6 +117,7 @@ export function useClaimSBTFromVC({
     setClaimingProcessing,
     selectedIndex,
     enabled,
+    index,
     // time,
   ]);
 

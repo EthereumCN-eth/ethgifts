@@ -58,10 +58,10 @@ export const VCDraggableView = ({
     <VStack
       ref={dragRef}
       bgColor="#FAFAFA"
-      borderRadius={responsive.respW(16)}
-      w={responsive.respW(424)}
-      h={responsive.respW(333)}
-      p={responsive.respW(20)}
+      borderRadius={responsive.respWStr(16)}
+      w={responsive.respWStr(424)}
+      h={responsive.respWStr(333)}
+      p={responsive.respWStr(20)}
       className="ecn-vc-draggble"
       // p={["10px", "12px", "15px", "20px"]}
       // p={[
@@ -76,7 +76,7 @@ export const VCDraggableView = ({
       opacity={isDragging ? "0.3" : "1"}
       sx={{
         "&::before, &::after": {
-          borderRadius: responsive.respW(16),
+          borderRadius: responsive.respWStr(16),
         },
         transform: "translate(0, 0)",
       }}
@@ -84,7 +84,7 @@ export const VCDraggableView = ({
     >
       <VStack
         w="100%"
-        h={responsive.respW(265)}
+        h={responsive.respWStr(265)}
         // maxH="318px"
         bgColor="#DDD9D7"
         borderRadius="8px"
@@ -127,8 +127,8 @@ export const VCDraggableView = ({
           hasVcJson
           iconSize={responsive.respWStr(12)}
           stackProps={{
-            borderBottomRadius: responsive.respW(8),
-            h: responsive.respW(25),
+            borderBottomRadius: responsive.respWStr(8),
+            h: responsive.respWStr(25),
             fontSize: responsive.respWStr(14),
           }}
         />
@@ -136,8 +136,8 @@ export const VCDraggableView = ({
       <Center flex="1">
         <Image
           src="/holdicon.svg"
-          w={responsive.respW(31.5)}
-          h={responsive.respW(12.6)}
+          w={responsive.respWStr(31.5)}
+          h={responsive.respWStr(12.6)}
           objectFit="contain"
         />
       </Center>

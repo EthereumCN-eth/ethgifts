@@ -12,7 +12,13 @@ const absoluteStyle = {
   bottom: 0,
 };
 
-export const VCDraggableDroppedView = ({ type }: { type: string }) => {
+export const VCDraggableDroppedView = ({
+  type,
+  index,
+}: {
+  type: string;
+  index: number;
+}) => {
   const record = useInternalDragState((state) =>
     state.computed.selectedRecord(state)
   );
@@ -49,7 +55,7 @@ export const VCDraggableDroppedView = ({ type }: { type: string }) => {
       position="relative"
     >
       <VCDraggableView type={type} record={record} />
-      <VCStepProgressView />
+      <VCStepProgressView index={index} />
     </Center>
   );
 };

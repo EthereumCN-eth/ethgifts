@@ -57,7 +57,7 @@ const checkSignData = async (
   return checkWithMinTime(verifyVCTicket(vcStr, expectedVerifyPubKey), time);
 };
 
-export const useDropToClaim = () => {
+export const useDropToClaim = ({ index }: { index: number }) => {
   const dropped = useInternalDragState((state) =>
     state.computed.selectedDropped(state)
   );
@@ -117,9 +117,8 @@ export const useDropToClaim = () => {
 
   const { isTxStatus, isWriteStatus } = useClaimSBTFromVC({
     enabled: isVCRightStatus === "success" && isSignRightStatus === "success",
+    index,
   });
-
-  useEffect(() => {}, []);
 
   // console.log("isVCRightStatus", isVCRightStatus);
   // console.log("isSignRightStatus", isSignRightStatus);

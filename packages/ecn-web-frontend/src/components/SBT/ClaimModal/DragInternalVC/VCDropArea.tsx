@@ -11,7 +11,7 @@ import { useComputeDropAreaTransformValue } from "./hooks/useComputeTransformVal
 import { useInternalDragState } from "./internalDragState";
 import { VCDraggableDroppedView } from "./VCDraggableDroppedView";
 
-export const VCDropArea = () => {
+export const VCDropArea = ({ index }: { index: number }) => {
   const selectedArtwork = useInternalDragState((state) =>
     state.computed.selectedArtwork(state)
   );
@@ -157,7 +157,7 @@ export const VCDropArea = () => {
             拖入证明你具有 E群誌 SBT 所有权的VC，以激活对应SBT的申领。
           </Text>
         </VStack>
-        <VCDraggableDroppedView type="VC-DROPPED" />
+        <VCDraggableDroppedView index={index} type="VC-DROPPED" />
       </Flex>
     </Box>
   );

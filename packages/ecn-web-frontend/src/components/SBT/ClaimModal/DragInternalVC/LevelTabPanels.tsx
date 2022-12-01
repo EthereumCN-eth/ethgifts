@@ -13,16 +13,21 @@ export const LevelTabPanels = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <TabPanels w="100%" h="100%">
-        <TabPanel w="100%" h="100%">
-          <InternalDragPanel />
-        </TabPanel>
+        {sbtLevel.map((_, i) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <TabPanel w="100%" key={i} h="100%">
+              <InternalDragPanel index={i} />
+            </TabPanel>
+          );
+        })}
 
-        <TabPanel w="100%" h="100%">
+        {/* <TabPanel w="100%" h="100%">
           <InternalDragPanel />
         </TabPanel>
         <TabPanel w="100%" h="100%">
           <InternalDragPanel />
-        </TabPanel>
+        </TabPanel> */}
       </TabPanels>
     </DndProvider>
   );

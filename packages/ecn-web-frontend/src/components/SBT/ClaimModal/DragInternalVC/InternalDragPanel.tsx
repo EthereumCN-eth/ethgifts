@@ -5,7 +5,7 @@ import { useInternalDragState } from "./internalDragState";
 import { VCDraggableToDragView } from "./VCDraggableToDragView";
 import { VCDropArea } from "./VCDropArea";
 
-export const InternalDragPanel = () => {
+export const InternalDragPanel = ({ index }: { index: number }) => {
   const isSelectedClaimed = useInternalDragState((state) =>
     state.computed.selectedClaimed(state)
   );
@@ -17,7 +17,7 @@ export const InternalDragPanel = () => {
       <DragIndicator hidden={isSelectedClaimed} />
 
       <Box w="3vw" />
-      <VCDropArea />
+      <VCDropArea index={index} />
     </Flex>
   );
 };
