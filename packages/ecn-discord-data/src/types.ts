@@ -7,8 +7,6 @@ export interface MD_DATA {
   url: string;
   contentType: string;
   discordName: string;
-  discordId: string;
-  ethAddress: string;
 }
 
 export interface COLLECTOR {

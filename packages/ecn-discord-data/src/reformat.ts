@@ -35,7 +35,6 @@ const reformatContents = () => {
       contentType: content.contentType,
       discordName: content.discordName,
       discordId: collectors[content.discordName].discordId,
-      ethAddress: collectors[content.discordName].ethAddress,
     };
   });
 
@@ -45,42 +44,42 @@ const reformatContents = () => {
   );
 };
 
-const retrieveContent = () => {
-  const formattedData: MD_DATA[] = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "../originalData/discordData.json"),
-      "utf-8"
-    )
-  );
+// const retrieveContent = () => {
+//   const formattedData: MD_DATA[] = JSON.parse(
+//     fs.readFileSync(
+//       path.join(__dirname, "../originalData/discordData.json"),
+//       "utf-8"
+//     )
+//   );
 
-  let collectors: COLLECTOR = {};
+//   let collectors: COLLECTOR = {};
 
-  const content = formattedData.map((item) => {
-    collectors[item.discordName] = {
-      discordId: item.discordId,
-      ethAddress: item.ethAddress,
-    };
-    return {
-      title: item.content,
-      mdDate: item.mdDate,
-      messageId: item.messageId,
-      rawMessage: item.rawMessage,
-      content: item.content,
-      url: item.url,
-      contentType: item.contentType,
-      discordName: item.discordName,
-    };
-  });
+//   const content = formattedData.map((item) => {
+//     collectors[item.discordName] = {
+//       discordId: item.discordId,
+//       ethAddress: item.ethAddress,
+//     };
+//     return {
+//       title: item.content,
+//       mdDate: item.mdDate,
+//       messageId: item.messageId,
+//       rawMessage: item.rawMessage,
+//       content: item.content,
+//       url: item.url,
+//       contentType: item.contentType,
+//       discordName: item.discordName,
+//     };
+//   });
 
-  fs.writeFileSync(
-    path.join(__dirname, "../originalData/contents.json"),
-    JSON.stringify(content)
-  );
+//   fs.writeFileSync(
+//     path.join(__dirname, "../originalData/contents.json"),
+//     JSON.stringify(content)
+//   );
 
-  fs.writeFileSync(
-    path.join(__dirname, "../originalData/collectors.json"),
-    JSON.stringify(collectors)
-  );
-};
+//   fs.writeFileSync(
+//     path.join(__dirname, "../originalData/collectors.json"),
+//     JSON.stringify(collectors)
+//   );
+// };
 
-retrieveContent();
+// retrieveContent();

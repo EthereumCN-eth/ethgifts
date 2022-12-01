@@ -75,8 +75,6 @@ const formatMDWithFakedUser = () => {
         url: links.join(),
         contentType: 'uncategorized',
         discordName: creator,
-        discordId: collectorArray[creator].discordId,
-        ethAddress: collectorArray[creator].ethAddress
       }
   
       contentsArray.push(result)
@@ -84,7 +82,7 @@ const formatMDWithFakedUser = () => {
   }
 
   fs.writeFileSync(path.join(__dirname, './originalData/contents.json'), JSON.stringify(contentsArray));
-  fs.writeFileSync(path.join(__dirname, './originalData/collectors_faked.json'), JSON.stringify(collectorArray));  
+  fs.writeFileSync(path.join(__dirname, './originalData/collectors_initial.json'), JSON.stringify(collectorArray));  
 };
 
 formatMDWithFakedUser();
