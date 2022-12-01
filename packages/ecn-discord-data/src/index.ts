@@ -21,11 +21,9 @@ const main = async () => {
 
   const updateCollectorResult = await updateCollector(collectors);
   if (updateCollectorResult.success) {
-    const saveRaw = await addRawMessages(collectors, formattedData);
-
-    console.log(saveRaw.success);
+    const saveRaw = await addRawMessages(formattedData);
     if (saveRaw.success) {
-      await addMessage(collectors, formattedData);
+      await addMessage(formattedData);
     }
   }
 };
