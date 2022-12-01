@@ -1,9 +1,10 @@
-import { Text } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import create from "zustand";
 
 import type { SBTState } from "@/state/sbt";
 import { initialState as sbtInitalState } from "@/state/sbt";
+
+import { hintText } from "./hooks/hintText";
 
 interface InternalDragState {
   levelIndexs: number[];
@@ -23,21 +24,29 @@ interface InternalDragState {
   sbtReduxState: SBTState;
   dropped: Array<{
     drop: boolean;
-    verified: boolean;
+    // verified: boolean;
   }>;
   clickNext: () => void;
   clickPre: () => void;
   clickLevel: (index: number) => void;
-  setDrop: (drop: boolean, index: number, verified: boolean) => void;
+  setDrop: (drop: boolean, index: number) => void;
   reset: (claimed?: boolean) => void;
 
   computed: typeof computed;
+
   claimed: boolean[];
   dropTargetX: number;
   dragX: number;
 
   setClaimingHint: ({ claimingHint }: { claimingHint: ReactNode }) => void;
   claimingHint: ReactNode;
+  verifyChecks: {
+    verifyVC: boolean;
+    verifySign: boolean;
+    confirmClaimed: boolean;
+    confirmMined: boolean;
+  };
+  setVerifyChecks: (checks: Partial<InternalDragState["verifyChecks"]>) => void;
 }
 
 const initState = {
@@ -52,6 +61,12 @@ const initState = {
   dropTargetX: 0,
   dragX: 0,
   claimingHint: "",
+  verifyChecks: {
+    verifyVC: false,
+    verifySign: false,
+    confirmClaimed: false,
+    confirmMined: false,
+  },
 };
 
 const computed = {
@@ -75,6 +90,15 @@ const computed = {
 export const useInternalDragState = create<InternalDragState>()((set) => ({
   ...initState,
   computed,
+  setVerifyChecks: (cks) =>
+    set(({ verifyChecks }) => {
+      return {
+        verifyChecks: {
+          ...verifyChecks,
+          ...cks,
+        },
+      };
+    }),
   setClaimingHint: ({ claimingHint }) =>
     set(() => {
       return {
@@ -107,16 +131,12 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
       return {
         claimed: newClaimed,
         dropped,
-        dropTargetX: 0,
-        claimingHint: (
-          <Text>
-            {claimed
-              ? `已申领 E群誌 SBT Lv${selectedIndex + 1} 。`
-              : `请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
-                  selectedIndex + 1
-                } 的申领。`}
-          </Text>
-        ),
+        // dropTargetX,
+        claimingHint: claimed
+          ? hintText.success({ selectedIndex })
+          : `请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
+              selectedIndex + 1
+            } 的申领。`,
       };
     }),
   syncClaimLevels: (claimedSbtIndexed) =>
@@ -148,12 +168,11 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
         dropped,
       };
     }),
-  setDrop: (drop: boolean, index: number, verified: boolean) =>
+  setDrop: (drop: boolean, index: number) =>
     set((state) => {
       const cloneDropped = [...state.dropped];
       cloneDropped[index] = {
         drop,
-        verified,
       };
       return {
         dropped: cloneDropped,

@@ -1,4 +1,6 @@
 import { verifyCredential } from "@spruceid/didkit-wasm";
+import { verifyTicket } from "ecn-eip712vc/dist/verifyTicket";
+// import { verifyTicket } from "ecn-eip712vc/src/";
 
 import type { VCType } from "@/state/sbt/types";
 
@@ -8,7 +10,8 @@ type VerifyResult = {
   warnings: string[];
 };
 
-export const verifyVC = async (vcStr: string) => {
+export const verifyVC = async (vcStr: string | undefined) => {
+  if (!vcStr) return false;
   const verifyOptionsString = "{}";
   const verifyResultStr = await verifyCredential(
     `${vcStr}`,
@@ -42,7 +45,9 @@ export const parseVCForPayload = (vcStr: string) => {
       receiver &&
       signature &&
       chainId &&
-      verifyingContract
+      verifyingContract &&
+      name &&
+      version
     ) {
       return {
         success: true,
@@ -71,4 +76,38 @@ export const parseVCForPayload = (vcStr: string) => {
       data: null,
     };
   }
+};
+
+export const verifyVCTicket = async (
+  vcStr: string | undefined,
+  expectedVerifyPubKey: string | undefined
+) => {
+  if (!vcStr || !expectedVerifyPubKey) return false;
+  const { success, data } = parseVCForPayload(vcStr);
+  if (!success || !data) return false;
+  const {
+    chainId,
+    expressAmount,
+    metadataURI,
+    name,
+    receiver,
+    signature,
+    verifyingContract,
+    version,
+  } = data;
+  return verifyTicket({
+    domainData: {
+      chainId,
+      name,
+      verifyingContract,
+      version: version.toString(),
+    },
+    messageData: {
+      expressAmount,
+      metadataURI,
+      receiver,
+    },
+    ticketSignedData: signature,
+    expectedVerifyPubKey,
+  });
 };

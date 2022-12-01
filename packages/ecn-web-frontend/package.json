@@ -1,10 +1,11 @@
 {
-  "name": "ecn-next-web-frontend",
+  "name": "ecn-web-frontend",
   "version": "0.1.0",
   "private": true,
   "author": "ECN",
   "scripts": {
-    "postinstall": "patch-package && yarn prisma-generate",
+    "patch-next": "patch-package && yarn prisma-generate",
+    "postinstall": "patch-package && yarn prisma-generate && cd  node_modules/ecn-eip712vc && yarn build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -17,7 +18,7 @@
     "release": "cross-env HUSKY=0 standard-version",
     "push-release": "git push --follow-tags origin main",
     "prepare": "cd ../../ && husky install packages/ecn-web-frontend/.husky",
-    "prisma-generate": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma"
+    "prisma-generate": "prisma generate --schema=./node_modules/ecn-prisma/prisma/schema.prisma"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.9",
@@ -65,9 +66,12 @@
     "siwe": "^1.1.6",
     "typed-redux-saga": "^1.5.0",
     "wagmi": "0.6.4",
-    "zustand": "^4.1.2"
+    "zustand": "^4.1.2",
+    "ecn-eip712vc": "0.1.0",
+    "ecn-prisma": "1.0.0"
   },
   "devDependencies": {
+    "prisma": "^4.2.1",
     "@babel/core": "^7.19.0",
     "@commitlint/config-conventional": "^17.1.0",
     "@commitlint/cz-commitlint": "^17.1.2",
@@ -101,7 +105,7 @@
   },
   "workspaces": {
     "nohoist": [
-      "@jambit/eslint-plugin-typed-redux-saga"
+      "**"
     ]
   }
 }

@@ -1,4 +1,3 @@
-import { Box, Text } from "@chakra-ui/react";
 import { constants } from "ethers";
 import { useEffect, useMemo } from "react";
 import {
@@ -8,30 +7,12 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-import { responsive } from "../../utils";
 import { useInternalDragState } from "../internalDragState";
-import { ProcessingSpinner } from "../ProcessingSpinner";
 import SBT1 from "@/abis/SBT1.json";
 import type { ParseVCForPayloadDataType } from "@/utils/vc";
 import { parseVCForPayload } from "@/utils/vc";
 
-const hintText = {
-  processing: ({ selectedIndex }: { selectedIndex: number }) => (
-    <>
-      <Text color="#EE862B">{`claim processing Lv${selectedIndex + 1}`}</Text>
-      {/* <Spinner ml="5px" size="sm" color="white" /> */}
-      <Box w="10px" />
-      <ProcessingSpinner size={responsive.respWStr(25)} color="white" />
-    </>
-  ),
-  cancelling: ({ selectedIndex }: { selectedIndex: number }) => (
-    <>
-      <Text color="#EE862B">{`claim cancelling Lv${selectedIndex + 1}`}</Text>
-      <Box w="10px" />
-      <ProcessingSpinner size={responsive.respWStr(25)} color="white" />
-    </>
-  ),
-};
+import { useClaimingHintSetter } from "./useClaimingHintSetter";
 
 const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
   const {
@@ -70,15 +51,17 @@ const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
   return useContractWrite(config);
 };
 
-export function useClaimSBTFromVC() {
-  const setClaimingHint = useInternalDragState(
-    (state) => state.setClaimingHint
-  );
+export function useClaimSBTFromVC({
+  enabled,
+  index,
+}: // time,
+{
+  enabled: boolean;
+  index: number;
+  // time: number;
+}) {
   const record = useInternalDragState((state) =>
     state.computed.selectedRecord(state)
-  );
-  const dropped = useInternalDragState((state) =>
-    state.computed.selectedDropped(state)
   );
   const reset = useInternalDragState((state) => state.reset);
   const selectedIndex = useInternalDragState((state) => state.selectedIndex);
@@ -93,54 +76,59 @@ export function useClaimSBTFromVC() {
     isError,
     error,
     reset: resetClaim,
+    // isSuccess: isWriteSuccess,
+    // isLoading: isWriteLoading,
+    status: isWriteStatus,
   } = useCLaimSBT({
     payload: vcPayloadOrNull,
   });
 
-  const { isLoading: isTxLoading, isSuccess: isTxSuccess } =
-    useWaitForTransaction({
-      hash: data?.hash,
-    });
+  const {
+    isLoading: isTxLoading,
+    isSuccess: isTxSuccess,
+    // isError: isTxError,
+    status,
+  } = useWaitForTransaction({
+    hash: data?.hash,
+  });
   const payloadreceived = !!vcPayloadOrNull;
 
+  const { setClaimingCancelling, setClaimingProcessing } =
+    useClaimingHintSetter();
+
   useEffect(() => {
-    if (dropped) {
-      setClaimingHint({
-        claimingHint: hintText.processing({ selectedIndex }),
-      });
+    // console.log("selectedIndex", selectedIndex);
+    // console.log("index", index);
+    if (enabled && payloadreceived && !!write && selectedIndex === index) {
+      setClaimingProcessing();
       // to verify
       // const isVerifiedVC = await verifyVC(vcStr);
       const tr = setTimeout(() => {
         write?.();
-      }, 4000);
+      }, 1000);
       return () => {
         clearTimeout(tr);
       };
     }
     return () => {};
-  }, [payloadreceived, setClaimingHint, write, dropped, selectedIndex]);
+  }, [
+    payloadreceived,
+    write,
+    setClaimingProcessing,
+    selectedIndex,
+    enabled,
+    index,
+    // time,
+  ]);
 
   useEffect(() => {
     if (error?.message?.startsWith("user rejected transaction")) {
-      // setClaimingHint({
-      //   claimingHint: (
-      //     <VStack>
-      //       <Text color="#A34829">钱包交互被取消</Text>
-      //       <Button variant="orangeOutline" onClick={() => reset(false)}>
-      //         重置交互
-      //       </Button>
-      //     </VStack>
-      //   ),
-      // });
-
-      setClaimingHint({
-        claimingHint: hintText.cancelling({ selectedIndex }),
-      });
+      setClaimingCancelling();
 
       const t = setTimeout(() => {
         reset(false);
         resetClaim();
-      }, 1000);
+      }, 2500);
       return () => {
         clearTimeout(t);
       };
@@ -152,18 +140,21 @@ export function useClaimSBTFromVC() {
     reset,
     resetClaim,
     selectedIndex,
-    setClaimingHint,
+    setClaimingCancelling,
   ]);
 
   useEffect(() => {
     if (isTxSuccess) {
       reset(true);
     } else if (isTxLoading) {
-      setClaimingHint({
-        claimingHint: hintText.processing({ selectedIndex }),
-      });
+      setClaimingProcessing();
     }
-  }, [isTxLoading, isTxSuccess, reset, selectedIndex, setClaimingHint]);
+  }, [isTxLoading, isTxSuccess, reset, selectedIndex, setClaimingProcessing]);
+
+  return {
+    isWriteStatus,
+    isTxStatus: status,
+  };
 
   // console.log("write", write);
   // console.log("isError", isError, error?.message, error?.cause);

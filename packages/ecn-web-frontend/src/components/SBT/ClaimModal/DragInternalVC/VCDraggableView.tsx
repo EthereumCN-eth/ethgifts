@@ -9,6 +9,7 @@ import type { SBTState } from "@/state/sbt";
 import type { VCType } from "@/state/sbt/types";
 import { shortenName } from "@/utils/shortenName";
 
+import { calcLen } from "./hooks/calcLen";
 import { useInternalDragState } from "./internalDragState";
 import { VCDragCheckListCard } from "./VCDragCheckListCard";
 
@@ -58,10 +59,11 @@ export const VCDraggableView = ({
     <VStack
       ref={dragRef}
       bgColor="#FAFAFA"
-      borderRadius={responsive.respW(16)}
-      w={responsive.respW(424)}
-      h={responsive.respW(333)}
-      p={responsive.respW(20)}
+      borderRadius={responsive.respWStr(16)}
+      w={`${calcLen(responsive.respW(424))}px`}
+      h={`${calcLen(responsive.respW(333))}px`}
+      p={`${calcLen(responsive.respW(20))}px`}
+      className="ecn-vc-draggble"
       // p={["10px", "12px", "15px", "20px"]}
       // p={[
       //   responsive.respWStr(10),
@@ -75,7 +77,7 @@ export const VCDraggableView = ({
       opacity={isDragging ? "0.3" : "1"}
       sx={{
         "&::before, &::after": {
-          borderRadius: responsive.respW(16),
+          borderRadius: responsive.respWStr(16),
         },
         transform: "translate(0, 0)",
       }}
@@ -83,14 +85,14 @@ export const VCDraggableView = ({
     >
       <VStack
         w="100%"
-        h={responsive.respW(265)}
+        h={`${calcLen(responsive.respW(265))}px`}
         // maxH="318px"
         bgColor="#DDD9D7"
         borderRadius="8px"
         position="relative"
         justify="space-evenly"
-        px={responsive.respWStr(20)}
-        pt={responsive.respWStr(20)}
+        px={`${calcLen(responsive.respW(20))}px`}
+        pt={`${calcLen(responsive.respW(20))}px`}
         // pb="50px"
       >
         {(
@@ -126,8 +128,8 @@ export const VCDraggableView = ({
           hasVcJson
           iconSize={responsive.respWStr(12)}
           stackProps={{
-            borderBottomRadius: responsive.respW(8),
-            h: responsive.respW(25),
+            borderBottomRadius: responsive.respWStr(8),
+            h: responsive.respWStr(25),
             fontSize: responsive.respWStr(14),
           }}
         />
@@ -135,8 +137,8 @@ export const VCDraggableView = ({
       <Center flex="1">
         <Image
           src="/holdicon.svg"
-          w={responsive.respW(31.5)}
-          h={responsive.respW(12.6)}
+          w={`${calcLen(responsive.respW(31.5))}px`}
+          h={`${calcLen(responsive.respW(12.6))}px`}
           objectFit="contain"
         />
       </Center>
