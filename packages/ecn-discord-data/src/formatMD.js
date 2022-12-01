@@ -75,7 +75,7 @@ const formatMDWithFakedUser = () => {
         url: links.join(),
         contentType: 'uncategorized',
         discordName: creator,
-        discordId: collectors[creator].discordId
+        discordId: collectorArray[creator].discordId
       }
   
       contentsArray.push(result)
