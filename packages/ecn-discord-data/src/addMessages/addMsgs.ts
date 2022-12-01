@@ -1,93 +1,80 @@
 import { addRawMsgApi, addMsgApi, findRawMsg } from "../apis/sbt-api";
 import { COLLECTOR, MD_DATA } from "../types";
 
-export const addRawMessages = async (
-  collectors: COLLECTOR,
-  msgs: MD_DATA[]
-) => {
-  try {
-    await Promise.all([
-      ...msgs.map(async (msg) => {
-        const rawMsgPayload = {
-          rawMessage: msg.rawMessage,
-          discordId: collectors[msg.discordName].discordId,
-          discordName: msg.discordName,
-          msgId: msg.messageId,
-        };
+export const addRawMessages = async (msgs: MD_DATA[]) => {
+  let successCount = 0;
+  for (let i = 0; i < msgs.length; i++) {
+    const msg = msgs[i];
 
-        try {
-          const rawDeposit = await addRawMsgApi(rawMsgPayload);
+    const rawMsgPayload = {
+      rawMessage: msg.rawMessage,
+      discordId: msg.discordId,
+      discordName: msg.discordName,
+      msgId: msg.messageId,
+    };
 
-          if (rawDeposit.success) {
-            return {
-              success: true,
-              data: `former data of ${msg.messageId} has been saved`,
-              error: null,
-            };
-          }
-        } catch (error) {
-          return {
-            success: false,
-            data: null,
-            error: error,
-          };
-        }
-      }),
-    ]);
+    try {
+      const rawDeposit = await addRawMsgApi(rawMsgPayload);
 
+      if (rawDeposit.success) {
+        successCount++;
+        // return {
+        //   success: true,
+        //   data: `former data of ${msg.messageId} has been saved`,
+        //   error: null,
+        // };
+      } else {
+        // await addRawMsgApi(rawMsgPayload);
+        throw new Error(
+          `fail to add message ${msg.messageId} of discordId: ${msg.discordId}, and execute again`
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      // return {
+      //   success: false,
+      //   data: null,
+      //   error: error,
+      // };
+    }
+  }
+
+  if (successCount === msgs.length) {
+    console.log("suceessfully to add all rawMessage");
     return {
       success: true,
-      error: null,
     };
-  } catch (error) {
+  } else {
+    console.log(`fail to add all rawMessage`);
     return {
       success: false,
-      error: error,
     };
   }
 };
 
-export const addMessage = async (collectors: COLLECTOR, msgs: MD_DATA[]) => {
-  try {
-    await Promise.all([
-      ...msgs.map(async (msg) => {
-        const msgPayload = {
-          content: msg.content,
-          url: msg.url,
-          discordId: collectors[msg.discordName].discordId,
-          contentType: msg.contentType,
-          msgId: msg.messageId,
-        };
-
-        try {
-          const findRaw = await findRawMsg({ msgId: msg.messageId });
-          if (findRaw.success) {
-            await addMsgApi(msgPayload);
-          }
-
-          return {
-            success: true,
-            data: `former data of ${msg.messageId} has been saved`,
-            error: null,
-          };
-        } catch (error) {
-          return {
-            success: false,
-            data: null,
-            error: error,
-          };
-        }
-      }),
-    ]);
-
-    return {
-      success: true,
-      error: null,
+export const addMessage = async (msgs: MD_DATA[]) => {
+  let successCount = 0;
+  for (let i = 0; i < msgs.length; i++) {
+    const msg = msgs[i];
+    const msgPayload = {
+      content: msg.content,
+      url: msg.url,
+      discordId: msg.discordId,
+      contentType: msg.contentType,
+      msgId: msg.messageId,
     };
-  } catch (error) {
-    return {
-      success: false,
-      error: error,
-    };
+
+    const findRaw = await findRawMsg({ msgId: msg.messageId });
+    if (findRaw.success) {
+      const msgResult = await addMsgApi(msgPayload);
+
+      if (msgResult.success) {
+        successCount++;
+      }
+    }
+  }
+
+  if (successCount === msgs.length) {
+    console.log(`successfully to add all message`);
   }
 };
