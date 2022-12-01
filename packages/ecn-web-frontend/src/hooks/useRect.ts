@@ -1,34 +1,37 @@
-import { useCallback, useState } from "react";
+import type { RefObject } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
-// const useEffectInEvent = (
-//   event: "resize" | "scroll",
-//   useCapture: boolean,
-//   set: () => void
-// ) => {
-//   useEffect(() => {
-//     set();
-//     window.addEventListener(event, set, useCapture);
-//     return () => window.removeEventListener(event, set, useCapture);
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [event, useCapture]);
-// };
+const useEffectInEvent = (
+  event: "resize" | "scroll",
+  useCapture: boolean,
+  set: () => void
+) => {
+  useLayoutEffect(() => {
+    setTimeout(() => set());
+    window.addEventListener(event, set, useCapture);
+    return () => window.removeEventListener(event, set, useCapture);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [event, useCapture]);
+};
 
 export const useRect = <T extends Element>(): [
   DOMRect | undefined,
-  (node: T) => void
+  RefObject<T>
 ] => {
-  // const ref = useRef<T>(null);
+  const ref = useRef<T>(null);
   const [rect, setRect] = useState<DOMRect>();
-  const measuredRef = useCallback((node: T) => {
-    if (node !== null) {
-      setRect(node.getBoundingClientRect());
-    }
-  }, []);
+  // const measuredRef = useCallback((node: T) => {
+  //   if (node !== null) {
+  //     setRect(node.getBoundingClientRect());
+  //   }
+  // }, []);
 
-  // const set = () => setRect(ref.current?.getBoundingClientRect());
+  // console.log("ref", ref);
 
-  // useEffectInEvent("resize", false, set);
-  // useEffectInEvent("scroll", true, set);
+  const set = () => setRect(ref.current?.getBoundingClientRect());
 
-  return [rect, measuredRef];
+  useEffectInEvent("resize", false, set);
+  useEffectInEvent("scroll", true, set);
+
+  return [rect, ref];
 };
