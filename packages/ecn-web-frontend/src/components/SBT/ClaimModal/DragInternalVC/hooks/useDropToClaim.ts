@@ -6,6 +6,7 @@ import { useInternalDragState } from "../internalDragState";
 import SBT1 from "@/abis/SBT1.json";
 import { parseVCForPayload, verifyVC, verifyVCTicket } from "@/utils/vc";
 
+import { useClaimingHintSetter } from "./useClaimingHintSetter";
 import { useClaimSBTFromVC } from "./useClaimSBTFromVC";
 
 const timeoutPromise = (num: number) =>
@@ -65,6 +66,8 @@ export const useDropToClaim = ({ index }: { index: number }) => {
   const record = useInternalDragState((state) =>
     state.computed.selectedRecord(state)
   );
+
+  const reset = useInternalDragState((state) => state.reset);
   // const setVerifyChecks = useInternalDragState(
   //   (state) => state.setVerifyChecks
   // );
@@ -93,6 +96,9 @@ export const useDropToClaim = ({ index }: { index: number }) => {
 
   // console.log("data", approverAdderss);
 
+  const { setClaimingCancelling, setClaimingProcessing } =
+    useClaimingHintSetter();
+
   const checkVCCallback = useCallback(() => checkVC(vcStr, 2000), [vcStr]);
   const checkSignCallback = useCallback(
     () =>
@@ -119,6 +125,41 @@ export const useDropToClaim = ({ index }: { index: number }) => {
     enabled: isVCRightStatus === "success" && isSignRightStatus === "success",
     index,
   });
+
+  useEffect(() => {
+    if (
+      dropped &&
+      (isSignRightStatus === "loading" ||
+        isVCRightStatus === "loading" ||
+        isTxStatus === "loading" ||
+        isWriteStatus === "loading")
+    ) {
+      setClaimingProcessing();
+    }
+
+    if (
+      dropped &&
+      (isSignRightStatus === "error" || isVCRightStatus === "error")
+    ) {
+      setClaimingCancelling();
+      const t = setTimeout(() => {
+        reset(false);
+      }, 2500);
+      return () => {
+        clearTimeout(t);
+      };
+    }
+    return () => {};
+  }, [
+    isVCRightStatus,
+    isSignRightStatus,
+    dropped,
+    isTxStatus,
+    isWriteStatus,
+    setClaimingProcessing,
+    setClaimingCancelling,
+    reset,
+  ]);
 
   // console.log("isVCRightStatus", isVCRightStatus);
   // console.log("isSignRightStatus", isSignRightStatus);

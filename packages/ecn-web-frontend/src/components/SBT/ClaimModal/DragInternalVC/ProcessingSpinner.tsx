@@ -4,6 +4,8 @@ import { AiOutlineReload } from "react-icons/ai";
 
 import { responsive } from "../utils";
 
+import { calcLen } from "./hooks/calcLen";
+
 const rotate = keyframes`
   0% {
     transform: rotateZ(0deg);
@@ -27,7 +29,7 @@ export const ProcessingSpinner = ({
       }}
     >
       <AiOutlineReload
-        size={size || responsive.respWStr(20)}
+        size={size || `${calcLen(responsive.respW(20))}px`}
         color={color || "black"}
       />
     </Box>

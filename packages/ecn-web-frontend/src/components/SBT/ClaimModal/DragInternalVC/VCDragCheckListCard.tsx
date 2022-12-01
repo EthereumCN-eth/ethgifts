@@ -3,6 +3,8 @@ import { HStack, Text } from "@chakra-ui/react";
 import { responsive } from "../utils";
 import { ChakraNextLink } from "@/components/ChakraNextLink";
 
+import { calcLen } from "./hooks/calcLen";
+
 export type VCCheckItemTextType = {
   leftText: string;
   rightText: string;
@@ -30,7 +32,7 @@ export const VCDragCheckListCard = ({ item }: { item: VCCheckItemType }) => {
       fontWeight={500}
       letterSpacing="0.06em"
       fontFamily="PingFang SC"
-      fontSize={responsive.respWStr(14)}
+      fontSize={`${calcLen(responsive.respW(14))}px`}
       w="full"
       justify="space-between"
     >

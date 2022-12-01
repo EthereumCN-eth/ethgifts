@@ -123,17 +123,6 @@ export function useClaimSBTFromVC({
 
   useEffect(() => {
     if (error?.message?.startsWith("user rejected transaction")) {
-      // setClaimingHint({
-      //   claimingHint: (
-      //     <VStack>
-      //       <Text color="#A34829">钱包交互被取消</Text>
-      //       <Button variant="orangeOutline" onClick={() => reset(false)}>
-      //         重置交互
-      //       </Button>
-      //     </VStack>
-      //   ),
-      // });
-
       setClaimingCancelling();
 
       const t = setTimeout(() => {

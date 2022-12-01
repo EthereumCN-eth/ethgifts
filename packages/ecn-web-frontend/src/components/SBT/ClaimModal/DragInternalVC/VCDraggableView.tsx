@@ -9,6 +9,7 @@ import type { SBTState } from "@/state/sbt";
 import type { VCType } from "@/state/sbt/types";
 import { shortenName } from "@/utils/shortenName";
 
+import { calcLen } from "./hooks/calcLen";
 import { useInternalDragState } from "./internalDragState";
 import { VCDragCheckListCard } from "./VCDragCheckListCard";
 
@@ -59,9 +60,9 @@ export const VCDraggableView = ({
       ref={dragRef}
       bgColor="#FAFAFA"
       borderRadius={responsive.respWStr(16)}
-      w={responsive.respWStr(424)}
-      h={responsive.respWStr(333)}
-      p={responsive.respWStr(20)}
+      w={`${calcLen(responsive.respW(424))}px`}
+      h={`${calcLen(responsive.respW(333))}px`}
+      p={`${calcLen(responsive.respW(20))}px`}
       className="ecn-vc-draggble"
       // p={["10px", "12px", "15px", "20px"]}
       // p={[
@@ -84,14 +85,14 @@ export const VCDraggableView = ({
     >
       <VStack
         w="100%"
-        h={responsive.respWStr(265)}
+        h={`${calcLen(responsive.respW(265))}px`}
         // maxH="318px"
         bgColor="#DDD9D7"
         borderRadius="8px"
         position="relative"
         justify="space-evenly"
-        px={responsive.respWStr(20)}
-        pt={responsive.respWStr(20)}
+        px={`${calcLen(responsive.respW(20))}px`}
+        pt={`${calcLen(responsive.respW(20))}px`}
         // pb="50px"
       >
         {(
@@ -136,8 +137,8 @@ export const VCDraggableView = ({
       <Center flex="1">
         <Image
           src="/holdicon.svg"
-          w={responsive.respWStr(31.5)}
-          h={responsive.respWStr(12.6)}
+          w={`${calcLen(responsive.respW(31.5))}px`}
+          h={`${calcLen(responsive.respW(12.6))}px`}
           objectFit="contain"
         />
       </Center>

@@ -7,6 +7,8 @@ import { useReadClaimedLevel } from "@/hooks/useReadClaimedLevel";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
+import { hintText } from "./hintText";
+
 export const useInitInternalDragState = ({
   viewingSelectedIndex,
 }: {
@@ -71,7 +73,7 @@ export const useInitInternalDragState = ({
 
   useEffect(() => {
     const claimingHint = isSelectedClaimed ? (
-      <Text>{`已申领 E群誌 SBT Lv${selectedIndex + 1} 。`}</Text>
+      hintText.success({ selectedIndex })
     ) : (
       <Text>
         {`请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${

@@ -1,9 +1,10 @@
-import { Text } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import create from "zustand";
 
 import type { SBTState } from "@/state/sbt";
 import { initialState as sbtInitalState } from "@/state/sbt";
+
+import { hintText } from "./hooks/hintText";
 
 interface InternalDragState {
   levelIndexs: number[];
@@ -130,16 +131,12 @@ export const useInternalDragState = create<InternalDragState>()((set) => ({
       return {
         claimed: newClaimed,
         dropped,
-        dropTargetX: 0,
-        claimingHint: (
-          <Text>
-            {claimed
-              ? `已申领 E群誌 SBT Lv${selectedIndex + 1} 。`
-              : `请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
-                  selectedIndex + 1
-                } 的申领。`}
-          </Text>
-        ),
+        // dropTargetX,
+        claimingHint: claimed
+          ? hintText.success({ selectedIndex })
+          : `请拖入对应的线下VC文档到虚线框内，以激活 E群誌 SBT Lv${
+              selectedIndex + 1
+            } 的申领。`,
       };
     }),
   syncClaimLevels: (claimedSbtIndexed) =>
