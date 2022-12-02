@@ -1,12 +1,13 @@
-import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useState } from "react";
-import { AiOutlineUpload } from "react-icons/ai";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 import { calcLen } from "../hooks/calcLen";
 // import { useComputeDropAreaTransformValue } from "../hooks/useComputeTransformValue";
 import { responsive } from "../utils";
+
+import { VCDropZone } from "./VCDropZone";
 
 export const DragExternalVC = () => {
   // const selectedArtwork = useInternalDragState((state) =>
@@ -24,7 +25,7 @@ export const DragExternalVC = () => {
 
   // const [bgOpacity, setBgOpacity] = useState(0.2);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [dropText, setDropText] = useState("Drag & Drop");
+  const [dropText, setDropText] = useState("上传 VC 申领SBT");
 
   // // console.log("left", left);
   // const [{ isOver }, dropRef] = useDrop(
@@ -90,7 +91,7 @@ export const DragExternalVC = () => {
         // bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
         transition="all 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
       >
-        <Image
+        {/* <Image
           // src={selectedArtwork}
           position="absolute"
           w={`calc(${calcLen(responsive.respW(496))}px - 2px)`}
@@ -104,32 +105,12 @@ export const DragExternalVC = () => {
           bottom={0}
           right={0}
           p="1px"
-          borderRadius={responsive.respWStr(16)}
+          borderRadius="16px"
           zIndex={1}
           textAlign="center"
-        />
+        /> */}
 
-        <VStack w="full" h="full" justify="center" zIndex={2}>
-          <AiOutlineUpload color="#FFFFFF" size="9%" />
-          <Box h="2%" />
-          <Text
-            color="#FFFFFF"
-            fontSize={responsive.respWStr(20)}
-            fontWeight={600}
-            textAlign="center"
-          >
-            {dropText}
-          </Text>
-          <Box h="1%" />
-          <Text
-            textAlign="center"
-            w="70%"
-            color="#FFFFFF"
-            fontSize={responsive.respWStr(14)}
-          >
-            拖入证明你具有 E群誌 SBT 所有权的VC，以激活对应SBT的申领。
-          </Text>
-        </VStack>
+        <VCDropZone dropText={dropText} />
       </Flex>
     </Flex>
   );
