@@ -26,8 +26,36 @@ export type ParseVCForPayloadDataType = ReturnType<
   typeof parseVCForPayload
 >["data"];
 
-export const parseVCForPayload = (vcStr: string) => {
+type ParseVCReturnType =
+  | {
+      success: true;
+      data: {
+        expressAmount: number;
+        metadataURI: string;
+        receiver: string;
+        signature: string;
+        verifyingContract: string;
+        chainId: number;
+        name: string;
+        version: number;
+      };
+      error: null;
+    }
+  | {
+      success: false;
+      data: null;
+      error: Error;
+    };
+export const parseVCForPayload = (
+  vcStr: string | undefined
+): ParseVCReturnType => {
   try {
+    if (!vcStr)
+      return {
+        success: false,
+        data: null,
+        error: Error("falsy vc string"),
+      };
     const vc = JSON.parse(vcStr) as VCType;
     const expressAmount =
       vc?.credentialSubject?.ethContractMessage?.expressAmount;
@@ -73,6 +101,50 @@ export const parseVCForPayload = (vcStr: string) => {
     return {
       success: false,
       error: Error("Parsing Error"),
+      data: null,
+    };
+  }
+};
+
+type ParseAndVerifyVCReturnType =
+  | {
+      success: true;
+      data: {
+        expressAmount: number;
+        metadataURI: string;
+        receiver: string;
+        signature: string;
+        verifyingContract: string;
+        chainId: number;
+        name: string;
+        version: number;
+      };
+    }
+  | {
+      success: false;
+      data: null;
+    };
+
+export const parseVCForPayloadAndVerifyVC = async (
+  vcStr: string | undefined
+): Promise<ParseAndVerifyVCReturnType> => {
+  const { success, data } = parseVCForPayload(vcStr);
+  if (success) {
+    const verified = await verifyVC(vcStr);
+    if (verified) {
+      return {
+        success: true,
+        data,
+      };
+    } else {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+  } else {
+    return {
+      success: false,
       data: null,
     };
   }

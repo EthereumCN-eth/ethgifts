@@ -1,48 +1,21 @@
 import { constants } from "ethers";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useContractRead } from "wagmi";
 
 import { useInternalDragState } from "../DragInternalVC/internalDragState";
 import SBT1 from "@/abis/SBT1.json";
 import { parseVCForPayload, verifyVC, verifyVCTicket } from "@/utils/vc";
 
+import { timeoutPromise } from "./timeoutPromise";
 import { useClaimingHintSetter } from "./useClaimingHintSetter";
 import { useClaimSBTFromVC } from "./useClaimSBTFromVC";
-
-const timeoutPromise = (num: number) =>
-  new Promise<boolean>((res) => {
-    setTimeout(() => res(true), num);
-  });
+import { useFuncTriggerByDeps } from "./useFuncTriggerByDeps";
 
 async function checkWithMinTime<T>(p: Promise<T>, time: number) {
   const [result] = await Promise.all([p, timeoutPromise(time)]);
 
   return result;
 }
-
-const useFuncTriggerByDeps = <T>({
-  func,
-  deps,
-  init = "idle",
-}: {
-  func: () => Promise<T>;
-  deps: boolean[];
-  init: "error" | "success" | "loading" | "idle";
-}) => {
-  const [returnVal, setReturnVal] = useState<
-    "error" | "success" | "loading" | "idle"
-  >(init);
-  useEffect(() => {
-    if (deps.length === 0 || deps.every(Boolean)) {
-      setReturnVal("loading");
-      func().then((v) => {
-        setReturnVal(v ? "success" : "error");
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [func, ...deps]);
-  return returnVal;
-};
 
 const checkVC = async (vcStr: string | undefined, time: number) => {
   return checkWithMinTime(verifyVC(vcStr), time);

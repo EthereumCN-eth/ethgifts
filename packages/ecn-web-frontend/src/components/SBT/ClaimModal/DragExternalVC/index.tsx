@@ -1,77 +1,129 @@
-import { Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { constants } from "ethers";
+import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
+import { useContractRead } from "wagmi";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+import { ProcessingSpinner } from "../DragInternalVC/ProcessingSpinner";
 import { calcLen } from "../hooks/calcLen";
+import { timeoutPromise } from "../hooks/timeoutPromise";
 // import { useComputeDropAreaTransformValue } from "../hooks/useComputeTransformValue";
 import { responsive } from "../utils";
+import SBT1 from "@/abis/SBT1.json";
+import { parseVCForPayloadAndVerifyVC } from "@/utils/vc";
 
+import { useExternalDragState } from "./externalDragState";
 import { VCDropZone } from "./VCDropZone";
 
+export const HintView = ({
+  isError,
+  isLoading,
+  isSuccess,
+}: {
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+}) => {
+  return (
+    <>
+      {isLoading && (
+        <HStack>
+          <ProcessingSpinner size={responsive.respWStr(14)} color="white" />
+          <Text
+            textAlign="center"
+            color="white"
+            fontSize={`${calcLen(responsive.respW(14))}px`}
+          >
+            VC 文件加载中
+          </Text>
+        </HStack>
+      )}
+
+      {isError && (
+        <HStack>
+          <AiFillExclamationCircle size={responsive.respWStr(14)} color="red" />
+          <Text
+            textAlign="center"
+            color="white"
+            fontSize={`${calcLen(responsive.respW(14))}px`}
+          >
+            VC 文件载入错误
+          </Text>
+        </HStack>
+      )}
+      {isSuccess && (
+        <HStack>
+          <AiFillCheckCircle size={responsive.respWStr(14)} color="green" />
+          <Text
+            textAlign="center"
+            color="white"
+            fontSize={`${calcLen(responsive.respW(14))}px`}
+          >
+            VC 文件加载成功
+          </Text>
+        </HStack>
+      )}
+    </>
+  );
+};
+
 export const DragExternalVC = () => {
-  // const selectedArtwork = useInternalDragState((state) =>
-  //   state.computed.selectedArtwork(state)
-  // );
-  // const setDrop = useInternalDragState((state) => state.setDrop);
-  // const dropped = useInternalDragState((state) =>
-  //   state.computed.selectedDropped(state)
-  // );
-  // const selectedIndex = useInternalDragState((state) => state.selectedIndex);
-  // const record = useInternalDragState((state) =>
-  //   state.computed.selectedRecord(state)
-  // );
-  // const vcStr = record?.signedVC;
+  const fileText = useExternalDragState((state) => state.fileText);
+  const {
+    data: vCParsedData,
+    status: vCParseStatus,
+    isFetching,
+  } = useQuery({
+    queryKey: ["parseAndVerifyVC", fileText],
+    queryFn: async () => {
+      const delayPromise = timeoutPromise(1000);
+      const [resVal] = await Promise.all([
+        parseVCForPayloadAndVerifyVC(fileText),
+        delayPromise,
+      ]);
+      if (!resVal.success) {
+        throw Error("parseAndVerifyVC Error");
+      }
+      if (resVal.data.expressAmount <= 0) {
+        throw Error("parseAndVerifyVC expressAmount Error");
+      }
+      return resVal;
+    },
+    enabled: !!fileText,
+    refetchOnWindowFocus: false,
+  });
 
-  // const [bgOpacity, setBgOpacity] = useState(0.2);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [dropText, setDropText] = useState("上传 VC 申领SBT");
+  const { data: gradeLines, status: gradeLineStatus } = useContractRead({
+    contractInterface: SBT1.abi,
+    addressOrName:
+      vCParsedData?.data?.verifyingContract || constants.AddressZero,
+    chainId: vCParsedData?.data?.chainId,
+    functionName: "expressGradeLine",
+    args: [],
+    enabled: !!vCParsedData && vCParsedData.success,
 
-  // // console.log("left", left);
-  // const [{ isOver }, dropRef] = useDrop(
-  //   () => ({
-  //     accept: ["VC"],
-  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //     drop: async (item, monitor) => {
-  //       if (vcStr) {
-  //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //         // const isVerifiedVC = await verifyVC(vcStr);
-  //         setDrop(true, selectedIndex);
-  //       }
+    // overrides: {
+    //   gasLimit: 50000,
+    // },
+  });
+  // console.log("isFetching", isFetching);
+  // console.log("vCParseStatus", vCParseStatus);
+  // console.log("gradeLineStatus", gradeLineStatus);
 
-  //       // onDrop(monitor.getItemType());
-  //       return undefined;
-  //     },
+  // console.log("VCParsedData", vCParsedData);
+  // console.log("gradeLines", gradeLines);
 
-  //     collect: (monitor: DropTargetMonitor) => ({
-  //       isOver: monitor.isOver(),
+  const isLoading = isFetching || gradeLineStatus === "loading";
+  const isError = gradeLineStatus === "error" || vCParseStatus === "error";
+  const isSuccess =
+    gradeLineStatus === "success" && vCParseStatus === "success";
 
-  //       // canDrop: monitor.canDrop(),
-  //     }),
-  //   }),
-  //   [selectedIndex, vcStr]
-  // );
-
-  // useEffect(() => {
-  //   if (dropped) {
-  //     setBgOpacity(0.5);
-  //     setDropText("");
-  //   } else if (isOver) {
-  //     setBgOpacity(0.5);
-  //     setDropText("Drop to Claim");
-  //   } else {
-  //     setBgOpacity(0.3);
-  //     setDropText("Drag & Drop");
-  //   }
-  // }, [isOver, dropped]);
-
-  // const { ref: moveRef, droppedStyle } = useComputeDropAreaTransformValue({
-  //   dropped,
-  // });
-
-  // const isSelectedClaimed = useInternalDragState((state) =>
-  //   state.computed.selectedClaimed(state)
-  // );
+  // console.log("isLoading", isLoading);
+  // console.log("isError", isError);
+  // console.log("isSuccess", isSuccess);
 
   return (
     <Flex w="full" h="full" direction="column" align="center" justify="center">
@@ -83,9 +135,10 @@ export const DragExternalVC = () => {
         maxWidth="460px"
         maxH="460px"
         borderRadius="16px"
+        zIndex={1000}
         // zIndex={dropped ? 1000 : 0}
         // bgColor="transparent"
-        border="1px dashed #FFFFFF"
+
         justify="center"
         position="relative"
         // bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
@@ -110,8 +163,43 @@ export const DragExternalVC = () => {
           textAlign="center"
         /> */}
 
-        <VCDropZone dropText={dropText} />
+        <VCDropZone isLoading={isLoading} />
       </Flex>
+      <Box h={`${responsive.respH(30)}px`} />
+
+      <VStack
+        // bgColor="green"
+        justify="center"
+        // h={`${calcLen(responsive.respW(50))}px`}
+        w="70%"
+      >
+        {/*  */}
+        <HintView
+          isError={isError}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+        />
+
+        <Box h={`${responsive.respH(5)}px`} />
+        {isSuccess && (
+          <Button
+            // w="43%"
+            fontSize={`${calcLen(responsive.respW(16))}px`}
+            // isLoading={isSwitchNetworkLoading}
+            // onClick={switchToNFTNetwork}
+            // disabled={isSwitchNetworkLoading}
+            px="20px"
+            mx="0"
+            h="fit-content"
+            borderRadius="16px"
+            variant="whiteOutline"
+            py="8px"
+            // minW={["100%", "100%", "100%", "100%", "47%"]}
+          >
+            确认信息并申领 SBT
+          </Button>
+        )}
+      </VStack>
     </Flex>
   );
 };
