@@ -4,6 +4,7 @@ export const ExpressSBT_config = {
   goerli: {
     Approver: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
     sbt_levels: [BigNumber.from(2), BigNumber.from(4), BigNumber.from(6)],
+    initialUrl: 'https:example.com',
   },
   optimism: {
     Approver: '',

@@ -12,7 +12,8 @@ export const sbts: SBTCreateData[] = [
     issuerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     galleryItemBase: {
       create: {
-        coverLink: "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
+        coverLink:
+          "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
         chainId: 5,
         name: "E群志 SBT",
         onShelf: true,
@@ -25,6 +26,7 @@ export const sbts: SBTCreateData[] = [
           "https://foundation.app/images/drops/collection-02-02@2x.png",
         ],
         tags: ["SBT", "工作量证明"],
+        tokenType: "ERC1155",
         eventStartTime: 1666076540,
       },
     },

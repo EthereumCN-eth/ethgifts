@@ -18,11 +18,12 @@ export const contract_goerli_deploy = async (
   merge_baseUri: string,
   anni4_baseUri: string,
   approver: string,
-  sbt_levels: BigNumber[]
+  sbt_levels: BigNumber[],
+  initialUrl: string
 ) => {
   await MergeParty_goerli(merge_mekleRoot, merge_baseUri);
   await ECNAnniversary_4_goerli(anni4_baseUri);
-  await ExpressSBT_goerli(approver, sbt_levels);
+  await ExpressSBT_goerli(approver, sbt_levels, initialUrl);
 };
 
 export const contract_optimism_deploy = async (
