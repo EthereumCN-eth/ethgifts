@@ -2,14 +2,11 @@ import { constants } from "ethers";
 import { useCallback, useEffect, useMemo } from "react";
 import { useContractRead } from "wagmi";
 
-import { useInternalDragState } from "../DragInternalVC/internalDragState";
+import { checkWithMinTime } from "../hooks/checkWithMinTime";
+import { useClaimSBTFromVCPure } from "../hooks/useClaimSBTFromVC";
+import { useFuncTriggerByDeps } from "../hooks/useFuncTriggerByDeps";
 import SBT1 from "@/abis/SBT1.json";
 import { parseVCForPayload, verifyVC, verifyVCTicket } from "@/utils/vc";
-
-import { checkWithMinTime } from "./checkWithMinTime";
-import { useClaimingHintSetter } from "./useClaimingHintSetter";
-import { useClaimSBTFromVC } from "./useClaimSBTFromVC";
-import { useFuncTriggerByDeps } from "./useFuncTriggerByDeps";
 
 const checkVC = async (vcStr: string | undefined, time: number) => {
   return checkWithMinTime(verifyVC(vcStr), time);
@@ -25,20 +22,23 @@ const checkSignData = async (
   return checkWithMinTime(verifyVCTicket(vcStr, expectedVerifyPubKey), time);
 };
 
-export const useDropToClaim = ({ index }: { index: number }) => {
-  const dropped = useInternalDragState((state) =>
-    state.computed.selectedDropped(state)
-  );
-
-  const record = useInternalDragState((state) =>
-    state.computed.selectedRecord(state)
-  );
-
-  const reset = useInternalDragState((state) => state.reset);
+export const useExternalClaim = ({
+  clicked,
+  vcStr,
+  reset,
+  onProcess,
+  onCancel,
+}: {
+  clicked: boolean;
+  vcStr: string | undefined;
+  reset?: () => void;
+  onProcess?: () => void;
+  onCancel?: () => void;
+}) => {
+  //   const reset = useInternalDragState((state) => state.reset);
   // const setVerifyChecks = useInternalDragState(
   //   (state) => state.setVerifyChecks
   // );
-  const vcStr = record?.signedVC;
 
   const { verifyingContract, chainId } = useMemo(() => {
     const { data } = parseVCForPayload(vcStr || "{}");
@@ -63,8 +63,8 @@ export const useDropToClaim = ({ index }: { index: number }) => {
 
   // console.log("data", approverAdderss);
 
-  const { setClaimingCancelling, setClaimingProcessing } =
-    useClaimingHintSetter();
+  //   const { setClaimingCancelling, setClaimingProcessing } =
+  //     useClaimingHintSetter();
 
   const checkVCCallback = useCallback(() => checkVC(vcStr, 2000), [vcStr]);
   const checkSignCallback = useCallback(
@@ -78,39 +78,44 @@ export const useDropToClaim = ({ index }: { index: number }) => {
 
   const isVCRightStatus = useFuncTriggerByDeps({
     func: checkVCCallback,
-    deps: [dropped],
+    deps: [clicked],
     init: "idle",
   });
 
   const isSignRightStatus = useFuncTriggerByDeps({
     func: checkSignCallback,
-    deps: [dropped, isVCRightStatus === "success", !!approverAdderss],
+    deps: [clicked, isVCRightStatus === "success", !!approverAdderss],
     init: "idle",
   });
 
-  const { isTxStatus, isWriteStatus } = useClaimSBTFromVC({
+  const { isTxStatus, isWriteStatus } = useClaimSBTFromVCPure({
     enabled: isVCRightStatus === "success" && isSignRightStatus === "success",
-    index,
+    vcStr,
+    reset,
+    onProcess,
+    onCancel,
+    // index,
   });
 
   useEffect(() => {
+    // eslint-disable-next-line sonarjs/no-collapsible-if
     if (
-      dropped &&
+      clicked &&
       (isSignRightStatus === "loading" ||
         isVCRightStatus === "loading" ||
         isTxStatus === "loading" ||
         isWriteStatus === "loading")
     ) {
-      setClaimingProcessing();
+      if (onProcess) onProcess();
     }
 
     if (
-      dropped &&
+      clicked &&
       (isSignRightStatus === "error" || isVCRightStatus === "error")
     ) {
-      setClaimingCancelling();
+      if (onCancel) onCancel();
       const t = setTimeout(() => {
-        reset(false);
+        if (reset) reset();
       }, 2500);
       return () => {
         clearTimeout(t);
@@ -118,13 +123,13 @@ export const useDropToClaim = ({ index }: { index: number }) => {
     }
     return () => {};
   }, [
-    isVCRightStatus,
+    clicked,
     isSignRightStatus,
-    dropped,
     isTxStatus,
+    isVCRightStatus,
     isWriteStatus,
-    setClaimingProcessing,
-    setClaimingCancelling,
+    onCancel,
+    onProcess,
     reset,
   ]);
 

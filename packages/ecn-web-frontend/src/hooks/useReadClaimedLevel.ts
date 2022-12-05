@@ -31,8 +31,8 @@ export const useReadClaimedSelectedLevel = ({
   connectedAddress,
   currentLevelNumber,
 }: {
-  chainId: number;
-  contractAddress: string;
+  chainId: number | undefined;
+  contractAddress: string | undefined;
   connectedAddress: string | undefined;
   currentLevelNumber: number;
 }) => {
@@ -42,7 +42,7 @@ export const useReadClaimedSelectedLevel = ({
     chainId,
     functionName: "mintedLevels",
     args: [connectedAddress || constants.AddressZero],
-    enabled: !!connectedAddress && !!contractAddress,
+    enabled: !!connectedAddress && !!contractAddress && !!chainId,
   });
   const claimedArray = useMemo(() => {
     if (claimed) return claimed.map((v: BigNumber) => v.toNumber());

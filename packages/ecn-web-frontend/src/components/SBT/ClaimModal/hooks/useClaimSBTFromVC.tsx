@@ -51,6 +51,93 @@ const useCLaimSBT = ({ payload }: { payload: ParseVCForPayloadDataType }) => {
   return useContractWrite(config);
 };
 
+export const useClaimSBTFromVCPure = ({
+  vcStr,
+  enabled,
+  reset,
+  onProcess,
+  onCancel,
+}: {
+  vcStr: string | undefined;
+  enabled: boolean;
+  reset?: () => void;
+  onProcess?: () => void;
+  onCancel?: () => void;
+}) => {
+  const vcPayloadOrNull = useMemo(() => {
+    if (vcStr) return parseVCForPayload(vcStr || "{}").data;
+    return null;
+  }, [vcStr]);
+
+  const {
+    data,
+    write,
+    isError,
+    error,
+    reset: resetClaim,
+    // isSuccess: isWriteSuccess,
+    // isLoading: isWriteLoading,
+    status: isWriteStatus,
+  } = useCLaimSBT({
+    payload: vcPayloadOrNull,
+  });
+
+  const {
+    isLoading: isTxLoading,
+    isSuccess: isTxSuccess,
+    // isError: isTxError,
+    status,
+  } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+  const payloadreceived = !!vcPayloadOrNull;
+
+  useEffect(() => {
+    // console.log("selectedIndex", selectedIndex);
+    // console.log("index", index);
+    if (enabled && payloadreceived && !!write) {
+      if (onProcess) onProcess();
+      // to verify
+      // const isVerifiedVC = await verifyVC(vcStr);
+      const tr = setTimeout(() => {
+        write?.();
+      }, 1000);
+      return () => {
+        clearTimeout(tr);
+      };
+    }
+    return () => {};
+  }, [payloadreceived, write, enabled, onProcess]);
+
+  useEffect(() => {
+    if (error?.message?.startsWith("user rejected transaction")) {
+      if (onCancel) onCancel();
+      const t = setTimeout(() => {
+        if (reset) reset();
+        resetClaim();
+      }, 2500);
+      return () => {
+        clearTimeout(t);
+      };
+    }
+    return () => {};
+  }, [error?.message, isError, onCancel, reset, resetClaim]);
+
+  useEffect(() => {
+    if (isTxSuccess) {
+      // reset();
+      // eslint-disable-next-line sonarjs/no-collapsible-if
+    } else if (isTxLoading) {
+      if (onProcess) onProcess();
+    }
+  }, [isTxLoading, isTxSuccess, onProcess, reset]);
+
+  return {
+    isWriteStatus,
+    isTxStatus: status,
+  };
+};
+
 export function useClaimSBTFromVC({
   enabled,
   index,

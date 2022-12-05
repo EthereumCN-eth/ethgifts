@@ -88,7 +88,7 @@ export const VCDropArea = ({ index }: { index: number }) => {
           maxH="calc(460px - 2px)"
           opacity={1}
           p="1px"
-          borderRadius={responsive.respWStr(16)}
+          borderRadius="16px"
           zIndex={1}
           textAlign="center"
           // left={0}
@@ -131,7 +131,7 @@ export const VCDropArea = ({ index }: { index: number }) => {
             bottom={0}
             right={0}
             p="1px"
-            borderRadius={responsive.respWStr(16)}
+            borderRadius="16px"
             zIndex={1}
             textAlign="center"
           />
@@ -141,7 +141,7 @@ export const VCDropArea = ({ index }: { index: number }) => {
             <Box h="2%" />
             <Text
               color="#FFFFFF"
-              fontSize={responsive.respWStr(20)}
+              fontSize={`${calcLen(responsive.respW(20))}px`}
               fontWeight={600}
               textAlign="center"
             >
@@ -152,7 +152,7 @@ export const VCDropArea = ({ index }: { index: number }) => {
               textAlign="center"
               w="70%"
               color="#FFFFFF"
-              fontSize={responsive.respWStr(14)}
+              fontSize={`${calcLen(responsive.respW(14))}px`}
             >
               拖入证明你具有 E群誌 SBT 所有权的VC，以激活对应SBT的申领。
             </Text>

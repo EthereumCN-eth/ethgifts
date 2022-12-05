@@ -1,76 +1,83 @@
-import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
-import { useState } from "react";
-import { AiOutlineUpload } from "react-icons/ai";
+import { Box, Flex, VStack } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import type { BigNumber } from "ethers";
+import { constants } from "ethers";
+import { useContractRead } from "wagmi";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 import { calcLen } from "../hooks/calcLen";
+import { timeoutPromise } from "../hooks/timeoutPromise";
 // import { useComputeDropAreaTransformValue } from "../hooks/useComputeTransformValue";
 import { responsive } from "../utils";
+import SBT1 from "@/abis/SBT1.json";
+import { parseVCForPayloadAndVerifyVC } from "@/utils/vc";
+
+import { ClaimExternalVCButton } from "./ClaimExternalVCButton";
+import { useExternalDragState } from "./externalDragState";
+import { HintView } from "./HintView";
+import { VCDropZone } from "./VCDropZone";
 
 export const DragExternalVC = () => {
-  // const selectedArtwork = useInternalDragState((state) =>
-  //   state.computed.selectedArtwork(state)
-  // );
-  // const setDrop = useInternalDragState((state) => state.setDrop);
-  // const dropped = useInternalDragState((state) =>
-  //   state.computed.selectedDropped(state)
-  // );
-  // const selectedIndex = useInternalDragState((state) => state.selectedIndex);
-  // const record = useInternalDragState((state) =>
-  //   state.computed.selectedRecord(state)
-  // );
-  // const vcStr = record?.signedVC;
+  const fileText = useExternalDragState((state) => state.fileText);
+  const setParsedVC = useExternalDragState((state) => state.setParsedVC);
+  const {
+    data: vCParsedData,
+    status: vCParseStatus,
+    isFetching,
+  } = useQuery({
+    queryKey: ["parseAndVerifyVC", fileText],
+    queryFn: async () => {
+      const delayPromise = timeoutPromise(1000);
+      const [resVal] = await Promise.all([
+        parseVCForPayloadAndVerifyVC(fileText),
+        delayPromise,
+      ]);
+      if (!resVal.success) {
+        throw Error("parseAndVerifyVC Error");
+      }
+      if (resVal.data.expressAmount <= 0) {
+        throw Error("parseAndVerifyVC expressAmount Error");
+      }
+      setParsedVC(resVal.data);
+      return resVal;
+    },
+    enabled: !!fileText,
+    refetchOnWindowFocus: false,
+  });
 
-  // const [bgOpacity, setBgOpacity] = useState(0.2);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [dropText, setDropText] = useState("Drag & Drop");
+  const { data: gradeLines, status: gradeLineStatus } = useContractRead({
+    contractInterface: SBT1.abi,
+    addressOrName:
+      vCParsedData?.data?.verifyingContract || constants.AddressZero,
+    chainId: vCParsedData?.data?.chainId,
+    functionName: "expressGradeLine",
+    args: [],
+    enabled: !!vCParsedData && vCParsedData.success,
 
-  // // console.log("left", left);
-  // const [{ isOver }, dropRef] = useDrop(
-  //   () => ({
-  //     accept: ["VC"],
-  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //     drop: async (item, monitor) => {
-  //       if (vcStr) {
-  //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //         // const isVerifiedVC = await verifyVC(vcStr);
-  //         setDrop(true, selectedIndex);
-  //       }
+    // overrides: {
+    //   gasLimit: 50000,
+    // },
+  });
+  // console.log("isFetching", isFetching);
+  // console.log("vCParseStatus", vCParseStatus);
+  // console.log("gradeLineStatus", gradeLineStatus);
 
-  //       // onDrop(monitor.getItemType());
-  //       return undefined;
-  //     },
+  // // console.log("VCParsedData", vCParsedData);
+  // console.log("gradeLines", gradeLines);
 
-  //     collect: (monitor: DropTargetMonitor) => ({
-  //       isOver: monitor.isOver(),
+  const isLoading = isFetching || gradeLineStatus === "loading";
+  const isError = gradeLineStatus === "error" || vCParseStatus === "error";
+  const isSuccess =
+    !isLoading &&
+    !isError &&
+    gradeLineStatus === "success" &&
+    vCParseStatus === "success";
 
-  //       // canDrop: monitor.canDrop(),
-  //     }),
-  //   }),
-  //   [selectedIndex, vcStr]
-  // );
-
-  // useEffect(() => {
-  //   if (dropped) {
-  //     setBgOpacity(0.5);
-  //     setDropText("");
-  //   } else if (isOver) {
-  //     setBgOpacity(0.5);
-  //     setDropText("Drop to Claim");
-  //   } else {
-  //     setBgOpacity(0.3);
-  //     setDropText("Drag & Drop");
-  //   }
-  // }, [isOver, dropped]);
-
-  // const { ref: moveRef, droppedStyle } = useComputeDropAreaTransformValue({
-  //   dropped,
-  // });
-
-  // const isSelectedClaimed = useInternalDragState((state) =>
-  //   state.computed.selectedClaimed(state)
-  // );
+  // console.log("isLoading", isLoading);
+  // console.log("isError", isError);
+  // console.log("isSuccess", isSuccess);
 
   return (
     <Flex w="full" h="full" direction="column" align="center" justify="center">
@@ -82,15 +89,16 @@ export const DragExternalVC = () => {
         maxWidth="460px"
         maxH="460px"
         borderRadius="16px"
+        zIndex={1000}
         // zIndex={dropped ? 1000 : 0}
         // bgColor="transparent"
-        border="1px dashed #FFFFFF"
+
         justify="center"
         position="relative"
         // bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
         transition="all 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
       >
-        <Image
+        {/* <Image
           // src={selectedArtwork}
           position="absolute"
           w={`calc(${calcLen(responsive.respW(496))}px - 2px)`}
@@ -104,33 +112,37 @@ export const DragExternalVC = () => {
           bottom={0}
           right={0}
           p="1px"
-          borderRadius={responsive.respWStr(16)}
+          borderRadius="16px"
           zIndex={1}
           textAlign="center"
+        /> */}
+
+        <VCDropZone
+          gradeLines={gradeLines as BigNumber[]}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+        />
+      </Flex>
+      <Box h={`${responsive.respH(30)}px`} />
+
+      <VStack
+        // bgColor="green"
+        justify="center"
+        // h={`${calcLen(responsive.respW(50))}px`}
+        w="70%"
+      >
+        {/*  */}
+        <HintView
+          isError={isError}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
         />
 
-        <VStack w="full" h="full" justify="center" zIndex={2}>
-          <AiOutlineUpload color="#FFFFFF" size="9%" />
-          <Box h="2%" />
-          <Text
-            color="#FFFFFF"
-            fontSize={responsive.respWStr(20)}
-            fontWeight={600}
-            textAlign="center"
-          >
-            {dropText}
-          </Text>
-          <Box h="1%" />
-          <Text
-            textAlign="center"
-            w="70%"
-            color="#FFFFFF"
-            fontSize={responsive.respWStr(14)}
-          >
-            拖入证明你具有 E群誌 SBT 所有权的VC，以激活对应SBT的申领。
-          </Text>
-        </VStack>
-      </Flex>
+        <Box h={`${responsive.respH(5)}px`} />
+        {isSuccess && (
+          <ClaimExternalVCButton gradeLines={gradeLines as BigNumber[]} />
+        )}
+      </VStack>
     </Flex>
   );
 };
