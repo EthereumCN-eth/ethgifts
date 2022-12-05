@@ -36,7 +36,7 @@ StatusBoardPropstype) => {
   });
 
   // eslint-disable-next-line no-console
-  // console.log("claimedSbtArrayByLevel", claimedSbtArrayByLevel, isSuccess);
+  console.log("claimedSbtArrayByLevel", claimedSbtArrayByLevel, isSuccess);
   if (authStatus !== "authenticated")
     return (
       <ConnectWalletBoard

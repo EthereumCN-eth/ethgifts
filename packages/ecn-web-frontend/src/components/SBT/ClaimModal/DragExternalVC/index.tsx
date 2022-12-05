@@ -1,12 +1,11 @@
-import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+import type { BigNumber } from "ethers";
 import { constants } from "ethers";
-import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
 import { useContractRead } from "wagmi";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-import { ProcessingSpinner } from "../DragInternalVC/ProcessingSpinner";
 import { calcLen } from "../hooks/calcLen";
 import { timeoutPromise } from "../hooks/timeoutPromise";
 // import { useComputeDropAreaTransformValue } from "../hooks/useComputeTransformValue";
@@ -14,63 +13,14 @@ import { responsive } from "../utils";
 import SBT1 from "@/abis/SBT1.json";
 import { parseVCForPayloadAndVerifyVC } from "@/utils/vc";
 
+import { ClaimExternalVCButton } from "./ClaimExternalVCButton";
 import { useExternalDragState } from "./externalDragState";
+import { HintView } from "./HintView";
 import { VCDropZone } from "./VCDropZone";
-
-export const HintView = ({
-  isError,
-  isLoading,
-  isSuccess,
-}: {
-  isLoading: boolean;
-  isError: boolean;
-  isSuccess: boolean;
-}) => {
-  return (
-    <>
-      {isLoading && (
-        <HStack>
-          <ProcessingSpinner size={responsive.respWStr(14)} color="white" />
-          <Text
-            textAlign="center"
-            color="white"
-            fontSize={`${calcLen(responsive.respW(14))}px`}
-          >
-            VC 文件加载中
-          </Text>
-        </HStack>
-      )}
-
-      {isError && (
-        <HStack>
-          <AiFillExclamationCircle size={responsive.respWStr(14)} color="red" />
-          <Text
-            textAlign="center"
-            color="white"
-            fontSize={`${calcLen(responsive.respW(14))}px`}
-          >
-            VC 文件载入错误
-          </Text>
-        </HStack>
-      )}
-      {isSuccess && (
-        <HStack>
-          <AiFillCheckCircle size={responsive.respWStr(14)} color="green" />
-          <Text
-            textAlign="center"
-            color="white"
-            fontSize={`${calcLen(responsive.respW(14))}px`}
-          >
-            VC 文件加载成功
-          </Text>
-        </HStack>
-      )}
-    </>
-  );
-};
 
 export const DragExternalVC = () => {
   const fileText = useExternalDragState((state) => state.fileText);
+  const setParsedVC = useExternalDragState((state) => state.setParsedVC);
   const {
     data: vCParsedData,
     status: vCParseStatus,
@@ -89,6 +39,7 @@ export const DragExternalVC = () => {
       if (resVal.data.expressAmount <= 0) {
         throw Error("parseAndVerifyVC expressAmount Error");
       }
+      setParsedVC(resVal.data);
       return resVal;
     },
     enabled: !!fileText,
@@ -113,13 +64,16 @@ export const DragExternalVC = () => {
   // console.log("vCParseStatus", vCParseStatus);
   // console.log("gradeLineStatus", gradeLineStatus);
 
-  // console.log("VCParsedData", vCParsedData);
+  // // console.log("VCParsedData", vCParsedData);
   // console.log("gradeLines", gradeLines);
 
   const isLoading = isFetching || gradeLineStatus === "loading";
   const isError = gradeLineStatus === "error" || vCParseStatus === "error";
   const isSuccess =
-    gradeLineStatus === "success" && vCParseStatus === "success";
+    !isLoading &&
+    !isError &&
+    gradeLineStatus === "success" &&
+    vCParseStatus === "success";
 
   // console.log("isLoading", isLoading);
   // console.log("isError", isError);
@@ -163,7 +117,11 @@ export const DragExternalVC = () => {
           textAlign="center"
         /> */}
 
-        <VCDropZone isLoading={isLoading} />
+        <VCDropZone
+          gradeLines={gradeLines as BigNumber[]}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+        />
       </Flex>
       <Box h={`${responsive.respH(30)}px`} />
 
@@ -182,22 +140,7 @@ export const DragExternalVC = () => {
 
         <Box h={`${responsive.respH(5)}px`} />
         {isSuccess && (
-          <Button
-            // w="43%"
-            fontSize={`${calcLen(responsive.respW(16))}px`}
-            // isLoading={isSwitchNetworkLoading}
-            // onClick={switchToNFTNetwork}
-            // disabled={isSwitchNetworkLoading}
-            px="20px"
-            mx="0"
-            h="fit-content"
-            borderRadius="16px"
-            variant="whiteOutline"
-            py="8px"
-            // minW={["100%", "100%", "100%", "100%", "47%"]}
-          >
-            确认信息并申领 SBT
-          </Button>
+          <ClaimExternalVCButton gradeLines={gradeLines as BigNumber[]} />
         )}
       </VStack>
     </Flex>

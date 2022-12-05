@@ -1,11 +1,10 @@
 import { Center, keyframes, Text, VStack } from "@chakra-ui/react";
 
+import { StepLine } from "../DragInternalVC/StepLine";
 import { calcLen } from "../hooks/calcLen";
-import { useDropToClaim } from "../hooks/useDropToClaim";
 import { responsive } from "../utils";
 
-import { useInternalDragState } from "./internalDragState";
-import { StepLine } from "./StepLine";
+import { useExternalDragState } from "./externalDragState";
 
 const fadein = keyframes`
   0% {
@@ -18,21 +17,19 @@ const fadein = keyframes`
     opacity: 1;
   }
 `;
-export const VCStepProgressView = ({ index }: { index: number }) => {
-  const selectedIndex = useInternalDragState((state) => state.selectedIndex);
-  const dropped = useInternalDragState((state) =>
-    state.computed.selectedDropped(state)
-  );
-  const claimed = useInternalDragState((state) =>
-    state.computed.selectedClaimed(state)
-  );
-
+export const VCExternalStepProgressView = ({
+  isClaiming,
+  claimed,
+}: {
+  isClaiming: boolean;
+  claimed: boolean;
+}) => {
   const { isSignRightStatus, isTxStatus, isVCRightStatus, isWriteStatus } =
-    useDropToClaim({ index });
+    useExternalDragState((state) => state.claimingStatus);
   return (
     <VStack
-      opacity={dropped && !claimed ? 1 : 0}
-      animation={dropped ? `1s ease-in  ${fadein}` : ""}
+      opacity={isClaiming && !claimed ? 1 : 0}
+      animation={isClaiming ? `1s ease-in  ${fadein}` : ""}
       // transition="all 1.8s cubic-bezier(0.77, 0, 0.175, 1)"
       position="absolute"
       top="50%"
@@ -50,7 +47,9 @@ export const VCStepProgressView = ({ index }: { index: number }) => {
           color="black"
           fontWeight={500}
           fontSize={`${calcLen(responsive.respW(20))}px`}
-        >{`Claiming SBT ${selectedIndex + 1} `}</Text>
+        >
+          Claiming SBT
+        </Text>
       </Center>
       <VStack w="full" flex={85} justify="center">
         <StepLine text="Verifying VC Signature" statusIcon={isVCRightStatus} />

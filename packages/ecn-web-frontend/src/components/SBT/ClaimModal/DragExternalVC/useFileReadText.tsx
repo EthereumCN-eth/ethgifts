@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 export const useFileReadText = ({ file }: { file: File | undefined }) => {
   const [fileText, setFileText] = useState<string>();
   useEffect(() => {
-    if (!file) return () => {};
+    if (!file) {
+      setFileText(undefined);
+      return () => {};
+    }
     const reader = new FileReader();
     reader.readAsText(file);
     const readFunc = (event: ProgressEvent<FileReader>) => {

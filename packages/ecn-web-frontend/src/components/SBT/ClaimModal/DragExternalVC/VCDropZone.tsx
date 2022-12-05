@@ -1,6 +1,7 @@
 import { VStack, Text, Box, Skeleton, Center } from "@chakra-ui/react";
+import type { BigNumber } from "ethers";
 import { darken } from "polished";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { AiFillExclamationCircle, AiOutlineUpload } from "react-icons/ai";
 import { BsFileEarmarkCheck } from "react-icons/bs";
@@ -9,6 +10,7 @@ import { calcLen } from "../hooks/calcLen";
 import { responsive } from "../utils";
 
 import { useExternalDragState } from "./externalDragState";
+import { LoadedVCView } from "./LoadedVCView";
 import { useFileReadTextOnDrop } from "./useFileReadTextOnDrop";
 
 const DropText = ({
@@ -50,9 +52,20 @@ const DropText = ({
   );
 };
 
-export function VCDropZone({ isLoading }: { isLoading: boolean }) {
-  const { onDrop, fileText } = useFileReadTextOnDrop();
+export function VCDropZone({
+  isLoading,
+  isSuccess,
+  gradeLines,
+}: {
+  isLoading: boolean;
+  isSuccess: boolean;
+  gradeLines: BigNumber[];
+}) {
+  const { onDrop, fileText, resetFile } = useFileReadTextOnDrop();
   const setFileText = useExternalDragState((state) => state.setFileText);
+  const reset = useCallback(() => {
+    resetFile();
+  }, [resetFile]);
 
   useEffect(() => {
     if (fileText) {
@@ -81,7 +94,7 @@ export function VCDropZone({ isLoading }: { isLoading: boolean }) {
 
   if (isLoading) {
     return (
-      <Center w="full" h="full" bg="white" borderRadius="16px">
+      <Center w="full" h="full" bg="#fff" borderRadius="16px">
         <Skeleton
           bgColor="#FAFAFA"
           borderRadius={responsive.respWStr(16)}
@@ -90,6 +103,10 @@ export function VCDropZone({ isLoading }: { isLoading: boolean }) {
         />
       </Center>
     );
+  }
+
+  if (isSuccess) {
+    return <LoadedVCView gradeLines={gradeLines} reset={reset} />;
   }
   return (
     <>

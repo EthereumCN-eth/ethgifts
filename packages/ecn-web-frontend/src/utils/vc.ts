@@ -106,7 +106,7 @@ export const parseVCForPayload = (
   }
 };
 
-type ParseAndVerifyVCReturnType =
+export type ParseAndVerifyVCReturnType =
   | {
       success: true;
       data: {

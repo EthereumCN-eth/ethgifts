@@ -5946,6 +5946,13 @@
   dependencies:
     "@types/lodash" "*"
 
+"@types/lodash.memoize@^4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@types/lodash.memoize/-/lodash.memoize-4.1.7.tgz#aff94ab32813c557cbc1104e127030e3d60a3b27"
+  integrity sha512-lGN7WeO4vO6sICVpf041Q7BX/9k1Y24Zo3FY0aUezr1QlKznpjzsDk3T3wvH8ofYzoK0QupN9TWcFAFZlyPwQQ==
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.mergewith@4.6.6":
   version "4.6.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.mergewith/-/lodash.mergewith-4.6.6.tgz#c4698f5b214a433ff35cb2c75ee6ec7f99d79f10"
@@ -17927,7 +17934,7 @@ lodash.map@^4.5.1:
   resolved "https://registry.yarnpkg.com/lodash.map/-/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
   integrity sha512-worNHGKLDetmcEYDvh2stPCrrQRkP20E4l0iIS7F8EvzMqBBi7ltvFN5m1HvTf1P7Jk1txKhvFcmYsCr8O2F1Q==
 
-lodash.memoize@4.x:
+lodash.memoize@4.x, lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==
@@ -20544,8 +20551,10 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-postinstall-postinstall@./scripts/postinstall-postinstall, postinstall-postinstall@^2.1.0:
-  version "2.0.0"
+postinstall-postinstall@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/postinstall-postinstall/-/postinstall-postinstall-2.1.0.tgz#4f7f77441ef539d1512c40bd04c71b06a4704ca3"
+  integrity sha512-7hQX6ZlZXIoRiWNrbMQaLzUUfH+sSx39u8EJ9HYuDc1kLo9IXKWjM5RSquZN1ad5GnH8CGFM78fsAAQi3OKEEQ==
 
 preact@10.4.1:
   version "10.4.1"
