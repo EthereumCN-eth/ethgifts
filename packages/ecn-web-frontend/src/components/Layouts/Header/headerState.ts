@@ -10,6 +10,7 @@ interface HeaderState {
   };
   rainbowTheme: Theme;
   setTheme: (theme: "black" | "white") => void;
+  name: "black" | "white";
 }
 
 const lightThemeObj = lightTheme({
@@ -32,6 +33,7 @@ const whiteObj: Omit<HeaderState, "setTheme"> = {
       connectButtonBackground: "transparent",
     },
   },
+  name: "white",
 };
 const darkThemeObj = darkTheme({
   accentColor: "transparent",
@@ -51,6 +53,7 @@ const darkObj: Omit<HeaderState, "setTheme"> = {
       connectButtonBackground: "transparent",
     },
   },
+  name: "black",
 };
 
 export const useHeaderStore = create<HeaderState>(

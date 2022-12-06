@@ -20,7 +20,7 @@ import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
 import "@fontsource/megrim";
 import "@fontsource/noto-sans/600.css";
-import { useHeaderStore } from "@/components/Layouts/headerState";
+import { useHeaderStore } from "@/components/Layouts/Header/headerState";
 import { NextSeoData } from "@/components/NextSeoDefault";
 import {
   NEXT_PUBLIC_ARBIT_ALCHEMY_HTTPS,

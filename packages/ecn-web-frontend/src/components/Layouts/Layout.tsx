@@ -2,10 +2,9 @@ import { Box } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 
-import { Header } from "@/components/Layouts/Header";
-
 import { Footer } from "./Footer";
-import { useHeaderStore } from "./headerState";
+import { useHeaderStore } from "./Header/headerState";
+import { HeaderWithScrollHide } from "./Header/HeaderWithScrollHide";
 import { SunBlurBg } from "./SunBlurBg";
 import type { HeaderProps } from "./types";
 
@@ -20,7 +19,7 @@ export const Layout = ({
   return (
     <Box position="relative">
       <SunBlurBg />
-      <Header />
+      <HeaderWithScrollHide />
       {children}
       <Footer />
     </Box>

@@ -10,7 +10,7 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useRouter } from "next/router";
 
-import { ChakraNextLink } from "../ChakraNextLink";
+import { ChakraNextLink } from "../../ChakraNextLink";
 
 import { useHeaderStore } from "./headerState";
 // import "@rainbow-me/rainbowkit/styles.css";
