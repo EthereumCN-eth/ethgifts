@@ -98,25 +98,6 @@ export const DragExternalVC = () => {
         // bgColor={isOver ? "rgba(238, 134, 43, 0.8)" : "transparent"}
         transition="all 1s cubic-bezier(0.77, 0, 0.175, 1) , background-color 0.5s cubic-bezier(0.77, 0, 0.175, 1)"
       >
-        {/* <Image
-          // src={selectedArtwork}
-          position="absolute"
-          w={`calc(${calcLen(responsive.respW(496))}px - 2px)`}
-          h={`calc(${calcLen(responsive.respW(496))}px - 2px)`}
-          border="none"
-          maxWidth="calc(460px - 2px)"
-          maxH="calc(460px - 2px)"
-          // opacity={bgOpacity}
-          left={0}
-          top={0}
-          bottom={0}
-          right={0}
-          p="1px"
-          borderRadius="16px"
-          zIndex={1}
-          textAlign="center"
-        /> */}
-
         <VCDropZone
           gradeLines={gradeLines as BigNumber[]}
           isLoading={isLoading}
