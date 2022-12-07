@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, keyframes, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import type { UseMeasureRef } from "react-use/lib/useMeasure";
 
-import { ICON_TOP_MARGIN, ICON_TOP_HOVER_MARGIN_OFFSET } from "./constants";
+// import { ICON_TOP_MARGIN, ICON_TOP_HOVER_MARGIN_OFFSET } from "./constants";
 import type { IconDataType } from "./types";
 
 const textAnimation = keyframes`
@@ -29,9 +30,12 @@ export const ECNCardMiddleDesc = ({
       ref={boxRef}
       color="#010215"
       position="absolute"
-      top={`calc(${ICON_TOP_MARGIN} - ${ICON_TOP_HOVER_MARGIN_OFFSET} + ${cardIconHeight}px + ${
-        68 * 0.02
-      }vh)`}
+      // top={`calc(${ICON_TOP_MARGIN} - ${ICON_TOP_HOVER_MARGIN_OFFSET} + ${cardIconHeight}px + ${
+      //   68 * 0.02
+      // }vh)`}
+      // my="13%"
+      top="50%"
+      transform="translateY(-50%)"
       fontWeight={500}
       // transition="all 3s cubic-bezier(0.77, 0, 0.175, 1)"
       textAlign="center"

@@ -25,16 +25,29 @@ export const FAQItem = ({
           as="h2"
           p={0}
           m={0}
-          // background="rgba(255, 255, 255, 0.6)"
-          background="rgba(255, 255, 255)"
+          background="rgba(255, 255, 255, 0.6)"
+          // background="rgba(255, 255, 255)"
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           borderRadius="16px"
           // border="1px solid #7A7A7A"
           // borderRadius={4}
           h="4.87rem"
           align="center"
+          // sx={{
+          //   _hover: {
+          //     "& *": {
+          //       borderRadius: "16px",
+          //     },
+          //   },
+          // }}
         >
-          <AccordionButton h="100%" textAlign="center">
+          <AccordionButton
+            sx={{
+              _hover: { borderRadius: "16px" },
+            }}
+            h="100%"
+            textAlign="center"
+          >
             <Box
               flex="1"
               textAlign="center"
@@ -57,8 +70,8 @@ export const FAQItem = ({
         <AccordionPanel
           minH="6.4rem"
           my="6px"
-          bg="#DDD9D7"
-          opacity={0.85}
+          bg="rgba(221, 217, 215, 0.6)"
+          // opacity={0.6}
           px="16%"
           py="2.25rem"
           textAlign="center"

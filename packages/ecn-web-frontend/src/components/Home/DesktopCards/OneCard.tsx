@@ -1,5 +1,5 @@
 import { VStack } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { useMeasure } from "react-use";
 
@@ -25,7 +25,8 @@ export const OneCard = ({
   const [middleBoxRef, { height: middleBoxHeight }] =
     useMeasure<HTMLDivElement>();
   const [titleRef, { height: titleHeight }] = useMeasure<HTMLDivElement>();
-  // const [titleRef, { height: titleHeight }] = useMeasure<HTMLDivElement>();
+  const [containerRef, { height: containerHeight }] =
+    useMeasure<HTMLDivElement>();
   const [isCurrentOnHover, setIsCurrentOnHover] = useState(false);
   // const iconTopM = `calc(${TOTAL_H}vh - ${
   //   cardIconHeight + middleBoxHeight + titleHeight
@@ -47,6 +48,21 @@ export const OneCard = ({
   // console.log("middleBoxHeight", middleBoxHeight);
   // console.log("titleHeight", titleHeight);
   // console.log("cardIconHeight", cardIconHeight);
+  // console.log("container", containerHeight);
+  const offset = useMemo(
+    () => (containerHeight - titleHeight - cardIconHeight) / 2,
+    [cardIconHeight, containerHeight, titleHeight]
+  );
+  const offsetExpanded = useMemo(
+    () =>
+      (containerHeight -
+        containerHeight * 0.12 -
+        titleHeight -
+        cardIconHeight -
+        middleBoxHeight) /
+      2,
+    [cardIconHeight, containerHeight, middleBoxHeight, titleHeight]
+  );
 
   return (
     <VStack
@@ -58,6 +74,7 @@ export const OneCard = ({
         // setOuterIsOnHover(false);
         setIsCurrentOnHover(false);
       }}
+      ref={containerRef}
       key={item.text}
       m={0}
       bg={isOuterOnHover ? item.bgColor : "white"}
@@ -81,6 +98,8 @@ export const OneCard = ({
         cardIconRef={cardIconRef}
         item={item}
         isCurrentOnHover={isCurrentOnHover}
+        topOffset={offset}
+        topOffsetExpanded={offsetExpanded}
       />
       <ECNCardMiddleDesc
         isCurrentOnHover={isCurrentOnHover}
@@ -96,6 +115,8 @@ export const OneCard = ({
         isCurrentOnHover={isCurrentOnHover}
         cardIconHeight={cardIconHeight}
         toExpandTopVal={middleBoxHeight}
+        bottomOffset={offset}
+        bottomOffsetExpanded={offsetExpanded}
       />
     </VStack>
   );
