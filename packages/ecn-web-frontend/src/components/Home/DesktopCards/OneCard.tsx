@@ -32,18 +32,6 @@ export const OneCard = ({
   //   cardIconHeight + middleBoxHeight + titleHeight
   // }px)`;
   // console.log("iconTopM", iconTopM);
-  const isSetRef = useRef(false);
-  useEffect(() => {
-    const itemHeight =
-      0.68 * 0.37 * window.innerHeight +
-      middleBoxHeight +
-      titleHeight +
-      cardIconHeight;
-    if (!isSetRef.current && itemHeight > window.innerHeight * 0.8) {
-      setBiggerH(true);
-      isSetRef.current = false;
-    }
-  }, [cardIconHeight, middleBoxHeight, setBiggerH, titleHeight]);
 
   // console.log("middleBoxHeight", middleBoxHeight);
   // console.log("titleHeight", titleHeight);
@@ -56,13 +44,32 @@ export const OneCard = ({
   const offsetExpanded = useMemo(
     () =>
       (containerHeight -
-        containerHeight * 0.12 -
+        // containerHeight * 0.12 -
         titleHeight -
         cardIconHeight -
         middleBoxHeight) /
       2,
     [cardIconHeight, containerHeight, middleBoxHeight, titleHeight]
   );
+
+  const isSetRef = useRef(false);
+  useEffect(() => {
+    // const itemHeight =
+    //   // 0.68 * 0.37 * window.innerHeight +
+    //   middleBoxHeight + titleHeight + cardIconHeight * 2.6;
+    // console.log("itemH", itemHeight);
+    // console.log(window.innerHeight * 0.7);
+    if (!isSetRef.current && 0.6 * cardIconHeight * 1.1 > offsetExpanded) {
+      setBiggerH(true);
+      isSetRef.current = false;
+    }
+  }, [
+    cardIconHeight,
+    middleBoxHeight,
+    offsetExpanded,
+    setBiggerH,
+    titleHeight,
+  ]);
 
   return (
     <VStack
@@ -100,12 +107,14 @@ export const OneCard = ({
         isCurrentOnHover={isCurrentOnHover}
         topOffset={offset}
         topOffsetExpanded={offsetExpanded}
+        containerHeight={containerHeight}
       />
       <ECNCardMiddleDesc
         isCurrentOnHover={isCurrentOnHover}
         cardIconHeight={cardIconHeight}
         boxRef={middleBoxRef}
         item={item}
+        containerHeight={containerHeight}
       />
 
       <ECNCardTitle
@@ -117,6 +126,7 @@ export const OneCard = ({
         toExpandTopVal={middleBoxHeight}
         bottomOffset={offset}
         bottomOffsetExpanded={offsetExpanded}
+        containerHeight={containerHeight}
       />
     </VStack>
   );

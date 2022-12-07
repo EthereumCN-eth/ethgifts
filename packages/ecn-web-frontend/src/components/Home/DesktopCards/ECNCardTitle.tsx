@@ -14,6 +14,7 @@ export const ECNCardTitle = ({
   titleRef,
   bottomOffset,
   bottomOffsetExpanded,
+  containerHeight,
 }: {
   item: IconDataType;
 
@@ -24,6 +25,7 @@ export const ECNCardTitle = ({
   isOuterOnHover: boolean;
   bottomOffset: number;
   bottomOffsetExpanded: number;
+  containerHeight: number;
 }) => {
   // const expandVal = isCurrentOnHover ? `${toExpandTopVal}px` : "0px";
   return (
@@ -36,11 +38,15 @@ export const ECNCardTitle = ({
 
       // flex="0 0 auto"
       position="absolute"
-      transform="translateY(50%)"
+      // transform={`translateY(${}px)`}
       // top={`calc(${ICON_TOP_MARGIN} - ${ICON_TOP_HOVER_MARGIN_OFFSET} + ${cardIconHeight}px + ${expandVal} + ${
       //   68 * 0.1
       // }vh)`}
-      bottom={`${isCurrentOnHover ? bottomOffsetExpanded : bottomOffset}px`}
+      bottom={`${
+        isCurrentOnHover
+          ? bottomOffsetExpanded - 20 - containerHeight * 0.1
+          : bottomOffset - 20
+      }px`}
       fontSize={["xs", "md", "xl", "xl"]}
       color="#010215"
       fontWeight={600}

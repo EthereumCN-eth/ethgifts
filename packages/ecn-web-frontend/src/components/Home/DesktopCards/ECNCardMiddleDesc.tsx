@@ -17,11 +17,13 @@ export const ECNCardMiddleDesc = ({
   cardIconHeight,
   boxRef,
   isCurrentOnHover,
+  containerHeight,
 }: {
   item: IconDataType;
   cardIconHeight: number;
   boxRef: UseMeasureRef<HTMLDivElement>;
   isCurrentOnHover: boolean;
+  containerHeight: number;
 }) => {
   // console.log(item.text, "isCurrentOnHover", isCurrentOnHover);
   // console.log("isOuterOnHover", isOuterOnHover);
@@ -35,7 +37,7 @@ export const ECNCardMiddleDesc = ({
       // }vh)`}
       // my="13%"
       top="50%"
-      transform="translateY(-50%)"
+      transform={`translateY(calc(-50% +${containerHeight * 0.1}px))`}
       fontWeight={500}
       // transition="all 3s cubic-bezier(0.77, 0, 0.175, 1)"
       textAlign="center"

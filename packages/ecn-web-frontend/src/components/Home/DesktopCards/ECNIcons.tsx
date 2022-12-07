@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Image } from "@chakra-ui/react";
 import type { UseMeasureRef } from "react-use/lib/useMeasure";
 
@@ -12,6 +13,7 @@ export const ECNIcons = ({
   isOuterOnHover,
   topOffset,
   topOffsetExpanded,
+  containerHeight,
 }: {
   item: IconDataType;
   cardIconRef: UseMeasureRef<HTMLDivElement>;
@@ -20,6 +22,7 @@ export const ECNIcons = ({
   isOuterOnHover: boolean;
   topOffset: number;
   topOffsetExpanded: number;
+  containerHeight: number;
 }) => {
   return (
     <Box
@@ -30,7 +33,11 @@ export const ECNIcons = ({
       // top={isCurrentOnHover ? ICON_TOP_HOVER_MARGIN : ICON_TOP_MARGIN}
 
       top={`${isCurrentOnHover ? topOffsetExpanded : topOffset}px`}
-      transform="translateY(-50%)"
+      transform={
+        isCurrentOnHover
+          ? `translateY(${-0.5 * cardIconHeight}px)`
+          : `translateY(${-0.2 * cardIconHeight}px)`
+      }
       w={`${20 * 0.47}vw`}
       h={`${cardIconHeight}px`}
       transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
