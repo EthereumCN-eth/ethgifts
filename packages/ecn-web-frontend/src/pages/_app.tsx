@@ -110,6 +110,7 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }: AppProps) {
   const rainbowTheme = useHeaderStore((state) => state.rainbowTheme);
   useGoogleAnalyticsPageViewTrack();
+
   return (
     <>
       <NextSeoData />
