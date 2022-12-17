@@ -1,8 +1,8 @@
 import { Center, keyframes, Text, VStack } from "@chakra-ui/react";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
 import { useDropToClaim } from "../hooks/useDropToClaim";
-import { responsive } from "../utils";
 
 import { useInternalDragState } from "./internalDragState";
 import { StepLine } from "./StepLine";

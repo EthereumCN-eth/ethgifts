@@ -1,9 +1,9 @@
 import { HStack, Text } from "@chakra-ui/react";
 import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
 
+import { responsive } from "../../../../styles/utils";
 import { ProcessingSpinner } from "../DragInternalVC/ProcessingSpinner";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 
 export const HintView = ({
   isError,

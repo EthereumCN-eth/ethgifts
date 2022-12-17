@@ -1,7 +1,7 @@
 import { Flex, Tab, TabList } from "@chakra-ui/react";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 

@@ -2,8 +2,8 @@ import { Button } from "@chakra-ui/react";
 import type { BigNumber } from "ethers";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 
 import { useExternalDragState } from "./externalDragState";
 import { useExternalClaim } from "./useExternalClaim";

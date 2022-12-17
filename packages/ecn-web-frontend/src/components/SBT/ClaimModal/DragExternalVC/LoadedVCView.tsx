@@ -2,9 +2,9 @@ import { Center, IconButton, Image } from "@chakra-ui/react";
 import type { BigNumber } from "ethers";
 import { TbTrashX } from "react-icons/tb";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
 import { useVCParse } from "../hooks/useVCParse";
-import { responsive } from "../utils";
 import { VCView } from "../VCView/VCView";
 
 import { useExternalDragState } from "./externalDragState";

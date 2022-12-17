@@ -1,7 +1,7 @@
 import { HStack, Text } from "@chakra-ui/react";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 import { ChakraNextLink } from "@/components/ChakraNextLink";
 
 export type VCCheckItemTextType = {

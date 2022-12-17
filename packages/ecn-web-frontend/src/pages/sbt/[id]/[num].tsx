@@ -1,10 +1,10 @@
 import { Layout } from "@/components/Layouts/Layout";
-import { SBT } from "@/components/SBT";
+import { SBT_V2 } from "@/components/SBT_V2";
 
 const SBTPage = () => {
   return (
     <Layout headerProps={{ colorTheme: "black" }}>
-      <SBT />
+      <SBT_V2 />
     </Layout>
   );
 };

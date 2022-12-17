@@ -6,10 +6,10 @@ import { useContractRead } from "wagmi";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
 import { timeoutPromise } from "../hooks/timeoutPromise";
 // import { useComputeDropAreaTransformValue } from "../hooks/useComputeTransformValue";
-import { responsive } from "../utils";
 import SBT1 from "@/abis/SBT1.json";
 import { parseVCForPayloadAndVerifyVC } from "@/utils/vc";
 

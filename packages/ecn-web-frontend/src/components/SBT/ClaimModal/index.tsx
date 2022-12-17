@@ -11,12 +11,12 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 
+import { responsive } from "../../../styles/utils";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
 import { DragExternalVC } from "./DragExternalVC";
 import { DragInternalVC } from "./DragInternalVC";
-import { responsive } from "./utils";
 
 export const ClaimModal = ({
   isOpen,

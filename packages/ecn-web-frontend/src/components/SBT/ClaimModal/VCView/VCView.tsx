@@ -1,11 +1,11 @@
 import { Center, Image, VStack } from "@chakra-ui/react";
 import { forwardRef } from "react";
 
+import { responsive } from "../../../../styles/utils";
 import { JSONBottomLabel } from "../../JSONBottomLabel";
 import type { VCCheckItemType } from "../../VCCheckListCard";
 import { VCDragCheckListCard } from "../DragInternalVC/VCDragCheckListCard";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 
 export const VCView = forwardRef<
   HTMLDivElement,

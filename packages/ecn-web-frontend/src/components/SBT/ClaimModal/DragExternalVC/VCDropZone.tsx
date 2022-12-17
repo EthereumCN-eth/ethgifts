@@ -6,8 +6,8 @@ import { useDropzone } from "react-dropzone";
 import { AiFillExclamationCircle, AiOutlineUpload } from "react-icons/ai";
 import { BsFileEarmarkCheck } from "react-icons/bs";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 
 import { useExternalDragState } from "./externalDragState";
 import { LoadedVCView } from "./LoadedVCView";

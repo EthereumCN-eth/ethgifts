@@ -6,9 +6,9 @@ import { AiOutlineUpload } from "react-icons/ai";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
 import { useComputeDropAreaTransformValue } from "../hooks/useComputeTransformValue";
-import { responsive } from "../utils";
 
 import { useInternalDragState } from "./internalDragState";
 import { VCDraggableDroppedView } from "./VCDraggableDroppedView";
