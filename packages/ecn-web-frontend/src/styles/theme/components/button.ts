@@ -6,6 +6,19 @@ export const Button: ComponentStyleConfig = {
     borderRadius: "full",
   },
   variants: {
+    assist: {
+      bgColor: "#fff",
+      borderRadius: "8px",
+      _hover: {
+        bgColor: darken(0.1, "#fff"),
+        _disabled: {
+          bgColor: "gray.300",
+        },
+      },
+      _active: {
+        bgColor: darken(0.2, "#fff"),
+      },
+    },
     orangeBg: {
       borderRadius: "8px",
       bgColor: "#EE862B",
