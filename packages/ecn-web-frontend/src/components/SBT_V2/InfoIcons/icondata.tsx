@@ -26,7 +26,7 @@ export const icondata: IconType[] = [
     iconsrc: "/networkicon.svg",
     text: "支持网络",
     content: {
-      str: "/optimism-logo.svg",
+      str: "CHAIN_ICON",
       w: 103,
       h: 14,
     },
@@ -44,7 +44,7 @@ export const icondata: IconType[] = [
     iconsrc: "/contracticon.svg",
     text: "合约地址",
     content: {
-      str: "0xA...44a0",
+      str: "CONTRACT_ADDRESS",
     },
   },
   {
@@ -52,7 +52,7 @@ export const icondata: IconType[] = [
     iconsrc: "/issuer.svg",
     text: "发行者地址",
     content: {
-      str: "0xA...44a0",
+      str: "ISSUER_ADDRESS",
     },
   },
 ];

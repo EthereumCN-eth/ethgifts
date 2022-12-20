@@ -1,8 +1,9 @@
-import { Button, Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { responsive } from "@/styles/utils";
 
+import { InfoButton } from "./InfoButton";
 import { ProgressBar } from "./ProgressBar";
 
 export const InfoDesc = () => {
@@ -80,22 +81,7 @@ export const InfoDesc = () => {
           Discord，跟大家分享一条以太坊相关的资讯吧！
         </Text>
 
-        <Button
-          variant="assist"
-          px={responsive.respW(42)}
-          py={responsive.respW(20)}
-          css={css`
-            font-family: "PingFang SC";
-            font-style: normal;
-            font-weight: 500;
-            font-size: ${responsive.respWStr(14)};
-            line-height: ${responsive.respWStr(20)};
-            color: #ee862b;
-          `}
-        >
-          连接钱包
-        </Button>
-
+        <InfoButton />
         {/*  */}
       </HStack>
       <ProgressBar />

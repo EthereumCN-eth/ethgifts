@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Tabs } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAccount, useNetwork } from "wagmi";
@@ -10,9 +10,17 @@ import {
   // selectors as sbtSelectors,
 } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
+import { parseVCForPayloadAndVerifyVC } from "@/utils/vc";
 
 import { InfoDesc } from "./InfoDesc";
 import { InfoIcons } from "./InfoIcons";
+import { TabContents } from "./TabContents";
+import { TabLabels } from "./TabLabels";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const vcuse = (s: string) => {
+  return parseVCForPayloadAndVerifyVC(s);
+};
 
 export const SBT_V2 = () => {
   const router = useRouter();
@@ -61,8 +69,11 @@ export const SBT_V2 = () => {
         <InfoIcons />
       </Flex>
       <Box h={responsive.respWStr(82)} />
-      <Box minH={responsive.respWStr(1149)} w="full" bgColor="gray.100">
-        {/*  */}
+      <Box minH={responsive.respWStr(1149)} w="full">
+        <Tabs defaultIndex={0} h="full" w="full" variant="unstyled">
+          <TabLabels />
+          <TabContents />
+        </Tabs>
       </Box>
     </Flex>
   );

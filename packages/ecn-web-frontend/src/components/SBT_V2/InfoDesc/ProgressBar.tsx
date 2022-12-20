@@ -12,7 +12,7 @@ const calcPercent = ({ sbtLevel }: { sbtLevel: number[] }) => {
     if (v === total) return 1;
     return v / total;
   });
-  return [0, ...percents];
+  return [1 / total, ...percents];
 };
 
 export const ProgressBar = () => {
@@ -23,9 +23,14 @@ export const ProgressBar = () => {
     // artworks,
     // itemTexts,
     // detailTags,
-    // expressCount,
+    expressCount,
     // contractAddress,
   } = useAppSelector(sbtSelectors.selectAll);
+
+  const currentCount = expressCount || 0;
+  // const currentCount = 20;
+  const total = sbtLevel[sbtLevel.length - 1];
+  const filledLength = (currentCount / total) * responsive.respW(670);
 
   if (!loaded)
     return (
@@ -69,25 +74,35 @@ export const ProgressBar = () => {
         {/*  */}
         {/*  */}
       </Box>
-      {percents.map((percent) => {
+      <Box
+        position="absolute"
+        left={responsive.respWStr(15)}
+        bgColor="#EE862B"
+        pl={responsive.respWStr(2)}
+        w={`${filledLength}px`}
+        h={responsive.respWStr(8)}
+      />
+      {percents.map((percent, ind) => {
         const transformStr =
           // eslint-disable-next-line no-nested-ternary
-          percent === 0
+          ind === 0
             ? "translateX(calc(0% - 2px))"
             : percent === 1
             ? "translateX(calc(-100% + 2px))"
             : "translateX(-50%)";
+        const leftOffset = ind === 0 ? 0 : percent;
+        const lightenup = currentCount / total >= percent;
         return (
           <Box
             key={percent}
             position="absolute"
             transform={transformStr}
-            left={`calc(${percent * 100}%)`}
+            left={`calc(${leftOffset * 100}%)`}
             css={css`
               width: ${responsive.respWStr(30)};
               height: ${responsive.respWStr(30)};
               border-radius: 50%;
-              background-color: #ee862b;
+              background-color: ${lightenup ? "#ee862b" : "white"};
             `}
           />
         );
