@@ -42,7 +42,7 @@ export const TabLabels = () => {
                 line-height: ${responsive.respWStr(28)};
                 /* identical to box height */
 
-                color: #ffffff;
+                /* color: #ffffff; */
               `,
             ]}
             w="50%"

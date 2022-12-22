@@ -76,9 +76,18 @@ const selectSBTLevels = (state: AppState, id: number) =>
 
 const selectAll = (state: AppState) => state.sbt;
 
+const selectVCStr = (state: AppState) => {
+  const record =
+    state.sbt.records?.filter(
+      (rec) => rec.signaturePayload.expressCount === state.sbt.expressCount
+    )[0] || null;
+  return record?.signedVC;
+};
+
 const selectors = {
   selectSBTLevels,
   selectAll,
+  selectVCStr,
 };
 
 const { actions } = sbtSlice;

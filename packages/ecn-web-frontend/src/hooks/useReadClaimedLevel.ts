@@ -50,6 +50,8 @@ export const useReadClaimedSelectedLevel = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [claimed?.length, connectedAddress, contractAddress, chainId]);
 
+  // console.log("currentLevelNumber", currentLevelNumber);
+  // console.log("claimedArray", claimedArray);
   const isClaimed = useRef<boolean>(false);
   if (isSuccess)
     isClaimed.current = claimed

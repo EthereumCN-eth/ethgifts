@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { responsive } from "@/styles/utils";
 
+import { SBTButton } from "./SBTButton";
 import { SquareImg } from "./SquareImg";
 
 export function SBTCard({
@@ -10,11 +11,15 @@ export function SBTCard({
   ind,
   itemTexts,
   numberOfItems,
+  sbtLevelNumber,
+  qualified,
 }: {
   numberOfItems: number;
   itemTexts: string[];
   ind: number;
   artwork: string;
+  sbtLevelNumber: number;
+  qualified: boolean;
 }) {
   return (
     <Box w={`${(100 - (numberOfItems - 1) * 1.5) / numberOfItems}%`}>
@@ -64,21 +69,7 @@ export function SBTCard({
           </Text>
           {/* <AspectRatio maxW="full" ratio={1}> */}
           <SquareImg artwork={artwork} itemTexts={itemTexts} ind={ind} />
-          <Button
-            // onClick={onOpen}
-            variant="orangeBg"
-            w="93.75%"
-            css={css`
-              font-family: "PingFang SC";
-              font-style: normal;
-              font-weight: 500;
-              font-size: ${responsive.respWStr(14)};
-              line-height: ${responsive.respWStr(20)};
-            `}
-            h={responsive.respWStr(40)}
-          >
-            申领 SBT
-          </Button>
+          <SBTButton qualified={qualified} sbtLevelNumber={sbtLevelNumber} />
         </Flex>
       </Box>
     </Box>

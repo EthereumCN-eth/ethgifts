@@ -27,9 +27,6 @@ export const VCDropArea = ({ index }: { index: number }) => {
   );
   const vcStr = record?.signedVC;
 
-  const [bgOpacity, setBgOpacity] = useState(0.2);
-  const [dropText, setDropText] = useState("Drag & Drop");
-
   // console.log("left", left);
   const [{ isOver }, dropRef] = useDrop(
     () => ({
@@ -55,6 +52,8 @@ export const VCDropArea = ({ index }: { index: number }) => {
     [selectedIndex, vcStr]
   );
 
+  const [bgOpacity, setBgOpacity] = useState(0.2);
+  const [dropText, setDropText] = useState("Drag & Drop");
   useEffect(() => {
     if (dropped) {
       setBgOpacity(0.5);

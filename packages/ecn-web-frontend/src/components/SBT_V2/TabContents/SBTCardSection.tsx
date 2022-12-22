@@ -9,10 +9,11 @@ import { SBTCard } from "./SBTCard";
 export const SBTCardSection = () => {
   const {
     loaded,
-    // sbtLevel,
+    sbtLevel,
     // status,
     artworks,
     itemTexts,
+    expressCount,
     // contractAddress,
   } = useAppSelector(sbtSelectors.selectAll);
 
@@ -30,12 +31,18 @@ export const SBTCardSection = () => {
       >
         {/*  */}
         {artworks.map((artwork, ind) => {
+          const qualified = expressCount
+            ? expressCount >= sbtLevel[ind]
+            : false;
           return (
             <SBTCard
               numberOfItems={numberOfItems}
               itemTexts={itemTexts}
               ind={ind}
               artwork={artwork}
+              key={artwork}
+              sbtLevelNumber={sbtLevel[ind]}
+              qualified={qualified}
             />
           );
         })}
