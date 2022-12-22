@@ -34,8 +34,10 @@ export const InfoButton = () => {
           return (
             <Button
               variant="assist"
-              px={responsive.respW(42)}
-              py={responsive.respW(20)}
+              w={responsive.respWStr(140)}
+              h={responsive.respWStr(40)}
+              px={responsive.respWStr(42)}
+              py={responsive.respWStr(20)}
               css={css`
                 font-family: "PingFang SC";
                 font-style: normal;
@@ -62,8 +64,10 @@ export const InfoButton = () => {
             ?.focus();
         }}
         variant="assist"
-        px={responsive.respW(42)}
-        py={responsive.respW(20)}
+        w={responsive.respWStr(140)}
+        h={responsive.respWStr(40)}
+        px={responsive.respWStr(42)}
+        py={responsive.respWStr(20)}
         css={css`
           font-family: "PingFang SC";
           font-style: normal;
@@ -83,8 +87,10 @@ export const InfoButton = () => {
         window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
       }}
       variant="assist"
-      px={responsive.respW(42)}
-      py={responsive.respW(20)}
+      w={responsive.respWStr(140)}
+      h={responsive.respWStr(40)}
+      px={responsive.respWStr(42)}
+      py={responsive.respWStr(20)}
       css={css`
         font-family: "PingFang SC";
         font-style: normal;
