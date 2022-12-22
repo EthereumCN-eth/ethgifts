@@ -8,7 +8,7 @@ import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
 
-import { VCDropView } from "./VCDropAreaView";
+import { VCDropAreaView } from "./VCDropAreaView";
 import { VCToDragView } from "./VCToDragView";
 
 export const ClaimPanel = ({
@@ -29,8 +29,12 @@ export const ClaimPanel = ({
   const reset = useCallback(() => {
     setDropped(false);
   }, []);
-  const onSuccess = useCallback(() => {}, []);
+  const onSuccess = useCallback(() => {
+    setDropped(false);
+    setClaimed(true);
+  }, []);
   const artwork = artworks[levelIndex];
+
   return (
     <Flex
       w="100%"
@@ -48,7 +52,8 @@ export const ClaimPanel = ({
 
         <Box w="3vw" />
 
-        <VCDropView
+        <VCDropAreaView
+          levelIndex={levelIndex}
           claimed={claimed}
           setDropped={setDropped}
           dropped={dropped}

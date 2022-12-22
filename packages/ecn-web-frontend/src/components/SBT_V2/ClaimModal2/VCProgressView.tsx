@@ -5,6 +5,7 @@ import { StepLine } from "@/components/SBT/ClaimModal/DragInternalVC/StepLine";
 import { calcLen } from "@/components/SBT/ClaimModal/hooks/calcLen";
 import { responsive } from "@/styles/utils";
 
+import { resLen } from "./resLen";
 import { useVCDropClaim } from "./useVCDropClaim";
 // import { useDropToClaim } from "../hooks/useDropToClaim";
 
@@ -51,8 +52,8 @@ export const VCProgressView = ({
       left="50%"
       bgColor="#FAFAFA"
       borderRadius={responsive.respWStr(16)}
-      w={`${calcLen(responsive.respW(424))}px`}
-      minH={`${calcLen(responsive.respW(333))}px`}
+      w={`${resLen(295)}px`}
+      h={`${resLen(421)}px`}
       p={`${calcLen(responsive.respW(20))}px`}
       zIndex={20}
       transform="translate(-50%, -50%)"

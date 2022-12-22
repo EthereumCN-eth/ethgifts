@@ -15,7 +15,7 @@ import { resLen } from "./resLen";
 import { VCDroppedView } from "./VCDroppedView";
 import { VCProgressView } from "./VCProgressView";
 
-export const VCDropView = ({
+export const VCDropAreaView = ({
   setDropped,
   dropped,
   claimed,
@@ -24,6 +24,7 @@ export const VCDropView = ({
   onSuccess,
   reset,
   artwork,
+  levelIndex,
 }: {
   setDropped: Dispatch<SetStateAction<boolean>>;
   dropped: boolean;
@@ -33,6 +34,7 @@ export const VCDropView = ({
   onSuccess?: (() => void) | undefined;
   reset?: (() => void) | undefined;
   artwork: string;
+  levelIndex: number;
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isOver }, dropRef] = useDrop(
@@ -63,7 +65,9 @@ export const VCDropView = ({
     dropped: dropped && !claimed,
   });
 
-  const vcStr = useAppSelector(sbtSelectors.selectVCStr);
+  const vcStr = useAppSelector((state) =>
+    sbtSelectors.selectVCStr(state, levelIndex)
+  );
 
   const [bgOpacity, setBgOpacity] = useState(0.2);
   const [dropText, setDropText] = useState("Drag & Drop");
@@ -79,6 +83,29 @@ export const VCDropView = ({
       setDropText("Drag & Drop");
     }
   }, [isOver, dropped]);
+
+  if (claimed) {
+    return (
+      <Image
+        src={artwork}
+        // position="absolute"
+        w={`calc(${resLen(496)}px - 2px)`}
+        h={`calc(${resLen(496)}px - 2px)`}
+        border="none"
+        maxWidth="calc(460px - 2px)"
+        maxH="calc(460px - 2px)"
+        // opacity={bgOpacity}
+        // left={0}
+        // top={0}
+        // bottom={0}
+        // right={0}
+        p="1px"
+        borderRadius="16px"
+        zIndex={1}
+        textAlign="center"
+      />
+    );
+  }
 
   return (
     <Box
@@ -144,7 +171,11 @@ export const VCDropView = ({
             拖入证明你具有 E群誌 SBT 所有权的VC，以激活对应SBT的申领。
           </Text>
         </VStack>
-        <VCDroppedView dropped={dropped} />
+        <VCDroppedView
+          levelIndex={levelIndex}
+          vcStr={vcStr}
+          dropped={dropped}
+        />
         <VCProgressView
           onSuccess={onSuccess}
           onCancel={onCancel}

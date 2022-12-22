@@ -15,11 +15,17 @@ export const useVCParse = ({ vcStr }: { vcStr: string | undefined }) => {
       shortenName(parsedVc?.credentialSubject?.ethContractMessage?.receiver)) ||
     "--";
 
+  const issueDate = parsedVc.issuanceDate
+    ? new Date(parsedVc.issuanceDate).toLocaleDateString()
+    : "--";
+
+  // console.log("parsedVc", parsedVc);
   return {
     // parsedVc,
     issuerText,
     expressCountText,
     metaUrlText,
     reciverText,
+    issueDate,
   };
 };

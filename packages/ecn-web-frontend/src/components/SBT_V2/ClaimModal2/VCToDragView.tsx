@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { css } from "@emotion/react";
 import { useDrag } from "react-dnd";
 import type { DragSourceMonitor } from "react-dnd";
 
@@ -33,16 +34,26 @@ export const VCToDragView = ({
     [sbtTitle, levelIndex]
     // [forbidDrag, color]
   );
+  const vcStr = useAppSelector((state) =>
+    sbtSelectors.selectVCStr(state, levelIndex)
+  );
 
   return (
-    <Box ref={dragRef} cursor="grab" opacity={isDragging ? "0.5" : "1"}>
+    <Box
+      css={css`
+        transform: translate(0, 0);
+      `}
+      ref={dragRef}
+      cursor="grab"
+      opacity={isDragging ? "0.5" : "1"}
+    >
       <Box
         ref={ref}
         opacity={dropped ? 0 : 1}
         zIndex={dropped ? -1 : 100}
         style={droppedStyle}
       >
-        <VCView />
+        <VCView vcStr={vcStr} levelIndex={levelIndex} />
       </Box>
     </Box>
   );

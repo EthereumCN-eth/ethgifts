@@ -76,10 +76,10 @@ const selectSBTLevels = (state: AppState, id: number) =>
 
 const selectAll = (state: AppState) => state.sbt;
 
-const selectVCStr = (state: AppState) => {
+const selectVCStr = (state: AppState, index: number) => {
   const record =
     state.sbt.records?.filter(
-      (rec) => rec.signaturePayload.expressCount === state.sbt.expressCount
+      (rec) => rec.signaturePayload.expressCount === state.sbt.sbtLevel[index]
     )[0] || null;
   return record?.signedVC;
 };

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, useDisclosure } from "@chakra-ui/react";
 import { css } from "@emotion/react";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 import { ClaimModal } from "../ClaimModal2";
 import { useReadClaimedSelectedLevel } from "@/hooks/useReadClaimedLevel";
@@ -39,6 +39,40 @@ export const SBTButton = ({
   const isDisabled = isClaimed || !qualified;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { chain } = useNetwork();
+  const isOnSBTChain = chain?.id === chainId;
+
+  const { isLoading: isSwitchNetworkLoading, switchNetworkAsync } =
+    useSwitchNetwork();
+  const switchToNFTNetwork = () => {
+    switchNetworkAsync?.(chainId).then(() => {
+      onOpen();
+    });
+  };
+
+  if (!isOnSBTChain && !isClaimed && qualified) {
+    return (
+      <Button
+        isLoading={isSwitchNetworkLoading}
+        onClick={switchToNFTNetwork}
+        disabled={isSwitchNetworkLoading}
+        variant="orangeBg"
+        w="93.75%"
+        color="white"
+        css={css`
+          font-family: "PingFang SC";
+          font-style: normal;
+          font-weight: 500;
+          font-size: ${responsive.respWStr(14)};
+          line-height: ${responsive.respWStr(20)};
+        `}
+        h={responsive.respWStr(40)}
+      >
+        申领 SBT
+      </Button>
+    );
+  }
   return (
     <>
       <Button

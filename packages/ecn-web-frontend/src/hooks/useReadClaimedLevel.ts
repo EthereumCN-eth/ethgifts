@@ -1,6 +1,6 @@
 import type { BigNumber } from "ethers";
 import { constants } from "ethers";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useContractRead } from "wagmi";
 
 import SBT1 from "@/abis/SBT1.json";
@@ -44,11 +44,9 @@ export const useReadClaimedSelectedLevel = ({
     args: [connectedAddress || constants.AddressZero],
     enabled: !!connectedAddress && !!contractAddress && !!chainId,
   });
-  const claimedArray = useMemo(() => {
-    if (claimed) return claimed.map((v: BigNumber) => v.toNumber());
-    return [];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [claimed?.length, connectedAddress, contractAddress, chainId]);
+  const claimedArray = claimed
+    ? claimed.map((v: BigNumber) => v.toNumber())
+    : [];
 
   // console.log("currentLevelNumber", currentLevelNumber);
   // console.log("claimedArray", claimedArray);

@@ -46,7 +46,8 @@ export const SBT_V2 = () => {
         })
       );
     }
-  }, [address, appDispatch, accessToken, chain?.id, id, router.isReady]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, appDispatch, accessToken, id, router.isReady]);
 
   return (
     <Flex
