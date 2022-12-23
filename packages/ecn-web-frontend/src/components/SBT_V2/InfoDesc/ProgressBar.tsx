@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton } from "@chakra-ui/react";
+import { Box, Center, Flex, Skeleton } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { useAppSelector } from "@/state/reduxHooks";
@@ -93,7 +93,7 @@ export const ProgressBar = () => {
         const leftOffset = ind === 0 ? 0 : percent;
         const lightenup = currentCount / total >= percent;
         return (
-          <Box
+          <Center
             key={percent}
             position="absolute"
             transform={transformStr}
@@ -104,7 +104,9 @@ export const ProgressBar = () => {
               border-radius: 50%;
               background-color: ${lightenup ? "#ee862b" : "white"};
             `}
-          />
+          >
+            {/* {`Lv ${ind}`} */}
+          </Center>
         );
       })}
     </Flex>

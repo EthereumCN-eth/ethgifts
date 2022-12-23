@@ -54,7 +54,8 @@ export const SBT_V2 = () => {
       w="100%"
       px={responsive.respWStr(322)}
       direction="column"
-      bg="rgba(0, 0, 0, 0.8)"
+      // bg="rgba(0, 0, 0, 0.8)"
+      bg="rgba(12, 6, 1, 0.82)"
       pt={responsive.respWStr(80)}
     >
       {/*  */}

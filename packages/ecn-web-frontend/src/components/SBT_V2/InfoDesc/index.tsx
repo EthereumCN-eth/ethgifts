@@ -1,12 +1,24 @@
 import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { useAppSelector } from "@/state/reduxHooks";
+import { selectors as sbtSelectors } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
 
 import { InfoButton } from "./InfoButton";
 import { ProgressBar } from "./ProgressBar";
 
 export const InfoDesc = () => {
+  const {
+    // loaded,
+    // sbtLevel,
+    // status,
+    // artworks,
+    // itemTexts,
+    // detailTags,
+    expressCount,
+    // contractAddress,
+  } = useAppSelector(sbtSelectors.selectAll);
   return (
     <Flex
       w={responsive.respWStr(700)}
@@ -77,8 +89,11 @@ export const InfoDesc = () => {
             color: #ffffff;
           `}
         >
-          你还没参与过E群志编辑哦，快加入ECN
-          Discord，跟大家分享一条以太坊相关的资讯吧！
+          {expressCount
+            ? `加入ECN
+          Discord，跟大家分享一条以太坊相关的资讯吧！`
+            : `你还没参与过E群志编辑哦，快加入ECN
+          Discord，跟大家分享一条以太坊相关的资讯吧！`}
         </Text>
 
         <InfoButton />
