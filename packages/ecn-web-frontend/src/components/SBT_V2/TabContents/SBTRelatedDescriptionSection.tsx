@@ -1,4 +1,4 @@
-import { Box, ListItem, TabPanel, Text, UnorderedList } from "@chakra-ui/react";
+import { Box, TabPanel, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { ChakraNextLink } from "@/components/ChakraNextLink";
@@ -26,7 +26,7 @@ const contentData = [
         >
           E 群誌是 ECN
           推出的一个社区协作编辑企划，让社区成员以“简短一句中文概述+来源链接”的格式把自己看到的最新、重要、有趣的资讯在
-          ECN Discord 的 [E 群誌-ejournal] 频道分享和讨论。ECN
+          ECN Discord 的 E 群誌-ejournal 频道分享和讨论。ECN
           对当天的消息进行简单审核后汇总，形成日报发布，并在 Notion 归档。
         </Text>
         <Text
@@ -85,17 +85,14 @@ const contentData = [
           color: #ffffff;
         `}
       >
-        E 群誌 SBT(Soul-Bound Token) 是由 ECN
+        E 群誌 SBT 是由 ECN
         发行，对在此企划中社区成员的贡献数量进行认证的链上数字凭证，是具有不可转让性并与
-        ERC721 兼容的 NFT，其 metadataURI 为每个参与者所发布有效资讯在 Arweave
-        上存档的链接，这些 NFT 发布在以太坊的二层网络 Optimism 上。E 群誌 SBT
-        发布在公开的账本上，任何人都可以查看和验证。“E 群誌 SBT”
-        有三个级别，每次升级，难度都会提升。
+        ERC721 兼容的 NFT。E 群誌 SBT 有三个级别，每次升级，难度都会提升。
       </Text>
     ),
   },
   {
-    title: "什么是 E 群誌 VC ？为什么有两款？",
+    title: "什么是 E 群誌 SBT 等价 VC？",
     contentHTML: () => (
       <>
         <Text
@@ -113,12 +110,11 @@ const contentData = [
             margin-bottom: ${responsive.respWStr(7)};
           `}
         >
-          作为链上凭证 SBT 的补充，ECN 开发了两款 E 群誌相关的 VC (了解什么是
-          VC)，它们基于区块链，存储在链下，获取不需要消耗
-          gas，可由所有者保管并自主选择向谁出示。链上链下的数据凭证结合可给社区成员对其
-          web3 数据更多的选择权
+          作为链上凭证 SBT 的补充，ECN 开发了 E 群誌 SBT 等价 VC。VC
+          同样是不可转让，使用密码学签名防篡改，且默认情况下存放在链下，具备隐私性且不消耗
+          gas。链上链下的数据凭证结合可给社区成员对其 web3 数据更多的选择权
         </Text>
-        <UnorderedList
+        <Text
           css={css`
             font-family: "PingFang SC";
             font-style: normal;
@@ -130,19 +126,23 @@ const contentData = [
             letter-spacing: 0.01em;
 
             color: #ffffff;
+            margin-bottom: ${responsive.respWStr(7)};
           `}
         >
-          <ListItem>
-            {`“E 群誌 SBT"一一对应的 VC：当社区成员的贡献数达到可铸造 SBT
-            的级别时，即可下载 SBT 对应的 VC。拥有了此
-            VC，社区成员不仅相当于拥有了链下版本的 SBT，还能随时用该 VC 在
-            ethgifts.com 铸造其对应的 SBT。`}
-          </ListItem>
-          <ListItem>
-            E 群誌贡献 VC：实时更新经审核的资讯数量，数据存储在 IPFS 上，由 ECN
-            签名验证，可随时下载。
-          </ListItem>
-        </UnorderedList>
+          当社区成员的贡献数达到可铸造 SBT 的级别时，即可下载 E 群誌 SBT 等价
+          VC。拥有了此 VC，社区成员不仅相当于拥有了链下版本的 SBT，还能用该 VC
+          在{" "}
+          <ChakraNextLink
+            color="#EE862B"
+            display="inline"
+            target="_blank"
+            textDecoration="underline"
+            href="http://ethgifts.com/"
+          >
+            ethgifts.com
+          </ChakraNextLink>{" "}
+          铸造其对应的 SBT。
+        </Text>
       </>
     ),
   },
@@ -182,3 +182,29 @@ export const SBTRelatedDescriptionSection = () => {
     </TabPanel>
   );
 };
+
+// {/* <UnorderedList
+//   css={css`
+//     font-family: "PingFang SC";
+//     font-style: normal;
+//     font-weight: 500;
+//     font-size: ${responsive.respWStr(14)};
+//     line-height: 180%;
+//     /* or 25px */
+
+//     letter-spacing: 0.01em;
+
+//     color: #ffffff;
+//   `}
+// >
+//   <ListItem>
+//     {`“E 群誌 SBT"一一对应的 VC：当社区成员的贡献数达到可铸造 SBT
+//     的级别时，即可下载 SBT 对应的 VC。拥有了此
+//     VC，社区成员不仅相当于拥有了链下版本的 SBT，还能随时用该 VC 在
+//     ethgifts.com 铸造其对应的 SBT。`}
+//   </ListItem>
+//   <ListItem>
+//     E 群誌贡献 VC：实时更新经审核的资讯数量，数据存储在 IPFS 上，由 ECN
+//     签名验证，可随时下载。
+//   </ListItem>
+// </UnorderedList> */}

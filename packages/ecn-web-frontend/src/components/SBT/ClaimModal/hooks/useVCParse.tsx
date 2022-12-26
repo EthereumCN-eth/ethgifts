@@ -3,6 +3,7 @@ import { shortenName } from "@/utils/shortenName";
 
 export const useVCParse = ({ vcStr }: { vcStr: string | undefined }) => {
   const parsedVc = vcStr ? (JSON.parse(vcStr) as VCType) : {};
+  const issuerLongText = (parsedVc && parsedVc.issuer) || "";
   const issuerText =
     (parsedVc && parsedVc.issuer && shortenName(parsedVc.issuer)) || "--";
   const expressCountText =
@@ -10,6 +11,8 @@ export const useVCParse = ({ vcStr }: { vcStr: string | undefined }) => {
 
   const metaUrlText =
     parsedVc?.credentialSubject?.ethContractMessage?.metadataURI || "--";
+  const reciverLongText =
+    parsedVc?.credentialSubject?.ethContractMessage?.receiver ?? "";
   const reciverText =
     (parsedVc?.credentialSubject?.ethContractMessage?.receiver &&
       shortenName(parsedVc?.credentialSubject?.ethContractMessage?.receiver)) ||
@@ -22,10 +25,12 @@ export const useVCParse = ({ vcStr }: { vcStr: string | undefined }) => {
   // console.log("parsedVc", parsedVc);
   return {
     // parsedVc,
+    issuerLongText,
     issuerText,
     expressCountText,
     metaUrlText,
     reciverText,
+    reciverLongText,
     issueDate,
   };
 };

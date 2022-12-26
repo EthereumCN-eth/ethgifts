@@ -11,13 +11,14 @@ import { css } from "@emotion/react";
 import { saveAs } from "file-saver";
 import { useCallback } from "react";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { MdDownloading } from "react-icons/md";
+import { MdDownloadForOffline } from "react-icons/md";
 
 import { ChakraNextLink } from "@/components/ChakraNextLink";
 import { useVCParse } from "@/components/SBT/ClaimModal/hooks/useVCParse";
 import { responsive } from "@/styles/utils";
 
 import { resLen } from "./resLen";
+import { ipfsToGateWayLink, IssueIDLink, ReciverTextLink } from "./utils";
 
 export const VCView = ({
   vcStr,
@@ -26,8 +27,15 @@ export const VCView = ({
   vcStr: string | undefined;
   levelIndex: number;
 }) => {
-  const { expressCountText, issuerText, metaUrlText, issueDate, reciverText } =
-    useVCParse({ vcStr });
+  const {
+    expressCountText,
+    // issuerText,
+    issuerLongText,
+    reciverLongText,
+    metaUrlText,
+    issueDate,
+    // reciverText,
+  } = useVCParse({ vcStr });
   const onDownloadVcCallback = useCallback(() => {
     if (!vcStr) return;
     const file = new Blob([vcStr], {
@@ -66,22 +74,24 @@ export const VCView = ({
         },
       }}
     >
-      <IconButton
-        variant="unstyled"
-        aria-label="vc-download"
-        className="vc-download"
-        size={`${resLen(30)}px`}
-        onClick={onDownloadVcCallback}
-        css={css`
-          opacity: 0;
-          /* cursor: pointer; */
-          position: absolute;
-          right: ${resLen(5)}px;
-          top: ${resLen(19)}px;
-        `}
-      >
-        <MdDownloading size={`${resLen(25)}px`} />
-      </IconButton>
+      <Tooltip label="下载 VC">
+        <IconButton
+          variant="unstyled"
+          aria-label="vc-download"
+          className="vc-download"
+          size={`${resLen(30)}px`}
+          onClick={onDownloadVcCallback}
+          css={css`
+            opacity: 0;
+            /* cursor: pointer; */
+            position: absolute;
+            right: ${resLen(5)}px;
+            top: ${resLen(19)}px;
+          `}
+        >
+          <MdDownloadForOffline color="#EE862B" size={`${resLen(25)}px`} />
+        </IconButton>
+      </Tooltip>
       <Image
         position="absolute"
         left={0}
@@ -124,7 +134,7 @@ export const VCView = ({
 
         <Box w={`${resLen(7)}px`} />
         <Box cursor="pointer">
-          <Tooltip label="Number of Expresses you have sent">
+          <Tooltip label="此为你分享的 E 群誌有效资讯数量">
             <span>
               <AiOutlineExclamationCircle
                 color="#757575"
@@ -165,7 +175,7 @@ export const VCView = ({
         </Text>
         <Box w={`${resLen(7)}px`} />
         <Box cursor="pointer">
-          <Tooltip label="the ethereum address to receive the SBT">
+          <Tooltip label="此为 SBT 接收者的以太坊地址">
             <span>
               <AiOutlineExclamationCircle
                 color="#757575"
@@ -186,7 +196,7 @@ export const VCView = ({
           letter-spacing: 0.01em;
         `}
       >
-        {reciverText}
+        <ReciverTextLink reciverLongText={reciverLongText} />
       </Text>
 
       <Box bgColor="black" w={`${resLen(255)}px`} h="1px" />
@@ -210,7 +220,7 @@ export const VCView = ({
           display="inline"
           target="_blank"
           textDecoration="underline"
-          href={metaUrlText}
+          href={ipfsToGateWayLink(metaUrlText)}
         >
           <Text
             css={css`
@@ -257,7 +267,7 @@ export const VCView = ({
             /* letter-spacing: 0.01em; */
           `}
         >
-          {issuerText}
+          <IssueIDLink issuerLongText={issuerLongText} />
         </Text>
       </HStack>
 
