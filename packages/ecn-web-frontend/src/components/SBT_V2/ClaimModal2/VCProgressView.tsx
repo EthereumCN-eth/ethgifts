@@ -66,13 +66,10 @@ export const VCProgressView = ({
         >{`Claiming SBT `}</Text>
       </Center>
       <VStack w="full" flex={85} justify="center">
-        <StepLine text="Verifying VC Signature" statusIcon={isVCRightStatus} />
-        <StepLine
-          text="Verifying Contract Signature"
-          statusIcon={isSignRightStatus}
-        />
-        <StepLine text="await wallet Confirmation" statusIcon={isWriteStatus} />
-        <StepLine text="Claim Status" statusIcon={isTxStatus} />
+        <StepLine text="验证 VC 签名" statusIcon={isVCRightStatus} />
+        <StepLine text="验证合约签名" statusIcon={isSignRightStatus} />
+        <StepLine text="等待钱包确认" statusIcon={isWriteStatus} />
+        <StepLine text="申领状态" statusIcon={isTxStatus} />
       </VStack>
       {/*  */}
     </VStack>
