@@ -7,6 +7,7 @@ export type ImgIconType = {
     w: number;
     h: number;
   };
+  link?: string;
 };
 export type TextIconType = {
   type: "text";
@@ -15,5 +16,6 @@ export type TextIconType = {
   content: {
     str: string;
   };
+  link?: string;
 };
 export type IconType = ImgIconType | TextIconType;

@@ -6,8 +6,10 @@ import { responsive } from "@/styles/utils";
 
 import { icondata } from "./icondata";
 import { OneInfo } from "./OneInfo";
+import { useParseData } from "./utils";
 
 export const InfoIcons = () => {
+  const parsedIcondata = useParseData({ icondata });
   return (
     <Box
       minW={responsive.respWStr(460)}
@@ -26,7 +28,7 @@ export const InfoIcons = () => {
       rowGap={responsive.respWStr(35)}
     >
       {/*  */}
-      {icondata.map((v) => {
+      {parsedIcondata.map((v) => {
         return <OneInfo key={v.text} {...v} />;
       })}
     </Box>

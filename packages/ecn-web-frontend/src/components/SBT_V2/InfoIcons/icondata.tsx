@@ -1,14 +1,24 @@
 import type { IconType } from "./types";
 
 export const icondata: IconType[] = [
+  // {
+  //   type: "img",
+  //   iconsrc: "/credicon.svg",
+  //   text: "凭证类型",
+  //   content: {
+  //     str: "/sbticon.svg",
+  //     w: 57,
+  //     h: 29,
+  //   },
+  // },
   {
-    type: "img",
+    type: "text",
     iconsrc: "/credicon.svg",
     text: "凭证类型",
     content: {
-      str: "/sbticon.svg",
-      w: 57,
-      h: 29,
+      str: "SBT",
+      // w: 57,
+      // h: 29,
     },
   },
   {
@@ -46,6 +56,7 @@ export const icondata: IconType[] = [
     content: {
       str: "CONTRACT_ADDRESS",
     },
+    link: `https://optimistic.etherscan.io/address/$$$CONTRACT_ADDRESS$$$`,
   },
   {
     type: "text",
@@ -54,5 +65,6 @@ export const icondata: IconType[] = [
     content: {
       str: "ISSUER_ADDRESS",
     },
+    link: `https://optimistic.etherscan.io/address/$$$ISSUER_ADDRESS$$$`,
   },
 ];
