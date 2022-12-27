@@ -1,3 +1,5 @@
+import { css } from "@emotion/react";
+
 import type { IconType } from "./types";
 
 export const icondata: IconType[] = [
@@ -39,6 +41,9 @@ export const icondata: IconType[] = [
       str: "CHAIN_ICON",
       w: 103,
       h: 14,
+      cssStyle: css`
+        transform: translateY(4px);
+      `,
     },
   },
   {

@@ -3,14 +3,22 @@ import { HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { ChakraNextLink } from "@/components/ChakraNextLink";
+import { useAppSelector } from "@/state/reduxHooks";
+import { selectors as sbtSelectors } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
 
+import { SkeletonLoadView } from "./SkeletonLoadView";
 import type { IconType } from "./types";
 import { isImgIcon, isTextIcon } from "./utils";
 
 export const OneInfo = (icond: IconType) => {
   // console.log("i", icond);
   const { iconsrc, content, text } = icond;
+  const { loaded } = useAppSelector(sbtSelectors.selectAll);
+
+  if (!loaded) {
+    return <SkeletonLoadView iconsrc={iconsrc} text={text} />;
+  }
 
   return (
     <VStack align="flex-start" justify="flex-start">
@@ -42,6 +50,7 @@ export const OneInfo = (icond: IconType) => {
           src={content.str}
           w={responsive.respWStr(icond.content.w)}
           h={responsive.respWStr(icond.content.h)}
+          css={icond.content.cssStyle}
         />
       )}
       {isTextIcon(icond) && icond.link && (

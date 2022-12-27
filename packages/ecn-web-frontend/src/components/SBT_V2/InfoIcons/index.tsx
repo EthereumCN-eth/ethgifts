@@ -13,12 +13,12 @@ export const InfoIcons = () => {
   return (
     <Box
       minW={responsive.respWStr(460)}
-      h={responsive.respWStr(360)}
+      minH={responsive.respWStr(360)}
       // bgColor="gray.100"
       css={css`
         border: 1px solid #ffffff;
         border-radius: 16px;
-        place-items: center;
+        /* place-items: start; */
       `}
       display="grid"
       px={responsive.respWStr(80)}

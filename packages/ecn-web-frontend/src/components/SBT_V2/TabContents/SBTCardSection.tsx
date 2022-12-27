@@ -1,27 +1,11 @@
 import { Flex, TabPanel, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
-import { useAppSelector } from "@/state/reduxHooks";
-import { selectors as sbtSelectors } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
 
-import { SBTCard } from "./SBTCard";
+import { SBTCards } from "./SBTCards";
 
 export const SBTCardSection = () => {
-  const {
-    loaded,
-    sbtLevel,
-    // status,
-    artworks,
-    itemTexts,
-    expressCount,
-    // contractAddress,
-  } = useAppSelector(sbtSelectors.selectAll);
-
-  const numberOfItems = artworks.length;
-
-  if (numberOfItems === 0 || !loaded || !itemTexts) return null;
-
   return (
     <TabPanel w="full" h={responsive.respWStr(1149)}>
       <Flex
@@ -33,31 +17,7 @@ export const SBTCardSection = () => {
         px={responsive.respWStr(63)}
         // bgColor="red.300"
       >
-        <Flex
-          w="full"
-          h={responsive.respWStr(560)}
-          // px={responsive.respWStr(63)}
-          justify="space-between"
-          // bgColor="red.100"
-        >
-          {/*  */}
-          {artworks.map((artwork, ind) => {
-            const qualified = expressCount
-              ? expressCount >= sbtLevel[ind]
-              : false;
-            return (
-              <SBTCard
-                numberOfItems={numberOfItems}
-                itemTexts={itemTexts}
-                ind={ind}
-                artwork={artwork}
-                key={artwork}
-                sbtLevelNumber={sbtLevel[ind]}
-                qualified={qualified}
-              />
-            );
-          })}
-        </Flex>
+        <SBTCards />
 
         <Flex
           mt={responsive.respWStr(79)}

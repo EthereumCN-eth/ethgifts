@@ -20,7 +20,7 @@ export interface SBTState {
       })[]
     | null;
   artworks: string[];
-  itemTexts: string[] | null;
+  itemTexts: string[];
   detailTags: Tag[];
   contractAddress: string;
   issuerAddress: string;

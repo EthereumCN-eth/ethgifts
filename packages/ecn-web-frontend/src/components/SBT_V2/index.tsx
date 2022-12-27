@@ -1,4 +1,4 @@
-import { Box, Flex, Tabs } from "@chakra-ui/react";
+import { Box, Flex, Tabs, useMediaQuery } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAccount, useNetwork } from "wagmi";
@@ -49,6 +49,8 @@ export const SBT_V2 = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, appDispatch, accessToken, id, router.isReady]);
 
+  const [isLargerThan500] = useMediaQuery("(min-width: 500px)");
+
   return (
     <Flex
       w="100%"
@@ -60,15 +62,15 @@ export const SBT_V2 = () => {
     >
       {/*  */}
       <Flex
-        direction="row"
+        direction={["row"]}
         align="center"
         justify="space-between"
-        h={responsive.respWStr(360)}
+        minH={responsive.respWStr(360)}
         w="100%"
       >
         {/*  */}
         <InfoDesc />
-        <InfoIcons />
+        {isLargerThan500 && <InfoIcons />}
       </Flex>
       <Box h={responsive.respWStr(82)} />
       <Box minH={responsive.respWStr(1149)} w="full">

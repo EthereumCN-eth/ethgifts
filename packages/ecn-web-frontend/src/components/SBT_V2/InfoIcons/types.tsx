@@ -1,3 +1,5 @@
+import type { SerializedStyles } from "@emotion/react";
+
 export type ImgIconType = {
   type: "img";
   iconsrc: string;
@@ -6,6 +8,7 @@ export type ImgIconType = {
     str: string;
     w: number;
     h: number;
+    cssStyle?: SerializedStyles;
   };
   link?: string;
 };

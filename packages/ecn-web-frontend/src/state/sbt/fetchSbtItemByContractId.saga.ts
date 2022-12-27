@@ -26,7 +26,7 @@ function* fetchGalleryIfNotAndSBTLevels({
         chainId: sbt.chainId,
         status: sbt.status,
         artworks: sbt.artworks,
-        itemTexts: sbt.itemText,
+        itemTexts: sbt.itemText ?? [],
         detailTags: sbt.detailTags,
         contractAddress: sbt.contractAddress,
         issuerAddress: sbt.issuerAddress,

@@ -14,7 +14,7 @@ export function SquareImg({
       <Box
         w="100%"
         position="relative"
-        bgColor="red.100"
+        // bgColor="red.100"
         sx={{
           "&::after": {
             content: '""',

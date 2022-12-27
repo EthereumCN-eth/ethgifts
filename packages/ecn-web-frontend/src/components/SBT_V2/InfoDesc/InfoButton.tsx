@@ -81,25 +81,26 @@ export const InfoButton = () => {
       </Button>
     );
   }
-  return null;
-  // <Button
-  //   onClick={() => {
-  //     window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
-  //   }}
-  //   variant="assist"
-  //   w={responsive.respWStr(140)}
-  //   h={responsive.respWStr(40)}
-  //   px={responsive.respWStr(42)}
-  //   py={responsive.respWStr(20)}
-  //   css={css`
-  //     font-family: "PingFang SC";
-  //     font-style: normal;
-  //     font-weight: 500;
-  //     font-size: ${responsive.respWStr(14)};
-  //     line-height: ${responsive.respWStr(20)};
-  //     color: #ee862b;
-  //   `}
-  // >
-  //   分享Express
-  // </Button>
+  return (
+    <Button
+      onClick={() => {
+        window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
+      }}
+      variant="assist"
+      w={responsive.respWStr(140)}
+      h={responsive.respWStr(40)}
+      px={responsive.respWStr(42)}
+      py={responsive.respWStr(20)}
+      css={css`
+        font-family: "PingFang SC";
+        font-style: normal;
+        font-weight: 500;
+        font-size: ${responsive.respWStr(14)};
+        line-height: ${responsive.respWStr(20)};
+        color: #ee862b;
+      `}
+    >
+      分享 Express
+    </Button>
+  );
 };
