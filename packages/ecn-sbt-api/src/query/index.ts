@@ -35,6 +35,20 @@ export const setupQueryRoute = (
       return res.status(500).send({ success: false, data: null, error });
     }
   });
+  app.get("/msg/messages", async (req, res) => {
+    const query = req.query;
+    const pageSize = query.pageSize ? parseInt(query.pageSize?.toString()) : 0;
+    const page = query.page ? parseInt(query.page.toString()) : 0;
+    try {
+      const msg = await prisma.expressMessage.findMany({
+        take: pageSize,
+        skip: page,
+      });
+      return res.status(200).send({ success: true, data: msg });
+    } catch (error) {
+      return res.status(500).send({ success: false, data: null });
+    }
+  });
   app.get("/contentType", async (req, res) => {
     try {
       const content = await prisma.contentCategory.findMany({
