@@ -1,7 +1,7 @@
 import { Center, Image, Text, VStack } from "@chakra-ui/react";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 
 export const NoVcDragView = () => {
   return (

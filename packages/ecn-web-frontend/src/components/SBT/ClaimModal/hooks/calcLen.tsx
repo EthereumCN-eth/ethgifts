@@ -1,4 +1,4 @@
-import { responsive } from "../utils";
+import { responsive } from "../../../../styles/utils";
 
 export const calcLen = (num: number) => {
   if (window && window.innerHeight) {

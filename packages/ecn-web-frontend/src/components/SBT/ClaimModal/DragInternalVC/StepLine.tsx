@@ -5,8 +5,8 @@ import {
   AiFillPauseCircle,
 } from "react-icons/ai";
 
+import { responsive } from "../../../../styles/utils";
 import { calcLen } from "../hooks/calcLen";
-import { responsive } from "../utils";
 
 import { ProcessingSpinner } from "./ProcessingSpinner";
 

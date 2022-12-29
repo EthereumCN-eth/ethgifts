@@ -57,12 +57,14 @@ export const useClaimSBTFromVCPure = ({
   reset,
   onProcess,
   onCancel,
+  onSuccess,
 }: {
   vcStr: string | undefined;
   enabled: boolean;
   reset?: () => void;
   onProcess?: () => void;
   onCancel?: () => void;
+  onSuccess?: () => void;
 }) => {
   const vcPayloadOrNull = useMemo(() => {
     if (vcStr) return parseVCForPayload(vcStr || "{}").data;
@@ -125,12 +127,12 @@ export const useClaimSBTFromVCPure = ({
 
   useEffect(() => {
     if (isTxSuccess) {
-      // reset();
+      if (onSuccess) onSuccess();
       // eslint-disable-next-line sonarjs/no-collapsible-if
     } else if (isTxLoading) {
       if (onProcess) onProcess();
     }
-  }, [isTxLoading, isTxSuccess, onProcess, reset]);
+  }, [isTxLoading, isTxSuccess, onProcess, onSuccess, reset]);
 
   return {
     isWriteStatus,
