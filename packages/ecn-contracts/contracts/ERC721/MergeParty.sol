@@ -5,7 +5,7 @@ import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
-import './interfaces/IThe_Merge_Watch_Party.sol';
+import '../interfaces/IThe_Merge_Watch_Party.sol';
 
 contract MergeParty is ERC721, Ownable {
     using Counters for Counters.Counter;
