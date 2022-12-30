@@ -82,7 +82,16 @@ export const setupAddMessageRoute = (
   });
 
   app.post("/msg/addMessage", async (req, res) => {
-    const { msgId, content, url, discordId, contentType } = req.body;
+    const {
+      msgId,
+      content,
+      url,
+      discordId,
+      contentType,
+      // default to verifiedAt at db-created time & To Sign the Cert(vc & ipfs upload)
+      verifiedAt = undefined,
+      isToSignCert = true,
+    } = req.body;
 
     // const rawMsg = await prisma.rawExpressMessage.findUnique({
     //   where: {
@@ -111,6 +120,7 @@ export const setupAddMessageRoute = (
                     contentType,
                   },
                 },
+                verifiedAt,
                 user: {
                   connect: {
                     discordId,
@@ -142,15 +152,17 @@ export const setupAddMessageRoute = (
       // const st = await sign(discordId, msgId);
       // console.log("st:", st);
 
-      const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
-      if (typeof sbtContractTypeId === "number") {
-        await addToSignatureGenerationQueue(
-          discordId,
-          msgId,
-          sbtContractTypeId
-        );
-      } else {
-        new Error("sbt contract type id not set");
+      if (isToSignCert) {
+        const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
+        if (typeof sbtContractTypeId === "number") {
+          await addToSignatureGenerationQueue(
+            discordId,
+            msgId,
+            sbtContractTypeId
+          );
+        } else {
+          new Error("sbt contract type id not set");
+        }
       }
 
       //
