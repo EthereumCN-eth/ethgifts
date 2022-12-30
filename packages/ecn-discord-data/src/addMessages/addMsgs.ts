@@ -62,6 +62,9 @@ export const addMessage = async (msgs: MD_DATA[]) => {
       discordId: msg.discordId,
       contentType: msg.contentType,
       msgId: msg.messageId,
+      //
+      verifiedAt: new Date(msg.mdDate),
+      isToSignCert: false,
     };
 
     const findRaw = await findRawMsg({ msgId: msg.messageId });
