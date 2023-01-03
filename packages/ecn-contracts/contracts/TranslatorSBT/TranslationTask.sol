@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
 import '@openzeppelin/contracts/access/Ownable.sol';
@@ -13,8 +13,10 @@ contract TranslationTask is Ownable {
     }
 
     enum TaskStatus {
+        published,
         translating,
-        completed
+        completed,
+        failed
     }
 
     mapping(uint256 => Task) public tasks;
