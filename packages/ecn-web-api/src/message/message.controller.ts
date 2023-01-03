@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { IsValidDateStringPipe } from './IsValidDateString.pipe';
 
 @Controller('message')
 export class MessageController {
@@ -21,8 +23,11 @@ export class MessageController {
   // }
 
   @Get()
-  findMessagesByDate() {
-    return this.messageService.findLatestByDate();
+  findMessagesByDate(
+    @Query('date', new IsValidDateStringPipe()) datestring: string,
+  ) {
+    // console.log('date', date);
+    return this.messageService.findMessagesByDate({ datestring });
   }
 
   // @Get(':id')

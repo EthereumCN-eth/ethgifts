@@ -36,6 +36,7 @@
     "@nestjs/swagger": "^6.1.0",
     "@prisma/client": "^4.2.1",
     "cache-manager": "^4.1.0",
+    "date-fns": "^2.29.3",
     "ecn-prisma": "link:./../ecn-prisma",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
