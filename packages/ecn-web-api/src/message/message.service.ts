@@ -39,6 +39,13 @@ export class MessageService {
           gte: startOfMonth(currentDate),
         },
       },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
       orderBy: {
         verifiedAt: 'asc',
       },
