@@ -32,6 +32,7 @@ export const AddRawMsg = async (
       rawMessage: msg.content,
       discordId: msg.author.id,
       discordName: msg.author.username,
+      discordAvatar: msg.author.avatarURL(),
       msgId: msg.id,
     };
     try {

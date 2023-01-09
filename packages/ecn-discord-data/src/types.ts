@@ -14,5 +14,6 @@ export interface COLLECTOR {
   [discordName: string]: {
     discordId: string;
     ethAddress: string;
+    discordAvatar: string;
   };
 }
