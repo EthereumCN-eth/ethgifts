@@ -52,6 +52,7 @@ export const VCToDragView = ({
         opacity={dropped ? 0 : 1}
         zIndex={dropped ? -1 : 100}
         style={droppedStyle}
+        transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
       >
         <VCView vcStr={vcStr} levelIndex={levelIndex} />
       </Box>

@@ -36,7 +36,7 @@ export const SBTButton = ({
   });
   // console.log("isClaimed", isClaimed);
 
-  const isDisabled = isClaimed || !qualified;
+  const isDisabled = !qualified;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
