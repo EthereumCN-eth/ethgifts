@@ -10,6 +10,7 @@ export const updateCollector = async (collectors: COLLECTOR) => {
             ethAddress: collectors[collector].ethAddress,
             discordId: collectors[collector].discordId,
             discordName: collector,
+            discordAvatar: collectors[collector].discordAvatar,
           };
 
           try {
