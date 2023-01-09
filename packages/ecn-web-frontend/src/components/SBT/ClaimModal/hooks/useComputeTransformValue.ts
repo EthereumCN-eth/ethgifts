@@ -27,7 +27,9 @@ export const useComputeDropAreaTransformValue = ({
     ? {
         transform: `translate(-${dropTargetX}px,0)`,
       }
-    : {};
+    : {
+        transform: `translate(0px,0)`,
+      };
   // console.log("droppedStyle", droppedStyle);
   return {
     ref: mref,

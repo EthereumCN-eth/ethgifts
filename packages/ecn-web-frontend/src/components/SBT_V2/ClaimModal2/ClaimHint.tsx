@@ -35,7 +35,7 @@ export const ClaimHint = {
       </Text>
     </HStack>
   ),
-  Success: () => {
+  Success: ({ text = "铸造成功" }: { text?: string }) => {
     return (
       <HStack>
         <AiFillCheckCircle size={responsive.respWStr(22)} color="green" />
@@ -46,7 +46,7 @@ export const ClaimHint = {
             color: #ddd9d7;
           `}
         >
-          铸造成功
+          {text}
         </Text>
       </HStack>
     );

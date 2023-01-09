@@ -81,6 +81,9 @@ export const ClaimPanel = ({
       {hintStatus === "fail" && <ClaimHint.Fail />}
       {hintStatus === "process" && <ClaimHint.Processing />}
       {hintStatus === "success" && <ClaimHint.Success />}
+      {hintStatus !== "success" && claimed && (
+        <ClaimHint.Success text="已申领" />
+      )}
     </>
   );
 };
