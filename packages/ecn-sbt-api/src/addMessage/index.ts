@@ -25,7 +25,8 @@ export const setupAddMessageRoute = (
   app.post("/rawMsg/addRawMessage", async (req, res) => {
     // console.log("body: ", req.body);
     // await new Promise((res) => setTimeout(() => res(true), 10000));
-    const { rawMessage, discordId, discordName, msgId } = req.body;
+    const { rawMessage, discordId, discordName, msgId, discordAvatar } =
+      req.body;
     try {
       const _ = await validateRawMsg({
         rawMessage,
@@ -66,6 +67,7 @@ export const setupAddMessageRoute = (
                 name: discordName,
                 expressCount: 0,
                 discordId,
+                discordAvatar,
               },
             },
           },

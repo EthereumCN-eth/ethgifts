@@ -34,7 +34,7 @@ export const setupUserRoute = (
   });
 
   app.post("/user/updateEthAddress", async (req, res) => {
-    const { ethAddress, discordId, discordName } = req.body;
+    const { ethAddress, discordId, discordName, discordAvatar } = req.body;
     // By unique identifier
     try {
       //@ts-ignore
@@ -83,6 +83,7 @@ export const setupUserRoute = (
               expressCount: 0,
               discordId,
               ethAddress,
+              discordAvatar,
             },
           });
           return {
