@@ -42,10 +42,11 @@ model ExpressMessage {
 }
 
 model User {
-  discordId    String  @id
-  name         String
-  ethAddress   String? @unique
-  expressCount Int
+  discordId     String  @id
+  discordAvatar String?
+  name          String
+  ethAddress    String? @unique
+  expressCount  Int
 
   expressMessages     ExpressMessage[]
   sbtSignatureRecords SBTSignatureRecord[]
