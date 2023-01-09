@@ -6,6 +6,7 @@ export const addRawMsgApi = async (msgPayload: {
   rawMessage: string;
   discordId: string;
   discordName: string;
+  discordAvatar: string | null;
   msgId: string;
 }) => {
   try {
@@ -20,6 +21,7 @@ export const addRawMsgApi = async (msgPayload: {
         user: {
           ethAddress: string | null;
           discordId: string;
+          discordAvatar: string | null;
         };
       };
     }>("http://localhost:3010/rawMsg/addRawMessage", msgPayload);
