@@ -43,6 +43,7 @@ export class MessageService {
         user: {
           select: {
             name: true,
+            discordAvatar: true,
           },
         },
       },
