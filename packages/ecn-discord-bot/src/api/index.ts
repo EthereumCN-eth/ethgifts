@@ -73,10 +73,12 @@ export const updateAddressApi = async ({
   ethAddress,
   discordId,
   discordName,
+  discordAvatar,
 }: {
   discordId: string;
   ethAddress: string;
   discordName: string;
+  discordAvatar: string | null;
 }) => {
   try {
     const results = await axios.post<{
@@ -87,6 +89,7 @@ export const updateAddressApi = async ({
       ethAddress,
       discordId,
       discordName,
+      discordAvatar,
     });
     console.log("res:", results.data);
     return {
