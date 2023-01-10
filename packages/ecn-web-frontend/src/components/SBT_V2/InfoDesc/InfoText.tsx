@@ -2,6 +2,7 @@ import { Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { useAccount, useNetwork } from "wagmi";
 
+import { fontSize } from "../styles";
 import { useReadClaimedLevel } from "@/hooks/useReadClaimedLevel";
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppSelector } from "@/state/reduxHooks";
@@ -93,7 +94,7 @@ export const InfoText = () => {
           font-family: "PingFang SC";
           font-style: normal;
           font-weight: 600;
-          font-size: ${responsive.respWStr(14)};
+          font-size: ${fontSize.res_xs};
           line-height: 180%;
           letter-spacing: 0.01em;
           color: #ffffff;
@@ -110,7 +111,7 @@ export const InfoText = () => {
         font-family: "PingFang SC";
         font-style: normal;
         font-weight: 600;
-        font-size: ${responsive.respWStr(14)};
+        font-size: ${fontSize.res_xs};
         line-height: 180%;
         letter-spacing: 0.01em;
         color: #ffffff;

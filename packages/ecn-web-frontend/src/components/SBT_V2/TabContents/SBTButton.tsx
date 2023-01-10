@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 import { ClaimModal } from "../ClaimModal2";
+import { fontSize } from "../styles";
 import { useReadClaimedSelectedLevel } from "@/hooks/useReadClaimedLevel";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
@@ -64,7 +65,7 @@ export const SBTButton = ({
           font-family: "PingFang SC";
           font-style: normal;
           font-weight: 500;
-          font-size: ${responsive.respWStr(14)};
+          font-size: ${fontSize.res_xs};
           line-height: ${responsive.respWStr(20)};
         `}
         h={responsive.respWStr(40)}
@@ -82,11 +83,12 @@ export const SBTButton = ({
         w="93.75%"
         bgColor={isDisabled ? "rgba(117, 117, 117, 1)" : "#EE862B"}
         color="white"
+        fontSize={fontSize.res_xs}
         css={css`
           font-family: "PingFang SC";
           font-style: normal;
           font-weight: 500;
-          font-size: ${responsive.respWStr(14)};
+          /* font-size: ${fontSize.res_xs}; */
           line-height: ${responsive.respWStr(20)};
         `}
         h={responsive.respWStr(40)}

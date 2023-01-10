@@ -1,6 +1,7 @@
 import { Box, TabPanel, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { fontSize } from "../styles";
 import { ChakraNextLink } from "@/components/ChakraNextLink";
 import { responsive } from "@/styles/utils";
 
@@ -14,7 +15,7 @@ const contentData = [
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 500;
-            font-size: ${responsive.respWStr(14)};
+            font-size: ${fontSize.res_xs};
             line-height: 180%;
             /* or 25px */
 
@@ -34,7 +35,7 @@ const contentData = [
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 500;
-            font-size: ${responsive.respWStr(14)};
+            font-size: ${fontSize.res_xs};
             line-height: 180%;
             /* or 25px */
 
@@ -76,7 +77,7 @@ const contentData = [
           font-family: "PingFang SC";
           font-style: normal;
           font-weight: 500;
-          font-size: ${responsive.respWStr(14)};
+          font-size: ${fontSize.res_xs};
           line-height: 180%;
           /* or 25px */
 
@@ -100,7 +101,7 @@ const contentData = [
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 500;
-            font-size: ${responsive.respWStr(14)};
+            font-size: ${fontSize.res_xs};
             line-height: 180%;
             /* or 25px */
 
@@ -119,7 +120,7 @@ const contentData = [
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 500;
-            font-size: ${responsive.respWStr(14)};
+            font-size: ${fontSize.res_xs};
             line-height: 180%;
             /* or 25px */
 
@@ -165,7 +166,7 @@ export const SBTRelatedDescriptionSection = () => {
                 font-family: "PingFang SC";
                 font-style: normal;
                 font-weight: 600;
-                font-size: ${responsive.respWStr(16)};
+                font-size: ${fontSize.res_sm};
                 line-height: 200%;
                 color: #ffffff;
 
