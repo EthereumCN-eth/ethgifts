@@ -2,6 +2,7 @@
 import { HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { fontSize } from "../styles";
 import { ChakraNextLink } from "@/components/ChakraNextLink";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
@@ -27,11 +28,12 @@ export const OneInfo = (icond: IconType) => {
       <HStack>
         <Image src={iconsrc} boxSize={responsive.respWStr(20)} />
         <Text
+          fontSize={fontSize.res_xs}
           css={css`
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 500;
-            font-size: ${responsive.respWStr(14)};
+            /* font-size: ${fontSize.res_xs}; */
             line-height: 180%;
             /* or 25px */
 
@@ -59,12 +61,13 @@ export const OneInfo = (icond: IconType) => {
           href={icond.link}
           textDecoration="underline"
         >
-          <span
+          <Text
+            fontSize={fontSize.res_md}
             css={css`
               font-family: "PingFang SC";
               font-style: normal;
               font-weight: 600;
-              font-size: ${responsive.respWStr(18)};
+              /* font-size: ${fontSize.res_md}; */
               line-height: ${responsive.respWStr(25)};
               text-decoration: underline;
 
@@ -72,16 +75,17 @@ export const OneInfo = (icond: IconType) => {
             `}
           >
             {content.str}
-          </span>
+          </Text>
         </ChakraNextLink>
       )}
       {isTextIcon(icond) && !icond.link && (
         <Text
+          fontSize={fontSize.res_md}
           css={css`
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 600;
-            font-size: ${responsive.respWStr(18)};
+            /* font-size: ${fontSize.res_md}; */
             line-height: ${responsive.respWStr(25)};
 
             color: #ffffff;

@@ -1,6 +1,7 @@
 import { Flex, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { fontSize } from "../styles";
 import { responsive } from "@/styles/utils";
 
 import { InfoSection } from "./InfoSection";
@@ -23,11 +24,12 @@ export const InfoDesc = () => {
         {/*  */}
         {/*  */}
         <Text
+          fontSize={fontSize.res_xl}
           css={css`
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 600;
-            font-size: ${responsive.respWStr(32)};
+            /* font-size: ${fontSize.res_xl}; */
             line-height: ${responsive.respWStr(45)};
             /* identical to box height */
 
@@ -37,11 +39,12 @@ export const InfoDesc = () => {
           E群誌系列SBT
         </Text>
         <Text
+          fontSize={fontSize.res_xs}
           css={css`
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 600;
-            font-size: ${responsive.respWStr(14)};
+            /* font-size: ${fontSize.res_xs}; */
             line-height: ${responsive.respWStr(45)};
             letter-spacing: 0.01em;
             color: #ffffff;

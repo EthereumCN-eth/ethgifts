@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { fontSize } from "../styles";
 import { responsive } from "@/styles/utils";
 
 import { SBTButton } from "./SBTButton";
@@ -56,7 +57,7 @@ export function SBTCard({
               font-family: "PingFang SC";
               font-style: normal;
               font-weight: 600;
-              font-size: ${responsive.respWStr(16)};
+              font-size: ${fontSize.res_sm};
               line-height: 200%;
               /* identical to box height, or 32px */
 

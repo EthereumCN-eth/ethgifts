@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useNetwork } from "wagmi";
 
+import { fontSize } from "../styles";
 import { selectors as globalSelectors } from "@/state/global";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
@@ -33,7 +34,8 @@ export const InfoButton = () => {
         {({ openConnectModal }) => {
           return (
             <Button
-              variant="assist"
+              variant="orangeBg"
+              // variant="assist"
               w={responsive.respWStr(140)}
               h={responsive.respWStr(40)}
               px={responsive.respWStr(42)}
@@ -42,9 +44,9 @@ export const InfoButton = () => {
                 font-family: "PingFang SC";
                 font-style: normal;
                 font-weight: 500;
-                font-size: ${responsive.respWStr(14)};
+                font-size: ${fontSize.res_xs};
                 line-height: ${responsive.respWStr(20)};
-                color: #ee862b;
+                /* color: #ee862b; */
               `}
               onClick={openConnectModal}
             >
@@ -63,7 +65,8 @@ export const InfoButton = () => {
             .open("https://discord.com/invite/eJJRBqKd3d", "_blank")
             ?.focus();
         }}
-        variant="assist"
+        variant="orangeBg"
+        // variant="assist"
         w={responsive.respWStr(140)}
         h={responsive.respWStr(40)}
         px={responsive.respWStr(42)}
@@ -72,9 +75,9 @@ export const InfoButton = () => {
           font-family: "PingFang SC";
           font-style: normal;
           font-weight: 500;
-          font-size: ${responsive.respWStr(14)};
+          font-size: ${fontSize.res_xs};
           line-height: ${responsive.respWStr(20)};
-          color: #ee862b;
+          /* color: #ee862b; */
         `}
       >
         加入Discord
@@ -86,7 +89,8 @@ export const InfoButton = () => {
       onClick={() => {
         window.open("https://discord.com/invite/eJJRBqKd3d", "_blank")?.focus();
       }}
-      variant="assist"
+      // variant="assist"
+      variant="orangeBg"
       w={responsive.respWStr(140)}
       h={responsive.respWStr(40)}
       px={responsive.respWStr(42)}
@@ -95,9 +99,9 @@ export const InfoButton = () => {
         font-family: "PingFang SC";
         font-style: normal;
         font-weight: 500;
-        font-size: ${responsive.respWStr(14)};
+        font-size: ${fontSize.res_xs};
         line-height: ${responsive.respWStr(20)};
-        color: #ee862b;
+        /* color: #ee862b; */
       `}
     >
       分享 Express

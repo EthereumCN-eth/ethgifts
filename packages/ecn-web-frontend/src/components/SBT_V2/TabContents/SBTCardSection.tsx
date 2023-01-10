@@ -1,6 +1,7 @@
 import { Flex, TabPanel, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { fontSize } from "../styles";
 import { responsive } from "@/styles/utils";
 
 import { SBTCards } from "./SBTCards";
@@ -38,7 +39,7 @@ export const SBTCardSection = () => {
                 font-family: "PingFang SC";
                 font-style: normal;
                 font-weight: 600;
-                font-size: ${responsive.respWStr(16)};
+                font-size: ${fontSize.res_sm};
                 line-height: 200%;
                 color: white;
                 margin-bottom: ${responsive.respWStr(25)};
@@ -58,7 +59,7 @@ export const SBTCardSection = () => {
                     font-family: "PingFang SC";
                     font-style: normal;
                     font-weight: 400;
-                    font-size: ${responsive.respWStr(14)};
+                    font-size: ${fontSize.res_xs};
                     line-height: 200%;
                     color: white;
                     margin-bottom: ${responsive.respWStr(25)};

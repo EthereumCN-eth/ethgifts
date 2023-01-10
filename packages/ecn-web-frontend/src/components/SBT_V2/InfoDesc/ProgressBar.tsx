@@ -2,6 +2,7 @@ import { Box, Center, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { BsCheck, BsDot } from "react-icons/bs";
 
+import { fontSize } from "../styles";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
@@ -159,7 +160,7 @@ export const ProgressBar = () => {
                     <BsDot color="white" size={responsive.respWStr(25)} />
                   ))}
                 {ind !== 0 && (
-                  <Text color="white" fontSize={responsive.respWStr(11)}>{`Lv${
+                  <Text color="white" fontSize={fontSize.res_11}>{`Lv${
                     ind + 1
                   }`}</Text>
                 )}

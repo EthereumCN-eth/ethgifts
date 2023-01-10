@@ -1,6 +1,7 @@
 import { Tab, TabList } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
+import { fontSize } from "../styles";
 import { responsive } from "@/styles/utils";
 
 const tabLabels = [
@@ -38,7 +39,7 @@ export const TabLabels = () => {
                 font-family: "PingFang SC";
                 font-style: normal;
                 font-weight: 600;
-                font-size: ${responsive.respWStr(20)};
+                font-size: ${fontSize.res_l};
                 line-height: ${responsive.respWStr(28)};
                 /* identical to box height */
 
