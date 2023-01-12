@@ -11,6 +11,7 @@ import {
   isBefore,
   sub,
   isAfter,
+  closestTo,
 } from 'date-fns';
 @Injectable()
 export class MessageService {
@@ -29,7 +30,7 @@ export class MessageService {
     });
     const { _max, _min } = minmaxDate;
     const currentDate = _max?.verifiedAt
-      ? max([min([_max.verifiedAt, new Date()]), _min.verifiedAt])
+      ? max([min([_max.verifiedAt, new Date(datestring)]), _min.verifiedAt])
       : new Date(datestring);
 
     const messagesOfMonth = await this.prisma.expressMessage.findMany({
@@ -70,7 +71,10 @@ export class MessageService {
       navInfo: {
         maxDate,
         minDate,
-        currentDate,
+        currentDate: closestTo(
+          new Date(),
+          messagesOfMonth.map((m) => m.verifiedAt),
+        ),
         nextMonthDate,
         previousMonthDate,
       },
