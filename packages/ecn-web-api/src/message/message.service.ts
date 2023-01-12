@@ -29,7 +29,7 @@ export class MessageService {
     });
     const { _max, _min } = minmaxDate;
     const currentDate = _max?.verifiedAt
-      ? max([min([_max.verifiedAt, new Date(datestring)]), _min.verifiedAt])
+      ? max([min([_max.verifiedAt, new Date()]), _min.verifiedAt])
       : new Date(datestring);
 
     const messagesOfMonth = await this.prisma.expressMessage.findMany({
