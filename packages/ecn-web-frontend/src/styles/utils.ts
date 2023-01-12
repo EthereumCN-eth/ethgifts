@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const respW = (w: number) => {
   return (w / 1920) * (typeof window !== "undefined" ? window.innerWidth : 0);
 };
@@ -14,3 +16,21 @@ const responsive = {
   respHStr,
 };
 export { responsive };
+
+export const useRespWindow = () => {
+  const [fns, setFns] = useState({
+    ...responsive,
+  });
+
+  useEffect(() => {
+    const cb = () => {
+      setFns({
+        ...responsive,
+      });
+    };
+    window.addEventListener("resize", cb);
+    return () => window.removeEventListener("resize", cb);
+  }, []);
+
+  return fns;
+};

@@ -1,5 +1,6 @@
 import { Box, Center, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
+import { Fragment } from "react";
 import { BsCheck, BsDot } from "react-icons/bs";
 
 import { fontSize } from "../styles";
@@ -88,7 +89,7 @@ export const ProgressBar = () => {
         pl={responsive.respWStr(2)}
         // opacity={filledLength ? 1 : 0}
         w={responsive.respWStr(670)}
-        h={responsive.respWStr(12)}
+        h={responsive.respWStr(10.5)}
         zIndex={10}
       />
 
@@ -115,10 +116,10 @@ export const ProgressBar = () => {
         const leftOffset = ind === 0 ? 0 : percent;
         const lightenup = currentCount / total >= percent;
         return (
-          <>
+          <Fragment key={percent}>
             {/*  the outer circle */}
             <Box
-              key={percent}
+              // key={percent}
               position="absolute"
               transform={transformStr}
               boxShadow="inset 0px 2px 3px rgba(0, 0, 0, 0.25)"
@@ -133,7 +134,7 @@ export const ProgressBar = () => {
             />
             {/* the inner circle */}
             <Center
-              key={percent}
+              // key={percent}
               position="absolute"
               transform={transformStr}
               left={`calc(${leftOffset * 100}%)`}
@@ -166,7 +167,7 @@ export const ProgressBar = () => {
                 )}
               </Center>
             </Center>
-          </>
+          </Fragment>
         );
       })}
     </Flex>
