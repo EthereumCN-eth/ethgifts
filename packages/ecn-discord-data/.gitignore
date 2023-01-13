@@ -24,4 +24,4 @@
 # End of https://www.toptal.com/developers/gitignore/api/yarn,dotenv
 
 # project file
-src/mdData
+# src/mdData

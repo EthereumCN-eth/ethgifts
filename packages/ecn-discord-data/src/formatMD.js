@@ -35,6 +35,7 @@ const formatMDWithFakedUser = () => {
     const contentArray =  output.body['children'][4]['children'];
     for(let i = 1; i < contentArray.length; i++ ) {
       if(i % 2 === 0 ) continue
+      console.log(contentArray[i]['children'])
       const contents = contentArray[i]['children'];
       
       const content = contents[0].toString().trim();
