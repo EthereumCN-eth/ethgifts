@@ -91,7 +91,7 @@ export class MessageService {
           new Date(),
           messagesOfMonth.map((m) => m.verifiedAt),
         ),
-        nextMonthDate: lateDayOfPre,
+        nextMonthDate: firstDayOfNext,
         previousMonthDate: lateDayOfPre,
       },
 
