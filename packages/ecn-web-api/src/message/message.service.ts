@@ -74,6 +74,12 @@ export class MessageService {
         .map((s) => new Date(s))
         .filter((d) => isSameMonth(endOfMonth(nextMonth), d)),
     );
+    const currentDateOfThisMonth = closestTo(
+      new Date(),
+      datesOfMsgs
+        .map((s) => new Date(s))
+        .filter((d) => isSameMonth(currentDate, d)),
+    );
 
     const maxDate = _max?.verifiedAt;
     const minDate = _min?.verifiedAt;
@@ -87,10 +93,7 @@ export class MessageService {
       navInfo: {
         maxDate,
         minDate,
-        currentDate: closestTo(
-          new Date(),
-          messagesOfMonth.map((m) => m.verifiedAt),
-        ),
+        currentDate: currentDateOfThisMonth,
         nextMonthDate: firstDayOfNext,
         previousMonthDate: lateDayOfPre,
       },
