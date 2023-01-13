@@ -16,12 +16,14 @@ const throwInvalidateException = () => {
 };
 
 @Injectable()
-export class IsValidDateStringPipe implements PipeTransform<any, string> {
+export class IsValidDateStringPipe
+  implements PipeTransform<any, string | undefined>
+{
   transform(value: any): string {
     // console.log('value', value);
     if (typeof value === 'undefined') {
       // console.log('value', value);
-      return format(new Date(), 'yyyy-MM');
+      return value;
     }
     const isString = typeof value === 'string';
     if (!isString) {

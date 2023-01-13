@@ -18,7 +18,15 @@ import {
 @Injectable()
 export class MessageService {
   constructor(private prisma: PrismaService) {}
-  async findMessagesByDate({ datestring }: { datestring: string }) {
+  async findMessagesByDate({
+    datestring,
+    fromDateString,
+    toDateString,
+  }: {
+    datestring: string;
+    fromDateString?: string | undefined;
+    toDateString?: string | undefined;
+  }) {
     const minmaxDate = await this.prisma.expressMessage.aggregate({
       _max: {
         verifiedAt: true,
@@ -35,13 +43,17 @@ export class MessageService {
       ? max([min([_max.verifiedAt, new Date(datestring)]), _min.verifiedAt])
       : new Date(datestring);
 
-    const nextMonth = add(currentDate, {
-      months: 1,
-    });
+    const nextMonth = fromDateString
+      ? new Date(fromDateString)
+      : add(currentDate, {
+          months: 1,
+        });
     // );
-    const previousMonth = sub(currentDate, {
-      months: 1,
-    });
+    const previousMonth = toDateString
+      ? new Date(toDateString)
+      : sub(currentDate, {
+          months: 1,
+        });
     const messagesOfMonth = await this.prisma.expressMessage.findMany({
       where: {
         verifiedAt: {
