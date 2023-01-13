@@ -5,7 +5,7 @@ import '@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol';
-import './interfaces/IExpressSBT.sol';
+import '../interfaces/IExpressSBT.sol';
 
 contract ExpressSBT is
     EIP712,
