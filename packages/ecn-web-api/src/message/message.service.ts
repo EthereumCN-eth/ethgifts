@@ -43,17 +43,16 @@ export class MessageService {
       ? max([min([_max.verifiedAt, new Date(datestring)]), _min.verifiedAt])
       : new Date(datestring);
 
-    const nextMonth = toDateString
-      ? new Date(toDateString)
-      : add(currentDate, {
-          months: 1,
-        });
+    const nextMonth = add(toDateString ? new Date(toDateString) : currentDate, {
+      months: 1,
+    });
     // );
-    const previousMonth = fromDateString
-      ? new Date(fromDateString)
-      : sub(currentDate, {
-          months: 1,
-        });
+    const previousMonth = sub(
+      fromDateString ? new Date(fromDateString) : currentDate,
+      {
+        months: 1,
+      },
+    );
     const messagesOfMonth = await this.prisma.expressMessage.findMany({
       where: {
         verifiedAt: {
