@@ -8,11 +8,14 @@ import {
   RawExpressMessage,
   User,
   ExpressMessage,
+  urlType,
 } from "@prisma/client";
 import { validateRawMsg } from "./DTORawMsg";
-import { addToSignatureGenerationQueue } from "../generateSign";
+import { addToSignatureGenerationQueue } from "../utils/generateSign";
 // import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
-import { DB_CONTRACT_TYPE_ID } from "../generateSign/constants";
+import { DB_CONTRACT_TYPE_ID } from "../utils/generateSign/constants";
+import { MetaData } from "../utils/getUrlMetaData/getMetaData";
+import { verifyMediaUrl } from "../utils/getUrlMetaData/utils";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -100,6 +103,7 @@ export const setupAddMessageRoute = (
     //     id: msgId,
     //   },
     // });
+
     try {
       //@ts-ignore
       const createdExpress = await prisma.$transaction(
@@ -165,6 +169,44 @@ export const setupAddMessageRoute = (
         } else {
           new Error("sbt contract type id not set");
         }
+      }
+
+      try {
+        const meta = new MetaData(url);
+
+        const mediaUrlOrNot = verifyMediaUrl(url);
+
+        if (mediaUrlOrNot) {
+        } else {
+          const metaOgData = await meta.getOgData();
+
+          if (metaOgData != undefined) {
+            await prisma.metaData.create({
+              data: {
+                messageId: msgId,
+                urlType:
+                  metaOgData.urlType == urlType.ogData
+                    ? urlType.ogData
+                    : urlType.onlyMeta,
+                title: metaOgData.title,
+                description: metaOgData.description,
+                imageUrl: metaOgData.image,
+                site: metaOgData.site,
+                videoUrl: metaOgData.videoUrl,
+              },
+            });
+          } else {
+            await prisma.metaData.create({
+              data: {
+                messageId: msgId,
+                urlType: urlType.noMeta,
+              },
+            });
+          }
+        }
+      } catch (error) {
+        console.log(error);
+        return res.status(200).send({ success: false, data: null });
       }
 
       //

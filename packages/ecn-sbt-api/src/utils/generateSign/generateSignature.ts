@@ -1,5 +1,5 @@
-import { signTicketAndVC } from "./../../../ecn-eip712vc/src/index";
-import { prisma } from "../server";
+import { signTicketAndVC } from "../../../../ecn-eip712vc/src/index";
+import { prisma } from "../../server";
 import { storeMetaData } from "./generateMetaData";
 import * as config from "./config";
 // import { signTicket } from "ecn-eip712vc";
