@@ -19,4 +19,5 @@ export const fontSize = {
   res_xxs: responsive.respWStr(14),
   res_11: responsive.respWStr(13),
   //   l: "32",
+  res_edit: responsive.respWStr(24),
 };

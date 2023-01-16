@@ -1,5 +1,6 @@
-import { Box, TabPanel, Text } from "@chakra-ui/react";
+import { Box, HStack, TabPanel, Text } from "@chakra-ui/react";
 import { css } from "@emotion/react";
+import { MdModeEditOutline } from "react-icons/md";
 
 import { fontSize } from "../styles";
 import { ChakraNextLink } from "@/components/ChakraNextLink";
@@ -161,21 +162,24 @@ export const SBTRelatedDescriptionSection = () => {
       {contentData.map((obj) => {
         return (
           <Box key={obj.title} mb={responsive.respWStr(56)}>
-            <Text
-              css={css`
-                font-family: "PingFang SC";
-                font-style: normal;
-                font-weight: 600;
-                font-size: ${fontSize.res_sm};
-                line-height: 200%;
-                color: #ffffff;
+            <HStack>
+              <MdModeEditOutline color="white" size={fontSize.res_edit} />
+              <Text
+                css={css`
+                  font-family: "PingFang SC";
+                  font-style: normal;
+                  font-weight: 600;
+                  font-size: ${fontSize.res_sm};
+                  line-height: 200%;
+                  color: #ffffff;
 
-                letter-spacing: 0.02em;
-                margin-bottom: ${responsive.respWStr(16)};
-              `}
-            >
-              {obj.title}
-            </Text>
+                  letter-spacing: 0.02em;
+                  margin-bottom: ${responsive.respWStr(16)};
+                `}
+              >
+                {obj.title}
+              </Text>
+            </HStack>
             <obj.contentHTML />
           </Box>
         );

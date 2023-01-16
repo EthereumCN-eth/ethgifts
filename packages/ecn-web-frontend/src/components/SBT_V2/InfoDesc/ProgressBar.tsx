@@ -161,9 +161,10 @@ export const ProgressBar = () => {
                     <BsDot color="white" size={responsive.respWStr(25)} />
                   ))}
                 {ind !== 0 && (
-                  <Text color="white" fontSize={fontSize.res_11}>{`Lv${
-                    ind + 1
-                  }`}</Text>
+                  <Text
+                    color="white"
+                    fontSize={fontSize.res_11}
+                  >{`Lv${ind}`}</Text>
                 )}
               </Center>
             </Center>

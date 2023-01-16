@@ -93,7 +93,7 @@ export const SBTButton = ({
         `}
         h={responsive.respWStr(40)}
       >
-        {isClaimed && "已申领"}
+        {isClaimed && "查看 SBT"}
         {!isClaimed && !qualified && "未有资格申领"}
         {!isClaimed && qualified && "申领 SBT"}
       </Button>
