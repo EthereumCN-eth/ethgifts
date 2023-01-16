@@ -67,6 +67,7 @@ export class MessageService {
             discordAvatar: true,
           },
         },
+        metaData: true,
       },
       orderBy: {
         verifiedAt: 'asc',

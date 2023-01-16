@@ -39,6 +39,29 @@ model ExpressMessage {
 
   // sBTSignatureRecordId String?
   SignaturePayload SignaturePayload?
+
+  metaData MetaData?
+}
+
+enum urlType {
+  twitter
+  video
+  ogData
+  onlyMeta
+  noMeta
+}
+
+model MetaData {
+  messageId      String         @id
+  expressMessage ExpressMessage @relation(fields: [messageId], references: [id])
+
+  urlType     urlType @default(twitter)
+  title       String?
+  description String?
+  imageUrl    String?
+  site        String?
+  videoUrl    String?
+  twitterId   String?
 }
 
 model User {

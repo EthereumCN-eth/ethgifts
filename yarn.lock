@@ -5701,6 +5701,13 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.3.3.tgz#3c90752792660c4b562ad73b3fbd68bf3bc7ae07"
   integrity sha512-hC7OMnszpxhZPduX+m+nrx+uFoLkWOMiR4oa/AZF3MuSETYTZmFfJAHqZEM8MVlvfG7BEUcgvtwoCTxBp6hm3g==
 
+"@types/cheerio@^0.22.31":
+  version "0.22.31"
+  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.31.tgz#b8538100653d6bb1b08a1e46dec75b4f2a5d5eb6"
+  integrity sha512-Kt7Cdjjdi2XWSfrZ53v4Of0wG3ZcmaegFXjMmz9tfNrZSkzzo36G0AL1YqSdcIA78Etjt6E609pt5h1xnQkPUw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/concat-stream@^1.6.0":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@types/concat-stream/-/concat-stream-1.6.1.tgz#24bcfc101ecf68e886aaedce60dfd74b632a1b74"
@@ -11140,7 +11147,7 @@ ecdsa-sig-formatter@1.0.11:
   dependencies:
     safe-buffer "^5.0.1"
 
-"ecn-eip712vc@link:./packages/ecn-eip712vc":
+"ecn-eip712vc@file:./packages/ecn-eip712vc":
   version "0.1.0"
   dependencies:
     "@metamask/eth-sig-util" "^4.0.1"
@@ -11149,7 +11156,7 @@ ecdsa-sig-formatter@1.0.11:
     ethers "^5.6.9"
     uuid "^8.3.2"
 
-"ecn-prisma@link:./packages/ecn-prisma":
+"ecn-prisma@file:./packages/ecn-prisma", "ecn-prisma@link:./packages/ecn-prisma":
   version "1.0.0"
   dependencies:
     "@prisma/client" "^4.2.1"
@@ -11167,8 +11174,8 @@ ecdsa-sig-formatter@1.0.11:
     arweave "^1.11.4"
     bull "^4.8.5"
     dotenv "^16.0.1"
-    ecn-eip712vc "link:./packages/ecn-eip712vc"
-    ecn-prisma "link:./packages/ecn-prisma"
+    ecn-eip712vc "file:./packages/ecn-eip712vc"
+    ecn-prisma "file:./packages/ecn-prisma"
     express "4.18.1"
     hardhat "^2.10.1"
     morgan "^1.10.0"
@@ -21220,6 +21227,11 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-tweet-embed@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-tweet-embed/-/react-tweet-embed-2.0.0.tgz#bb8a94bd11bf38ce6c5d9f18f35bf044110a7f40"
+  integrity sha512-g2kfPjSRTOKeJtaQF5EMuSTmp/q8I0qdDs/pZ2qLXZjCWExDT/JgjxSlyM65NyNzsz8072PDpvlO/sIXwwVpdQ==
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
