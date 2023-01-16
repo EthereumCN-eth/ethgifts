@@ -25,6 +25,7 @@ export const VCDropAreaView = ({
   reset,
   artwork,
   levelIndex,
+  hintStatus,
 }: {
   setDropped: Dispatch<SetStateAction<boolean>>;
   dropped: boolean;
@@ -35,6 +36,7 @@ export const VCDropAreaView = ({
   reset?: (() => void) | undefined;
   artwork: string;
   levelIndex: number;
+  hintStatus: "process" | "success" | "fail" | "null";
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isOver }, dropRef] = useDrop(
@@ -187,6 +189,7 @@ export const VCDropAreaView = ({
             claimed={claimed}
             dropped={dropped}
             vcStr={vcStr}
+            hintStatus={hintStatus}
           />
         </Flex>
       )}

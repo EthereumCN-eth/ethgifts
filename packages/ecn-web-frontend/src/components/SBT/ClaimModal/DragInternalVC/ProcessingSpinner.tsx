@@ -28,6 +28,8 @@ export const ProcessingSpinner = ({
       }}
     >
       <AiOutlineReload
+        height={size || `${calcLen(responsive.respW(20))}px`}
+        width={size || `${calcLen(responsive.respW(20))}px`}
         size={size || `${calcLen(responsive.respW(20))}px`}
         color={color || "black"}
       />

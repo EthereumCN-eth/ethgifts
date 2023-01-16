@@ -1,10 +1,11 @@
-import { Center, keyframes, Text, VStack } from "@chakra-ui/react";
+import { Center, keyframes, VStack } from "@chakra-ui/react";
 
 // import { calcLen } from "../hooks/calcLen";
 import { StepLine } from "@/components/SBT/ClaimModal/DragInternalVC/StepLine";
 import { calcLen } from "@/components/SBT/ClaimModal/hooks/calcLen";
 import { responsive } from "@/styles/utils";
 
+import { ClaimHint } from "./ClaimHint";
 import { resLen } from "./resLen";
 import { useVCDropClaim } from "./useVCDropClaim";
 // import { useDropToClaim } from "../hooks/useDropToClaim";
@@ -31,6 +32,7 @@ export const VCProgressView = ({
   onProcess,
   onSuccess,
   reset,
+  hintStatus,
 }: {
   dropped: boolean;
   claimed: boolean;
@@ -39,6 +41,7 @@ export const VCProgressView = ({
   onProcess?: (() => void) | undefined;
   onSuccess?: (() => void) | undefined;
   reset?: (() => void) | undefined;
+  hintStatus: "process" | "success" | "fail" | "null";
 }) => {
   const { isSignRightStatus, isTxStatus, isVCRightStatus, isWriteStatus } =
     useVCDropClaim({ dropped, vcStr, onCancel, onProcess, reset, onSuccess });
@@ -59,11 +62,17 @@ export const VCProgressView = ({
       transform="translate(-50%, -50%)"
     >
       <Center flex={15} minH="20%">
-        <Text
+        {hintStatus === "fail" && <ClaimHint.Fail />}
+        {hintStatus === "process" && <ClaimHint.Processing />}
+        {hintStatus === "success" && <ClaimHint.Success />}
+        {hintStatus !== "success" && claimed && (
+          <ClaimHint.Success text="已申领" />
+        )}
+        {/* <Text
           color="black"
           fontWeight={500}
           fontSize={`${calcLen(responsive.respW(20))}px`}
-        >{`Claiming SBT `}</Text>
+        >{`Claiming SBT `}</Text> */}
       </Center>
       <VStack w="full" flex={85} justify="center">
         <StepLine text="验证 VC 签名" statusIcon={isVCRightStatus} />

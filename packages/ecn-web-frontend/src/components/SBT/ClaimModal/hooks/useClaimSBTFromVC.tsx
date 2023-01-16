@@ -128,10 +128,16 @@ export const useClaimSBTFromVCPure = ({
   useEffect(() => {
     if (isTxSuccess) {
       if (onSuccess) onSuccess();
+      // const t = setTimeout(() => {}, 2500);
+      // return () => {
+      //   clearTimeout(t);
+      // };
+
       // eslint-disable-next-line sonarjs/no-collapsible-if
     } else if (isTxLoading) {
       if (onProcess) onProcess();
     }
+    return () => {};
   }, [isTxLoading, isTxSuccess, onProcess, onSuccess, reset]);
 
   return {

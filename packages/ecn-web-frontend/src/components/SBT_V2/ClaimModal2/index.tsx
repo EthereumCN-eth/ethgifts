@@ -5,15 +5,16 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Text,
 } from "@chakra-ui/react";
 import { css } from "@emotion/react";
+import { useState } from "react";
 
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 import { responsive } from "@/styles/utils";
 
 import { ClaimPanel } from "./ClaimPanel";
+import { CongrasConfetti } from "./SizedConfetti";
 
 export const ClaimModal = ({
   isOpen,
@@ -30,6 +31,7 @@ export const ClaimModal = ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loaded, records, sbtLevel } = useAppSelector(sbtSelectors.selectAll);
+  const [claimed, setClaimed] = useState(isClaimed);
 
   return (
     <Modal
@@ -37,7 +39,6 @@ export const ClaimModal = ({
       // finalFocusRef={btnRef}
       isOpen={isOpen}
       // scrollBehavior="inside"
-
       closeOnOverlayClick={false}
     >
       <ModalOverlay
@@ -81,29 +82,17 @@ export const ClaimModal = ({
           borderRadius="15px"
         >
           <Flex pt={responsive.respHStr(75)} align="center" direction="column">
-            <Text
-              css={css`
-                font-family: "PingFang SC";
-                font-style: normal;
-                font-weight: 600;
-                font-size: ${responsive.respWStr(32)};
-                line-height: ${responsive.respWStr(45)};
-                /* identical to box height */
-
-                text-align: center;
-
-                /* 浅橙主题色 */
-
-                color: #ddd9d7;
-              `}
-            >
-              {" "}
-              使用等效VC铸造对应的SBT
-            </Text>
-            <ClaimPanel isClaimed={isClaimed} levelIndex={levelIndex} />
+            <ClaimPanel
+              claimed={claimed}
+              setClaimed={setClaimed}
+              isClaimed={isClaimed}
+              levelIndex={levelIndex}
+            />
           </Flex>
         </ModalBody>
       </ModalContent>
+
+      <CongrasConfetti claimed={claimed} initClaimed={isClaimed} />
     </Modal>
   );
 };
