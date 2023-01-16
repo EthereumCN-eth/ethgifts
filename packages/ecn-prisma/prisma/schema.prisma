@@ -44,7 +44,8 @@ model ExpressMessage {
 }
 
 enum urlType {
-  media
+  twitter
+  video
   ogData
   onlyMeta
   noMeta
@@ -54,13 +55,13 @@ model MetaData {
   messageId      String         @id
   expressMessage ExpressMessage @relation(fields: [messageId], references: [id])
 
-  urlType     urlType @default(media)
+  urlType     urlType @default(twitter)
   title       String?
   description String?
   imageUrl    String?
   site        String?
-  creator     String?
   videoUrl    String?
+  twitterId   String?
 }
 
 model User {
