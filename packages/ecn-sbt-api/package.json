@@ -8,7 +8,8 @@
     "start": "yarn build && pm2 start dist/ecn-sbt-api/src/index.js",
     "update_prisma": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
     "prisma-generate": "prisma generate --schema=./../ecn-prisma/prisma/schema.prisma",
-    "test": "jest"
+    "test": "jest",
+    "metaTest": "ts-node src/utils/getUrlMetaData/index.ts "
   },
   "dependencies": {
     "@bull-board/api": "^4.1.1",
@@ -40,6 +41,7 @@
     "jest-environment-node": "28.1.3",
     "prisma": "^4.2.1",
     "randomstring": "1.2.2",
+    "react-tweet-embed": "^2.0.0",
     "supertest": "6.2.4",
     "ts-jest": "28.0.5",
     "ts-node": "10.8.2",

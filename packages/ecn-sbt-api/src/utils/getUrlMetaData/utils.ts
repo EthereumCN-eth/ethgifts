@@ -1,14 +1,24 @@
 import { checkingMediaType } from "./config";
 
-export const verifyMediaUrl = (url: string): boolean => {
+export const verifyMediaUrl = (url: string) => {
   for (let i = 0; i < checkingMediaType.length; i++) {
     if (checkingMediaType[i] == "twitter") {
-      const site_domain = url.slice(1, 19);
-      if (site_domain == "https://twitter.com") {
+      if (url.includes("https://twitter.com")) {
         return true;
+      } else {
+        return false;
       }
     }
   }
+};
 
-  return false;
+export const getUrl = (videoJson: string) => {
+  const url = JSON.parse(JSON.stringify(videoJson)).url;
+  return url;
+};
+
+export const getTwitterStatusId = (twitterUrl: string) => {
+  const split_url = twitterUrl.split("/");
+
+  return split_url[split_url.length - 1];
 };

@@ -14,8 +14,7 @@ import { validateRawMsg } from "./DTORawMsg";
 import { addToSignatureGenerationQueue } from "../utils/generateSign";
 // import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
 import { DB_CONTRACT_TYPE_ID } from "../utils/generateSign/constants";
-import { MetaData } from "../utils/getUrlMetaData/getMetaData";
-import { verifyMediaUrl } from "../utils/getUrlMetaData/utils";
+import { getMetaData } from "../utils/getUrlMetaData";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -172,37 +171,21 @@ export const setupAddMessageRoute = (
       }
 
       try {
-        const meta = new MetaData(url);
+        const metaOgData = await getMetaData(url);
 
-        const mediaUrlOrNot = verifyMediaUrl(url);
-
-        if (mediaUrlOrNot) {
-        } else {
-          const metaOgData = await meta.getOgData();
-
-          if (metaOgData != undefined) {
-            await prisma.metaData.create({
-              data: {
-                messageId: msgId,
-                urlType:
-                  metaOgData.urlType == urlType.ogData
-                    ? urlType.ogData
-                    : urlType.onlyMeta,
-                title: metaOgData.title,
-                description: metaOgData.description,
-                imageUrl: metaOgData.image,
-                site: metaOgData.site,
-                videoUrl: metaOgData.videoUrl,
-              },
-            });
-          } else {
-            await prisma.metaData.create({
-              data: {
-                messageId: msgId,
-                urlType: urlType.noMeta,
-              },
-            });
-          }
+        if (metaOgData != undefined) {
+          await prisma.metaData.create({
+            data: {
+              messageId: msgId,
+              urlType: metaOgData.urlType,
+              title: metaOgData.title,
+              description: metaOgData.description,
+              imageUrl: metaOgData.imageUrl,
+              site: metaOgData.siteName,
+              videoUrl: metaOgData.videoUrl,
+              twitterId: metaOgData.twitterId,
+            },
+          });
         }
       } catch (error) {
         console.log(error);

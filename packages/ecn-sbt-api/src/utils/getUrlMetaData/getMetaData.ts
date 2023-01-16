@@ -4,6 +4,8 @@ import axios from "axios";
 import { urlType } from "@prisma/client";
 import fetch from "node-fetch";
 import cheerio from "cheerio";
+import { getUrl, getTwitterStatusId } from "./utils";
+import { UrlType } from "./types";
 
 export class MetaData {
   expressUrl: string;
@@ -15,46 +17,84 @@ export class MetaData {
   public async getOgData(): Promise<Meta | undefined> {
     const options = {
       url: this.expressUrl,
-      customMetaTags: [
-        {
-          multiple: true,
-          property: "site_name",
-          fieldName: "site",
-        },
-      ],
+      // customMetaTags: [
+      //   {
+      //     multiple: true,
+      //     property: "site_name",
+      //     fieldName: "site",
+      //   },
+      // ],
     };
+    try {
+      const ogData = await ogs(options);
+      const { error, result } = ogData;
 
-    const ogData = await ogs(options);
-    const { error, result } = ogData;
-
-    if (!error) {
+      if (!error && result.success) {
+        if (result.ogSiteName?.includes("YouTube")) {
+          return {
+            urlType: UrlType.video,
+            title: result.ogTitle || result.twitterTitle,
+            siteName: result.ogSiteName || result.twitterSite,
+            videoUrl:
+              result.ogVideo != undefined ? getUrl(result.ogVideo) : undefined,
+          };
+        }
+        const imageUrl = result.ogImage || result.twitterImage;
+        return {
+          urlType: UrlType.ogData,
+          title: result.ogTitle || result.twitterTitle,
+          description: result.ogDescription || result.twitterDescription,
+          imageUrl: imageUrl != undefined ? getUrl(imageUrl) : undefined,
+          siteName: result.ogSiteName || result.twitterSite,
+        };
+      } else {
+        throw new Error("invalid url");
+      }
+    } catch (error) {
+      console.log("fail to get og data, try to get meta tag data");
+      const metaFetch = await this.fetchPage();
       return {
-        urlType: urlType.ogData,
-        title: result.ogTitle,
-        description: result.ogDescription,
-        image: result.ogImageURL,
-        site: result.site,
-        videoUrl: result.ogType?.includes("video") ? result.ogVideo : undefined,
+        urlType: metaFetch.urlType,
+        title: metaFetch?.title,
+        description: metaFetch?.description,
       };
-    } else {
-      new Error("fail to get og data");
-      await this.fetchPage(this.expressUrl);
     }
   }
 
-  async fetchPage(url: string) {
-    fetch(url)
-      .then((res) => res.text())
-      .then((html) => {
-        const $ = cheerio.load(html);
-        const title = $("meta[property='title']")[0];
-        const description = $("meta[property='description']")[0];
-      });
+  async fetchPage() {
+    try {
+      const response = await fetch(this.expressUrl);
+      const $ = cheerio.load(await response.text());
 
-    if (!result.data) {
-      console.log(result.data);
-    } else {
-      new Error("invalid url");
+      const title =
+        $("title").text() ||
+        $("meta[name=title]").attr("content") ||
+        $("meta[name=title]").attr("content");
+      const description =
+        $("meta[name=description]").attr("content") ||
+        $("meta[name=og:description]").attr("content");
+
+      return {
+        urlType: UrlType.onlyMeta,
+        title: title,
+        description: description,
+      };
+    } catch (error) {
+      console.log(
+        `fail to get meta tag data, ${this.expressUrl} is an invalid url`
+      );
+      return {
+        urlType: UrlType.noMeta,
+      };
     }
+  }
+
+  public async getTwitter(): Promise<Meta | undefined> {
+    const twitterId = getTwitterStatusId(this.expressUrl);
+
+    return {
+      urlType: urlType.twitter,
+      twitterId: twitterId,
+    };
   }
 }

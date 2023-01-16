@@ -29,6 +29,9 @@ export const setupQueryRoute = (
         where: {
           id: msgId,
         },
+        include: {
+          metaData: true,
+        },
       });
       return res.status(200).send({ success: true, data: msg, error: null });
     } catch (error) {
