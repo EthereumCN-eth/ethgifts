@@ -14,11 +14,6 @@ const SizedConfetti = React.forwardRef<
 >((passedProps, ref) => {
   return (
     <ReactConfetti
-      style={{
-        flex: 1,
-        width: `${passedProps.width}px`,
-        height: `${passedProps.height}px`,
-      }}
       //   width={window.innerHeight}
       //   height={window.innerHeight}
       {...passedProps}
@@ -45,27 +40,42 @@ export const CongrasConfetti = ({
   //   console.log("claimed", claimed);
   //   console.log("initVal", initVal.current);
   //   console.log("party", party);
-  const mounted = useRef(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    mounted.current = true;
+    setTimeout(() => {
+      setMounted(true);
+    }, 2000);
   }, []);
   const { width, height } = useWindowSize();
   //   console.log("h", height, window.innerHeight);
   return (
     <Box
       zIndex={party ? 10000 : 0}
-      position="absolute"
+      position="fixed"
       display="flex"
       top={0}
       left={0}
-      w="full"
-      h="full"
+      bottom={0}
+      right={0}
+      w={`${width}px`}
+      h={`${height}px`}
+      //   sx={{}}
     >
-      {mounted.current && (
+      {mounted && (
         <SizedConfetti
           width={width}
           height={height}
-          style={{ pointerEvents: "none" }}
+          style={{
+            // flex: 1,
+            pointerEvents: "none",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: `100%`,
+            height: `100%`,
+          }}
           numberOfPieces={party ? 1000 : 0}
           recycle={false}
           onConfettiComplete={(confetti) => {

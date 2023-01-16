@@ -69,7 +69,7 @@ export const ClaimPanel = ({
   //   }, 3000);
 
   //   setHintStatus("success");
-  // }, []);
+  // }, [setClaimed]);
 
   // cleanup
   useEffect(() => {
