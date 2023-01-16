@@ -69,7 +69,12 @@ export function SBTCard({
             {itemTexts[ind]}
           </Text>
           {/* <AspectRatio maxW="full" ratio={1}> */}
-          <SquareImg artwork={artwork} itemTexts={itemTexts} ind={ind} />
+          <SquareImg
+            sbtLevelNumber={sbtLevelNumber}
+            artwork={artwork}
+            itemTexts={itemTexts}
+            ind={ind}
+          />
           <SBTButton qualified={qualified} sbtLevelNumber={sbtLevelNumber} />
         </Flex>
       </Box>
