@@ -20,5 +20,10 @@ export const getUrl = (videoJson: string) => {
 export const getTwitterStatusId = (twitterUrl: string) => {
   const split_url = twitterUrl.split("/");
 
-  return split_url[split_url.length - 1];
+  for (let i = 0; i < split_url.length; i++) {
+    if (split_url[i] == "status") {
+      return split_url[i + 1];
+    }
+  }
+  console.log("invalid tweet");
 };
