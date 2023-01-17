@@ -22,8 +22,10 @@ export const getTwitterStatusId = (twitterUrl: string) => {
 
   for (let i = 0; i < split_url.length; i++) {
     if (split_url[i] == "status") {
-      return split_url[i + 1];
+      const split_id = split_url[i + 1].split("?");
+      return split_id[0];
     }
   }
+
   console.log("invalid tweet");
 };
