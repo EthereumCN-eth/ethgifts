@@ -24,13 +24,13 @@ export const icondata: IconType[] = [
     },
   },
   {
-    type: "img",
+    type: "text",
     iconsrc: "/prooficon.svg",
     text: "证明类别",
     content: {
-      str: "/proofimg.svg",
-      w: 33,
-      h: 25,
+      str: "工作量证明",
+      // w: 33,
+      // h: 25,
     },
   },
   {
