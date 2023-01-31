@@ -68,9 +68,12 @@ export class RSSFeedService {
 
   buildRssItems(messages: Express[]) {
     const items = messages.map((msg) => {
-      const parseUrl = msg.link.includes('&')
-        ? msg.link.replace('&', '&amp;')
-        : msg.link;
+      const parseUrl = msg.link
+        .replace('&', '&amp;')
+        .replace('<', '&lt;')
+        .replace('>', '&gt;')
+        .replace('"', '&quot;')
+        .replace("'", '&apos;');
       return `
       <item>
           <title>${msg.description}</title>
