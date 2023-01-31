@@ -20,7 +20,7 @@ export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
   return (
     <GalleryItem
       isOwnIt={isclaimed}
-      linkTo={`/${typeName}/${id}/${1}`}
+      linkTo={`/${typeName}/${id}`}
       {...galleryItem}
     />
   );

@@ -75,6 +75,7 @@ export const ProgressBar = () => {
         w={responsive.respWStr(700)}
         // h={responsive.respWStr(12)}
         h={responsive.respHStr(21)}
+        borderRadius="8px"
         boxShadow="inset 0px 2px 3px rgba(0, 0, 0, 0.25)"
       >
         {/*  */}

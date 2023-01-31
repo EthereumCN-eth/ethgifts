@@ -1,4 +1,4 @@
-import { Flex, TabPanel, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, TabPanel, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { fontSize } from "../styles";
@@ -30,10 +30,12 @@ export const SBTCardSection = () => {
             border: 2px dashed #757575;
             border-radius: 16px;
           `}
+          direction="row"
+          justify="space-between"
         >
           {/*  */}
 
-          <VStack align="flex-start">
+          <VStack w="33.5%" align="flex-start">
             <Text
               css={css`
                 font-family: "PingFang SC";
@@ -70,6 +72,14 @@ export const SBTCardSection = () => {
               );
             })}
           </VStack>
+
+          <Box
+            w="63.5%"
+            h="full"
+            // bgColor="green"
+          >
+            {/*  */}
+          </Box>
 
           {/*  */}
         </Flex>
