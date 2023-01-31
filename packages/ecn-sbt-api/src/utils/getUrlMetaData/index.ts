@@ -26,7 +26,7 @@ export const getMetaData = async (url: string) => {
       ? await meta.getTwitter()
       : await meta.getOgData();
 
-    console.log(metadata);
+    // console.log(metadata);
     return metadata;
   } catch (error) {
     console.log(error);

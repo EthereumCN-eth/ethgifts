@@ -17,8 +17,17 @@ export const getUrl = (videoJson: string) => {
   return url;
 };
 
-export const getTwitterStatusId = (twitterUrl: string) => {
-  const split_url = twitterUrl.split("/");
+export const getTwitterStatusId = (url: string) => {
+  const single_url = url.split(",");
+
+  const twitterUrl =
+    single_url.length === 1
+      ? single_url[0]
+      : single_url.find((url) => {
+          url.includes("https://twitter.com");
+        });
+
+  const split_url = twitterUrl !== undefined ? twitterUrl.split("/") : "";
 
   for (let i = 0; i < split_url.length; i++) {
     if (split_url[i] == "status") {
