@@ -1,7 +1,7 @@
 import { Controller, Get, Query, DefaultValuePipe } from '@nestjs/common';
 import { RSSFeedService } from './rss.service';
 
-@Controller('RSS')
+@Controller('rss')
 export class RSSFeedControl {
   constructor(private readonly RssService: RSSFeedService) {}
 

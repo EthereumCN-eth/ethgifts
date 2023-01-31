@@ -11,7 +11,7 @@ import { GalleryModule } from './gallery/gallery.module';
 import { UserModule } from './user/user.module';
 import { SbtModule } from './sbt/sbt.module';
 import { MessageModule } from './message/message.module';
-import { RSSFeedModule } from './RSS/rss.module';
+import { RSSFeedModule } from './rss/rss.module';
 @Module({
   imports: [
     // LoggerModule.forRoot(),

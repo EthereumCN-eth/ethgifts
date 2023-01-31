@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 import { sub, max, min, endOfDay, startOfDay } from 'date-fns';
-import { ExpressMessage } from '@prisma/client';
+import { ExpressMessage, User } from '@prisma/client';
 
 @Injectable()
 export class RSSFeedService {
@@ -27,38 +27,54 @@ export class RSSFeedService {
         ])
       : new Date();
 
-    let message: ExpressMessage[] = [];
+    let message: (ExpressMessage & {
+      user: {
+        name: string;
+      };
+    })[] = [];
     let lastDay: Date = currentDate;
-    while (message.length === 0) {
+    do {
       lastDay = sub(lastDay, { days: 1 });
-      message = await this.findDayMessage(lastDay);
-    }
-    return message;
-  }
-
-  async findDayMessage(day: Date): Promise<ExpressMessage[]> {
-    return await this.prisma.expressMessage.findMany({
-      where: {
-        verifiedAt: {
-          lte: endOfDay(day),
-          gte: startOfDay(day),
+      message = await this.prisma.expressMessage.findMany({
+        where: {
+          verifiedAt: {
+            lte: endOfDay(lastDay),
+            gte: startOfDay(lastDay),
+          },
         },
-      },
-      orderBy: {
-        verifiedAt: 'asc',
-      },
+        include: {
+          user: {
+            select: {
+              name: true,
+            },
+          },
+        },
+        orderBy: {
+          verifiedAt: 'asc',
+        },
+      });
+    } while (message.length === 0);
+
+    const express: Express[] = message.map((ex) => {
+      return {
+        description: ex.expressMessage,
+        link: ex.expressUrl,
+        userName: ex.user.name,
+        verifiedAt: ex.verifiedAt,
+      };
     });
+    return express;
   }
 
-  buildRssItems(messages: ExpressMessage[]) {
+  buildRssItems(messages: Express[]) {
     return messages
       .map((msg) => {
         return `
           <item>
-          <title>${msg.expressMessage}</title>
-          <description>${msg.expressMessage}</description>
-          <author>whitep4nth3r@gmail.com (whitep4nth3r)</author>
-          <link>https://thingoftheday.xyz#${msg.expressUrl}</link>
+          <title>${msg.description}</title>
+          <description>${msg.description}</description>
+          <link>${msg.link}</link>
+          <author>${msg.userName}</author>
           <pubDate>${msg.verifiedAt}</pubDate>
           </item>
           `;
@@ -84,3 +100,10 @@ export class RSSFeedService {
     };
   }
 }
+
+type Express = {
+  description: string;
+  link: string;
+  userName: string;
+  verifiedAt: Date;
+};
