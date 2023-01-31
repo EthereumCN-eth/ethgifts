@@ -1,28 +1,22 @@
-import { Controller, Get, Query, DefaultValuePipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  DefaultValuePipe,
+  Res,
+  Body,
+} from '@nestjs/common';
 import { RSSFeedService } from './rss.service';
 
 @Controller('rss')
 export class RSSFeedControl {
   constructor(private readonly RssService: RSSFeedService) {}
 
-  // @Post()
-  // create(@Body() createMessageDto: CreateMessageDto) {
-  //   return this.messageService.create(createMessageDto);
-  // }
   @Get()
-  async RSSFeed() {
-    try {
-      const RSSFeed = await this.RssService.RSSFeed();
-      return {
-        success: true,
-        RSSFeed,
-      };
-    } catch (e) {
-      console.log(e);
-      return {
-        success: false,
-        items: null,
-      };
-    }
+  async xmlResponse(@Res() res) {
+    const RSSFeed = await this.RssService.RSSFeed();
+
+    res.set('Content-Type', 'text/xml');
+    res.send(RSSFeed);
   }
 }
