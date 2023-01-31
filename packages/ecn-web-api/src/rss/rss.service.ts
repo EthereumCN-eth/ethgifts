@@ -67,37 +67,38 @@ export class RSSFeedService {
   }
 
   buildRssItems(messages: Express[]) {
-    return messages
-      .map((msg) => {
-        return `
-          <item>
+    const items = messages.map((msg) => {
+      const parseUrl = msg.link.includes('&')
+        ? msg.link.replace('&', '&amp;')
+        : msg.link;
+      return `
+      <item>
           <title>${msg.description}</title>
-          <description>${msg.description}</description>
-          <link>${msg.link}</link>
+          <link>${parseUrl}</link>
           <author>${msg.userName}</author>
           <pubDate>${msg.verifiedAt}</pubDate>
-          </item>
-          `;
-      })
-      .join('');
+      </item>`;
+    });
+    // return items;
+    return items.reduce((acc, item): string => {
+      return acc + item;
+    });
   }
 
   async RSSFeed() {
-    const rssFeed = `<?xml version="1.0"?>
-    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
     <channel>
       <title>ECN Express</title>
       <link>https://www.ethereum.cn/</link>
       <description>E 群誌是 ECN 推出的一个社区协作编辑企划，鼓励社区成员把自己看到的最新、重要、有趣的以太坊相关信息在 ECN discord 分享和讨论，ECN 把当天的消息汇总于此。</description>
+      <items>
       ${this.buildRssItems(await this.queryLastDayRSS())}
+      </items>
     </channel>
     </rss>`;
 
-    return {
-      statusCode: 200,
-      contentType: 'text/xml',
-      body: rssFeed,
-    };
+    return rssFeed;
   }
 }
 
