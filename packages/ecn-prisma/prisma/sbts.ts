@@ -15,10 +15,10 @@ export const sbts: SBTCreateData[] = [
         coverLink:
           "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
         chainId: 5,
-        name: "E群志 SBT",
+        name: "E群誌 SBT 系列",
         onShelf: true,
         galleryItemType: "sbt",
-        itemText: ["E群志 SBT Lv 1", "E群志 SBT Lv 2", "E群志 SBT Lv 3"],
+        itemText: ["E群誌 SBT Lv1", "E群誌 SBT Lv2", "E群誌 SBT Lv3"],
         imageLinks: [
           // "https://mirror-media.imgix.net/publication-images/cDosw4qHdNtOPrVxYn5CK.jpg?h=540&w=540",
           "https://foundation.app/images/drops/collection-01-02@2x.png",
