@@ -56,8 +56,11 @@ export const SBT_V2 = () => {
       w="100%"
       px={responsive.respWStr(322)}
       direction="column"
-      bg="rgba(0, 0, 0, 0.8)"
+      bg="rgba(0, 0, 0, 0.9)"
       // bg="rgba(12, 6, 1, 0.82)"
+      // css={css`
+      //   backdrop-filter: blur(150px);
+      // `}
       pt={responsive.respWStr(80)}
     >
       {/*  */}
@@ -73,7 +76,7 @@ export const SBT_V2 = () => {
         {isLargerThan500 && <InfoIcons />}
       </Flex>
       <Box h={responsive.respWStr(82)} />
-      <Box minH={responsive.respWStr(1149)} w="full">
+      <Box minH={responsive.respWStr(1149)} w="full" pb="90px">
         <Tabs defaultIndex={0} h="full" w="full" variant="unstyled">
           <TabLabels />
           <TabContents />

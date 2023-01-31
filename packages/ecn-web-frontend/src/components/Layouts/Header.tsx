@@ -22,7 +22,7 @@ const navItems = [
   // { label: "我的文档", href: "#" },
 ];
 
-const Header = () => {
+const Header = ({ headerBgColor }: { headerBgColor?: string }) => {
   const { basebgColor, textColor } = useHeaderStore(
     (state) => state.headerValues
   );
@@ -35,7 +35,7 @@ const Header = () => {
       alignItems="center"
       width="full"
       h="120px"
-      bgColor={basebgColor}
+      bgColor={headerBgColor || basebgColor}
 
       // css={css`
       //   width: 100%;

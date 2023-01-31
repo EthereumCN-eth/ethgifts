@@ -3,7 +3,10 @@ import { SBT_V2 } from "@/components/SBT_V2";
 
 const SBTPage = () => {
   return (
-    <Layout headerProps={{ colorTheme: "black" }}>
+    <Layout
+      headerBgColor="rgba(0, 0, 0, 0.9)"
+      headerProps={{ colorTheme: "black" }}
+    >
       <SBT_V2 />
     </Layout>
   );

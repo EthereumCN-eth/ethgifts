@@ -10,7 +10,7 @@ export const TabContents = () => {
   return (
     <TabPanels
       w="full"
-      minH={responsive.respWStr(666)}
+      minH={responsive.respWStr(666 - 40 - 90)}
       css={css`
         background: rgba(255, 255, 255, 0.1);
         border-radius: 0px 0px 16px 16px;

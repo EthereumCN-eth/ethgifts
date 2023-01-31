@@ -154,10 +154,10 @@ export const SBTRelatedDescriptionSection = () => {
   return (
     <TabPanel
       w="full"
-      pt={responsive.respWStr(52)}
-      pb={responsive.respWStr(63)}
+      pt={responsive.respWStr(52 - 20)}
+      pb={responsive.respWStr(63 - 20)}
       px={responsive.respWStr(74)}
-      minH={responsive.respWStr(666)}
+      minH={responsive.respWStr(666 - 40 - 90)}
     >
       {contentData.map((obj) => {
         return (
