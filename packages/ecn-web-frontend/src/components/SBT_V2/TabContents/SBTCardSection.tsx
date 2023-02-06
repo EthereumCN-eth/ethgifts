@@ -76,8 +76,30 @@ export const SBTCardSection = () => {
           <Box
             w="63.5%"
             h="full"
+            css={css`
+              position: relative;
+              /* 16:9 */
+              /* padding-bottom: calc(56.25% * 0.75); */
+              /* width: 75%; */
+              /* height: 0; */
+              & iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+              }
+            `}
             // bgColor="green"
           >
+            <iframe
+              src="https://www.youtube.com/embed/dkT3ziEpgPc"
+              // frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              // css={css``}
+              title="video"
+            />
             {/*  */}
           </Box>
 
