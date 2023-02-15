@@ -55,7 +55,7 @@ export const modifiedVerifyExpressModal = ({
     .addComponents(
       new TextInputComponent() // We create a Text Input Component
         .setCustomId("verify-express-select")
-        .setLabel(`options: ${express_modal_options} (lowercase)`)
+        .setLabel(`options: (lowercase)`)
         .setStyle("LONG") //IMPORTANT: Text Input Component Style can be 'SHORT' or 'LONG'
         .setDefaultValue(url)
         .setPlaceholder(express_modal_options)
