@@ -17,7 +17,7 @@ import {
 import { findRawMsg } from "../../api";
 import { client } from "../../client";
 import { createBtn } from "../../comps/createBtn";
-import { express_modal_options } from "../../trans";
+import { express_modal_options, express_modal_options_array, express_modal_options_lowercase_array } from "../../trans";
 
 // const modal: Modal | null = null;
 export const modifiedVerifyExpressModal = ({
@@ -135,7 +135,17 @@ export const modifiedVerifyBtn = () => {
       //@ts-ignore
       const url = modal.getTextInputValue("verify-express-msg-url");
       //@ts-ignore
-      const contentType = modal.getTextInputValue("verify-express-select");
+      const rawContentType = modal.getTextInputValue("verify-express-select");
+      let contentType = ''
+
+      if(rawContentType) {
+        const ind =express_modal_options_lowercase_array.findIndex(v => v ===(rawContentType as string).toLowerCase())
+        if( ind !== -1) {
+          contentType = express_modal_options_array[ind]
+        } else {
+          contentType = rawContentType
+        }
+      }
       // const topics = modal.getSelectMenuValues("verify-express-select");
       // const [contentType] = topics;
       if (msgId && discordId) {

@@ -50,4 +50,6 @@ export const trans = {
   },
 };
 
-export const express_modal_options = "defi, eth2";
+export const express_modal_options = `Mainnet、Layer2、Staking、MEV、Cryptography、Tool&Tech、DeFi、NFT、SocioFi、Ecosystem`;
+export const express_modal_options_array = express_modal_options.split(`、`)
+export const express_modal_options_lowercase_array = express_modal_options_array.map(name => name.toLowerCase()) 

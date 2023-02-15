@@ -43,15 +43,25 @@ const createOneContentTypePromise = (input: ContentTypeCreateData) =>
     .then((item) => console.log(`cotentType ${item.contentType} created`));
 
 const contentTypes: ContentTypeCreateData[] = [
-  {
-    contentType: "eth2",
-  },
-  {
-    contentType: "defi",
-  },
-  {
-    contentType: "uncategorized",
-  },
+  // {
+  //   contentType: "eth2",
+  // },
+  // {
+  //   contentType: "defi",
+  // },
+  // {
+  //   contentType: "uncategorized",
+  // },
+  { contentType: 'Mainnet' },
+  { contentType: 'Layer2' },
+  { contentType: 'Staking' },
+  { contentType: 'MEV' },
+  { contentType: 'Cryptography' },
+  { contentType: 'Tool&Tech' },
+  { contentType: 'DeFi' },
+  { contentType: 'NFT' },
+  { contentType: 'SocioFi' },
+  { contentType: 'Ecosystem' }
 ];
 
 const main = async () => {
