@@ -36,7 +36,7 @@ contract ExpressSBT is EIP712, ERC1155Supply, IExpressSBT, Ownable {
         string memory initialUri
     ) EIP712('ExpressSBT', '1') ERC1155(initialUri) {
         for (uint256 i = 0; i < gradeLine_.length; i++) {
-            _addNewGradeLine(gradeLine_[i]);
+            gradeLine.push(gradeLine_[i]);
         }
         if (approver_ == address(0)) {
             revert InvalidAddress();
