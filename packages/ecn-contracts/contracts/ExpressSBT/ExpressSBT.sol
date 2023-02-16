@@ -95,9 +95,12 @@ contract ExpressSBT is EIP712, ERC1155Supply, IExpressSBT, Ownable {
         override(IExpressSBT, ERC1155)
         returns (string memory url)
     {
-        if (gradeLine[tokenId] == 0) {
-            revert LevelNotSet();
+        unchecked {
+            if (tokenId + 1 > gradeLine.length) {
+                revert LevelNotSet();
+            }
         }
+
         if (!exists(tokenId)) {
             revert TokenNotExist();
         }
