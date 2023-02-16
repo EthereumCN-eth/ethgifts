@@ -20,19 +20,17 @@ interface IExpressSBT {
 
     /** ========== errors ========== */
 
-    // error nullAddress();
-    // error notOwnOne();
+    error InvalidAddress();
+    error InvalidUri();
+    error TokenNotExist();
+    error LevelNotSet();
+    error InvalidProof();
+    error InvalidNewLevelLine();
+    error IsSoulBoundToken();
+    error NotLevelMatched();
+    error LevelMinted();
 
-    /**
-     * @dev Returns all minted SBT level.
-     *
-     * Requirements: tokenId exists.
-     */
-    function mintedLevels(address account)
-        external
-        view
-        returns (uint256[] memory);
-
+    /** ========== main functions ========== */
     function mintExpress(
         address receiver,
         string memory metadataURI,
@@ -44,7 +42,6 @@ interface IExpressSBT {
     function mintedLevels(address account)
         external
         view
-        virtual
         returns (uint256[] memory levels);
 
     function checkMintedLevel(address account, uint256 level)
@@ -52,12 +49,7 @@ interface IExpressSBT {
         view
         returns (bool minted);
 
-    function uri(uint256 tokenId)
-        external
-        view
-        virtual
-        override
-        returns (string memory url);
+    function uri(uint256 tokenId) external view returns (string memory url);
 
     function accountURI(uint256 tokenId, address account)
         external
