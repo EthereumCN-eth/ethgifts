@@ -3,17 +3,13 @@ pragma solidity ^0.8.13;
 
 import '@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
-import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol';
-import '../interfaces/IExpressSBT.sol';
+import './IExpressSBT.sol';
+import '@openzeppelin/contracts/utils/Strings.sol';
 
-contract ExpressSBT is
-    EIP712,
-    ERC1155URIStorage,
-    ERC1155Supply,
-    IExpressSBT,
-    Ownable
-{
+contract ExpressSBT is EIP712, ERC1155Supply, IExpressSBT, Ownable {
+    using Strings for uint256;
+
     // signer to all mint signature.
     address public approver;
 
@@ -32,15 +28,19 @@ contract ExpressSBT is
     // grade line of express SBT, initial setting is [20,100,300]
     uint256[] public gradeLine;
 
+    string private baseUri;
+
     constructor(
-        address _approver,
-        uint256[] memory _gradeLine,
+        address approver_,
+        uint256[] memory gradeLine_,
         string memory initialUri
     ) EIP712('ExpressSBT', '1') ERC1155(initialUri) {
-        for (uint256 i = 0; i < _gradeLine.length; i++) {
-            gradeLine.push(_gradeLine[i]);
+        for (uint256 i = 0; i < gradeLine_.length; i++) {
+            _addNewGradeLine(gradeLine_[i]);
         }
-        approver = _approver;
+        require(approver_ != address(0), 'invalid approver');
+        approver = approver_;
+        baseUri = initialUri;
     }
 
     /** ========== view functions ========== */
@@ -52,9 +52,9 @@ contract ExpressSBT is
         public
         view
         virtual
-        returns (uint256[] memory)
+        returns (uint256[] memory levels)
     {
-        return _mintedLevels[account];
+        levels = _mintedLevels[account];
     }
 
     /**
@@ -87,11 +87,15 @@ contract ExpressSBT is
         public
         view
         virtual
-        override(ERC1155, ERC1155URIStorage)
-        returns (string memory)
+        override
+        returns (string memory url)
     {
+        require(gradeLine[tokenId] != 0, 'level not set');
         require(exists(tokenId), 'tokenId not exist');
-        return super.uri(tokenId);
+
+        url = bytes(baseUri).length != 0
+            ? string(abi.encodePacked(baseUri, tokenId.toString(), '.json'))
+            : super.uri(tokenId);
     }
 
     /**
@@ -102,14 +106,13 @@ contract ExpressSBT is
     function accountURI(uint256 tokenId, address account)
         public
         view
-        returns (string memory)
+        returns (string memory url)
     {
         require(exists(tokenId), 'tokenId not exist');
-        return _accountUris[tokenId][account];
+        url = _accountUris[tokenId][account];
     }
 
     /** ========== main functions ========== */
-
     function mintExpress(
         address receiver,
         string memory metadataURI,
@@ -131,22 +134,20 @@ contract ExpressSBT is
 
         require(signer == approver, 'invalid signer');
 
-        // verify avaiable to mint, if ture return SBT level
-        (bool available, uint256 mintableLevel) = _avaiableMintLevel(
+        // check avaiability to mint, if ture return SBT level
+        uint256 mintableTokenId = _checkAvaiableMintLevel(
             receiver,
             expressAmount
         );
 
-        require(available, 'you are not available to mint');
-
         // update account status
-        _mintedLevels[receiver].push(mintableLevel);
-        _accountUris[mintableLevel][receiver] = metadataURI;
+        _mintedLevels[receiver].push(mintableTokenId);
+        _accountUris[mintableTokenId][receiver] = metadataURI;
 
         // mint SBT
-        _mint(receiver, mintableLevel, 1, '');
+        _mint(receiver, mintableTokenId, 1, '');
 
-        emit ESBTMinted(receiver, mintableLevel, approver, metadataURI);
+        emit ESBTMinted(receiver, mintableTokenId, approver, metadataURI);
     }
 
     /** ========== admin functions ========== */
@@ -165,22 +166,15 @@ contract ExpressSBT is
         emit ApproverUpdated(msg.sender, _newApprover);
     }
 
-    function setSBTLevelURI(
-        uint256[] memory tokenIds,
-        string[] memory levelUris
-    ) external onlyOwner {
-        require(tokenIds.length == levelUris.length, 'length not match');
-        for (uint8 i = 0; i < tokenIds.length; i++) {
-            _setURI(tokenIds[i], levelUris[i]);
-        }
-    }
-
     function setBaseUri(string memory _baseUri) external onlyOwner {
-        _setBaseURI(_baseUri);
+        require(bytes(_baseUri).length != 0, 'invalid uri');
+
+        baseUri = _baseUri;
+
+        emit NewBaseUri(_baseUri);
     }
 
     /** ========== internal mutative functions ========== */
-
     function _addNewGradeLine(uint256 _newGradeLevel) internal {
         require(
             _newGradeLevel > gradeLine[gradeLine.length - 1],
@@ -196,42 +190,49 @@ contract ExpressSBT is
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) internal override(ERC1155, ERC1155Supply) {
+    ) internal override {
         // if sender is a 0 address, this is a mint transaction, not a transfer
         require(from == address(0), 'ESBT: TOKEN IS SOUL BOUND');
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 
     /** ========== internal view functions ========== */
-    function _avaiableMintLevel(address account, uint256 expressAmount)
+    // check if the account can mint the corresponding tokenId
+    function _checkAvaiableMintLevel(address account, uint256 expressAmount)
         internal
         view
-        returns (bool available, uint256 mintableLevel)
+        returns (uint256)
     {
         uint256[] memory levels = mintedLevels(account);
 
         // return ERC1155 tokenId as SBT Levels
-        (available, mintableLevel) = _mintableTokenId(expressAmount);
+        (uint256 mintableTokenId, bool matched) = _mintableTokenId(
+            expressAmount
+        );
+        require(matched, 'no level matched');
 
         if (levels.length != 0) {
             for (uint256 i = 0; i < levels.length; i++) {
                 require(
-                    levels[i] != mintableLevel,
+                    levels[i] != mintableTokenId,
                     'you have minted this level'
                 );
             }
         }
+
+        return mintableTokenId;
     }
 
+    // check which level tokenId can be minted
     function _mintableTokenId(uint256 expressAmount)
         internal
         view
-        returns (bool available, uint256 id)
+        returns (uint256 id, bool matched)
     {
         for (uint256 i = 0; i < gradeLine.length; i++) {
             if (expressAmount == gradeLine[i]) {
                 id = i;
-                available = true;
+                matched = true;
             }
         }
     }
