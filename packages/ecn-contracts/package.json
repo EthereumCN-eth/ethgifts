@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "deploy-goerli-mergeParty": "npx hardhat run --network goerli scripts/MergePartyNFTDeploy.ts",
-    "deploy": "ts-node scripts/deploy.ts"
+    "deploy-goerli-mergeParty": "npx hardhat run --network goerli scripts/MergePartyNFTDeploy.ts"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
