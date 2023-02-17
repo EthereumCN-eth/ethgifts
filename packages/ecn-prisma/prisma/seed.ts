@@ -52,16 +52,17 @@ const contentTypes: ContentTypeCreateData[] = [
   // {
   //   contentType: "uncategorized",
   // },
-  { contentType: 'Mainnet' },
-  { contentType: 'Layer2' },
-  { contentType: 'Staking' },
-  { contentType: 'MEV' },
-  { contentType: 'Cryptography' },
-  { contentType: 'Tool&Tech' },
-  { contentType: 'DeFi' },
-  { contentType: 'NFT' },
-  { contentType: 'SocioFi' },
-  { contentType: 'Ecosystem' }
+  { contentType: "Mainnet" },
+  { contentType: "Layer2" },
+  { contentType: "Staking" },
+  { contentType: "MEV" },
+  { contentType: "Cryptography" },
+  { contentType: "Tool&Tech" },
+  { contentType: "DeFi" },
+  { contentType: "NFT" },
+  { contentType: "SocioFi" },
+  { contentType: "Ecosystem" },
+  { contentType: "uncategorized" },
 ];
 
 const main = async () => {
