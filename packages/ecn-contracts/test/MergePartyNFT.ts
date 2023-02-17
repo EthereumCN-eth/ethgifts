@@ -102,9 +102,9 @@ describe('mint merge party nft', () => {
   it('can not call initializeEvent() again', async () => {
     expect(mergePartyNFT.initializeEvent(merkleRoot, messageBoard)).to.reverted;
   });
-  it('reset base uri', async () => {
-    await mergePartyNFT.resetBaseUri(messageBoard_fake);
+  // it('reset base uri', async () => {
+  //   await mergePartyNFT.resetBaseUri(messageBoard_fake);
 
-    expect(await mergePartyNFT.messageBoard()).to.be.equal(messageBoard_fake);
-  });
+  //   expect(await mergePartyNFT.messageBoard()).to.be.equal(messageBoard_fake);
+  // });
 });

@@ -3,9 +3,9 @@ import hre from 'hardhat';
 import {
   ECNAnniversary_4_optimism,
   MergeParty_optimism,
-} from './Optimism_Deploy';
-import { Anniversary_init, MergeParty_init } from './Optimism_init';
-import { ExpressSBT_goerli } from './Goerli_Deploy';
+} from './deploy/Optimism_Deploy';
+import { Anniversary_init, MergeParty_init } from './funcTest/Optimism_init';
+import { ExpressSBT_goerli } from './deploy/Goerli_Deploy';
 
 (async () => {
   // contract_goerli_deploy(

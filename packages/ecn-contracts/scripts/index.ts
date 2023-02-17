@@ -11,7 +11,7 @@ import {
   ECNAnniversary_4_optimism,
   ExpressSBT_optimism,
 } from './Optimism_Deploy';
-import { MergeParty_init, Anniversary_init } from './Optimism_init';
+import { MergeParty_init, Anniversary_init } from './funcTest/Optimism_init';
 
 export const contract_goerli_deploy = async (
   merge_mekleRoot: string,
@@ -29,11 +29,12 @@ export const contract_goerli_deploy = async (
 export const contract_optimism_deploy = async (
   approver: string,
   sbt_levels: BigNumber[],
+  initialUrl: string,
   ecn_4th_baseUri: string
 ) => {
   await MergeParty_optimism();
   await ECNAnniversary_4_optimism(ecn_4th_baseUri);
-  await ExpressSBT_optimism(approver, sbt_levels);
+  await ExpressSBT_optimism(approver, sbt_levels, initialUrl);
 };
 
 export const contract_optimism_init = async (

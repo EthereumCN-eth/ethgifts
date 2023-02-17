@@ -14,10 +14,11 @@ export const MergeParty_optimism = async () => {
 
 export const ExpressSBT_optimism = async (
   Approver: string,
-  levels: BigNumber[]
+  levels: BigNumber[],
+  initialUrl: string
 ) => {
   const ESBT_Factory = await hre.ethers.getContractFactory('ExpressSBT');
-  const ESBT = await ESBT_Factory.deploy(Approver, levels);
+  const ESBT = await ESBT_Factory.deploy(Approver, levels, initialUrl);
 
   await ESBT.deployed();
   console.log('ESBT address: ', ESBT.address);
