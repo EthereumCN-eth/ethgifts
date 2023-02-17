@@ -2,9 +2,10 @@ import { BigNumber } from 'ethers';
 
 export const ExpressSBT_config = {
   goerli: {
-    Approver: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+    Approver: '0x57924E07d3a09977fbb3a765fcB97f10e12e98f4',
     sbt_levels: [BigNumber.from(2), BigNumber.from(4), BigNumber.from(6)],
-    initialUrl: 'https:example.com',
+    initialUrl:
+      'https://icloud.mypinata.cloud/ipfs/QmNSxruXP1yti2gBGHP5JXTHUMDsBfT8TSSsPViEuTyxva/',
   },
   optimism: {
     Approver: '',
