@@ -37,7 +37,7 @@ export const SBTCards = () => {
             itemTexts={itemTexts}
             ind={ind}
             artwork={artwork}
-            key={artwork}
+            key={`${artwork}-${sbtLevel[ind]}`}
             sbtLevelNumber={sbtLevel[ind]}
             qualified={qualified}
           />
