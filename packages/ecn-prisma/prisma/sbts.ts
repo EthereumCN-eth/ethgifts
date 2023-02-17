@@ -38,7 +38,7 @@ export const sbts: SBTCreateData[] = [
     version: "1",
     chainId: 5,
     // token id here
-    countLevel: [3, 6, 20],
+    countLevel: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     metaDataName: "TranslatorSBT",
     metaDataDescription: "just a goerli test sbt",
     issuerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
