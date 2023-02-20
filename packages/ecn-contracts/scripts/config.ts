@@ -13,6 +13,13 @@ export const ExpressSBT_config = {
   },
 };
 
+export const Translation_config = {
+  goerli: {
+    initialUrl:
+      'https://icloud.mypinata.cloud/ipfs/QmQwC73wbXkpiH2xfKygKUxW3Te864kimFkqCHp4Q9gVxP/',
+  },
+};
+
 export const ECNAnniversary_4_config = {
   goerli: {
     baseUri: 'https://example.com',
