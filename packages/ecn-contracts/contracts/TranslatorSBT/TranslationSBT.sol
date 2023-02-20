@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
 import '@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol';
@@ -50,6 +50,7 @@ contract TranslationSBT is EIP712, ERC1155Supply, ITranslationSBT, Ownable {
         external
         virtual
         override
+        onlyOwner
     {
         if (mintedToken[receiver][tokenId]) {
             revert TokenMinted();
