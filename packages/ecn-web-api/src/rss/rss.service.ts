@@ -79,7 +79,7 @@ export class RSSFeedService {
           <title>${msg.description}</title>
           <link>${parseUrl}</link>
           <author>${msg.userName}</author>
-          <pubDate>${msg.verifiedAt}</pubDate>
+          <pubDate>${new Date(msg.verifiedAt).toUTCString()}</pubDate>
       </item>`;
     });
     // return items;
