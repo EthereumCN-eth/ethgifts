@@ -21,7 +21,8 @@
 
 export const trans = {
   AddRawMsg: {
-    address_prompt: "感谢参与E群誌编辑，提交你的ETH地址，在web3记录你的贡献",
+    address_prompt:
+      "感谢参与E群誌编辑，提交你的ETH地址以记录 E 群誌 SBT 的贡献数量 (请注意：SBT 是不可转让的，请慎重选择地址)",
 
     address_prompt_btn_txt: "ETH地址",
 
@@ -51,5 +52,6 @@ export const trans = {
 };
 
 export const express_modal_options = `Mainnet、Layer2、Staking、MEV、Cryptography、Tool&Tech、DeFi、NFT、SocioFi、Ecosystem`;
-export const express_modal_options_array = express_modal_options.split(`、`)
-export const express_modal_options_lowercase_array = express_modal_options_array.map(name => name.toLowerCase()) 
+export const express_modal_options_array = express_modal_options.split(`、`);
+export const express_modal_options_lowercase_array =
+  express_modal_options_array.map((name) => name.toLowerCase());
