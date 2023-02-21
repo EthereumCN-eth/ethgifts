@@ -38,6 +38,7 @@
     "cache-manager": "^4.1.0",
     "date-fns": "^2.29.3",
     "ecn-prisma": "link:./../ecn-prisma",
+    "feed": "^4.2.2",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
