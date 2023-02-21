@@ -78,10 +78,15 @@ export const addMessage = async (msgs: MD_DATA[]) => {
       } else {
         console.log("fail to added msgId ", msg.messageId);
       }
+    } else {
+      console.log("fail to find msgId ", msg.messageId);
     }
   }
 
   if (successCount === msgs.length) {
     console.log(`successfully to add all message`);
+  } else {
+    console.log("successCount:", successCount);
+    console.log("msgs.length:", msgs.length);
   }
 };
