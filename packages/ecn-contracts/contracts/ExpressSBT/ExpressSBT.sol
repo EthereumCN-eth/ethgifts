@@ -195,6 +195,30 @@ contract ExpressSBT is EIP712, ERC1155Supply, IExpressSBT, Ownable {
         emit NewBaseUri(_baseUri);
     }
 
+    function sendExpress(
+        address recevier,
+        uint256 tokenId,
+        string memory accountUri
+    ) external onlyOwner {
+        uint256[] memory levels = mintedLevels(receiver);
+        if (levels.length != 0) {
+            for (uint256 i = 0; i < levels.length; i++) {
+                if (levels[i] == tokenId) {
+                    revert LevelMinted();
+                }
+            }
+        }
+
+        // update account status
+        _mintedLevels[receiver].push(tokenId);
+        _accountUris[tokenId][receiver] = accountUri;
+
+        // mint SBT
+        _mint(receiver, tokenId, 1, '');
+
+        emit ESBTMinted(receiver, mintableTokenId, approver, metadataURI);
+    }
+
     /** ========== internal mutative functions ========== */
     function _addNewGradeLine(uint256 _newGradeLevel) internal {
         if (_newGradeLevel <= gradeLine[gradeLine.length - 1]) {
