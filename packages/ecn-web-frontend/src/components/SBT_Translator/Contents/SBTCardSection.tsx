@@ -14,9 +14,12 @@ import { responsive } from "@/styles/utils";
 import { SBTCards } from "./SBTCards";
 
 export const SBTCardSection = () => {
-  const [condition, setCondition] = useState("owned");
-  const onChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setCondition(e.target.value);
+  const [condition, setCondition] = useState<"owned" | "all">("owned");
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === "owned" || e.target.value === "all")
+      setCondition(e.target.value);
+  };
+
   return (
     <VStack w="full" minH={responsive.respWStr(1149)}>
       <Box ml="auto" mr={responsive.respWStr(63)}>

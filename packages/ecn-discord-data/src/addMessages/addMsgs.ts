@@ -17,6 +17,7 @@ export const addRawMessages = async (msgs: MD_DATA[]) => {
       const rawDeposit = await addRawMsgApi(rawMsgPayload);
 
       if (rawDeposit.success) {
+        console.log("added raw msgId ", msg.messageId);
         successCount++;
         // return {
         //   success: true,
@@ -72,7 +73,10 @@ export const addMessage = async (msgs: MD_DATA[]) => {
       const msgResult = await addMsgApi(msgPayload);
 
       if (msgResult.success) {
+        console.log("added msgId ", msg.messageId);
         successCount++;
+      } else {
+        console.log("fail to added msgId ", msg.messageId);
       }
     }
   }
