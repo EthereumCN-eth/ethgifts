@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { useReadClaimedSelectedLevel } from "@/hooks/useReadClaimedLevel";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
+import { responsive } from "@/styles/utils";
 
 export function SquareImg({
   artwork,
@@ -66,7 +67,7 @@ export function SquareImg({
             w="29%"
             // h="60px"
             position="absolute"
-            bottom={0}
+            bottom={responsive.respWStr(50)}
             right={0}
             transform="translate(5px, 50%)"
           />

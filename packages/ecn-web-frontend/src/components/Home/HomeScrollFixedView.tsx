@@ -103,9 +103,12 @@ export const HomeScrollFixedView = () => {
               `}
             >
               <Image
-                src="/ethgifts-img.svg"
+                src="/ethgifts-img.png"
                 alt="ethgifts-welcome"
                 objectFit="contain"
+                css={css`
+                  transform: scale(1.8);
+                `}
                 w={`${(circleLen() * 260) / 690}px`}
                 h={`${(circleLen() * 165) / 690}px`}
                 mb={`${(circleLen() * 10) / 690}px`}
@@ -113,6 +116,9 @@ export const HomeScrollFixedView = () => {
               <Image
                 src="/ethgifts-title2.png"
                 alt="ethgifts-title"
+                css={css`
+                  transform: scale(0.8);
+                `}
                 objectFit="contain"
                 w={`${(circleLen() * 213) / 690}px`}
                 h={`${(circleLen() * 71) / 690}px`}
