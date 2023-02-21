@@ -1,4 +1,4 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Center, Image } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
 
 import { useReadClaimedSelectedLevel } from "@/hooks/useReadClaimedLevel";
@@ -32,11 +32,12 @@ export function SquareImg({
     currentLevelNumber: levelIndex + 1,
   });
   return (
-    <Box w="100%">
+    <Center w="100%">
       <Box
-        w="100%"
+        w="90%"
         position="relative"
-        // bgColor="red.100"
+        // bgColor="#FEEEDF"
+        // borderRadius={"50%"}
         sx={{
           "&::after": {
             content: '""',
@@ -54,6 +55,9 @@ export function SquareImg({
           src={artwork}
           alt={itemTexts[ind]}
           objectFit="contain"
+          // css={css`
+          //   transform: scale(0.9);
+          // `}
         />
         {isClaimed && (
           <Image
@@ -68,6 +72,6 @@ export function SquareImg({
           />
         )}
       </Box>
-    </Box>
+    </Center>
   );
 }

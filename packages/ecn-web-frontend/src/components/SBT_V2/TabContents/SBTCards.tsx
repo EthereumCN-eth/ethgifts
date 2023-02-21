@@ -7,6 +7,7 @@ import { responsive } from "@/styles/utils";
 import { SBTCard } from "./SBTCard";
 import { SBTCardsLoad } from "./SBTCardsLoad";
 
+// const imgs = ["/v1.png", "/v2.png", "/v3.png"];
 export const SBTCards = () => {
   const {
     loaded,

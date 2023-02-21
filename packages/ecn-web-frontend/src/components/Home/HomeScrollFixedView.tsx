@@ -111,7 +111,7 @@ export const HomeScrollFixedView = () => {
                 mb={`${(circleLen() * 10) / 690}px`}
               />
               <Image
-                src="/ethgifts-title.png"
+                src="/ethgifts-title2.png"
                 alt="ethgifts-title"
                 objectFit="contain"
                 w={`${(circleLen() * 213) / 690}px`}
