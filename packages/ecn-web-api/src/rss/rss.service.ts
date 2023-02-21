@@ -130,11 +130,11 @@ export class RSSFeedService {
             name: msg.userName,
           },
         ],
-        date: msg.verifiedAt,
+        date: new Date(msg.verifiedAt),
       });
     });
 
-    return feed.rss2;
+    return feed.rss2();
   }
 }
 
