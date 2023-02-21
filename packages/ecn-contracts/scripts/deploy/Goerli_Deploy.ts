@@ -45,3 +45,12 @@ export const ExpressSBT_goerli = async (
   await ESBT.deployed();
   console.log('ESBT address: ', ESBT.address);
 };
+
+export const Translation_goerli = async (initialUrl: string) => {
+  const translation_factory = await hre.ethers.getContractFactory(
+    'TranslationSBT'
+  );
+  const translation = await translation_factory.deploy(initialUrl);
+  await translation.deployed();
+  console.log('Translation address: ', translation.address);
+};
