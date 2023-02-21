@@ -28,8 +28,17 @@ const contentData = [
         >
           E 群誌是 ECN
           推出的一个社区协作编辑企划，让社区成员以“简短一句中文概述+来源链接”的格式把自己看到的最新、重要、有趣的资讯在
-          ECN Discord 的 E 群誌-ejournal 频道分享和讨论。ECN
-          对当天的消息进行简单审核后汇总，形成日报发布，并在 Notion 归档。
+          ECN Discord 的{" "}
+          <ChakraNextLink
+            display="inline"
+            target="_blank"
+            textDecoration="underline"
+            href="https://discord.com/channels/859659562612031498/989061651791765544"
+          >
+            E 群誌-ejournal
+          </ChakraNextLink>{" "}
+          频道分享和讨论。ECN 对当天的消息进行简单审核后汇总，形成日报发布，并在
+          Notion 归档。
         </Text>
         <Text
           css={css`
@@ -94,7 +103,7 @@ const contentData = [
     ),
   },
   {
-    title: "什么是 E 群誌 SBT 等价 VC？",
+    title: "什么是 E 群誌 SBT 等效 VC？",
     contentHTML: () => (
       <>
         <Text
@@ -112,7 +121,7 @@ const contentData = [
             margin-bottom: ${responsive.respWStr(7)};
           `}
         >
-          作为链上凭证 SBT 的补充，ECN 开发了 E 群誌 SBT 等价 VC。VC
+          作为链上凭证 SBT 的补充，ECN 开发了 E 群誌 SBT 等效 VC。VC
           同样是不可转让，使用密码学签名防篡改，且默认情况下存放在链下，具备隐私性且不消耗
           gas。链上链下的数据凭证结合可给社区成员对其 web3 数据更多的选择权
         </Text>
@@ -131,7 +140,7 @@ const contentData = [
             margin-bottom: ${responsive.respWStr(7)};
           `}
         >
-          当社区成员的贡献数达到可铸造 SBT 的级别时，即可下载 E 群誌 SBT 等价
+          当社区成员的贡献数达到可铸造 SBT 的级别时，即可下载 E 群誌 SBT 等效
           VC。拥有了此 VC，社区成员不仅相当于拥有了链下版本的 SBT，还能用该 VC
           在{" "}
           <ChakraNextLink

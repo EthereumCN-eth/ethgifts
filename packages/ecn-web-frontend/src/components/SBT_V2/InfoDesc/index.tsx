@@ -2,6 +2,7 @@ import { Flex, Text, VStack } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
 import { fontSize } from "../styles";
+import { ChakraNextLink } from "@/components/ChakraNextLink";
 import { responsive } from "@/styles/utils";
 
 import { InfoSection } from "./InfoSection";
@@ -50,7 +51,16 @@ export const InfoDesc = () => {
             color: #ffffff;
           `}
         >
-          此 SBT 记录你在 E群志 企划中的贡献有效资讯数量。
+          此 SBT 记录你在
+          <ChakraNextLink
+            display="inline"
+            target="_blank"
+            textDecoration="underline"
+            href="https://express.ethereum.cn"
+          >
+            E群志
+          </ChakraNextLink>
+          企划中的贡献有效资讯数量。
         </Text>
       </VStack>
 

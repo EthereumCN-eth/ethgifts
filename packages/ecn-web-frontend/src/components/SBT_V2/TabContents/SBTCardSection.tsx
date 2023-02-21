@@ -52,7 +52,7 @@ export const SBTCardSection = () => {
             {[
               "1. 在discord参与 E群誌编辑，提交 ETH 地址",
               "2. 在 ethgifts.com 查看进度",
-              "3. 当贡献咨询达到等级所需数量时，即可用等价VC铸造 SBT",
+              "3. 当贡献咨询达到等级所需数量时，即可用等效VC铸造 SBT",
             ].map((txt) => {
               return (
                 <Text

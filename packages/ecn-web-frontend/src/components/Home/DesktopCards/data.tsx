@@ -17,24 +17,14 @@ export const data: IconDataType[] = [
     text: "技能证明",
     imageSrc: "/posin.png",
     imgOutSrc: "/posout.png",
-    descLines: [
-      "质量受认可发布",
-      "翻译内容上传至IPFS",
-      "经验证铸造或发行",
-      "等效链上链下凭证",
-    ],
+    descLines: ["质量受认可发布", "翻译内容上传至IPFS", "经验证铸造或发行"],
     bgColor: "rgba(254, 249, 236, 0.6)",
   },
   {
     text: "知识证明",
     imageSrc: "/pokin.png",
     imgOutSrc: "/pokout.png",
-    descLines: [
-      "质量受认可发布",
-      "原创内容上传至IPFS",
-      "经验证铸造或发行",
-      "等效链上链下凭证",
-    ],
+    descLines: ["质量受认可发布", "原创内容上传至IPFS", "经验证铸造或发行"],
     bgColor: "rgba(254, 236, 236, 0.6)",
   },
   {

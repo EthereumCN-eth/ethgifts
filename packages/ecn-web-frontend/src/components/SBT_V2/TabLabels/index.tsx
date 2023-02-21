@@ -6,7 +6,7 @@ import { responsive } from "@/styles/utils";
 
 const tabLabels = [
   {
-    text: "SBTs",
+    text: "SBT",
   },
   {
     text: "E群誌相关",

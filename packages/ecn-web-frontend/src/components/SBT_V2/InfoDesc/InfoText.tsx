@@ -28,26 +28,26 @@ const showLevelText = ({
         if (claimedIndices.includes(levelindex)) {
           return {
             texttemplate: (level: number) =>
-              `恭喜你🎉你已经成功申领了E群誌Lv${level} SBT了，太棒了！`,
+              `恭喜你🎉你已经成功申领了E群誌 Lv${level} SBT了，太棒了！`,
             lv: levelindex + 1,
           };
         }
         return {
           texttemplate: (level: number) =>
-            `恭喜你🎉你已经有资格申领E群誌Lv${level} SBT了，快去申领吧！`,
+            `恭喜你🎉你已经有资格申领E群誌 Lv${level} SBT了，快去申领吧！`,
           lv: levelindex + 1,
         };
       } else {
         return {
           texttemplate: (level: number) =>
-            `你已经在争取E群誌Lv${level} SBT的路上了，感谢你的参与！`,
+            `你已经在争取E群誌 Lv${level} SBT的路上了，感谢你的参与！`,
           lv: levelindex + 2,
         };
       }
     },
     {
       texttemplate: (level: number) =>
-        `你已经在争取E群誌Lv${level} SBT的路上了，感谢你的参与！`,
+        `你已经在争取E群誌 Lv${level} SBT的路上了，感谢你的参与！`,
       lv: 1,
     }
   );
