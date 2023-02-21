@@ -49,6 +49,7 @@ services:
       - nginx
     # command: certonly --webroot --webroot-path=/var/www/certbot --email email --agree-tos --no-eff-email --staging -d   -d 
     #    command: certonly --webroot --webroot-path=/var/www/certbot --email ${CERT_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${DOMAIN}
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   web_api:
     build:
