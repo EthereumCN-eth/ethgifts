@@ -90,14 +90,13 @@ export class RSSFeedService {
 
   async RSSFeed() {
     const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
-    <rss version="2.0">
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:link href="https://test.api.ethgifts.com/api/rss.html" rel="self" type="application/rss+xml" />
     <channel>
       <title>ECN Express</title>
       <link>https://www.ethereum.cn/</link>
       <description>E 群誌是 ECN 推出的一个社区协作编辑企划，鼓励社区成员把自己看到的最新、重要、有趣的以太坊相关信息在 ECN discord 分享和讨论，ECN 把当天的消息汇总于此。</description>
-      <items>
       ${this.buildRssItems(await this.queryLastDayRSS())}
-      </items>
     </channel>
     </rss>`;
 
