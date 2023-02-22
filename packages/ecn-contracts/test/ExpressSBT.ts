@@ -10,6 +10,7 @@ import * as config from './testConfig';
 let deployer: SignerWithAddress;
 let user1: SignerWithAddress;
 let user2: SignerWithAddress;
+let user3: SignerWithAddress;
 let approver: SignerWithAddress;
 let newApprover: SignerWithAddress;
 let ESBT: ExpressSBT;
@@ -21,7 +22,7 @@ let domain: Domain;
  */
 
 before('initialize contracts', async () => {
-  [deployer, user1, user2, approver, newApprover] =
+  [deployer, user1, user2, user3, approver, newApprover] =
     await hre.ethers.getSigners();
 
   // ESBT logic contract
@@ -265,5 +266,29 @@ describe('admin functions', () => {
     ESBT.mintedLevels(user2.address).then((levels) => {
       expect(levels.toString()).to.equal('4');
     });
+  });
+});
+
+describe('check admin function: sendExpress', () => {
+  before(async () => {
+    await ESBT.connect(deployer).sendExpress(user3.address, 1, 'test.com');
+  });
+  it('check user3 received level 1(tokenId 1)', async () => {
+    expect(await ESBT.checkMintedLevel(user3.address, 1)).to.be.equal(true);
+  });
+  it('revert: can not send user3 the level 1 again', async () => {
+    await expect(
+      ESBT.connect(deployer).sendExpress(user3.address, 1, 'test.com')
+    ).to.be.revertedWith('LevelMinted');
+  });
+  it('revert: can not send user3 an nonexistent level 4(level 3 has been added)', async () => {
+    await expect(
+      ESBT.connect(deployer).sendExpress(user3.address, 4, 'test.com')
+    ).to.be.revertedWith('TokenNotExist');
+  });
+  it('revert: only owner can send Express', async () => {
+    await expect(
+      ESBT.connect(user1).sendExpress(user3.address, 0, 'test.com')
+    ).to.be.revertedWith('Ownable: caller is not the owner');
   });
 });
