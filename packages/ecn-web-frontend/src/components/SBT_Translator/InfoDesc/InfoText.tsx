@@ -101,7 +101,7 @@ export const InfoText = () => {
           color: #ffffff;
         `}
       >
-        我们还不了解你的参与情况，快连接钱包看看吧！
+        快连接钱包，看看你是哪个方面的翻译达人吧！
       </Text>
     );
   }
@@ -118,7 +118,7 @@ export const InfoText = () => {
         color: #ffffff;
       `}
     >
-      Hello
+      翻译志愿者的贡献数据可在与 ECN 的协作 notion 页面上查看。
       {/* {showLevelText({ expressCount, sbtLevel, claimedIndices })} */}
     </Text>
   );

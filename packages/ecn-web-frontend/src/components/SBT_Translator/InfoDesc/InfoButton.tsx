@@ -62,7 +62,10 @@ export const InfoButton = () => {
       <Button
         onClick={() => {
           window
-            .open("https://discord.com/invite/eJJRBqKd3d", "_blank")
+            .open(
+              "https://www.notion.so/ecn/6b3d5252bfb14b6bb841fd1f3cc6f99a",
+              "_blank"
+            )
             ?.focus();
         }}
         variant="orangeBg"
@@ -80,7 +83,7 @@ export const InfoButton = () => {
           /* color: #ee862b; */
         `}
       >
-        加入Discord
+        加入Notion
       </Button>
     );
   }

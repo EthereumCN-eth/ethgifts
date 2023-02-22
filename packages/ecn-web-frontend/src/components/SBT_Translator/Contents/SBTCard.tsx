@@ -12,15 +12,21 @@ export function SBTCard({
   itemTexts,
   numberOfItems,
   sbtLevelNumber,
+  isClaimed,
 }: {
   numberOfItems: number;
   itemTexts: string[];
   ind: number;
   artwork: string;
   sbtLevelNumber: number;
+  isClaimed: boolean;
 }) {
   return (
-    <Box w={`${(100 - (numberOfItems - 1) * 1.5) / numberOfItems}%`} mb="19px">
+    <Box
+      w={`${(100 - (numberOfItems - 1) * 1.5) / numberOfItems}%`}
+      mb="19px"
+      mx="0.5%"
+    >
       {/*  */}
       <Box
         w="100%"
@@ -71,6 +77,7 @@ export function SBTCard({
             artwork={artwork}
             itemTexts={itemTexts}
             ind={ind}
+            isClaimed={isClaimed}
           />
         </Flex>
       </Box>

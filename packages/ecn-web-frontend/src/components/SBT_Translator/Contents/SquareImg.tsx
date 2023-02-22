@@ -11,11 +11,13 @@ export function SquareImg({
   itemTexts,
   ind,
   sbtLevelNumber,
+  isClaimed,
 }: {
   artwork: string;
   itemTexts: string[];
   ind: number;
   sbtLevelNumber: number;
+  isClaimed: boolean;
 }) {
   // const {
   //   sbtLevel,
@@ -26,7 +28,7 @@ export function SquareImg({
   // } = useAppSelector(sbtSelectors.selectAll);
   // const { address } = useAccount();
   // const levelIndex = sbtLevel.findIndex((ele) => ele === sbtLevelNumber);
-  const isClaimed = false;
+  // const isClaimed = false;
   return (
     <Box w="100%">
       <Box
@@ -60,7 +62,7 @@ export function SquareImg({
             position="absolute"
             bottom={0}
             right={0}
-            transform="translate(5px, 50%)"
+            transform="translate(-5px, -50%)"
           />
         )}
       </Box>

@@ -44,12 +44,14 @@ export const InfoDesc = () => {
             font-style: normal;
             font-weight: 600;
             /* font-size: ${fontSize.res_xs}; */
-            line-height: ${responsive.respWStr(45)};
+            line-height: 150%;
             letter-spacing: 0.01em;
             color: #ffffff;
           `}
         >
-          此 SBT 记录你在 E群志 企划中的贡献有效资讯数量。
+          ECN Translator 系列 SBT
+          以翻译内容主题分类，翻译志愿者在每个类别上有三篇文章成功发布后即可获得一枚相应的
+          SBT。
         </Text>
       </VStack>
 

@@ -43,7 +43,7 @@ export const SBTCardSection = () => {
         px={responsive.respWStr(63)}
         // bgColor="red.300"
       >
-        <SBTCards />
+        <SBTCards condition={condition} setCondition={setCondition} />
       </Flex>
     </VStack>
   );
