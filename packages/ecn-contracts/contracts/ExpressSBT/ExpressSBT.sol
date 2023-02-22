@@ -196,10 +196,14 @@ contract ExpressSBT is EIP712, ERC1155Supply, IExpressSBT, Ownable {
     }
 
     function sendExpress(
-        address recevier,
+        address receiver,
         uint256 tokenId,
         string memory accountUri
     ) external onlyOwner {
+        if (!exists(tokenId)) {
+            revert TokenNotExist();
+        }
+
         uint256[] memory levels = mintedLevels(receiver);
         if (levels.length != 0) {
             for (uint256 i = 0; i < levels.length; i++) {
@@ -216,7 +220,7 @@ contract ExpressSBT is EIP712, ERC1155Supply, IExpressSBT, Ownable {
         // mint SBT
         _mint(receiver, tokenId, 1, '');
 
-        emit ESBTMinted(receiver, mintableTokenId, approver, metadataURI);
+        emit ESBTMinted(receiver, tokenId, approver, accountUri);
     }
 
     /** ========== internal mutative functions ========== */
