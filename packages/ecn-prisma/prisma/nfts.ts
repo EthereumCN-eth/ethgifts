@@ -538,114 +538,114 @@ export const nfts: NFTCreateData[] = [
       },
     },
   },
-  {
-    contractAddress: "0x0000000000000000000000000000000000000000",
-    symbol: "ETHGifts",
-    nftAppType: "DELIVERY",
-    nftDeliveryData: {
-      create: {
-        merkleUrl:
-          // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
-          "",
-        tokenType: "ERC721",
-        contractAddress: "0x0000000000000000000000000000000000000000",
-      },
-    },
+  // {
+  //   contractAddress: "0x0000000000000000000000000000000000000000",
+  //   symbol: "ETHGifts",
+  //   nftAppType: "DELIVERY",
+  //   nftDeliveryData: {
+  //     create: {
+  //       merkleUrl:
+  //         // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
+  //         "",
+  //       tokenType: "ERC721",
+  //       contractAddress: "0x0000000000000000000000000000000000000000",
+  //     },
+  //   },
 
-    galleryItemBase: {
-      create: {
-        coverLink:
-          "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
-        imageLinks: [
-          "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
-        ],
+  //   galleryItemBase: {
+  //     create: {
+  //       coverLink:
+  //         "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
+  //       imageLinks: [
+  //         "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
+  //       ],
 
-        chainId: 10,
-        name: "E-Journal SBT",
-        tags: ["SBT", "工作量证明"],
-        eventStartTime: 1669920821,
-        // eventDuration: ,
-        onShelf: true,
-        galleryItemType: "nft",
-        infoDetail: {
-          deliveryText: {
-            beforeText: "申领还没开始。",
-            toClaimText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
-            hasClaimedText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
-            noClaimedText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
-            endedNoText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
-          },
-          eventDescription: "",
-          title: "即将上线",
-          subTitle: "Coming Soon",
-          dataSection: [
-            {
-              heading: "E 群誌",
-              subHeading: "What is E-Journal?",
-              type: "html",
-              data: [
-                "E 群誌是 ECN 推出的一个社区协作编辑企划，让社区成员以“简短一句中文概述+来源链接”的格式把自己看到的最新、重要、有趣的资讯在 ECN Discord 的 <a href='https://discord.com/channels/859659562612031498/989061651791765544'>#🔥｜e群誌-ejournal频道</a> 分享和讨论。ECN 对当天的消息进行简单审核后汇总，形成日报发布，并在 Notion 归档。",
-                "为了鼓励并认证社区成员的贡献，并丰富社区成员的 Web3 数据，ECN 将推出链上 SBT 和链下可验证数字凭证 (VC) 两种数字凭证。",
-              ],
-            },
-          ],
-        } as Prisma.InputJsonValue,
-      },
-    },
-  },
-  {
-    contractAddress: "0x0000000000000000000000000000000000000000",
-    symbol: "ETHGifts",
-    nftAppType: "DELIVERY",
-    nftDeliveryData: {
-      create: {
-        merkleUrl:
-          // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
-          "",
-        tokenType: "ERC721",
-        contractAddress: "0x0000000000000000000000000000000000000000",
-      },
-    },
+  //       chainId: 10,
+  //       name: "E-Journal SBT",
+  //       tags: ["SBT", "工作量证明"],
+  //       eventStartTime: 1669920821,
+  //       // eventDuration: ,
+  //       onShelf: true,
+  //       galleryItemType: "nft",
+  //       infoDetail: {
+  //         deliveryText: {
+  //           beforeText: "申领还没开始。",
+  //           toClaimText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
+  //           hasClaimedText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
+  //           noClaimedText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+  //           endedNoText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+  //         },
+  //         eventDescription: "",
+  //         title: "即将上线",
+  //         subTitle: "Coming Soon",
+  //         dataSection: [
+  //           {
+  //             heading: "E 群誌",
+  //             subHeading: "What is E-Journal?",
+  //             type: "html",
+  //             data: [
+  //               "E 群誌是 ECN 推出的一个社区协作编辑企划，让社区成员以“简短一句中文概述+来源链接”的格式把自己看到的最新、重要、有趣的资讯在 ECN Discord 的 <a href='https://discord.com/channels/859659562612031498/989061651791765544'>#🔥｜e群誌-ejournal频道</a> 分享和讨论。ECN 对当天的消息进行简单审核后汇总，形成日报发布，并在 Notion 归档。",
+  //               "为了鼓励并认证社区成员的贡献，并丰富社区成员的 Web3 数据，ECN 将推出链上 SBT 和链下可验证数字凭证 (VC) 两种数字凭证。",
+  //             ],
+  //           },
+  //         ],
+  //       } as Prisma.InputJsonValue,
+  //     },
+  //   },
+  // },
+  // {
+  //   contractAddress: "0x0000000000000000000000000000000000000000",
+  //   symbol: "ETHGifts",
+  //   nftAppType: "DELIVERY",
+  //   nftDeliveryData: {
+  //     create: {
+  //       merkleUrl:
+  //         // "https://raw.githubusercontent.com/EthereumCN-eth/merkle-drop-data-chunks/main/chunks/0x6b7291ed04b90e6b96bc3fce1b7be5cd5bd07297d4be98a397d19e7796048474.json",
+  //         "",
+  //       tokenType: "ERC721",
+  //       contractAddress: "0x0000000000000000000000000000000000000000",
+  //     },
+  //   },
 
-    galleryItemBase: {
-      create: {
-        coverLink:
-          "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
-        imageLinks: [
-          "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
-        ],
+  //   galleryItemBase: {
+  //     create: {
+  //       coverLink:
+  //         "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
+  //       imageLinks: [
+  //         "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
+  //       ],
 
-        chainId: 10,
-        name: "ECN Voluntary Translation SBT",
-        tags: ["SBT", "技能证明"],
-        eventStartTime: 1669920821,
-        // eventDuration: ,
-        onShelf: true,
-        galleryItemType: "nft",
-        infoDetail: {
-          deliveryText: {
-            beforeText: "申领还没开始。",
-            toClaimText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
-            hasClaimedText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
-            noClaimedText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
-            endedNoText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
-          },
-          eventDescription: "",
-          title: "即将上线",
-          subTitle: "Coming Soon",
-          dataSection: [
-            {
-              heading: "ECN 翻译志愿者计划",
-              subHeading: "ECN Voluntary Translation Project",
-              type: "html",
-              data: [
-                "ECN 在接收到越来越多社区成员表达希望参与以太坊内容翻译的意愿后，开始探索 ECN 与这些翻译志愿者之间的协作模式。目前，已形成“篇目选定 - 翻译 - 校审 - 发布”的基本运作流程。ECN 希望在这个基础上使用 Web3 数字凭证对这些贡献进行认证，让这些译者的技能、知识和贡献得以与他们的以太坊身份联系起来。",
-                "为了鼓励并认证社区成员的贡献，并丰富社区成员的 web3 数据，ECN 将推出志愿翻译的链上 SBT 和链下可验证数字凭证 (VC) 两种数字凭证。",
-              ],
-            },
-          ],
-        } as Prisma.InputJsonValue,
-      },
-    },
-  },
+  //       chainId: 10,
+  //       name: "ECN Voluntary Translation SBT",
+  //       tags: ["SBT", "技能证明"],
+  //       eventStartTime: 1669920821,
+  //       // eventDuration: ,
+  //       onShelf: true,
+  //       galleryItemType: "nft",
+  //       infoDetail: {
+  //         deliveryText: {
+  //           beforeText: "申领还没开始。",
+  //           toClaimText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
+  //           hasClaimedText: `🍻🥳感谢你在 2022 年 11 月 15 日到 18 日间参加了 ECN 四周年活动，获得了 ECN 四周年纪念 NFT!`,
+  //           noClaimedText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+  //           endedNoText: `🙁 你没有在 2022 年 11 月 15 日到 18 日间参与 ECN 四周年活动，没能获得 ECN 四周年纪念 NFT，但未来 ECN 还有很多活动等待你的参与哦🥰`,
+  //         },
+  //         eventDescription: "",
+  //         title: "即将上线",
+  //         subTitle: "Coming Soon",
+  //         dataSection: [
+  //           {
+  //             heading: "ECN 翻译志愿者计划",
+  //             subHeading: "ECN Voluntary Translation Project",
+  //             type: "html",
+  //             data: [
+  //               "ECN 在接收到越来越多社区成员表达希望参与以太坊内容翻译的意愿后，开始探索 ECN 与这些翻译志愿者之间的协作模式。目前，已形成“篇目选定 - 翻译 - 校审 - 发布”的基本运作流程。ECN 希望在这个基础上使用 Web3 数字凭证对这些贡献进行认证，让这些译者的技能、知识和贡献得以与他们的以太坊身份联系起来。",
+  //               "为了鼓励并认证社区成员的贡献，并丰富社区成员的 web3 数据，ECN 将推出志愿翻译的链上 SBT 和链下可验证数字凭证 (VC) 两种数字凭证。",
+  //             ],
+  //           },
+  //         ],
+  //       } as Prisma.InputJsonValue,
+  //     },
+  //   },
+  // },
 ];
