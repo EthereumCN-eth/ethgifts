@@ -15,7 +15,7 @@ export const sbts: SBTCreateData[] = [
         coverLink:
           "https://ethereumcn.mypinata.cloud/ipfs/QmX5Zib9wG6XkH3PjYEz5f1nM2toGznhNfFgRSHjTUfF2C/express_sbt_cover.jpg",
         chainId: 5,
-        name: "E群誌 SBT 系列",
+        name: "E群誌系列SBT",
         onShelf: true,
         galleryItemType: "sbt",
         itemText: ["E群誌 SBT Lv1", "E群誌 SBT Lv2", "E群誌 SBT Lv3"],
@@ -47,8 +47,8 @@ export const sbts: SBTCreateData[] = [
         coverLink:
           "https://ethereumcn.mypinata.cloud/ipfs/QmddhyXqz1A2jhCWFT5fwrHx4H57bYNp5eGYY6o2Vq7TQL",
         chainId: 5,
-        name: "Translator SBT 系列",
-        onShelf: true,
+        name: "ECN Translator系列SBT",
+        onShelf: false,
         galleryItemType: "sbt",
         itemText: [
           "Mainnet",
