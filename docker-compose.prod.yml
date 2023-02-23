@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
     volumes:
       - .:/app
-  command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && node  ./dist/main.js"
+    command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && node  ./dist/main.js"
 
   redis_bullboard:
     build:
