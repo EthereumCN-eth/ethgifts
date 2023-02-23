@@ -1,6 +1,6 @@
 FROM node:18.12.1
 WORKDIR /app
-COPY ./packages/ecn-redis-bullboard/ ./packages/ecn-redis-bullboard/
+COPY ./ ./
 # WORKDIR /app/packages/ecn-redis-bullboard/
 # RUN yarn
 RUN npm install -g pm2
