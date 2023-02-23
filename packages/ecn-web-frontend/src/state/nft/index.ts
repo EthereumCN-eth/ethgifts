@@ -38,6 +38,7 @@ const initialDummyState = {
   mainViewType: "image",
   videoLinks: [],
   nftDeliveryData: null,
+  onShelf: true,
   //   infoDetail?: Prisma.JsonValue,
 } as NFTState;
 

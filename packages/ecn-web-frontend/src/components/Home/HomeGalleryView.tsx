@@ -73,7 +73,7 @@ export const HomeGalleryView = ({
         {!loading &&
           items.map((item) => {
             return (
-              <GridItem key={item.key}>
+              <GridItem hidden={!item.onShelf} key={item.key}>
                 {item.typeName === "nft" && <GalleryNFTItem {...item} />}
                 {item.typeName === "sbt" && <GallerySBTItem {...item} />}
                 {item.typeName === "poap" && <GalleryPoapItem {...item} />}

@@ -70,6 +70,7 @@ export type BaseItemType = {
   videoLinks: string[] | null;
   infoDetail?: DetailInfoType;
   mainViewType: MainViewType;
+  onShelf: boolean;
   //  Prisma.JsonValue;
 };
 

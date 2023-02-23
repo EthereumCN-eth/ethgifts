@@ -618,7 +618,7 @@ export const nfts: NFTCreateData[] = [
         chainId: 10,
         name: "ECN Voluntary Translation SBT",
         tags: ["SBT", "技能证明"],
-        eventStartTime: 1669920821,
+        eventStartTime: 1678420531,
         // eventDuration: ,
         onShelf: true,
         galleryItemType: "nft",
