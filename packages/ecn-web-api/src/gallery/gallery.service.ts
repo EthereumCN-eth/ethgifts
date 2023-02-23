@@ -211,7 +211,7 @@ export class GalleryService {
       return y.startTime - x.startTime;
     });
 
-    await this.cacheManager.set(GALLERY_CACHE_KEY, sortedItems, { ttl: 900 });
+    await this.cacheManager.set(GALLERY_CACHE_KEY, sortedItems, { ttl: 10 });
     return sortedItems;
   }
 }
