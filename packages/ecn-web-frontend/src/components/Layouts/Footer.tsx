@@ -86,8 +86,8 @@ export const Footer = () => {
           maxW="690px"
         >
           ETHGifts 是 ECN 在举办社区活动或组织社区协作时发放的 Web3
-          数字凭证，这些 Web3 数字凭证的类型包括 NFT、SBT、POAP
-          和可验证凭证。ETHGifts.com
+          数字凭证，这些 Web3 数字凭证的类型包括 NFT、SBT、POAP 和可验证凭证
+          (VC)。ETHGifts.com
           是上述数字凭证进行认证、申领和铸造的平台。社区成员可以在上面查看、追踪他们的参与情况、铸造
           NFT 和下载 VC。同时，ETHGifts.com 还是展示 ECN
           社区活动的平台，大家可以通过网站陈列的每个 NFT

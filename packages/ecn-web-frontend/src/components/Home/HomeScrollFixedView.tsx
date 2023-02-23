@@ -153,7 +153,7 @@ export const HomeScrollFixedView = () => {
                   color: rgba(15, 7, 1, 0.8);
                 `}
               >
-                把你在 ECN 的社区参与编码为 Web3 的数字凭证
+                你在 ECN 社区参与情况的 Web3 数字凭证
               </Text>
             </Flex>
           </VStack>

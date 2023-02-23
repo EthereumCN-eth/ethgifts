@@ -62,7 +62,7 @@ const contentData = [
             href="#"
             color="#EE862B"
           >
-            SBTs (Soulbound Tokens)
+            SBT (Soulbound Tokens)
           </ChakraNextLink>{" "}
           和{" "}
           <ChakraNextLink
