@@ -3,13 +3,15 @@ import { BigNumber } from 'ethers';
 export const ExpressSBT_config = {
   goerli: {
     Approver: '0x57924E07d3a09977fbb3a765fcB97f10e12e98f4',
-    sbt_levels: [BigNumber.from(2), BigNumber.from(4), BigNumber.from(6)],
+    sbt_levels: [2, 4, 6],
     initialUrl:
       'https://icloud.mypinata.cloud/ipfs/QmNSxruXP1yti2gBGHP5JXTHUMDsBfT8TSSsPViEuTyxva/',
   },
   optimism: {
-    Approver: '',
-    sbt_levels: [],
+    Approver: '0x857F7E6Ba9aE7dFf0f1B73b72c318b9E50761bf9',
+    sbt_levels: [20, 100, 200],
+    initialUrl:
+      'https://ethereumcn.mypinata.cloud/ipfs/QmfAmXrbuRFgRGdyaPhLdF8dk5FezrGQmFoQfTrzzkHTEC/',
   },
 };
 

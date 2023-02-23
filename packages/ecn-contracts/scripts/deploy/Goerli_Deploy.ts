@@ -36,7 +36,7 @@ export const ECNAnniversary_4_goerli = async (Anni4_baseUri: string) => {
 
 export const ExpressSBT_goerli = async (
   Approver: string,
-  levels: BigNumber[],
+  levels: number[],
   initialUrl: string
 ) => {
   const ESBT_Factory = await hre.ethers.getContractFactory('ExpressSBT');
