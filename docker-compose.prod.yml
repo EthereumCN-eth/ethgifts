@@ -10,6 +10,8 @@ services:
       - '443:443'
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    depends_on:
+      - web_api
     volumes:
       - web-root:/var/www/certbot
       - certbot-etc:/etc/letsencrypt
@@ -40,7 +42,6 @@ services:
         dockerfile: Dockerfile.web-api.prod
         context: ./
     container_name: web_api
-    network_mode: host
     restart: unless-stopped
     volumes:
       - .:/app
@@ -50,7 +51,6 @@ services:
     build:
         dockerfile: Dockerfile.redis-bullboard.prod
         context: ./
-    network_mode: host
     container_name: redis_bullboard
     restart: unless-stopped
     environment:
