@@ -1,92 +1,82 @@
 {
   "柱子 Max": {
-    "discordId": "70",
-    "discordAvatar": "https://cdn.discordapp.com/avatars/908356033561362493/f1885492d511fedfc7cddb235c4144cf.webp",
-    "ethAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    "discordId": "908356033561362493",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/908356033561362493/f1885492d511fedfc7cddb235c4144cf.png",
+    "ethAddress": "0x2276de711b7E822af65B50FF214d2cE1D36154ca"
   },
-  "rachel": {
-    "discordId": "882",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+  "kenth123": {
+    "discordId": "848533604443095121",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/848533604443095121/4488a82f4e6a99da349e71d78331df9d.webp",
+    "ethAddress": "0x9bB21B9a09003F2EFF0D949259f3e195FE356400"
   },
   "Stephanie": {
-    "discordId": "365",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    "discordId": "758142223761145888",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/758142223761145888/da19fad31e86f0938e1bd9418c669342.png",
+    "ethAddress": "0x4b42b9c66890BFd35e3899fD1d4a729438Cc27D6"
   },
   "Franci": {
-    "discordId": "907",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+    "discordId": "859688546671132682",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/859688546671132682/7c007c59ab223dd2d4ee1ff3d7cfc208.png",
+    "ethAddress": "0xA9310e5ad4AD823ea7cc7f55e3641Ba6d6E610fA"
   },
   "Leo Young": {
-    "discordId": "478",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+    "discordId": "455731206919684097",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/455731206919684097/6661807193d1400ccc388d419b2173ec.png",
+    "ethAddress": "leoyoung.eth"
   },
   "Jiawei": {
-    "discordId": "562",
+    "discordId": "1042272032429182996",
     "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x29a6F7934b25e3C7AeDFD8eAE57a069f2e76a636"
+    "ethAddress": "0xEbb5441e4cb4d5701f51c213cce52abd82a2E1c9"
   },
   "JasonWan": {
-    "discordId": "243",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0xe9590b19331cc61cDcFA195087448b8774d60561"
+    "discordId": "781046902665379860",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/781046902665379860/9877657321acaaa5249ecdfa30973ab3.pn",
+    "ethAddress": "0x95F2e4096482Ebaded815b3aAcFA1524EF3E0568"
   },
   "renaissance": {
-    "discordId": "537",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc"
-  },
-  "rachellle": {
-    "discordId": "111",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x976EA74026E726554dB657fA54763abd0C3a0aa9"
+    "discordId": "912261456651763712",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/912261456651763712/424978f170b213c936df3febb16621a3.png",
+    "ethAddress": "0xf44F6645E8421BCD93D66D1Df7EebD73E8c061b8"
   },
   "kleo": {
-    "discordId": "642",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
-  },
-  "ee1": {
-    "discordId": "192",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f"
-  },
-  "Jason T": {
-    "discordId": "824",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
-  },
-  "YJ": {
-    "discordId": "935",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
-  },
-  "Helennnnn": {
-    "discordId": "407",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
+    "discordId": "478655359071027232",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/478655359071027232/0d5ef40f1f2d2bc04f82226784dce93d.png",
+    "ethAddress": "0x04490dc0f52A97ef2d6EA0C4d9eDbCde8c8546CC"
   },
   "Stevewu": {
-    "discordId": "603",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a"
+    "discordId": "478393892308385793",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/478393892308385793/7a28d3defa95d5ecd026751765a8d13c.png",
+    "ethAddress": "0xf0B84d97327b4a27D7FF1eF03fe9Bb37E554628d"
+  },
+  "Jason T": {
+    "discordId": "992256663182643290",
+    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/4.png",
+    "ethAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  },
+  "YJ": {
+    "discordId": "872013304204259368",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/872013304204259368/c0f5e76d2c54f30a000614b2c063aef7.png",
+    "ethAddress": "0xEcB1D9FDE821bDf63A65a6f813064416Ee2352B3"
+  },
+  "Helennnnn": {
+    "discordId": "706405933680689154",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/706405933680689154/f85d730483e9f25032afcbba16bf6802.png",
+    "ethAddress": "0xa450CD84Ac7E1cC1D6c5b28b275B7706E1C4e065"
   },
   "PeterLin": {
-    "discordId": "847",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec"
+    "discordId": "509544773590319115",
+    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/4.png",
+    "ethAddress": "0xe289E7149a434d24e24302A81CC60F5D287DbE7b"
   },
   "Melody555": {
-    "discordId": "881",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+    "discordId": "905120843695272026",
+    "discordAvatar": "https://cdn.discordapp.com/avatars/905120843695272026/414803752132040013117fcb8826d220.png",
+    "ethAddress": "0x03Edd76C30398a47B61857138D1197Cad32Db02f"
   },
-  "Jason Wan": {
-    "discordId": "199",
-    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/0.png",
-    "ethAddress": "0xcd3B766CCDd6AE721141F452C550Ca635964ce71"
+  "John": {
+    "discordId": "550659263341789215",
+    "discordAvatar": "https://cdn.discordapp.com/embed/avatars/1.png",
+    "ethAddress": "0x320534Ad38eb9327E5702424293B74032B01FFcb"
   }
 }
