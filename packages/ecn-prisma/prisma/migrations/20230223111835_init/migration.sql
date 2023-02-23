@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "urlType" AS ENUM ('media', 'ogData', 'onlyMeta', 'noMeta');
+CREATE TYPE "urlType" AS ENUM ('twitter', 'video', 'ogData', 'onlyMeta', 'noMeta');
 
 -- CreateEnum
 CREATE TYPE "TokenType" AS ENUM ('ERC721', 'ERC1155');
@@ -40,13 +40,13 @@ CREATE TABLE "ExpressMessage" (
 -- CreateTable
 CREATE TABLE "MetaData" (
     "messageId" TEXT NOT NULL,
-    "urlType" "urlType" NOT NULL DEFAULT 'media',
+    "urlType" "urlType" NOT NULL DEFAULT 'twitter',
     "title" TEXT,
     "description" TEXT,
     "imageUrl" TEXT,
     "site" TEXT,
-    "creator" TEXT,
     "videoUrl" TEXT,
+    "twitterId" TEXT,
 
     CONSTRAINT "MetaData_pkey" PRIMARY KEY ("messageId")
 );
