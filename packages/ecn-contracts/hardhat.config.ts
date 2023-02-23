@@ -48,7 +48,7 @@ const config: HardhatUserConfig = {
     coinmarketcap: process.env.COINMARKETCAT,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: process.env.OPTIMISM_ETHERSCAN,
   },
 };
 

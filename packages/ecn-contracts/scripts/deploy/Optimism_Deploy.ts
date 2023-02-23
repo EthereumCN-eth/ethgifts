@@ -14,7 +14,7 @@ export const MergeParty_optimism = async () => {
 
 export const ExpressSBT_optimism = async (
   Approver: string,
-  levels: BigNumber[],
+  levels: number[],
   initialUrl: string
 ) => {
   const ESBT_Factory = await hre.ethers.getContractFactory('ExpressSBT');
