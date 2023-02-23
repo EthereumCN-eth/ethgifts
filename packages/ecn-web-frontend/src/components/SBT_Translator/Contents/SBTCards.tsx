@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { Flex } from "@chakra-ui/react";
 import type { BigNumber } from "ethers";
 import { constants } from "ethers";
@@ -76,7 +77,7 @@ export const SBTCards = ({
                 itemTexts={itemTexts}
                 ind={ind}
                 artwork={artwork}
-                key={artwork}
+                key={`translator-${artwork}-${ind}`}
                 sbtLevelNumber={sbtLevel[ind]}
                 isClaimed={claimedArray[ind]}
                 // qualified={qualified}
@@ -92,7 +93,7 @@ export const SBTCards = ({
               itemTexts={itemTexts}
               ind={ind}
               artwork={artwork}
-              key={artwork}
+              key={`translator-${artwork}-${ind}`}
               sbtLevelNumber={sbtLevel[ind]}
               isClaimed={claimedArray[ind]}
               // qualified={qualified}
