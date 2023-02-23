@@ -44,10 +44,12 @@ const ethPromptModal = createModalWithInteraction({
       // # TODO send api to collect
       const discordId = interaction.user.id;
       const discordName = interaction.user.username;
+      const discordAvatar = interaction.user.avatarURL();
       const { success, error } = await updateAddressApi({
         discordId,
         discordName,
         ethAddress: userAddress.toLowerCase(),
+        discordAvatar,
       });
       if (success) {
         await interaction.editReply({

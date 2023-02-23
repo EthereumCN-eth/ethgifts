@@ -8,11 +8,13 @@ import {
   RawExpressMessage,
   User,
   ExpressMessage,
+  urlType,
 } from "@prisma/client";
 import { validateRawMsg } from "./DTORawMsg";
-import { addToSignatureGenerationQueue } from "../generateSign";
+import { addToSignatureGenerationQueue } from "../utils/generateSign";
 // import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
-import { DB_CONTRACT_TYPE_ID } from "../generateSign/constants";
+import { DB_CONTRACT_TYPE_ID } from "../utils/generateSign/constants";
+import { getMetaData } from "../utils/getUrlMetaData";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -25,7 +27,8 @@ export const setupAddMessageRoute = (
   app.post("/rawMsg/addRawMessage", async (req, res) => {
     // console.log("body: ", req.body);
     // await new Promise((res) => setTimeout(() => res(true), 10000));
-    const { rawMessage, discordId, discordName, msgId } = req.body;
+    const { rawMessage, discordId, discordName, msgId, discordAvatar } =
+      req.body;
     try {
       const _ = await validateRawMsg({
         rawMessage,
@@ -66,6 +69,7 @@ export const setupAddMessageRoute = (
                 name: discordName,
                 expressCount: 0,
                 discordId,
+                discordAvatar,
               },
             },
           },
@@ -82,13 +86,23 @@ export const setupAddMessageRoute = (
   });
 
   app.post("/msg/addMessage", async (req, res) => {
-    const { msgId, content, url, discordId, contentType } = req.body;
+    const {
+      msgId,
+      content,
+      url,
+      discordId,
+      contentType,
+      // default to verifiedAt at db-created time & To Sign the Cert(vc & ipfs upload)
+      verifiedAt = undefined,
+      isToSignCert = true,
+    } = req.body;
 
     // const rawMsg = await prisma.rawExpressMessage.findUnique({
     //   where: {
     //     id: msgId,
     //   },
     // });
+
     try {
       //@ts-ignore
       const createdExpress = await prisma.$transaction(
@@ -111,6 +125,7 @@ export const setupAddMessageRoute = (
                     contentType,
                   },
                 },
+                verifiedAt,
                 user: {
                   connect: {
                     discordId,
@@ -142,15 +157,39 @@ export const setupAddMessageRoute = (
       // const st = await sign(discordId, msgId);
       // console.log("st:", st);
 
-      const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
-      if (typeof sbtContractTypeId === "number") {
-        await addToSignatureGenerationQueue(
-          discordId,
-          msgId,
-          sbtContractTypeId
-        );
-      } else {
-        new Error("sbt contract type id not set");
+      if (isToSignCert) {
+        const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
+        if (typeof sbtContractTypeId === "number") {
+          await addToSignatureGenerationQueue(
+            discordId,
+            msgId,
+            sbtContractTypeId
+          );
+        } else {
+          new Error("sbt contract type id not set");
+        }
+      }
+
+      try {
+        const metaOgData = await getMetaData(url);
+
+        if (metaOgData != undefined) {
+          await prisma.metaData.create({
+            data: {
+              messageId: msgId,
+              urlType: metaOgData.urlType,
+              title: metaOgData.title,
+              description: metaOgData.description,
+              imageUrl: metaOgData.imageUrl,
+              site: metaOgData.siteName,
+              videoUrl: metaOgData.videoUrl,
+              twitterId: metaOgData.twitterId,
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        return res.status(200).send({ success: false, data: null });
       }
 
       //
@@ -161,17 +200,17 @@ export const setupAddMessageRoute = (
     }
   });
 
-  app.post("/rawMsg/findRawMessage", async (req, res) => {
-    const { msgId } = req.body;
-    try {
-      const rawMsg = await prisma.rawExpressMessage.findUnique({
-        where: {
-          id: msgId,
-        },
-      });
-      return res.status(200).send({ success: true, data: rawMsg });
-    } catch (error) {
-      return res.status(500).send({ success: false, error });
-    }
-  });
+  // app.post("/rawMsg/findRawMessage", async (req, res) => {
+  //   const { msgId } = req.body;
+  //   try {
+  //     const rawMsg = await prisma.rawExpressMessage.findUnique({
+  //       where: {
+  //         id: msgId,
+  //       },
+  //     });
+  //     return res.status(200).send({ success: true, data: rawMsg });
+  //   } catch (error) {
+  //     return res.status(500).send({ success: false, error });
+  //   }
+  // });
 };

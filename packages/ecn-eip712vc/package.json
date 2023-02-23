@@ -13,13 +13,14 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsc -p .",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "dev": "yarn build && node dist/index.js"
+    "dev": "yarn build && node dist/index.js",
+    "postinstall": "yarn build"
   },
   "peerDependencies": {},
   "husky": {

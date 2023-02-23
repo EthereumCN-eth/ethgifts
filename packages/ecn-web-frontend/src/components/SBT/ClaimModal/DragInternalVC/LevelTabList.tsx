@@ -1,5 +1,7 @@
 import { Flex, Tab, TabList } from "@chakra-ui/react";
 
+import { responsive } from "../../../../styles/utils";
+import { calcLen } from "../hooks/calcLen";
 import { useAppSelector } from "@/state/reduxHooks";
 import { selectors as sbtSelectors } from "@/state/sbt";
 
@@ -11,10 +13,10 @@ export const LevelTabList = () => {
   return (
     <TabList border="none">
       <Flex
-        minW="148px"
-        h="25px"
+        minW={responsive.respW(148)}
+        h={responsive.respH(25)}
         bgColor="#DDD9D7"
-        borderRadius="25px"
+        borderRadius={responsive.respW(25)}
         display="flex"
         justifyContent="space-between"
         px="1.5px"
@@ -27,14 +29,14 @@ export const LevelTabList = () => {
               border="none"
               //   py="1px"
               m="0"
-              w="42px"
+              w={responsive.respW(42)}
               h="full"
-              borderRadius="25px"
+              borderRadius={responsive.respW(25)}
               textAlign="center"
               cursor="pointer"
               bgColor="transparent"
               key={value}
-              fontSize="sm"
+              fontSize={`${calcLen(responsive.respW(14))}px`}
               color="#FFFFFF"
               _selected={{
                 bgColor: "#EE862B",

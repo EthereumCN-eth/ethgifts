@@ -32,6 +32,7 @@ export const convertGalleryItem = (
       name,
       infoDetail,
       mainViewType,
+      onShelf,
     } = serverItem;
 
     // console.log("infoDetail", infoDetail);
@@ -90,6 +91,7 @@ export const convertGalleryItem = (
       imageLinks,
       infoDetail: infoDetail as DetailInfoType,
       mainViewType,
+      onShelf,
     };
     const contractReadObj = constructContractReadObj(address, serverItem);
 
@@ -122,8 +124,7 @@ export const convertGalleryItem = (
     const {
       SBTLevel,
       artworks,
-      currentLevel,
-      currentIndex,
+
       contractAddress,
       issuerAddress,
     } = serverItem;
@@ -133,8 +134,7 @@ export const convertGalleryItem = (
       SBTLevel,
       artworks,
       typeName: "sbt",
-      currentLevel,
-      currentIndex,
+
       contractAddress,
       issuerAddress,
     };

@@ -6,6 +6,19 @@ export const Button: ComponentStyleConfig = {
     borderRadius: "full",
   },
   variants: {
+    assist: {
+      bgColor: "#fff",
+      borderRadius: "8px",
+      _hover: {
+        bgColor: darken(0.1, "#fff"),
+        _disabled: {
+          bgColor: "gray.300",
+        },
+      },
+      _active: {
+        bgColor: darken(0.2, "#fff"),
+      },
+    },
     orangeBg: {
       borderRadius: "8px",
       bgColor: "#EE862B",
@@ -14,12 +27,16 @@ export const Button: ComponentStyleConfig = {
         color: darken(0.1, "#fff"),
         bgColor: darken(0.1, "#EE862B"),
         _disabled: {
-          bgColor: "gray.300",
+          bgColor: "#757575",
         },
       },
       _active: {
         color: darken(0.2, "#fff"),
         bgColor: darken(0.2, "#EE862B"),
+      },
+      _disabled: {
+        opacity: 1,
+        bgColor: "rgba(117, 117, 117, 1)",
       },
     },
     grayBg: {

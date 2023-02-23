@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["interactiveTransactions"]
+  previewFeatures = ["interactiveTransactions", "referentialIntegrity"]
 }
 
 datasource db {
@@ -25,7 +25,7 @@ model RawExpressMessage {
 }
 
 model ExpressMessage {
-  rawMessage RawExpressMessage @relation(fields: [id], references: [id])
+  rawMessage RawExpressMessage @relation(fields: [id], references: [id], onDelete: Cascade)
   id         String            @id
 
   expressUrl         String
@@ -39,13 +39,37 @@ model ExpressMessage {
 
   // sBTSignatureRecordId String?
   SignaturePayload SignaturePayload?
+
+  metaData MetaData?
+}
+
+enum urlType {
+  twitter
+  video
+  ogData
+  onlyMeta
+  noMeta
+}
+
+model MetaData {
+  messageId      String         @id
+  expressMessage ExpressMessage @relation(fields: [messageId], references: [id])
+
+  urlType     urlType @default(twitter)
+  title       String?
+  description String?
+  imageUrl    String?
+  site        String?
+  videoUrl    String?
+  twitterId   String?
 }
 
 model User {
-  discordId    String  @id
-  name         String
-  ethAddress   String? @unique
-  expressCount Int
+  discordId     String  @id
+  discordAvatar String?
+  name          String
+  ethAddress    String? @unique
+  expressCount  Int
 
   expressMessages     ExpressMessage[]
   sbtSignatureRecords SBTSignatureRecord[]
@@ -61,14 +85,14 @@ model SBTSignatureRecord {
   user   User   @relation(fields: [userId], references: [discordId])
   userId String
 
-  expressMessage ExpressMessage @relation(fields: [id], references: [id])
+  expressMessage ExpressMessage @relation(fields: [id], references: [id], onDelete: Cascade)
   id             String         @id @unique
 
   sbtContractType   SBTContractType @relation(fields: [sbtContractTypeId], references: [id])
   sbtContractTypeId Int
   signedVC          String
 
-  signaturePayload   SignaturePayload @relation(fields: [signaturePayloadId], references: [id])
+  signaturePayload   SignaturePayload @relation(fields: [signaturePayloadId], references: [id], onDelete: Cascade)
   signaturePayloadId String           @unique
   signatureData      String
 }
@@ -84,7 +108,7 @@ model SignaturePayload {
   receiverETHAddress String
   expressCount       Int
   sBTSignatureRecord SBTSignatureRecord?
-  expressMessage     ExpressMessage      @relation(fields: [id], references: [id])
+  expressMessage     ExpressMessage      @relation(fields: [id], references: [id], onDelete: Cascade)
   id                 String              @id @unique
 }
 

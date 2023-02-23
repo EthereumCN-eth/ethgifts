@@ -6,7 +6,7 @@ import type { GallerySBTItemType } from "@/state/gallery/types";
 import { GalleryItem } from "./GalleryItem";
 
 export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
-  const { id, typeName, currentIndex, contractAddress, chainId } = galleryItem;
+  const { id, typeName, contractAddress, chainId } = galleryItem;
   const { address } = useAccount();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -14,13 +14,13 @@ export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
     chainId,
     contractAddress,
     connectedAddress: address,
-    currentLevelNumber: currentIndex + 1,
+    currentLevelNumber: 1,
   });
   // console.log("sbt currentIndex, isclaimed", currentIndex, isclaimed);
   return (
     <GalleryItem
       isOwnIt={isclaimed}
-      linkTo={`/${typeName}/${id}/${currentIndex + 1}`}
+      linkTo={`/${typeName}/${id}`}
       {...galleryItem}
     />
   );

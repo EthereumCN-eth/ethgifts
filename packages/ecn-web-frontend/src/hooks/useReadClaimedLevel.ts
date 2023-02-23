@@ -1,6 +1,6 @@
 import type { BigNumber } from "ethers";
 import { constants } from "ethers";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useContractRead } from "wagmi";
 
 import SBT1 from "@/abis/SBT1.json";
@@ -31,8 +31,8 @@ export const useReadClaimedSelectedLevel = ({
   connectedAddress,
   currentLevelNumber,
 }: {
-  chainId: number;
-  contractAddress: string;
+  chainId: number | undefined;
+  contractAddress: string | undefined;
   connectedAddress: string | undefined;
   currentLevelNumber: number;
 }) => {
@@ -42,14 +42,14 @@ export const useReadClaimedSelectedLevel = ({
     chainId,
     functionName: "mintedLevels",
     args: [connectedAddress || constants.AddressZero],
-    enabled: !!connectedAddress && !!contractAddress,
+    enabled: !!connectedAddress && !!contractAddress && !!chainId,
   });
-  const claimedArray = useMemo(() => {
-    if (claimed) return claimed.map((v: BigNumber) => v.toNumber());
-    return [];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [claimed?.length, connectedAddress, contractAddress, chainId]);
+  const claimedArray = claimed
+    ? claimed.map((v: BigNumber) => v.toNumber())
+    : [];
 
+  // console.log("currentLevelNumber", currentLevelNumber);
+  // console.log("claimedArray", claimedArray);
   const isClaimed = useRef<boolean>(false);
   if (isSuccess)
     isClaimed.current = claimed

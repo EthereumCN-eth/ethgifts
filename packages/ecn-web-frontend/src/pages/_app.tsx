@@ -7,6 +7,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+// import NoSSRWrapper from "src/state/NoSSRWrapper";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
@@ -14,7 +15,6 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 // import { publicProvider } from "wagmi/providers/public";
 import { apiQueryClient } from "../services/queryClient";
 import store, { persistor } from "../state/store";
-// import NoSSRWrapper from "src/state/NoSSRWrapper";
 import { AddressOrNetworkChange } from "@/components/AddressOrNetworkChange";
 import { Chakra } from "@/components/Chakra";
 import "@fontsource/red-rose";
@@ -110,6 +110,7 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }: AppProps) {
   const rainbowTheme = useHeaderStore((state) => state.rainbowTheme);
   useGoogleAnalyticsPageViewTrack();
+
   return (
     <>
       <NextSeoData />

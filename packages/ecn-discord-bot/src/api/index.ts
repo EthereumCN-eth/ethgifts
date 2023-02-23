@@ -6,6 +6,7 @@ export const addRawMsgApi = async (msgPayload: {
   rawMessage: string;
   discordId: string;
   discordName: string;
+  discordAvatar: string | null;
   msgId: string;
 }) => {
   try {
@@ -20,6 +21,7 @@ export const addRawMsgApi = async (msgPayload: {
         user: {
           ethAddress: string | null;
           discordId: string;
+          discordAvatar: string | null;
         };
       };
     }>("http://localhost:3010/rawMsg/addRawMessage", msgPayload);
@@ -71,10 +73,12 @@ export const updateAddressApi = async ({
   ethAddress,
   discordId,
   discordName,
+  discordAvatar,
 }: {
   discordId: string;
   ethAddress: string;
   discordName: string;
+  discordAvatar: string | null;
 }) => {
   try {
     const results = await axios.post<{
@@ -85,6 +89,7 @@ export const updateAddressApi = async ({
       ethAddress,
       discordId,
       discordName,
+      discordAvatar,
     });
     console.log("res:", results.data);
     return {
@@ -145,6 +150,43 @@ export const addMsgApi = async (msgPayload: {
     };
   } catch (e) {
     console.log("addMessage error:", e);
+    return {
+      success: false,
+      data: null,
+    };
+  }
+};
+
+export const deleteMsg = async (msgPayload: { msgId: string }) => {
+  try {
+    const resluts = await axios.post<{
+      success: boolean;
+    }>("http://localhost:3010/msg/deleteMessage", msgPayload);
+    console.log("delete message: ", msgPayload.msgId);
+    return {
+      success: resluts.data.success,
+    };
+  } catch (error) {
+    console.log("delete message error: ", error);
+    return {
+      success: false,
+    };
+  }
+};
+
+export const findMessage = async (msgPayload: { msgId: string }) => {
+  try {
+    const results = await axios.post<{
+      success: boolean;
+      data?: ExpressMessage;
+      error: string | null;
+    }>("http://localhost:3010/msg/findMessage", msgPayload);
+
+    return {
+      success: results.data.success,
+      data: results.data,
+    };
+  } catch (error) {
     return {
       success: false,
       data: null,

@@ -60,6 +60,7 @@ const initialDummyState = {
   },
 
   nftDeliveryData: null,
+  onShelf: true,
   //   infoDetail?: Prisma.JsonValue,
 } as PoapState;
 

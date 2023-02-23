@@ -4,7 +4,7 @@ export const SunBlurBg = () => (
   <Center
     // zIndex={1}
     sx={{
-      filter: "blur(235px)",
+      filter: "blur(150px)",
       background: "rgba(255, 255, 255, 0.82)",
     }}
     position="fixed"

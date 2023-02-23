@@ -1,5 +1,7 @@
 import { Box, IconButton, Progress, Text } from "@chakra-ui/react";
-import { FaRegHandPointDown } from "react-icons/fa";
+import { BsFillCaretDownFill } from "react-icons/bs";
+
+import MotionBox from "../motion/Box";
 
 export const ProgressBar = ({
   progressValues,
@@ -22,54 +24,69 @@ export const ProgressBar = ({
   const currentCount = expressCount || 0;
 
   const expressProgress = (currentCount / total) * 100;
-  const selectedLevelProgressVal = progressValues[selectedIndex];
+  // const selectedLevelProgressVal = progressValues[selectedIndex];
   // console.log("levels", levels);
   // console.log("currentCount", currentCount);
+  // console.log("expressProgress", expressProgress);
 
   return (
     <Box w="53%" position="relative" whiteSpace="nowrap">
-      {expressCount && (
+      {/* {expressCount && ( */}
+      <MotionBox
+        animate={{ y: "6px" }}
+        transition={{ repeat: Infinity, duration: 0.7, repeatType: "reverse" }}
+        // width={{ base: "100%", sm: "70%", md: "60%" }}
+        // margin="0 auto"
+      >
         <Box
           position="absolute"
           bottom="calc(100% + 5px)"
-          left={`${expressProgress}%`}
-          transform="translateY(-4px) translateX(calc(-50% - 6px))"
+          left={`calc(${
+            expressProgress === 0 ? "0" : `${expressProgress}% - 7.5px`
+          })`}
+          transform="translateY(-4px) translateX(calc(-50%))"
           transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
         >
-          <FaRegHandPointDown color="#FFFFFF" size="20px" />
+          <BsFillCaretDownFill color="#FFFFFF" size="17px" />
         </Box>
-      )}
-      {expressCount && (
-        <Text
-          position="absolute"
-          bottom="calc(100% + 28px)"
-          left={`${expressProgress}%`}
-          // left={`${selectedLevelProgressVal}%`}
-          color="#FFFFFF"
-          fontSize="xs"
-          transform="translateY(-4px) translateX(calc(-50% - 6px))"
-          transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
-        >
-          {`你在这里(${expressCount})`}
-        </Text>
-      )}
+      </MotionBox>
+      {/* )} */}
+      <Text
+        position="absolute"
+        bottom="calc(100% + 23px)"
+        left={`calc(${
+          expressProgress === 0 ? "0" : `${expressProgress}% - 7.5px`
+        })`}
+        // left={`calc(${expressProgress}% - 7.5px)`}
+        transform="translateY(-4px) translateX(calc(-50%))"
+        // left={`${selectedLevelProgressVal}%`}
+        color="#FFFFFF"
+        // fontSize="xs"
+        fontSize={["6px", "6px", "6px", "xs"]}
+        transition="left 1s cubic-bezier(0.77, 0, 0.175, 1)"
+      >
+        {`你在这里(${currentCount})`}
+      </Text>
 
       {!!levels.length &&
         levels.map((level, index) => {
+          // console.log("level", level);
           return (
             <Text
               position="absolute"
               left={`${progressValues[index]}%`}
               // bottom="-200%"
+              fontSize={["6px", "6px", "6px", "xs"]}
               display="block"
-              transform="translateX(-50%) translateY(100%)"
+              transform="translateX(calc(-50% - 6px)) translateY(20px)"
               // transform="translateX(-50%) translateY(-70px)"
               key={level}
-              color={level <= currentCount ? "white" : "#757575"}
+              color={index === selectedIndex ? "white" : "#757575"}
               // opacity={? 1 : 0}
               transition="opacity 1s cubic-bezier(0.77, 0, 0.175, 1)"
             >
               {`Lv${index + 1} (${level})`}
+              {/* {`(${level})`} */}
             </Text>
           );
         })}
@@ -101,7 +118,7 @@ export const ProgressBar = ({
             // left={`${v}%`}
             h="4px"
             w="4px"
-            bgColor={selectedLevelProgressVal >= v ? "grey" : "white"}
+            bgColor={levels[index] <= currentCount ? "#757575" : "grey"}
             borderRadius="50%"
             transition="1000ms linear"
           />

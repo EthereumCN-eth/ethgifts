@@ -1,4 +1,11 @@
-import { Box, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  useMediaQuery,
+} from "@chakra-ui/react";
 
 import type { GalleryItemType } from "@/state/gallery/types";
 
@@ -19,6 +26,9 @@ export const HomeGalleryView = ({
   const shellItems = new Array(shellNumber).fill(null).map((_, i) => ({
     key: i,
   }));
+
+  // breakpoint in between 2xl & xl
+  const [isLargerThanXlBut2xl] = useMediaQuery("(min-width: 108em)");
   return (
     <Flex
       zIndex={100}
@@ -49,6 +59,7 @@ export const HomeGalleryView = ({
           "repeat(2, 1fr)",
           "repeat(2, 1fr)",
           "repeat(3, 1fr)",
+          isLargerThanXlBut2xl ? "repeat(4, 1fr)" : "repeat(3, 1fr)",
         ]}
         rowGap="20px"
         // px="10%"
@@ -62,7 +73,7 @@ export const HomeGalleryView = ({
         {!loading &&
           items.map((item) => {
             return (
-              <GridItem key={item.key}>
+              <GridItem hidden={!item.onShelf} key={item.key}>
                 {item.typeName === "nft" && <GalleryNFTItem {...item} />}
                 {item.typeName === "sbt" && <GallerySBTItem {...item} />}
                 {item.typeName === "poap" && <GalleryPoapItem {...item} />}

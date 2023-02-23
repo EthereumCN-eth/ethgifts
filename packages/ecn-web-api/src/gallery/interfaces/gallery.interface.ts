@@ -9,7 +9,7 @@ export type EventItem = {
 export const STATUS_COMP_VAL = {
   ongoing: 2,
   'coming soon': 1,
-  null: 0
+  null: 0,
 };
 
 export type BaseItem = {
@@ -46,8 +46,6 @@ export type SBTItem = {
   artworks: string[];
   contractAddress: string;
   SBTLevel: number[];
-  currentLevel: number;
-  currentIndex: number;
   issuerAddress: string;
 } & BaseItem;
 

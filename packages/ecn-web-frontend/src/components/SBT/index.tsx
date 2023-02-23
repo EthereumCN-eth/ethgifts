@@ -1,4 +1,4 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { useAccount, useNetwork } from "wagmi";
@@ -108,16 +108,17 @@ export const SBT = () => {
     <>
       <Flex w="100%" direction="column">
         <Flex
-          direction="row"
+          direction={["column", "column", "row"]}
           px="10%"
           w="full"
-          pt={20}
-          h="85vh"
+          pb={5}
+          // pt={20}
+          h={["120vh", "110vh", "85vh"]}
           // bg="blue.200"
           bg="rgba(0, 0, 0, 0.8)"
           position="relative"
         >
-          <Flex w="50%" direction="column" h="95%" align="center">
+          <Flex flex={1} direction="column" h="95%" align="center">
             <Carousel
               isLeftDisable={isLeftDisable}
               isRightDisable={isRightDisable}
@@ -133,13 +134,16 @@ export const SBT = () => {
               expressCount={expressCount}
             />
           </Flex>
+          {/* spacer */}
+          <Box boxSize={[0, 0, "5.5vw"]} />
+
           <Flex
-            w="50%"
+            flex={1}
             direction="column"
             h="95%"
             // bg="silver"
             justify="center"
-            pl="11%"
+            // mx={["10%", "10%", "0 0"]}
           >
             {/*  */}
             <StatusBoard
@@ -152,7 +156,7 @@ export const SBT = () => {
               // chainId={chainId}
             />
           </Flex>
-          <Center
+          {/* <Center
             position="absolute"
             bottom={0}
             left={0}
@@ -163,7 +167,7 @@ export const SBT = () => {
             // bg="rgba(0, 0, 0, 0.8)"
           >
             click
-          </Center>
+          </Center> */}
         </Flex>
       </Flex>
 

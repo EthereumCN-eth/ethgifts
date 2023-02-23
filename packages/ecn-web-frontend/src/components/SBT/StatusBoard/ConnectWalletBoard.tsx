@@ -12,7 +12,7 @@ export const ConnectWalletBoard = ({
 }: ConnectWalletBoardProps) => {
   return (
     <>
-      <HStack gap={3} wrap="wrap">
+      <HStack align={["center", "center", "flex-start"]} gap={3} wrap="wrap">
         {detailTags.map((tag) => {
           return (
             <TextTag key={tag.label} text={tag.label} variant={tag.variant} />
@@ -20,7 +20,13 @@ export const ConnectWalletBoard = ({
         })}
       </HStack>
       {itemTexts && (
-        <Text my="8.1%" fontFamily="PingFang SC" color="white" fontSize="4xl">
+        <Text
+          my="8.1%"
+          fontFamily="PingFang SC"
+          color="white"
+          fontSize="4xl"
+          textAlign={["center", "center", "left"]}
+        >
           {itemTexts[selectedIndex]}
         </Text>
       )}
@@ -30,6 +36,7 @@ export const ConnectWalletBoard = ({
         color="white"
         letterSpacing="0.02em"
         mb="8.1%"
+        textAlign={["center", "center", "left"]}
       >
         连接钱包，查看你的获得情况。
       </Text>
@@ -42,7 +49,7 @@ export const ConnectWalletBoard = ({
                 my="1.5%"
                 variant="orangeOutline"
                 mt="30px"
-                minW="93%"
+                minW="100%"
                 onClick={openConnectModal}
               >
                 连接钱包

@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { UserModule } from './user/user.module';
 import { SbtModule } from './sbt/sbt.module';
+import { MessageModule } from './message/message.module';
+import { RSSFeedModule } from './rss/rss.module';
 @Module({
   imports: [
     // LoggerModule.forRoot(),
@@ -21,6 +23,8 @@ import { SbtModule } from './sbt/sbt.module';
     GalleryModule,
     UserModule,
     SbtModule,
+    MessageModule,
+    RSSFeedModule,
   ],
 })
 export class AppModule implements NestModule {

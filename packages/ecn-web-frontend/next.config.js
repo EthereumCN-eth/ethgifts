@@ -1,4 +1,4 @@
-const { access, symlink } = require("fs/promises");
+const { access, symlink, cp } = require("fs/promises");
 const { join } = require("path");
 
 const withPWA = require("next-pwa")({
@@ -39,9 +39,12 @@ module.exports = withPWA({
           compiler.hooks.afterEmit.tapPromise(
             "SymlinkWebpackPlugin",
             async (compiler) => {
+              // console.log('path:', compiler.options.output.path)
               if (isServer) {
                 const from = join(compiler.options.output.path, "../static");
                 const to = join(compiler.options.output.path, "static");
+                // console.log("from", from);
+                // console.log("to", to);
 
                 try {
                   await access(from);
@@ -55,8 +58,11 @@ module.exports = withPWA({
                   }
                 }
 
-                await symlink(to, from, "junction");
-                console.log(`created symlink ${from} -> ${to}`);
+                // await symlink(to, from, "junction");
+                await cp(to, from, {
+                  recursive: true
+                });
+                console.log(`created cp ${from} -> ${to}`);
               }
             }
           );

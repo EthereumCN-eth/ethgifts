@@ -12,8 +12,8 @@ services:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - postgres
+        #networks:
+        #- postgres
     restart: unless-stopped
     
   nginx:
@@ -34,6 +34,8 @@ services:
     environment:
       DOMAIN: ${DOMAIN}
       WEB_API_PORT: ${WEB_API_PORT}
+      REDIS_BULLBOARD_PORT: ${REDIS_BULLBOARD_PORT}
+      REDIS_BULL_NGINX_PATH: ${REDIS_BULL_NGINX_PATH}
     command: /bin/bash -c "envsubst < /etc/nginx/conf.d/default.prod.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
   certbot:
@@ -47,6 +49,7 @@ services:
       - nginx
     # command: certonly --webroot --webroot-path=/var/www/certbot --email email --agree-tos --no-eff-email --staging -d   -d 
     #    command: certonly --webroot --webroot-path=/var/www/certbot --email ${CERT_EMAIL} --agree-tos --no-eff-email --force-renewal -d ${DOMAIN}
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   web_api:
     build:
@@ -58,13 +61,41 @@ services:
       - .:/app
       - /app/node_modules 
       - /app/packages/ecn-discord-bot/node_modules
+      - /app/packages/ecn-discord-data/node_modules
       - /app/packages/ecn-eip712vc/node_modules
       - /app/packages/ecn-prisma/node_modules
       - /app/packages/ecn-sbt-api/node_modules
       - /app/packages/ecn-sbt-contract/node_modules
       - /app/packages/ecn-web-api/node_modules
       - /app/packages/ecn-web-frontend/node_modules
-    command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && ./node_modules/.bin/pm2-runtime start ./dist/main.js"
+      - /app/packages/ecn-redis-bullboard/node_modules
+    command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && node  ./dist/main.js"
+
+  redis_bullboard:
+    build:
+        dockerfile: Dockerfile.redis-bullboard.prod
+        context: ./
+    container_name: redis_bullboard
+    restart: unless-stopped
+    environment:
+      REDIS_BULLBOARD_PORT: ${REDIS_BULLBOARD_PORT}
+      REDIS_BULL_NGINX_PATH: ${REDIS_BULL_NGINX_PATH}
+      REDIS_BULLBOARD_USERNAME: ${REDIS_BULLBOARD_USERNAME}
+      REDIS_BULLBOARD_PASSWORD: ${REDIS_BULLBOARD_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+    volumes:
+      - .:/app
+      - /app/node_modules 
+      - /app/packages/ecn-discord-bot/node_modules
+      - /app/packages/ecn-discord-data/node_modules
+      - /app/packages/ecn-eip712vc/node_modules
+      - /app/packages/ecn-prisma/node_modules
+      - /app/packages/ecn-sbt-api/node_modules
+      - /app/packages/ecn-sbt-contract/node_modules
+      - /app/packages/ecn-web-api/node_modules
+      - /app/packages/ecn-web-frontend/node_modules
+      - /app/packages/ecn-redis-bullboard/node_modules
+    command: /bin/bash -c "cd /app/packages/ecn-redis-bullboard/  && node ./index.js"
 
   redis:
     image: redis
@@ -83,4 +114,5 @@ volumes:
   certbot-etc:
   certbot-var:
   dhparam:
+  postgres:
   # pgadmin:

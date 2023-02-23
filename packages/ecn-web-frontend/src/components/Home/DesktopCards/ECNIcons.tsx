@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Image } from "@chakra-ui/react";
 import type { UseMeasureRef } from "react-use/lib/useMeasure";
 
-import { ICON_TOP_HOVER_MARGIN, ICON_TOP_MARGIN } from "./constants";
+// import { ICON_TOP_HOVER_MARGIN, ICON_TOP_MARGIN } from "./constants";
 import type { IconDataType } from "./types";
 
 export const ECNIcons = ({
@@ -10,12 +11,18 @@ export const ECNIcons = ({
   cardIconHeight,
   isCurrentOnHover,
   isOuterOnHover,
+  topOffset,
+  topOffsetExpanded,
+  containerHeight,
 }: {
   item: IconDataType;
   cardIconRef: UseMeasureRef<HTMLDivElement>;
   cardIconHeight: number;
   isCurrentOnHover: boolean;
   isOuterOnHover: boolean;
+  topOffset: number;
+  topOffsetExpanded: number;
+  containerHeight: number;
 }) => {
   return (
     <Box
@@ -23,15 +30,22 @@ export const ECNIcons = ({
       // position="relative"
       position="absolute"
       // top="29.7%"
-      top={isCurrentOnHover ? ICON_TOP_HOVER_MARGIN : ICON_TOP_MARGIN}
-      w={`${20 * 0.6}vw`}
+      // top={isCurrentOnHover ? ICON_TOP_HOVER_MARGIN : ICON_TOP_MARGIN}
+
+      top={`${isCurrentOnHover ? topOffsetExpanded : topOffset}px`}
+      transform={
+        isCurrentOnHover
+          ? `translateY(${-0.5 * cardIconHeight}px)`
+          : `translateY(${-0.2 * cardIconHeight}px)`
+      }
+      w={`${20 * 0.47}vw`}
       h={`${cardIconHeight}px`}
       transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
     >
       <Box
         ref={cardIconRef}
         className="ecn-in-icon-shell"
-        w={`${20 * 0.6}vw`}
+        w={`${20 * 0.47}vw`}
         opacity={!isCurrentOnHover && isOuterOnHover ? 0 : 1}
         h="auto"
         transition="all 1s cubic-bezier(0.77, 0, 0.175, 1)"
@@ -42,7 +56,7 @@ export const ECNIcons = ({
       </Box>
       <Box
         className="ecn-in-icon"
-        w={`${20 * 0.6}vw`}
+        w={`${20 * 0.47}vw`}
         h="auto"
         top="0"
         position="absolute"

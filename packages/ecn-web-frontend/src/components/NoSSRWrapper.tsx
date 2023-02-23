@@ -7,8 +7,8 @@ import type { ReactNode } from "react";
 const NoSSRWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div suppressHydrationWarning>
-      {typeof document === "undefined" ? null : children}
+      {typeof document === "undefined" || !window ? null : children}
     </div>
   );
 };
-export default NoSSRWrapper;
+export { NoSSRWrapper };

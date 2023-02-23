@@ -1,4 +1,6 @@
 import { verifyCredential } from "@spruceid/didkit-wasm";
+import { verifyTicket } from "ecn-eip712vc/dist/verifyTicket";
+// import { verifyTicket } from "ecn-eip712vc/src/";
 
 import type { VCType } from "@/state/sbt/types";
 
@@ -8,7 +10,8 @@ type VerifyResult = {
   warnings: string[];
 };
 
-export const verifyVC = async (vcStr: string) => {
+export const verifyVC = async (vcStr: string | undefined) => {
+  if (!vcStr) return false;
   const verifyOptionsString = "{}";
   const verifyResultStr = await verifyCredential(
     `${vcStr}`,
@@ -23,8 +26,36 @@ export type ParseVCForPayloadDataType = ReturnType<
   typeof parseVCForPayload
 >["data"];
 
-export const parseVCForPayload = (vcStr: string) => {
+type ParseVCReturnType =
+  | {
+      success: true;
+      data: {
+        expressAmount: number;
+        metadataURI: string;
+        receiver: string;
+        signature: string;
+        verifyingContract: string;
+        chainId: number;
+        name: string;
+        version: number;
+      };
+      error: null;
+    }
+  | {
+      success: false;
+      data: null;
+      error: Error;
+    };
+export const parseVCForPayload = (
+  vcStr: string | undefined
+): ParseVCReturnType => {
   try {
+    if (!vcStr)
+      return {
+        success: false,
+        data: null,
+        error: Error("falsy vc string"),
+      };
     const vc = JSON.parse(vcStr) as VCType;
     const expressAmount =
       vc?.credentialSubject?.ethContractMessage?.expressAmount;
@@ -42,7 +73,9 @@ export const parseVCForPayload = (vcStr: string) => {
       receiver &&
       signature &&
       chainId &&
-      verifyingContract
+      verifyingContract &&
+      name &&
+      version
     ) {
       return {
         success: true,
@@ -71,4 +104,82 @@ export const parseVCForPayload = (vcStr: string) => {
       data: null,
     };
   }
+};
+
+export type ParseAndVerifyVCReturnType =
+  | {
+      success: true;
+      data: {
+        expressAmount: number;
+        metadataURI: string;
+        receiver: string;
+        signature: string;
+        verifyingContract: string;
+        chainId: number;
+        name: string;
+        version: number;
+      };
+    }
+  | {
+      success: false;
+      data: null;
+    };
+
+export const parseVCForPayloadAndVerifyVC = async (
+  vcStr: string | undefined
+): Promise<ParseAndVerifyVCReturnType> => {
+  const { success, data } = parseVCForPayload(vcStr);
+  if (success) {
+    const verified = await verifyVC(vcStr);
+    if (verified) {
+      return {
+        success: true,
+        data,
+      };
+    } else {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+  } else {
+    return {
+      success: false,
+      data: null,
+    };
+  }
+};
+
+export const verifyVCTicket = async (
+  vcStr: string | undefined,
+  expectedVerifyPubKey: string | undefined
+) => {
+  if (!vcStr || !expectedVerifyPubKey) return false;
+  const { success, data } = parseVCForPayload(vcStr);
+  if (!success || !data) return false;
+  const {
+    chainId,
+    expressAmount,
+    metadataURI,
+    name,
+    receiver,
+    signature,
+    verifyingContract,
+    version,
+  } = data;
+  return verifyTicket({
+    domainData: {
+      chainId,
+      name,
+      verifyingContract,
+      version: version.toString(),
+    },
+    messageData: {
+      expressAmount,
+      metadataURI,
+      receiver,
+    },
+    ticketSignedData: signature,
+    expectedVerifyPubKey,
+  });
 };

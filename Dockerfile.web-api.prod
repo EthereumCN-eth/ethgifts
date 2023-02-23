@@ -1,6 +1,6 @@
 FROM node:18.12.1
 WORKDIR /app
-COPY ./ ./
-WORKDIR /app/packages/ecn-web-api/
+# COPY ./ ./
+# WORKDIR /app/packages/ecn-web-api/
 RUN yarn
-RUN yarn add pm2
+RUN npm install -g pm2

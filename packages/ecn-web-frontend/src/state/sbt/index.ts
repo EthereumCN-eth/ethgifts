@@ -20,7 +20,7 @@ export interface SBTState {
       })[]
     | null;
   artworks: string[];
-  itemTexts: string[] | null;
+  itemTexts: string[];
   detailTags: Tag[];
   contractAddress: string;
   issuerAddress: string;
@@ -76,9 +76,18 @@ const selectSBTLevels = (state: AppState, id: number) =>
 
 const selectAll = (state: AppState) => state.sbt;
 
+const selectVCStr = (state: AppState, index: number) => {
+  const record =
+    state.sbt.records?.filter(
+      (rec) => rec.signaturePayload.expressCount === state.sbt.sbtLevel[index]
+    )[0] || null;
+  return record?.signedVC;
+};
+
 const selectors = {
   selectSBTLevels,
   selectAll,
+  selectVCStr,
 };
 
 const { actions } = sbtSlice;

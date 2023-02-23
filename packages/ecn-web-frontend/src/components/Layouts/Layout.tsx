@@ -12,7 +12,8 @@ import type { HeaderProps } from "./types";
 export const Layout = ({
   children,
   headerProps,
-}: { children: ReactNode } & HeaderProps) => {
+  headerBgColor,
+}: { children: ReactNode; headerBgColor?: string } & HeaderProps) => {
   const setHeaderTheme = useHeaderStore((state) => state.setTheme);
   useEffect(() => {
     setHeaderTheme(headerProps.colorTheme);
@@ -20,7 +21,7 @@ export const Layout = ({
   return (
     <Box position="relative">
       <SunBlurBg />
-      <Header />
+      <Header headerBgColor={headerBgColor} />
       {children}
       <Footer />
     </Box>
