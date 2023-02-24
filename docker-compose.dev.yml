@@ -59,16 +59,6 @@ services:
     restart: unless-stopped
     volumes:
       - .:/app
-      - /app/node_modules 
-      - /app/packages/ecn-discord-bot/node_modules
-      - /app/packages/ecn-discord-data/node_modules
-      - /app/packages/ecn-eip712vc/node_modules
-      - /app/packages/ecn-prisma/node_modules
-      - /app/packages/ecn-sbt-api/node_modules
-      - /app/packages/ecn-sbt-contract/node_modules
-      - /app/packages/ecn-web-api/node_modules
-      - /app/packages/ecn-web-frontend/node_modules
-      - /app/packages/ecn-redis-bullboard/node_modules
     command: /bin/bash -c "cd /app/packages/ecn-web-api/ && yarn build && node  ./dist/main.js"
 
   redis_bullboard:
@@ -85,16 +75,6 @@ services:
       REDIS_HOST: ${REDIS_HOST}
     volumes:
       - .:/app
-      - /app/node_modules 
-      - /app/packages/ecn-discord-bot/node_modules
-      - /app/packages/ecn-discord-data/node_modules
-      - /app/packages/ecn-eip712vc/node_modules
-      - /app/packages/ecn-prisma/node_modules
-      - /app/packages/ecn-sbt-api/node_modules
-      - /app/packages/ecn-sbt-contract/node_modules
-      - /app/packages/ecn-web-api/node_modules
-      - /app/packages/ecn-web-frontend/node_modules
-      - /app/packages/ecn-redis-bullboard/node_modules
     command: /bin/bash -c "cd /app/packages/ecn-redis-bullboard/  && node ./index.js"
 
   redis:
