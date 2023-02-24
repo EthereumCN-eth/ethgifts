@@ -17,6 +17,7 @@ export const GalleryPoapItem = (galleryItem: GalleryPoapItemType) => {
       isOwnIt={hasPoap}
       linkTo={`/${typeName}/${id}/1`}
       {...galleryItem}
+      tagText={typeName}
     />
   );
 };

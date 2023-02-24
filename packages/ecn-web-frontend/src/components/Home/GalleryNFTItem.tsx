@@ -11,12 +11,13 @@ export const GalleryNFTItem = (galleryItem: GalleryNFTItemType) => {
     contractReadObj,
   });
   // console.log("nft data", data);
-  const { id, typeName } = galleryItem;
+  const { id, typeName, homeTags } = galleryItem;
   return (
     <GalleryItem
       isOwnIt={hasNFT}
       linkTo={`/${typeName}/${id}/1`}
       {...galleryItem}
+      tagText={homeTags[0].label as "nft" | "poap" | "sbt"}
     />
   );
 };

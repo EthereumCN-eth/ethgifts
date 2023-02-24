@@ -14,11 +14,14 @@ export const GalleryItem = ({
   desc,
   linkTo,
   isOwnIt = false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   typeName,
   status,
+  tagText,
 }: GalleryItemType & {
   linkTo: string;
   isOwnIt?: boolean;
+  tagText: "nft" | "poap" | "sbt";
 }) => {
   // const isOngoing = status === "ongoing";
   // const router = useRouter();
@@ -41,7 +44,7 @@ export const GalleryItem = ({
         }}
         // zIndex="100"
       >
-        <UpperView title={title} linkTo={linkTo} typeName={typeName} />
+        <UpperView title={title} linkTo={linkTo} typeName={tagText} />
 
         {/*  */}
         <Box h="50px" />

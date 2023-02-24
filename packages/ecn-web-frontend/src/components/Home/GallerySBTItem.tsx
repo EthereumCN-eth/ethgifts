@@ -22,6 +22,7 @@ export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
       isOwnIt={isclaimed}
       linkTo={`/${typeName}/${id}`}
       {...galleryItem}
+      tagText={typeName}
     />
   );
 };
