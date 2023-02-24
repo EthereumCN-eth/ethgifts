@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAccount, useNetwork } from "wagmi";
@@ -10,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/state/reduxHooks";
 import {
   sagaActions as sbtSagaActions,
   // selectors as sbtSelectors,
+  selectors as sbtSelectors,
 } from "@/state/sbt";
 
 const SBTPage = () => {
@@ -41,13 +43,21 @@ const SBTPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, appDispatch, accessToken, id, router.isReady]);
+
+  // const {
+  //   loaded,
+  //   sbtTitle,
+  //   // contractAddress,
+  // } = useAppSelector(sbtSelectors.selectAll);
+  // console.log("sbtt", sbtTitle);
   return (
     <Layout
       headerBgColor="rgba(0, 0, 0, 0.9)"
       headerProps={{ colorTheme: "black" }}
     >
-      {Number(id) === 1 && <SBT_V2 />}
-      {Number(id) === 2 && <SBTTranslator />}
+      <SBT_V2 />
+      {/* {loaded && sbtTitle === "E群誌系列SBT" && <SBT_V2 />} */}
+      {/* {loaded && <SBTTranslator />} */}
     </Layout>
   );
 };

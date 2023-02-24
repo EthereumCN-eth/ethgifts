@@ -6,7 +6,7 @@ export const sbts: SBTCreateData[] = [
     contractName: "ExpressSBT",
     version: "1",
     chainId: 10,
-    countLevel: [3, 6, 20],
+    countLevel: [20, 100, 200],
     metaDataName: "ExpressSBT",
     metaDataDescription: "EjournalSBT",
     issuerAddress: "0x857F7E6Ba9aE7dFf0f1B73b72c318b9E50761bf9",
