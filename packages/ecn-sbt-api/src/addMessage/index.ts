@@ -14,7 +14,7 @@ import { validateRawMsg } from "./DTORawMsg";
 import { addToSignatureGenerationQueue } from "../utils/generateSign";
 // import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
 import { DB_CONTRACT_TYPE_ID } from "../utils/generateSign/constants";
-import { addToMetaDataGenerateQueue } from "../utils/getUrlMetaData";
+// import { addToMetaDataGenerateQueue } from "../utils/getUrlMetaData";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -163,19 +163,20 @@ export const setupAddMessageRoute = (
           await addToSignatureGenerationQueue(
             discordId,
             msgId,
-            sbtContractTypeId
+            sbtContractTypeId,
+            url
           );
         } else {
           new Error("sbt contract type id not set");
         }
       }
 
-      try {
-        await addToMetaDataGenerateQueue(msgId, url);
-      } catch (error) {
-        console.log(error);
-        return res.status(200).send({ success: false, data: null });
-      }
+      // try {
+      //   await addToMetaDataGenerateQueue(msgId, url);
+      // } catch (error) {
+      //   console.log(error);
+      //   return res.status(200).send({ success: false, data: null });
+      // }
 
       //
       return res.status(200).send({ success: true, data: createdExpress });
