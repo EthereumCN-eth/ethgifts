@@ -2,14 +2,14 @@ import { SBTCreateData } from "./seed";
 
 export const sbts: SBTCreateData[] = [
   {
-    contractAddress: "0xbBE11F912599ecb054145aAD81674c137bb42657",
+    contractAddress: "0x40c136bd0735957f2F15005ed1E2338C5062f8d1",
     contractName: "ExpressSBT",
     version: "1",
-    chainId: 5,
+    chainId: 10,
     countLevel: [3, 6, 20],
     metaDataName: "ExpressSBT",
-    metaDataDescription: "just a goerli test sbt",
-    issuerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    metaDataDescription: "EjournalSBT",
+    issuerAddress: "0x857F7E6Ba9aE7dFf0f1B73b72c318b9E50761bf9",
     galleryItemBase: {
       create: {
         coverLink:
