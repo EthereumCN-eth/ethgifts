@@ -6,8 +6,8 @@
   "types": "index.d.ts",
   "license": "MIT",
   "scripts": {
-    "getFromMD": "node src/formatMD.js",
-    "format": "ts-node src/reformat.ts",
+    "getFromMD": "node src/riginalData/formatMD.js",
+    "format": "ts-node src/originalData/reformat.ts",
     "addMsg": "ts-node src/index.ts",
     "build": "tsc -p tsconfig.json"
   },

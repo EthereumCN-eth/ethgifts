@@ -14,7 +14,7 @@ import { validateRawMsg } from "./DTORawMsg";
 import { addToSignatureGenerationQueue } from "../utils/generateSign";
 // import { signAndSaveSignature } from "../generateSign/queue/sign.queue";
 import { DB_CONTRACT_TYPE_ID } from "../utils/generateSign/constants";
-import { getMetaData } from "../utils/getUrlMetaData";
+// import { addToMetaDataGenerateQueue } from "../utils/getUrlMetaData";
 
 export const setupAddMessageRoute = (
   app: Express,
@@ -163,34 +163,20 @@ export const setupAddMessageRoute = (
           await addToSignatureGenerationQueue(
             discordId,
             msgId,
-            sbtContractTypeId
+            sbtContractTypeId,
+            url
           );
         } else {
           new Error("sbt contract type id not set");
         }
       }
 
-      try {
-        const metaOgData = await getMetaData(url);
-
-        if (metaOgData != undefined) {
-          await prisma.metaData.create({
-            data: {
-              messageId: msgId,
-              urlType: metaOgData.urlType,
-              title: metaOgData.title,
-              description: metaOgData.description,
-              imageUrl: metaOgData.imageUrl,
-              site: metaOgData.siteName,
-              videoUrl: metaOgData.videoUrl,
-              twitterId: metaOgData.twitterId,
-            },
-          });
-        }
-      } catch (error) {
-        console.log(error);
-        return res.status(200).send({ success: false, data: null });
-      }
+      // try {
+      //   await addToMetaDataGenerateQueue(msgId, url);
+      // } catch (error) {
+      //   console.log(error);
+      //   return res.status(200).send({ success: false, data: null });
+      // }
 
       //
       return res.status(200).send({ success: true, data: createdExpress });
