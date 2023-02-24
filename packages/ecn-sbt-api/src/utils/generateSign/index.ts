@@ -1,6 +1,7 @@
 import Bull, { Job } from "bull";
 import { REDIS } from "./constants";
 import { generateSignature } from "./generateSignature";
+import { generateMetaData } from "../getUrlMetaData/getMetaData";
 
 const signatureGenerationQueue =
   process.env.BULLQUEUE_SIGN === "true" && new Bull("sign", REDIS);
@@ -14,6 +15,8 @@ const setupBull = () => {
       job.data.expressId,
       job.data.sbtContractTypeId
     );
+
+    await generateMetaData(job.data.expressId, job.data.url);
 
     // return signStatus;
     if (signStatus && signStatus.success) {
@@ -56,7 +59,8 @@ setupBull();
 const addToSignatureGenerationQueue = async (
   discordId: string,
   expressId: string,
-  sbtContractTypeId: number
+  sbtContractTypeId: number,
+  url: string
 ) => {
   if (!signatureGenerationQueue) return;
   const option = {
@@ -69,6 +73,7 @@ const addToSignatureGenerationQueue = async (
       discordId,
       expressId,
       sbtContractTypeId,
+      url,
     },
     option
   );
