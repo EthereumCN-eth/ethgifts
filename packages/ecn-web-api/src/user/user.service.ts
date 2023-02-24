@@ -38,6 +38,13 @@ export class UserService {
           }),
         ]);
 
+        if (!expressCountFromUser) {
+          return {
+            expressCount: 0,
+            sbtSignatureRecords: [],
+          };
+        }
+
         const levelFilterCondition = [
           ...levels.countLevel,
           expressCountFromUser.expressCount,
