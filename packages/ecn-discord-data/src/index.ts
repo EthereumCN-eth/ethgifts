@@ -7,14 +7,14 @@ import { MD_DATA, COLLECTOR } from "./types";
 const main = async () => {
   const collectors: COLLECTOR = JSON.parse(
     fs.readFileSync(
-      path.join(__dirname, "../discordData/collectors.json"),
+      path.join(__dirname, "../LatestData/collectors.json"),
       "utf-8"
     )
   );
 
   const formattedData: MD_DATA[] = JSON.parse(
     fs.readFileSync(
-      path.join(__dirname, "../discordData/contents.json"),
+      path.join(__dirname, "../LatestData/contents.json"),
       "utf-8"
     )
   );

@@ -1,10 +1,17 @@
-import { updateAddressApi } from "../apis/sbt-api";
+import { updateAddressApi, userHasAddressApi } from "../apis/sbt-api";
 import { COLLECTOR } from "../types";
 
 export const updateCollector = async (collectors: COLLECTOR) => {
   try {
     await Promise.all([
       ...Object.keys(collectors).map(async (collector) => {
+        const checkUserLoad = await userHasAddressApi({
+          discordId: collectors[collector].discordId,
+        });
+
+        if (checkUserLoad.hasEthAddress) {
+          return;
+        }
         if (collectors[collector].ethAddress !== "") {
           const collectorPayload = {
             ethAddress: collectors[collector].ethAddress,

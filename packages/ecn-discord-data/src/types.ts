@@ -8,12 +8,13 @@ export interface MD_DATA {
   contentType: string;
   discordName: string;
   discordId: string;
+  discordAvatar: string;
 }
 
 export interface COLLECTOR {
   [discordName: string]: {
     discordId: string;
-    ethAddress: string;
     discordAvatar: string;
+    ethAddress: string;
   };
 }
