@@ -4,8 +4,9 @@ import axios from "axios";
 import { urlType } from "@prisma/client";
 import fetch from "node-fetch";
 import cheerio from "cheerio";
-import { getUrl, getTwitterStatusId } from "./utils";
+import { getUrl, getTwitterStatusId, verifyMediaUrl } from "./utils";
 import { UrlType } from "./types";
+import { prisma } from "../../server";
 
 export class MetaData {
   expressUrl: string;
@@ -98,3 +99,38 @@ export class MetaData {
     };
   }
 }
+
+export const generateMetaData = async (msgId: string, url: string) => {
+  const meta = new MetaData(url);
+  try {
+    const metadata = verifyMediaUrl(url)
+      ? await meta.getTwitter()
+      : await meta.getOgData();
+
+    // console.log(metadata);
+    if (metadata != undefined) {
+      await prisma.metaData.create({
+        data: {
+          messageId: msgId,
+          urlType: metadata.urlType,
+          title: metadata.title,
+          description: metadata.description,
+          imageUrl: metadata.imageUrl,
+          site: metadata.siteName,
+          videoUrl: metadata.videoUrl,
+          twitterId: metadata.twitterId,
+        },
+      });
+    }
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: false,
+    };
+  }
+};
