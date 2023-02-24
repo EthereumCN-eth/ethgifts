@@ -14,7 +14,7 @@ export const sbts: SBTCreateData[] = [
       create: {
         coverLink:
           "https://ethereumcn.mypinata.cloud/ipfs/QmX5Zib9wG6XkH3PjYEz5f1nM2toGznhNfFgRSHjTUfF2C/express_sbt_cover.jpg",
-        chainId: 5,
+        chainId: 10,
         name: "E群誌系列SBT",
         onShelf: true,
         galleryItemType: "sbt",
