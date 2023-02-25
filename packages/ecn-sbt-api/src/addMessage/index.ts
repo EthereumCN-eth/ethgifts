@@ -160,6 +160,7 @@ export const setupAddMessageRoute = (
       if (isToSignCert) {
         const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
 
+        // only the entry which the userAmount of it matched counteLevel of ExpressSBT contract, will be signed
         if (typeof sbtContractTypeId === "number") {
           const countLevels = (
             await prisma.sBTContractType.findUnique({
