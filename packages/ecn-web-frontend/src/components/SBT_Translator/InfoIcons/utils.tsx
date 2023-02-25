@@ -30,7 +30,7 @@ const replaceContentStr = ({
         str: string;
       };
 }) => {
-  if (content.str === "CHAIN_ICON" && chainId === 5) {
+  if (content.str === "CHAIN_ICON" && chainId === 10) {
     return "/optimism-logo.svg";
   }
   if (content.str === "CONTRACT_ADDRESS") {
