@@ -16,7 +16,7 @@ const setupBull = () => {
       job.data.sbtContractTypeId
     );
 
-    await generateMetaData(job.data.expressId, job.data.url);
+    // await generateMetaData(job.data.expressId, job.data.url);
 
     // return signStatus;
     if (signStatus && signStatus.success) {
