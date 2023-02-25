@@ -159,13 +159,39 @@ export const setupAddMessageRoute = (
 
       if (isToSignCert) {
         const sbtContractTypeId = Number(DB_CONTRACT_TYPE_ID);
+
         if (typeof sbtContractTypeId === "number") {
-          await addToSignatureGenerationQueue(
-            discordId,
-            msgId,
-            sbtContractTypeId,
-            url
-          );
+          const countLevels = (
+            await prisma.sBTContractType.findUnique({
+              where: { id: sbtContractTypeId },
+              select: {
+                countLevel: true,
+              },
+            })
+          )?.countLevel;
+
+          const userExpressCounter = (
+            await prisma.user.findUnique({
+              where: { discordId: discordId },
+              select: { expressCount: true },
+            })
+          )?.expressCount;
+
+          if (countLevels === undefined) {
+            throw new Error("sbt contract not set");
+          }
+          if (userExpressCounter === undefined) {
+            throw new Error("fail to add the first message");
+          }
+
+          if (countLevels.includes(userExpressCounter)) {
+            await addToSignatureGenerationQueue(
+              discordId,
+              msgId,
+              sbtContractTypeId,
+              url
+            );
+          }
         } else {
           new Error("sbt contract type id not set");
         }
