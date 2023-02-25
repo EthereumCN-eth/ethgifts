@@ -120,12 +120,14 @@ export const generateMetaData = async (msgId: string, url: string) => {
 
     return {
       success: true,
+      data: meta,
     };
   } catch (error) {
     console.log(error);
 
     return {
       success: false,
+      data: null,
     };
   }
 };

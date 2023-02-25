@@ -62,12 +62,15 @@ const run = async () => {
   const signBullMq = new Queue("sign", {
     redis: redisOptions
   });
+  const metaBullMq = new Queue("meta", {
+    redis: redisOptions
+  });
 
   const serverAdapter = new ExpressAdapter();
   serverAdapter.setBasePath(REDIS_BULLBOARD_BASE_PATH);
 
   createBullBoard({
-    queues: [new BullAdapter(signBullMq)],
+    queues: [new BullAdapter(signBullMq), new BullAdapter(metaBullMq)],
     serverAdapter,
   });
 
