@@ -23,63 +23,67 @@ import { REDIS } from "./constants";
  * noMeta:
  */
 
-// const metaDataGenerateQueue = new Bull("meta", REDIS);
+const metaDataGenerateQueue = new Bull("meta", REDIS);
 
-// const setupBull = () => {
-//   if (!metaDataGenerateQueue) return;
+const setupBull = () => {
+  if (!metaDataGenerateQueue) return;
 
-//   metaDataGenerateQueue.process(async (job: Job) => {
-//     await generateMetaData(job.data.msgId, job.data.url);
+  metaDataGenerateQueue.process(async (job: Job) => {
+    const result = await generateMetaData(job.data.msgId, job.data.url);
 
-//     await job.moveToFailed({ message: "metaData generation error" }, true);
-//   });
+    if (result.success) {
+      return result.data;
+    }
 
-//   metaDataGenerateQueue.on("completed", (job, result) => {
-//     console.log("completed:", job.data.msgId);
-//     return {
-//       result: "ok",
-//       error: null,
-//       status: {
-//         metaQueue: "completed",
-//       },
-//     };
-//   });
+    await job.moveToFailed({ message: "metaData generation error" }, true);
+  });
 
-//   metaDataGenerateQueue.on("failed", function (job, err) {
-//     // A job failed with reason `err`!
-//     console.log("failed:", err);
-//     return;
-//   });
-//   metaDataGenerateQueue.on("error", (err) => {
-//     // console.log("error:", err);
-//     return {
-//       result: "error",
-//       error: `fail to excute meta message fetch`,
-//       status: {
-//         metaQueue: "error",
-//       },
-//     };
-//   });
-// };
+  metaDataGenerateQueue.on("completed", (job, result) => {
+    console.log("completed:", job.data.msgId);
+    return {
+      result: "ok",
+      error: null,
+      status: {
+        metaQueue: "completed",
+      },
+    };
+  });
 
-// setupBull();
+  metaDataGenerateQueue.on("failed", function (job, err) {
+    // A job failed with reason `err`!
+    console.log("failed:", err);
+    return;
+  });
+  metaDataGenerateQueue.on("error", (err) => {
+    // console.log("error:", err);
+    return {
+      result: "error",
+      error: `fail to excute meta message fetch`,
+      status: {
+        metaQueue: "error",
+      },
+    };
+  });
+};
 
-// const addToMetaDataGenerateQueue = async (msgId: string, url: string) => {
-//   if (!metaDataGenerateQueue) return;
-//   const option = {
-//     attempts: 1000,
-//     backoff: 20000,
-//     // removeOnComplete: true,
-//   };
-//   await metaDataGenerateQueue.add(
-//     {
-//       msgId,
-//       url,
-//     },
-//     option
-//   );
-// };
+setupBull();
 
-// export { addToMetaDataGenerateQueue };
+const addToMetaDataGenerateQueue = async (msgId: string, url: string) => {
+  if (!metaDataGenerateQueue) return;
+  const option = {
+    attempts: 1000,
+    backoff: 20000,
+    // removeOnComplete: true,
+  };
+  await metaDataGenerateQueue.add(
+    {
+      msgId,
+      url,
+    },
+    option
+  );
+};
+
+export { addToMetaDataGenerateQueue };
 
 // getMetaData("https://evmsummit.org/");
