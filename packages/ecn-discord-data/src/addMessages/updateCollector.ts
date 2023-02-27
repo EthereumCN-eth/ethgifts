@@ -14,7 +14,7 @@ export const updateCollector = async (collectors: COLLECTOR) => {
         }
         if (collectors[collector].ethAddress !== "") {
           const collectorPayload = {
-            ethAddress: collectors[collector].ethAddress,
+            ethAddress: collectors[collector].ethAddress.toLowerCase(),
             discordId: collectors[collector].discordId,
             discordName: collector,
             discordAvatar: collectors[collector].discordAvatar,
