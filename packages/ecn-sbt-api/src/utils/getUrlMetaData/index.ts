@@ -71,7 +71,7 @@ setupBull();
 const addToMetaDataGenerateQueue = async (msgId: string, url: string) => {
   if (!metaDataGenerateQueue) return;
   const option = {
-    attempts: 1000,
+    attempts: 2,
     backoff: 20000,
     timeout: 15000,
     // removeOnComplete: true,
