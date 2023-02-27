@@ -2,6 +2,7 @@ import Bull, { Job } from "bull";
 import { REDIS } from "./constants";
 import { generateSignature } from "./generateSignature";
 import { generateMetaData } from "../getUrlMetaData/getMetaData";
+import { User } from "@prisma/client";
 
 const signatureGenerationQueue =
   process.env.BULLQUEUE_SIGN === "true" && new Bull("sign", REDIS);
@@ -11,8 +12,7 @@ const setupBull = () => {
 
   signatureGenerationQueue.process(async (job: Job) => {
     const signStatus = await generateSignature(
-      job.data.discordId,
-      job.data.expressId,
+      job.data.userExpress,
       job.data.sbtContractTypeId
     );
 
@@ -57,10 +57,15 @@ const setupBull = () => {
 setupBull();
 
 const addToSignatureGenerationQueue = async (
-  discordId: string,
-  expressId: string,
-  sbtContractTypeId: number,
-  url: string
+  userExpress: User & {
+    expressMessages: {
+      expressMessage: string;
+      id: string;
+      expressUrl: string;
+      verifiedAt: Date;
+    }[];
+  },
+  sbtContractTypeId: number
 ) => {
   if (!signatureGenerationQueue) return;
   const option = {
@@ -70,10 +75,8 @@ const addToSignatureGenerationQueue = async (
   };
   await signatureGenerationQueue.add(
     {
-      discordId,
-      expressId,
+      userExpress,
       sbtContractTypeId,
-      url,
     },
     option
   );

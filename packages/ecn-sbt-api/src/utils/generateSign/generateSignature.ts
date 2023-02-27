@@ -9,30 +9,39 @@ import {
   TypeContributions,
   SBTCONTRACT_DATA_CACHE,
 } from "./types";
+import { User } from "@prisma/client";
 
 export const generateSignature = async (
-  discordId: string,
-  expressId: string,
+  userExpress: User & {
+    expressMessages: {
+      expressMessage: string;
+      id: string;
+      expressUrl: string;
+      verifiedAt: Date;
+    }[];
+  },
   sbtContractTypeId: number
 ) => {
   try {
     // const signStatus = await prisma.$transaction(async (prisma) => {
     // get eth address
-    const user = await prisma.user.findUnique({
-      where: {
-        discordId: discordId,
-      },
-      include: {
-        expressMessages: {
-          select: {
-            id: true,
-            expressMessage: true,
-            expressUrl: true,
-            verifiedAt: true,
-          },
-        },
-      },
-    });
+    // const user = await prisma.user.findUnique({
+    //   where: {
+    //     discordId: discordId,
+    //   },
+    //   include: {
+    //     expressMessages: {
+    //       select: {
+    //         id: true,
+    //         expressMessage: true,
+    //         expressUrl: true,
+    //         verifiedAt: true,
+    //       },
+    //     },
+    //   },
+    // });
+
+    const user = userExpress;
 
     if (!user || !user.ethAddress) {
       throw new Error("please register address at first");
@@ -57,21 +66,21 @@ export const generateSignature = async (
     );
 
     // generate metadata URI
-    const metaDataStatus = await storeMetaData(
-      sbtContractDataCache.metaDataName,
-      sbtContractDataCache.metaDataDescription,
-      sbtContractDataCache.issuer,
-      user.ethAddress,
-      contributions,
-      expresses.length
-    );
+    // const metaDataStatus = await storeMetaData(
+    //   sbtContractDataCache.metaDataName,
+    //   sbtContractDataCache.metaDataDescription,
+    //   sbtContractDataCache.issuer,
+    //   user.ethAddress,
+    //   contributions,
+    //   expresses.length
+    // );
 
     // faked data, off it before product launch
-    // const metaDataStatus = {
-    //   success: true,
-    //   data: "ipfs://QmbVCG8W3iwL9SL7KEBfQnjLEkePPgj2ACyay2BzDraBim",
-    //   error: ``,
-    // };
+    const metaDataStatus = {
+      success: true,
+      data: "ipfs://QmbVCG8W3iwL9SL7KEBfQnjLEkePPgj2ACyay2BzDraBim",
+      error: ``,
+    };
 
     if (metaDataStatus.success === false) {
       console.log(metaDataStatus);
@@ -107,6 +116,7 @@ export const generateSignature = async (
     }
 
     // console.log("exid", expressId);
+    const expressId = userExpress.expressMessages[expressAmount - 1].id;
 
     const signPayload = await prisma.signaturePayload.create({
       data: {
@@ -126,7 +136,7 @@ export const generateSignature = async (
             },
             create: {
               id: expressId,
-              userId: discordId,
+              userId: user.discordId,
               sbtContractTypeId: config.CONTRACT_TYPE_ID_DB,
               signedVC: vc,
               signatureData: ticketSignData,
