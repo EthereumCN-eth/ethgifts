@@ -31,6 +31,7 @@ export const setupQueryRoute = (
         },
         include: {
           metaData: true,
+          SignaturePayload: true,
         },
       });
       return res.status(200).send({ success: true, data: msg, error: null });

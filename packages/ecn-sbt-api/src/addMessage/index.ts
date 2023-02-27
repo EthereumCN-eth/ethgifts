@@ -171,39 +171,41 @@ export const setupAddMessageRoute = (
             })
           )?.countLevel;
 
-          const userExpressCounter = (
-            await prisma.user.findUnique({
-              where: { discordId: discordId },
-              select: { expressCount: true },
-            })
-          )?.expressCount;
+          const userExpress = await prisma.user.findUnique({
+            where: { discordId: discordId },
+            include: {
+              expressMessages: {
+                select: {
+                  id: true,
+                  expressMessage: true,
+                  expressUrl: true,
+                  verifiedAt: true,
+                },
+              },
+            },
+          });
 
           if (countLevels === undefined) {
             throw new Error("sbt contract not set");
           }
-          if (userExpressCounter === undefined) {
+          if (userExpress?.expressCount === undefined) {
             throw new Error("fail to add the first message");
           }
 
-          if (countLevels.includes(userExpressCounter)) {
-            await addToSignatureGenerationQueue(
-              discordId,
-              msgId,
-              sbtContractTypeId,
-              url
-            );
+          if (countLevels.includes(userExpress?.expressCount)) {
+            await addToSignatureGenerationQueue(userExpress, sbtContractTypeId);
           }
         } else {
           new Error("sbt contract type id not set");
         }
       }
 
-      try {
-        await addToMetaDataGenerateQueue(msgId, url);
-      } catch (error) {
-        console.log(error);
-        return res.status(200).send({ success: false, data: null });
-      }
+      // try {
+      //   await addToMetaDataGenerateQueue(msgId, url);
+      // } catch (error) {
+      //   console.log(error);
+      //   return res.status(200).send({ success: false, data: null });
+      // }
 
       //
       return res.status(200).send({ success: true, data: createdExpress });
