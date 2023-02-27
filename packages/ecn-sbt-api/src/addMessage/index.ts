@@ -200,12 +200,12 @@ export const setupAddMessageRoute = (
         }
       }
 
-      // try {
-      //   await addToMetaDataGenerateQueue(msgId, url);
-      // } catch (error) {
-      //   console.log(error);
-      //   return res.status(200).send({ success: false, data: null });
-      // }
+      try {
+        await addToMetaDataGenerateQueue(msgId, url);
+      } catch (error) {
+        console.log(error);
+        return res.status(200).send({ success: false, data: null });
+      }
 
       //
       return res.status(200).send({ success: true, data: createdExpress });
