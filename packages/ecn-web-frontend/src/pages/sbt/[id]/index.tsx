@@ -55,9 +55,9 @@ const SBTPage = () => {
       headerBgColor="rgba(0, 0, 0, 0.9)"
       headerProps={{ colorTheme: "black" }}
     >
-      <SBT_V2 />
-      {/* {loaded && sbtTitle === "E群誌系列SBT" && <SBT_V2 />} */}
-      {/* {loaded && <SBTTranslator />} */}
+      {/* <SBT_V2 /> */}
+      {Number(id) === 1 && "E群誌系列SBT" && <SBT_V2 />}
+      {Number(id) === 2 && <SBTTranslator />}
     </Layout>
   );
 };
