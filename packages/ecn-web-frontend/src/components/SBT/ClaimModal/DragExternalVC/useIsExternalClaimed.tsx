@@ -23,7 +23,7 @@ export const useIsExternalClaimed = ({
         return acc + 1;
       }
       return acc;
-    }, 1);
+    }, 0);
 
   return useReadClaimedSelectedLevel({
     chainId,

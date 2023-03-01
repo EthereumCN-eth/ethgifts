@@ -33,7 +33,7 @@ export const SBTButton = ({
     chainId,
     connectedAddress: address,
     contractAddress,
-    currentLevelNumber: levelIndex + 1,
+    currentLevelNumber: levelIndex,
   });
   // console.log("isClaimed", isClaimed);
 

@@ -30,8 +30,10 @@ export function SquareImg({
     chainId,
     connectedAddress: address,
     contractAddress,
-    currentLevelNumber: levelIndex + 1,
+    currentLevelNumber: levelIndex,
   });
+
+  // console.log("isClaimed", isClaimed);
   return (
     <Center w="100%">
       <Box

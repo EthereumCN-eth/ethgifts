@@ -14,7 +14,7 @@ export const GallerySBTItem = (galleryItem: GallerySBTItemType) => {
     chainId,
     contractAddress,
     connectedAddress: address,
-    currentLevelNumber: 1,
+    currentLevelNumber: 0,
   });
   // console.log("sbt currentIndex, isclaimed", currentIndex, isclaimed);
   return (
