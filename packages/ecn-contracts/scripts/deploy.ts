@@ -4,6 +4,7 @@ import {
   ECNAnniversary_4_optimism,
   ExpressSBT_optimism,
   MergeParty_optimism,
+  Translation_optimism,
 } from './deploy/Optimism_Deploy';
 import { Anniversary_init, MergeParty_init } from './doSomething/Optimism_init';
 import { ExpressSBT_goerli, Translation_goerli } from './deploy/Goerli_Deploy';
@@ -32,11 +33,11 @@ import { ExpressSBT_goerli, Translation_goerli } from './deploy/Goerli_Deploy';
   //   config.MergeParty_config.optimism.baseUri
   // );
 
-  await ExpressSBT_optimism(
-    config.ExpressSBT_config.optimism.Approver,
-    config.ExpressSBT_config.optimism.sbt_levels,
-    config.ExpressSBT_config.optimism.initialUrl
-  );
+  // await ExpressSBT_optimism(
+  //   config.ExpressSBT_config.optimism.Approver,
+  //   config.ExpressSBT_config.optimism.sbt_levels,
+  //   config.ExpressSBT_config.optimism.initialUrl
+  // );
 
-  // await Translation_goerli(config.Translation_config.goerli.initialUrl);
+  await Translation_optimism(config.Translation_config.optimism.initialUrl);
 })();

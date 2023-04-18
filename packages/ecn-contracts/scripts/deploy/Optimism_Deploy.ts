@@ -35,3 +35,12 @@ export const ECNAnniversary_4_optimism = async (baseUri: string) => {
   console.log('Anniversary 4 address: ', Anniversary.address);
   return Anniversary.address;
 };
+
+export const Translation_optimism = async (initialUrl: string) => {
+  const translation_factory = await hre.ethers.getContractFactory(
+    'TranslationSBT'
+  );
+  const translation = await translation_factory.deploy(initialUrl);
+  await translation.deployed();
+  console.log('Translation address: ', translation.address);
+};

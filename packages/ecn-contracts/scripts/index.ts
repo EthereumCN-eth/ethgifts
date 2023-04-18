@@ -5,13 +5,13 @@ import {
   MergeParty_goerli,
   ECNAnniversary_4_goerli,
   ExpressSBT_goerli,
-} from './Goerli_Deploy';
+} from './deploy/Goerli_Deploy';
 import {
   MergeParty_optimism,
   ECNAnniversary_4_optimism,
   ExpressSBT_optimism,
-} from './Optimism_Deploy';
-import { MergeParty_init, Anniversary_init } from './funcTest/Optimism_init';
+} from './deploy/Optimism_Deploy';
+import { MergeParty_init, Anniversary_init } from './doSomething/Optimism_init';
 
 export const contract_goerli_deploy = async (
   merge_mekleRoot: string,
