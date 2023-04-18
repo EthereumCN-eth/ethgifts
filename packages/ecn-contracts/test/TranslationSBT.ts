@@ -23,6 +23,9 @@ describe('basic check', () => {
   it('check token Id 0 tokenUri is equal to https://example.com/0.json', async () => {
     expect(await translation.uri(0)).to.be.equal('https://example.com/0.json');
   });
+  it('check balance of anyUser is 1', async () => {
+    expect(await translation.balanceOf(anyUser.address, 0)).to.be.equal(1);
+  });
   it('reset uri and check', async () => {
     await translation.setBaseUri('https://newUri.com/');
     expect(await translation.uri(0)).to.be.equal('https://newUri.com/0.json');
