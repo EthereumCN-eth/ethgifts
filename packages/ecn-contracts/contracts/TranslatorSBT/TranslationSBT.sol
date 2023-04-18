@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import '@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol';
 import './ITranslationSBT.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
 
-contract TranslationSBT is EIP712, ERC1155Supply, ITranslationSBT, Ownable {
+contract TranslationSBT is ERC1155Supply, ITranslationSBT, Ownable {
     using Strings for uint256;
 
     string private baseUri;
@@ -15,10 +14,7 @@ contract TranslationSBT is EIP712, ERC1155Supply, ITranslationSBT, Ownable {
     // @dev one user only get one of in any tokenId
     mapping(address => mapping(uint256 => bool)) public mintedToken;
 
-    constructor(string memory initialUri)
-        EIP712('TranslationSBT', '1')
-        ERC1155(initialUri)
-    {
+    constructor(string memory initialUri) ERC1155(initialUri) {
         baseUri = initialUri;
     }
 
@@ -29,13 +25,9 @@ contract TranslationSBT is EIP712, ERC1155Supply, ITranslationSBT, Ownable {
      *
      * Requirements: tokenId exists.
      */
-    function uri(uint256 tokenId)
-        public
-        view
-        virtual
-        override
-        returns (string memory url)
-    {
+    function uri(
+        uint256 tokenId
+    ) public view virtual override returns (string memory url) {
         if (!exists(tokenId)) {
             revert TokenNotExist();
         }
@@ -46,12 +38,10 @@ contract TranslationSBT is EIP712, ERC1155Supply, ITranslationSBT, Ownable {
     }
 
     /** ========== main functions ========== */
-    function grantTranslation(address receiver, uint256 tokenId)
-        external
-        virtual
-        override
-        onlyOwner
-    {
+    function grantTranslation(
+        address receiver,
+        uint256 tokenId
+    ) external virtual override onlyOwner {
         if (mintedToken[receiver][tokenId]) {
             revert TokenMinted();
         }

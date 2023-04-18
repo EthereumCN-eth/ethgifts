@@ -20,6 +20,10 @@ export const Translation_config = {
     initialUrl:
       'https://icloud.mypinata.cloud/ipfs/QmQwC73wbXkpiH2xfKygKUxW3Te864kimFkqCHp4Q9gVxP/',
   },
+  optimism: {
+    initialUrl:
+      'https://ethereumcn.mypinata.cloud/ipfs/QmWafTzh3rkb18gr9yJGP664YjNrhcWwvD7bKToev3kZM1/',
+  },
 };
 
 export const ECNAnniversary_4_config = {
